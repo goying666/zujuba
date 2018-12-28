@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_message"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="消息" />
+    <item
+        android:id="@+id/navigation_team"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="组队" />
+    <item
+        android:id="@+id/navigation_dating"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="大厅" />
+    <item
+        android:id="@+id/navigation_game"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="游戏" />
+    <item
+        android:id="@+id/navigation_shop"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="商店" />
+
+</menu>

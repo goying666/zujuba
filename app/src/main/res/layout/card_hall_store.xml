@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+    app:cardCornerRadius="15dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/store_boy_icon"
+            android:layout_width="@dimen/icon_size_width"
+            android:layout_height="@dimen/icon_size_height"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/card_hall_store_desk"
+            app:layout_constraintStart_toStartOf="@+id/store_cardview_place_icon"
+            app:layout_constraintTop_toBottomOf="@+id/store_cardview_place_icon" />
+
+
+        <TextView
+            android:id="@+id/store_desk_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="0dp"
+            android:text="5/10桌"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="@+id/store_boy_icon"
+            app:layout_constraintStart_toEndOf="@+id/store_boy_icon"
+            app:layout_constraintTop_toTopOf="@+id/store_boy_icon"
+            app:layout_constraintVertical_bias="0.888" />
+
+        <ImageView
+            android:id="@+id/store_girl_icon"
+            android:layout_width="@dimen/icon_size_width"
+            android:layout_height="15dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/card_hall_store_people"
+            app:layout_constraintBottom_toBottomOf="@+id/store_boy_icon"
+            app:layout_constraintStart_toEndOf="@+id/store_desk_info"
+            app:layout_constraintTop_toTopOf="@+id/store_boy_icon"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/store_people_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="11/95人"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="@+id/store_girl_icon"
+            app:layout_constraintStart_toEndOf="@+id/store_girl_icon"
+            app:layout_constraintTop_toTopOf="@+id/store_girl_icon"
+            app:layout_constraintVertical_bias="0.888" />
+
+        <TextView
+            android:id="@+id/store_team_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="0dp"
+            android:text="差1人"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/store_people_info" />
+
+        <ImageView
+            android:id="@+id/store_image"
+            android:layout_width="@dimen/image_size_width"
+            android:layout_height="@dimen/image_size_height"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/place_3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/store_user_evaluate_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="‘环境好’"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintStart_toStartOf="@+id/store_image"
+            app:layout_constraintTop_toBottomOf="@+id/store_image" />
+
+        <TextView
+            android:id="@+id/store_user_evaluate_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="‘环境好’"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintStart_toEndOf="@+id/store_user_evaluate_3"
+            app:layout_constraintTop_toBottomOf="@+id/store_user_evaluate_1" />
+
+        <TextView
+            android:id="@+id/store_user_evaluate_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="‘环境好’"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/store_image"
+            app:layout_constraintTop_toBottomOf="@+id/store_user_evaluate_2" />
+        <TextView
+            android:id="@+id/store_cardview_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="6月29日生日派对聚会"
+            android:textSize="@dimen/md_text_size_body"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/store_image"
+            app:layout_constraintTop_toTopOf="@+id/store_image" />
+
+        <TextView
+            android:id="@+id/store_cardview_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="营业中"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/store_cardview_name" />
+
+        <ImageView
+            android:id="@+id/store_cardview_place_icon"
+            android:layout_width="@dimen/md_horizontal_right_icon"
+            android:layout_height="@dimen/md_horizontal_right_icon"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/location_address"
+            app:layout_constraintStart_toStartOf="@+id/store_cardview_name"
+            app:layout_constraintTop_toBottomOf="@+id/store_cardview_name" />
+
+        <TextView
+            android:id="@+id/store_cardview_place"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:maxWidth="150dp"
+            android:text="地址、商店名称"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintStart_toEndOf="@+id/store_cardview_place_icon"
+            app:layout_constraintTop_toTopOf="@+id/store_cardview_place_icon" />
+
+        <TextView
+            android:id="@+id/store_place_howlong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="1125m"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/store_cardview_place" />
+
+
+        <ImageView
+            android:id="@+id/store_time_icon"
+            android:layout_width="@dimen/icon_size_width"
+            android:layout_height="@dimen/icon_size_height"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/card_hall_store_time"
+            app:layout_constraintStart_toStartOf="@+id/store_boy_icon"
+            app:layout_constraintTop_toBottomOf="@+id/store_boy_icon" />
+
+
+        <TextView
+            android:id="@+id/store_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="早/中/晚"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="@+id/store_time_icon"
+            app:layout_constraintStart_toEndOf="@+id/store_time_icon"
+            app:layout_constraintTop_toTopOf="@+id/store_time_icon"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/store_store_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="0dp"
+            android:text="市第12名"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="@+id/store_start_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/store_start_time" />
+
+
+        <TextView
+            android:id="@+id/store_tips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="16dp"
+            android:maxLines="3"
+            android:text="本店入驻组局吧，希望通过我们的努力，将我市的桌游文化发扬起来。"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/store_time_icon"
+            app:layout_constraintTop_toBottomOf="@+id/store_time_icon" />
+
+        <RatingBar
+            android:id="@+id/place_star_num"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:isIndicator="true"
+            android:rating="1"
+            app:layout_constraintStart_toStartOf="@+id/store_cardview_name"
+            app:layout_constraintTop_toBottomOf="@+id/store_cardview_name" />
+
+        <TextView
+            android:id="@+id/store_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="4.1分"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="@+id/place_star_num"
+            app:layout_constraintStart_toEndOf="@+id/place_star_num"
+            app:layout_constraintTop_toTopOf="@+id/place_star_num" />
+
+        <TextView
+            android:id="@+id/store_spend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="¥15/人*时"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/store_score" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

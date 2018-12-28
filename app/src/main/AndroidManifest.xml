@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="renchaigao.com.zujuba">
+
+
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于提高GPS定位速度 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <!-- //地图包、搜索包需要的基础权限 -->
+
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <application
+        android:name="org.litepal.LitePalApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.cameraalbumtest.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".Activity.MainActivity"
+            android:label="@string/app_name" />
+        <activity android:name=".Activity.Center.JoinUsActivity" />
+        <activity android:name=".Activity.Center.CreateStoreActivity" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ab40d48d50eaa812dff5ca5930040e56" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".Activity.GaoDeMapActivity" />
+        <activity
+            android:name=".Activity.Normal.LoginActivity"
+            android:label="@string/app_name" />
+        <activity android:name=".Activity.Normal.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.Center.StoreActivity"
+            android:label="@string/title_activity_store"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.TeamPart.TeamCreateActivity" />
+        <activity android:name=".Activity.MyTeamActivity" />
+        <activity android:name=".Activity.PlaceListActivity" />
+        <activity
+            android:name=".Activity.TeamPart.TeamActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".Activity.AdvertisingActivity" />
+        <activity
+            android:name=".Activity.GamePart.GameInfoActivity"
+            android:label="@string/title_activity_game_info"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.GamePart.GameWorldActivity"
+            android:label="@string/title_activity_game_world"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameMainActivity"
+            android:label="@string/title_activity_deep_forest_game_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameTacticsActivity"
+            android:label="@string/title_activity_deep_forest_game_tactics"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameTacticsAttactActivity"
+            android:label="@string/title_activity_deep_forest_game_tactics_attact"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameTacticsDefenceActivity"
+            android:label="@string/title_activity_deep_forest_game_tactics_defence"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameTacticsMoveActivity"
+            android:label="@string/title_activity_deep_forest_game_tactics_move"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameTacticsExploreActivity"
+            android:label="@string/title_activity_deep_forest_game_tactics_explore"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameTacticsSettleActivity"
+            android:label="@string/title_activity_deep_forest_game_tactics_settle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameMessageInfoActivity"
+            android:label="@string/title_activity_deep_forest_game_message_info"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameMessageInfoCarmeraActivity"
+            android:label="@string/title_activity_deep_forest_game_message_info_carmera"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGameBusinessActivity"
+            android:label="@string/title_activity_deep_forest_game_business"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".GamePart.DeepForest.DFGService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".Activity.MessageInfoActivity"
+            android:label="@string/title_activity_message_info"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GamePart.DeepForest.DeepForestGmaeSetUpActivity" />
+        <activity android:name=".Activity.GamePart.GameBeginActivity" />
+        <activity android:name=".Activity.GamePart.GameReadyActivity"></activity>
+    </application>
+
+
+</manifest>

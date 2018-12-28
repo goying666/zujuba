@@ -1,0 +1,99 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!--button style size-->
+    <dimen name="button_width_style1">110dp</dimen>
+    <dimen name="button_height_style1">46dp</dimen>
+
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="margin_40dp">40dp</dimen>
+    <dimen name="margin_48dp">48dp</dimen>
+    <dimen name="margins_56dp">56dp</dimen>
+    <dimen name="margin_64dp">64dp</dimen>
+    <dimen name="margin_72dp">72dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+
+
+    <!--Material Design Image Size-->
+    <dimen name="md_image">40dp</dimen>
+    <dimen name="md_icon">20dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="icon_style_m">12dp</dimen>
+    <dimen name="icon_style_2m">24dp</dimen>
+    <dimen name="icon_style_XL">36dp</dimen>
+
+    <!--Material Design Text Size-->
+    <dimen name="md_text_size_display4">112sp</dimen>
+    <dimen name="md_text_size_display3">56sp</dimen>
+    <dimen name="md_text_size_display2">45sp</dimen>
+    <dimen name="md_text_size_display1">34sp</dimen>
+    <dimen name="md_text_size_headline">24sp</dimen>
+    <dimen name="md_text_size_title">20sp</dimen>
+    <dimen name="md_text_size_subhead">16sp</dimen>
+    <dimen name="md_text_size_body">14sp</dimen>
+    <dimen name="md_text_size_caption">12sp</dimen>
+    <dimen name="md_text_size_menu">14sp</dimen>
+    <dimen name="md_text_size_button">14sp</dimen>
+
+    <!--Material Design vertical Size-->
+    <dimen name="md_vertical_system">24dp</dimen>
+    <dimen name="md_vertical_headline">56dp</dimen>
+    <dimen name="md_vertical_title">48dp</dimen>
+    <dimen name="md_vertical_interval">8dp</dimen>
+    <!--单行文字(1)，有图标(y)，无图画(n)-->
+    <dimen name="md_vertical_body_1yn">48dp</dimen>
+    <!--单行文字(1)，有图标(y)，有图画(y)-->
+    <dimen name="md_vertical_body_1yy">72dp</dimen>
+    <!--双行文字(1)，有图标(y)，有图画(y)-->
+    <dimen name="md_vertical_body_2yy">144dp</dimen>
+    <!--双行内容(3)，有图标(y)，有图画(y)-->
+    <dimen name="md_vertical_body_3yy">216dp</dimen>
+
+    <!--Material Design horizontal Size-->
+    <dimen name="md_horizontal_left_icon">16dp</dimen>
+    <dimen name="md_horizontal_left_text">36dp</dimen>
+    <dimen name="md_horizontal_right_icon">16dp</dimen>
+    <dimen name="md_horizontal_right_draw">56dp</dimen>
+    <dimen name="md_horizontal_right_second_icon">32dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+
+
+    <dimen name="bottom_height">51dp</dimen>
+    <dimen name="image_size_width">110dp</dimen>
+    <dimen name="image_size_height">110dp</dimen>
+    <dimen name="icon_size_width">15dp</dimen>
+    <dimen name="icon_size_height">15dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <!--create team place image -->
+    <dimen name="image_three_x_size">110dp</dimen>
+    <dimen name="image_three_y_size">110dp</dimen>
+    <dimen name="image_user_size_m">25dp</dimen>
+
+    <dimen name="user_image_size">58dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+
+
+    <!--game part-->
+    <dimen name="game_info_wanjia_width">72dp</dimen>
+    <dimen name="game_info_wanjia_height">102dp</dimen>
+    <dimen name="game_info_equip_image_size">56dp</dimen>
+
+    <!--Message Size-->
+    <dimen name="message_image_width">52dp</dimen>
+    <dimen name="message_image_height">52dp</dimen>
+</resources>

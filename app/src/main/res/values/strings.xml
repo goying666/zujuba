@@ -1,0 +1,173 @@
+<resources>
+    <string name="app_name">zujuba</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="business_join_introduce">oin sodales pulvinar lis oda dolor dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc egetLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc egetLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc egetLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc egetLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</string>
+    <string-array name="business_class_array">　　　　　　
+        <item>餐馆</item>
+        　　　　　　
+        <item>棋牌室</item>
+        <item>桌游吧</item>
+        <item>民宿</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="create_team_game_array">　　　　　　
+        <item>狼人杀</item>
+        　　　　　　
+        <item>天黑请闭眼</item>
+        <item>捕猫</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="compare_number_array">　　　　　　
+        <item>游客（大于0分）</item>
+        　　　　　　
+        <item>注册用户（大于10分）</item>
+        <item>基础认证（大于60分）</item>
+        <item>附加认证（大于70分）</item>
+        <item>高级认证（大于80分）</item>
+        <item>入门玩家（大于85分）</item>
+        <item>中级玩家（大于90分）</item>
+        <item>高级玩家（大于100分）</item>
+        <item>职业玩家（大于110分）</item>
+        <item>NPC玩家（大于120分）</item>
+    </string-array>
+
+    <string-array name="filter_gender">
+        <item>全男</item>
+        <item>全女</item>
+        <item>男女各半</item>
+        <item>男>1</item>
+        <item>女>1</item>
+    </string-array>
+
+    <string-array name="filter_job">
+        <item>学生</item>
+        <item>工人</item>
+    </string-array>
+
+    <string-array name="filter_age">
+        <item>大于18岁</item>
+        <item>大于25岁</item>
+        <item>大于30岁</item>
+        <item>小于30岁</item>
+        <item>小于25岁</item>
+        <item>小于18岁</item>
+    </string-array>
+
+    <string-array name="filter_evaluation">
+        <item>高素质（大于4.5）</item>
+        <item>无差评</item>
+        <item>无投诉</item>
+        <item>无纠纷</item>
+        <item>无举报</item>
+        <item>有好评</item>
+        <item>有MVP</item>
+    </string-array>
+
+    <string-array name="filter_single">
+        <item>单身</item>
+        <item>有对象（包含已婚）</item>
+        <item>已婚</item>
+    </string-array>
+
+    <string-array name="ct_spend_way">
+        <item>所有人AA</item>
+        <item>男士AA</item>
+        <item>女士AA</item>
+        <item>房主全包</item>
+    </string-array>
+
+    <string name="business_class_title">请选择一个适合您店铺的类型</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_store">StoreActivity</string>
+
+
+    <!--Create Team-->
+    <string name="title_create_basic">基本信息</string>
+    <string name="title_create_time">时间</string>
+    <string name="create_team_textview_date">2018/06/25</string>
+    <string name="title_create_time_today">今日</string>
+    <string name="title_create_time_tomorrow">明日</string>
+
+    <string name="title_create_time_weekend">本周末</string>
+
+    <string name="title_create_address">地点</string>
+    <string name="title_create_peoples">人数</string>
+    <string name="title_create_game">游戏</string>
+
+    <string name="spinner_create_team_spendclass">消费方式</string>
+    <string name="spinner_create_team_start_date">请选择游戏日期</string>
+    <string name="title_activity__login__all">Sign in</string>
+
+    <string name="create_team_time_morning">09:00~12:00</string>
+    <string name="create_team_time_afternoon">13:00~17:00</string>
+    <string name="create_team_time_evening">18:00~21:00</string>
+    <string name="create_team_time_night">21:00~01:00</string>
+
+    <string name="game_name_L_lrs">《狼人杀》</string>
+    <string name="game_name_L_lrs_info">狼人杀，是一款多人参与的、以语言描述推动的、较量口才和分析判断能力的策略类桌面游戏。通常的版本需要8-18人参与。</string>
+    <string name="game_name_L_thqby">《天黑请闭眼》</string>
+    <string name="game_name_S_">《狼人杀》</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_my_team">myTeam</string>
+
+
+    <string name="ct_default_set">点击设置</string>
+    <string name="ct_filter_1">诚信分数越高，玩家越靠谱</string>
+    <string name="ct_filter_2">选择组局的男女比例</string>
+    <string name="ct_filter_3">选择允许的职业类型（1种）</string>
+    <string name="ct_filter_4">选择参加组局的年龄限制</string>
+    <string name="ct_filter_5">对参加组局的人的评价筛选</string>
+    <string name="ct_filter_6">对玩家的婚配情况进行筛选</string>
+
+    <string name="ct_end_note">一次组局，一些人，一段回忆。</string>
+    <string name="ct_end_note_author">——Goying</string>
+    <string name="title_activity_game_info">GameInfoActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_game_world">GameWorldActivity</string>
+    <string name="title_activity_deep_forest_game_main">DeepForestGameMainActivity</string>
+    <string name="title_activity_deep_forest_game_tactics">DeepForestGameTacticsActivity</string>
+    <string name="title_activity_deep_forest_game_tactics_attact">
+        DeepForestGameTacticsAttactActivity
+    </string>
+    <string name="title_activity_deep_forest_game_tactics_defence">
+        DeepForestGameTacticsDefenceActivity
+    </string>
+    <string name="title_activity_deep_forest_game_tactics_move">DeepForestGameTacticsMoveActivity
+    </string>
+    <string name="title_activity_deep_forest_game_tactics_explore">
+        DeepForestGameTacticsExploreActivity
+    </string>
+    <string name="title_activity_deep_forest_game_tactics_settle">
+        DeepForestGameTacticsSettleActivity
+    </string>
+    <string name="title_activity_deep_forest_game_message_info">DeepForestGameMessageInfoActivity
+    </string>
+    <string name="title_activity_deep_forest_game_message_info_carmera">
+        DeepForestGameMessageInfoCarmeraActivity
+    </string>
+    <string name="title_activity_deep_forest_game_business">DeepForestGameBusinessActivity</string>
+    <string name="title_activity_message_info">MessageInfoActivity</string>
+
+
+    <!--界面部分-->
+    <!--Game Begin Part-->
+    <string name="game_begin_button1">组局后开始游戏</string>
+    <string name="game_begin_button1_introduce_text">适合预约组局进行游戏场景</string>
+    <string name="game_begin_button2">直接开始游戏</string>
+    <string name="game_begin_button2_introduce_text">适合面对面组局进行游戏场景</string>
+
+    <!--start Activity-->
+    <string name="activity_start_text_zujuba">组局吧</string>
+    <string name="activity_start_text_info">组局玩桌游的APP</string>
+
+
+    <!--Deep Forest Game Use Part-->
+    <!--<string name=""-->
+
+</resources>

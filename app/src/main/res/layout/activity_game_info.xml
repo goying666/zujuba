@@ -1,0 +1,659 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="renchaigao.com.zujuba.Activity.GamePart.GameInfoActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/role_nestedScorellView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/back_to_world"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/game_info_user_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/user"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="冒险团世界"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/role_image"
+                    android:layout_width="@dimen/game_info_wanjia_width"
+                    android:layout_height="@dimen/game_info_wanjia_height"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/wanjia_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/role_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="索尔"
+                    app:layout_constraintEnd_toEndOf="@+id/role_image"
+                    app:layout_constraintStart_toStartOf="@+id/role_image"
+                    app:layout_constraintTop_toBottomOf="@+id/role_image" />
+
+                <TextView
+                    android:id="@+id/role_camp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:text="红心冒险团（光明）"
+                    app:layout_constraintEnd_toEndOf="@+id/role_image"
+                    app:layout_constraintStart_toStartOf="@+id/role_image"
+                    app:layout_constraintTop_toBottomOf="@+id/role_name" />
+
+                <Button
+                    android:id="@+id/role_camp_view_button"
+                    android:layout_width="106dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="显示阵营"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/role_image"
+                    app:layout_constraintStart_toStartOf="@+id/role_image"
+                    app:layout_constraintTop_toBottomOf="@+id/role_camp" />
+
+                <ImageView
+                    android:id="@+id/game_info_equip_left_up"
+                    android:layout_width="@dimen/game_info_equip_image_size"
+                    android:layout_height="@dimen/game_info_equip_image_size"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/xiaodao_1"
+                    app:layout_constraintEnd_toStartOf="@+id/role_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/game_info_equip_left_up_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="小刀"
+                    app:layout_constraintEnd_toEndOf="@+id/game_info_equip_left_up"
+                    app:layout_constraintStart_toStartOf="@+id/game_info_equip_left_up"
+                    app:layout_constraintTop_toBottomOf="@+id/game_info_equip_left_up" />
+
+                <ImageView
+                    android:id="@+id/game_info_equip_right_up"
+                    android:layout_width="@dimen/game_info_equip_image_size"
+                    android:layout_height="@dimen/game_info_equip_image_size"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/dunpai_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/role_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/game_info_equip_right_up_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="盾牌"
+                    app:layout_constraintEnd_toEndOf="@+id/game_info_equip_right_up"
+                    app:layout_constraintStart_toStartOf="@+id/game_info_equip_right_up"
+                    app:layout_constraintTop_toBottomOf="@+id/game_info_equip_right_up" />
+
+                <ImageView
+                    android:id="@+id/game_info_equip_left_down"
+                    android:layout_width="@dimen/game_info_equip_image_size"
+                    android:layout_height="@dimen/game_info_equip_image_size"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/yifu_1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/role_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/game_info_equip_left_up_name" />
+
+                <TextView
+                    android:id="@+id/game_info_equip_left_down_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="布衣"
+                    app:layout_constraintEnd_toEndOf="@+id/game_info_equip_left_down"
+                    app:layout_constraintStart_toStartOf="@+id/game_info_equip_left_down"
+                    app:layout_constraintTop_toBottomOf="@+id/game_info_equip_left_down" />
+
+                <ImageView
+                    android:id="@+id/game_info_equip_right_down"
+                    android:layout_width="@dimen/game_info_equip_image_size"
+                    android:layout_height="@dimen/game_info_equip_image_size"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/xiezi_1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/role_image"
+                    app:layout_constraintTop_toBottomOf="@+id/game_info_equip_right_up_name" />
+
+                <TextView
+                    android:id="@+id/game_info_equip_right_down_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="布鞋"
+                    app:layout_constraintEnd_toEndOf="@+id/game_info_equip_right_down"
+                    app:layout_constraintStart_toStartOf="@+id/game_info_equip_right_down"
+                    app:layout_constraintTop_toBottomOf="@+id/game_info_equip_right_down" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/role_blood_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="血量"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/blood_1"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:src="@drawable/hongxin_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/role_blood_textView"
+                    app:layout_constraintStart_toEndOf="@+id/role_blood_textView"
+                    app:layout_constraintTop_toTopOf="@+id/role_blood_textView" />
+
+                <ImageView
+                    android:id="@+id/blood_2"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/hongxin_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/blood_1"
+                    app:layout_constraintStart_toEndOf="@+id/blood_1"
+                    app:layout_constraintTop_toTopOf="@+id/blood_1" />
+
+                <ImageView
+                    android:id="@+id/blood_3"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/hongxin_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/blood_2"
+                    app:layout_constraintStart_toEndOf="@+id/blood_2"
+                    app:layout_constraintTop_toTopOf="@+id/blood_2" />
+
+                <ImageView
+                    android:id="@+id/blood_4"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/hongxin_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/blood_3"
+                    app:layout_constraintStart_toEndOf="@+id/blood_3"
+                    app:layout_constraintTop_toTopOf="@+id/blood_3" />
+
+                <ImageView
+                    android:id="@+id/blood_5"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/hongxin_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/blood_4"
+                    app:layout_constraintStart_toEndOf="@+id/blood_4"
+                    app:layout_constraintTop_toTopOf="@+id/blood_4" />
+
+                <TextView
+                    android:id="@+id/blood_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="5/5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/role_energy_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="能量"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/energy_1"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:src="@drawable/shandian_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/role_energy_textView"
+                    app:layout_constraintStart_toEndOf="@+id/role_energy_textView"
+                    app:layout_constraintTop_toTopOf="@+id/role_energy_textView" />
+
+                <ImageView
+                    android:id="@+id/energy_2"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/shandian_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/energy_1"
+                    app:layout_constraintStart_toEndOf="@+id/energy_1"
+                    app:layout_constraintTop_toTopOf="@+id/energy_1" />
+
+                <ImageView
+                    android:id="@+id/energy_3"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/shandian_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/energy_2"
+                    app:layout_constraintStart_toEndOf="@+id/energy_2"
+                    app:layout_constraintTop_toTopOf="@+id/energy_2" />
+
+                <ImageView
+                    android:id="@+id/energy_4"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/shandian_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/energy_3"
+                    app:layout_constraintStart_toEndOf="@+id/energy_3"
+                    app:layout_constraintTop_toTopOf="@+id/energy_3" />
+
+                <ImageView
+                    android:id="@+id/energy_5"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/shandian_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/energy_4"
+                    app:layout_constraintStart_toEndOf="@+id/energy_4"
+                    app:layout_constraintTop_toTopOf="@+id/energy_4" />
+
+                <TextView
+                    android:id="@+id/energy_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="5/5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/role_power_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="体力"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/power_1"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:src="@drawable/liliang_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/role_power_textView"
+                    app:layout_constraintStart_toEndOf="@+id/role_power_textView"
+                    app:layout_constraintTop_toTopOf="@+id/role_power_textView" />
+
+                <ImageView
+                    android:id="@+id/power_2"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/liliang_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/power_1"
+                    app:layout_constraintStart_toEndOf="@+id/power_1"
+                    app:layout_constraintTop_toTopOf="@+id/power_1" />
+
+                <ImageView
+                    android:id="@+id/power_3"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/liliang_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/power_2"
+                    app:layout_constraintStart_toEndOf="@+id/power_2"
+                    app:layout_constraintTop_toTopOf="@+id/power_2" />
+
+                <ImageView
+                    android:id="@+id/power_4"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/liliang_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/power_3"
+                    app:layout_constraintStart_toEndOf="@+id/power_3"
+                    app:layout_constraintTop_toTopOf="@+id/power_3" />
+
+                <ImageView
+                    android:id="@+id/power_5"
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginStart="@dimen/margin_8dp"
+                    android:src="@drawable/liliang_1"
+                    app:layout_constraintBottom_toBottomOf="@+id/power_4"
+                    app:layout_constraintStart_toEndOf="@+id/power_4"
+                    app:layout_constraintTop_toTopOf="@+id/power_4" />
+
+                <TextView
+                    android:id="@+id/power_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="5/5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/margin_32dp"
+                    android:layout_height="@dimen/margin_32dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/qiandai_1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginTop="8dp"
+                    android:text="金币"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="72dp"
+                    android:layout_marginTop="8dp"
+                    android:text="50"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_joinTeam">
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/role_tabItem_packsack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="背包" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/role_tabItem_skill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="技能" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/role_tabItem_information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="情报" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/role_tabItem_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="任务" />
+            </android.support.design.widget.TabLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/role_packsack_cons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/role_packsack_equip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="装备"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/role_packsack_expend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:text="消耗"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/role_packsack_equip"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/role_packsack_quests"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:text="任务道具"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/role_packsack_expend"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/role_packsack_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:text="其他"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/role_packsack_quests"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/team_page_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/back_to_world"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="返回世界"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

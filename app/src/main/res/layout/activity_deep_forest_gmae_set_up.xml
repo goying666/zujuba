@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="renchaigao.com.zujuba.GamePart.DeepForest.DeepForestGmaeSetUpActivity">
+
+    <TextView
+        android:id="@+id/_dfg_set_up_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:text="游戏初始化（set-up）"
+        android:textSize="@dimen/margin_24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/_dfg_set_up_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="您的玩家编号："
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/_dfg_set_up_1"
+        app:layout_constraintTop_toBottomOf="@+id/_dfg_set_up_1" />
+
+    <TextView
+        android:id="@+id/deep_forest_game_set_up_my_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="3"
+        android:textSize="@dimen/margin_48dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/_dfg_set_up_2"
+        app:layout_constraintEnd_toEndOf="@+id/_dfg_set_up_1"
+        app:layout_constraintStart_toEndOf="@+id/_dfg_set_up_2"
+        app:layout_constraintTop_toTopOf="@+id/_dfg_set_up_2" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/deep_forest_game_set_up_TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/_dfg_set_up_1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/_dfg_set_up_2"
+        app:layout_constraintTop_toBottomOf="@+id/deep_forest_game_set_up_my_number">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/deep_forest_game_set_up_TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入您的文明名称" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/deep_forest_game_set_up_my_name"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="《XXX文明》"
+        android:textSize="@dimen/margin_32dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/deep_forest_game_set_up_TextInputLayout"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="@+id/deep_forest_game_set_up_TextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/deep_forest_game_set_up_TextInputLayout" />
+
+    <Button
+        android:id="@+id/deep_forest_game_set_up_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="开始游戏"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deep_forest_game_set_up_my_name" />
+
+</android.support.constraint.ConstraintLayout>

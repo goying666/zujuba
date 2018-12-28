@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/left_background_image"
+    android:layout_height="180dp">
+
+    <ImageView
+        android:id="@+id/navigationView_circleImageView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:src="@drawable/user_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/navigationView_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tony Green"
+        android:textColor="#FFF"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/navigationView_circleImageView"
+        app:layout_constraintStart_toStartOf="@+id/navigationView_circleImageView"
+        app:layout_constraintTop_toBottomOf="@+id/navigationView_circleImageView" />
+
+    <TextView
+        android:id="@+id/navigationView_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="tonygreendev@gmail.com"
+        android:textColor="#FFF"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/navigationView_username"
+        app:layout_constraintStart_toStartOf="@+id/navigationView_username"
+        app:layout_constraintTop_toBottomOf="@+id/navigationView_username" />
+</android.support.constraint.ConstraintLayout>

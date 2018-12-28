@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="renchaigao.com.zujuba.Activity.Center.StoreActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_create"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll">
+
+            <ImageView
+                android:id="@+id/store_image_top"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/toolbar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--app:layout_collapseMode="pin"-->
+                <!--app:title="aa"/>-->
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+        <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="@dimen/margin_8dp">
+
+
+            <TextView
+                android:id="@+id/store_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:maxLines="2"
+                android:text="店铺名字"
+                android:textSize="@dimen/md_text_size_display1"
+                android:textStyle="bold" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RatingBar
+                    android:id="@+id/store_page_ratingbar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="8dp"
+                    android:isIndicator="true"
+                    android:numStars="1"
+                    android:rating="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/store_page_ratingbar_text"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/store_page_ratingbar_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="1星店"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/store_page_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="4.1"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_ratingbar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_ratingbar" />
+
+                <TextView
+                    android:id="@+id/store_page_null1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="分"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_score"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_score"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_score" />
+
+                <TextView
+                    android:id="@+id/store_page_evaluation_people_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="3"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null1"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null1"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_null1" />
+
+                <TextView
+                    android:id="@+id/store_page_null2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="人评"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_evaluation_people_number"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_evaluation_people_number"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_evaluation_people_number" />
+
+                <TextView
+                    android:id="@+id/store_page_null3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:text="¥"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null2"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null2"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_null2"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/store_page_spend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:text="15"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null3"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null3"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_null3"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/store_page_null4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="/人*时"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_spend"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_spend"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_spend"
+                    app:layout_constraintVertical_bias="0.0" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp">
+
+                <ImageView
+                    android:id="@+id/store_page_time_imge"
+                    android:layout_width="@dimen/icon_style_m"
+                    android:layout_height="@dimen/icon_style_m"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/card_hall_store_time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/store_page_null5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="组局时段:"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_time_imge"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_time_imge"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_time_imge"
+                    app:layout_constraintVertical_bias="0.428" />
+
+                <TextView
+                    android:id="@+id/store_page_time_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="09:00~12:00"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null5"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null5"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_null5" />
+
+                <TextView
+                    android:id="@+id/store_page_time_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="13:00~17:00"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_time_1"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_time_1" />
+
+                <TextView
+                    android:id="@+id/store_page_time_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="18:00~21:00"
+                    app:layout_constraintStart_toStartOf="@+id/store_page_time_1"
+                    app:layout_constraintTop_toBottomOf="@+id/store_page_time_1" />
+
+                <TextView
+                    android:id="@+id/store_page_time_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21:00~24:00"
+                    app:layout_constraintStart_toStartOf="@+id/store_page_time_2"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_time_3" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp">
+
+                <ImageView
+                    android:id="@+id/store_page_address_imge"
+                    android:layout_width="@dimen/icon_style_m"
+                    android:layout_height="@dimen/icon_style_m"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/store_page_address_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="4dp"
+                    android:maxLines="3"
+                    android:text="位置信息+地点备注位置信息+地点备注位置信息+地点备注位置信息+地点备注位置信息+地点备注位置信息+地点备注位置信息+地点备注"
+                    app:layout_constraintEnd_toStartOf="@+id/store_page_phone_imge"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_address_imge"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_address_imge" />
+
+                <ImageView
+                    android:id="@+id/store_page_phone_imge"
+                    android:layout_width="@dimen/icon_style_XL"
+                    android:layout_height="@dimen/icon_style_XL"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/icon_telephone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_address_info" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="硬件配备：wifi、洗手间、暖气、茶水、充电宝；"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:maxLines="5"
+                android:text="店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）店铺的介绍（入驻时编写）" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp">
+
+                <TextView
+                    android:id="@+id/store_page_null6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="组局情况"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/store_page_null7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="3/9"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null6"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null6" />
+
+                <TextView
+                    android:id="@+id/store_page_null8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:text="桌"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null7"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null7"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_null7" />
+
+                <TextView
+                    android:id="@+id/store_page_null9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="18/90"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null8"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null8"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_null8" />
+
+                <TextView
+                    android:id="@+id/store_page_null10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:text="人"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null9"
+                    app:layout_constraintStart_toEndOf="@+id/store_page_null9"
+                    app:layout_constraintTop_toTopOf="@+id/store_page_null9" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/store_page_tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp">
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/store_page_tabitem_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="今日" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/store_page_tabitem_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="明日" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/store_page_tabitem_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="本周末" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/store_page_tabitem_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="其他" />
+            </android.support.design.widget.TabLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp">
+                <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
+            </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="暂无组局"/>
+
+            <TextView
+                android:id="@+id/store_page_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:text="套餐部分"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/store_page_evaluation_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:text="评价"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/store_page_evaluation_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+</android.support.design.widget.CoordinatorLayout>
