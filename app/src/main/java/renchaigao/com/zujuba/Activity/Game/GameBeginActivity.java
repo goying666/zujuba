@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity.GamePart;
+package renchaigao.com.zujuba.Activity.Game;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.widget.Button;
 import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.GamePart.DeepForest.DeepForestGmaeSetUpActivity;
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.util.support.ViewInject;
 
 public class GameBeginActivity extends AppCompatActivity {
 

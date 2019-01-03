@@ -12,6 +12,7 @@ import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
@@ -26,6 +27,7 @@ import renchaigao.com.zujuba.Fragment.Adapter.MessageFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.Bean.MessageNoteInfo;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
+import renchaigao.com.zujuba.util.support.ViewInject;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
 
@@ -40,9 +42,15 @@ public class MessageFragment extends Fragment {
     private LinearLayoutManager layoutManager;
     private MessageFragmentAdapter messageFragmentAdapter;
 
+    private TextView fragement_message_note;
+
     private ArrayList<MessageNoteInfo> messageNoteInfoArrayList = new ArrayList<>();
     public MessageFragment() {
         // Required empty public constructor
+    }
+
+    private void initView(){
+        fragement_message_note = getActivity().findViewById(R.id.fragement_message_note);
     }
 
     @Override
@@ -55,6 +63,7 @@ public class MessageFragment extends Fragment {
     private List<MessageNoteInfo> GetMessageNoteInfos(){
         return LitePal.findAll(MessageNoteInfo.class);
     }
+
     private List<MessageNoteInfo> InitMessageNoteInfos(){
         List<MessageNoteInfo> messageNoteInfos = LitePal.findAll(MessageNoteInfo.class);
         if (messageNoteInfos.size()>0){
@@ -120,7 +129,7 @@ public class MessageFragment extends Fragment {
     }
 
     private void setRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.message_RecyclerView_People);
+        recyclerView = view.findViewById(R.id.fragement_message_RecyclerView);
         layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         messageFragmentAdapter = new MessageFragmentAdapter(mContext);
@@ -138,7 +147,6 @@ public class MessageFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-
     }
 
 

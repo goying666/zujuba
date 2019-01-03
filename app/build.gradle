@@ -23,6 +23,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 //    implementation 'com.android.support:appcompat-v7:21.0.3'
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -33,7 +34,11 @@ dependencies {
     //        'com.android.support.test.espresso:espresso-core:3.0.2'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'org.projectlombok:lombok:1.16.8'
+
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compile "org.projectlombok:lombok:1.16.18"
+//    provided group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
@@ -53,6 +58,13 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.litepal.android/core
     compile group: 'org.litepal.android', name: 'core', version: '2.0.0'
+
+    //ZXing
+    compile 'com.google.zxing:core:3.3.0'
+    //butterknife注解框架
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife-annotations:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
     dependencies {

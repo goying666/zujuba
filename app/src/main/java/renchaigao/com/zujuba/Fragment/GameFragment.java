@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import renchaigao.com.zujuba.Activity.GamePart.GameBeginActivity;
-import renchaigao.com.zujuba.GamePart.DeepForest.DeepForestGmaeSetUpActivity;
+import renchaigao.com.zujuba.Activity.Game.GameBeginActivity;
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.util.support.ViewInject;
 
 public class GameFragment extends Fragment {
 

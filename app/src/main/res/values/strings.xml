@@ -166,6 +166,15 @@
     <string name="activity_start_text_zujuba">组局吧</string>
     <string name="activity_start_text_info">组局玩桌游的APP</string>
 
+    <!--message fragment part-->
+    <string name="fragment_message_toolbar_title">组局吧</string>
+
+    <!--二维码 部分-->
+    <string name="encode_qrcode">生成二维码</string>
+    <string name="dencode_qrcode">扫描二维码</string>
+    <string name="code_text">请输入生成二维码的文本信息</string>
+    <string name="qrcodetext">这里显示扫描结果</string>
+
 
     <!--Deep Forest Game Use Part-->
     <!--<string name=""-->

@@ -1,4 +1,5 @@
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,24 +7,70 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="renchaigao.com.zujuba.Fragment.MessageFragment">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/message_appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/message_notes"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/team_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="message" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_scrollFlags="scroll"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/message_RecyclerView_People"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_message_toolbar_title" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/fragement_message_swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message_appbar">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
-    <!-- TODO: Update blank fragment layout -->
+            <TextView
+                android:id="@+id/fragement_message_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="聊天内容为空" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragement_message_RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+        <!-- TODO: Update blank fragment layout -->
 
 
-</android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.constraint.ConstraintLayout>

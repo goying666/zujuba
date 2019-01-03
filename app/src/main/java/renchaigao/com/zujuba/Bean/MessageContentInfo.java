@@ -5,6 +5,7 @@ import org.litepal.crud.LitePalSupport;
 import lombok.Getter;
 import lombok.Setter;
 
+
 /**
  * Created by Administrator on 2018/11/27/027.
  */
@@ -21,4 +22,15 @@ public class MessageContentInfo extends LitePalSupport {
     private Integer myImageUrl;
     private String teamId;
 
+    public Long getSendTime() {
+        return sendTime;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="renchaigao.com.zujuba">
-
 
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -43,6 +43,13 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!--二维码-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 摄像头权限 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动聚焦权限 -->
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -82,7 +89,6 @@
         <activity android:name=".Activity.Normal.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -98,12 +104,12 @@
             android:launchMode="singleTask" />
         <activity android:name=".Activity.AdvertisingActivity" />
         <activity
-            android:name=".Activity.GamePart.GameInfoActivity"
+            android:name=".GamePart.World.GameInfoActivity"
             android:label="@string/title_activity_game_info"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.GamePart.GameWorldActivity"
+            android:name=".GamePart.World.GameWorldActivity"
             android:label="@string/title_activity_game_world"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -159,9 +165,23 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".GamePart.DeepForest.DeepForestGmaeSetUpActivity" />
-        <activity android:name=".Activity.GamePart.GameBeginActivity" />
-        <activity android:name=".Activity.GamePart.GameReadyActivity"></activity>
-    </application>
+        <activity android:name=".Activity.Game.GameBeginActivity" />
+        <activity android:name=".Activity.Game.GameReadyActivity" />
 
+        <service
+            android:name=".Service.GameService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <!--<activity android:name=".util.Google.zxing.activity.CaptureActivity"-->
+            <!--tools:ignore="InnerclassSeparator">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+    </application>
 
 </manifest>

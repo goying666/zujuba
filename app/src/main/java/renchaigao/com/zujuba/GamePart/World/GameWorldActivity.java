@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity.GamePart;
+package renchaigao.com.zujuba.GamePart.World;
 
 import android.content.Intent;
 import android.os.Bundle;

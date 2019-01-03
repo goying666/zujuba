@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="renchaigao.com.zujuba.Activity.GamePart.GameWorldActivity">
+    tools:context="renchaigao.com.zujuba.GamePart.World.GameWorldActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/role_nestedScorellView"

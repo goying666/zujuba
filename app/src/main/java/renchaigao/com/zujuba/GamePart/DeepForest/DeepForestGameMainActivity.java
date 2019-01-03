@@ -35,7 +35,6 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
     private Button dfg_main_button;
     private Button dfg_main_mine_informationValue_button;
     private Button dfg_main_mine_star_info_button;
-    private TabLayout tabLayout;
     private TabItem dfg_main_note_part_text1;
     private TabItem dfg_main_note_part_text2;
     private TextView dfg_main_gameInfo_current_countDown;
@@ -65,7 +64,6 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
     private DFGPlayerAdapter dfgPlayerAdapter;
 
     private void initView() {
-        tabLayout = findViewById(R.id.tabLayout);
         dfg_main_button = findViewById(R.id.dfg_main_button);
         dfg_main_mine_informationValue_button = findViewById(R.id.dfg_main_mine_informationValue_button);
         dfg_main_mine_star_info_button = findViewById(R.id.dfg_main_mine_star_info_button);
@@ -88,7 +86,6 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
         dfg_main_mine_technologyValue = findViewById(R.id.dfg_main_mine_technologyValue);
         dfg_main_other_activeSum = findViewById(R.id.dfg_main_other_activeSum);
         dfg_main_other_ggSum = findViewById(R.id.dfg_main_other_ggSum);
-
     }
 
     private void initDate() {
@@ -148,12 +145,12 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
 
     }
 
-    private void setButton(){
+    private void setButton() {
         dfg_main_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DeepForestGameMainActivity.this,DeepForestGameTacticsActivity.class);
+                Intent intent = new Intent(DeepForestGameMainActivity.this, DeepForestGameTacticsActivity.class);
                 startActivity(intent);
             }
         });
@@ -169,7 +166,7 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
 //        setDate();
         setRecyclerView();
 //        reloadAdapter();
-        timer.schedule(timerTask,1000,500);//延时1s，每隔500毫秒执行一次run方法
+        timer.schedule(timerTask, 0, 1000);//延时s，每隔 毫秒执行一次run方法
         setButton();
     }
 
@@ -195,9 +192,7 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                //do something
-            }
+
             super.handleMessage(msg);
         }
     };
