@@ -33,4 +33,16 @@ public class MessageContentInfo extends LitePalSupport {
     public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setSendTime(long sendTime) {
+        this.sendTime = sendTime;
+    }
 }
