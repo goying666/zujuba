@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@drawable/left_background_image"
-    android:layout_height="180dp">
+    android:layout_height="180dp"
+    android:id="@+id/navigation_header_layout">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/navigationView_circleImageView"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
-        android:padding="8dp"
+        android:layout_marginStart="16dp"
         android:src="@drawable/user_image"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,10 +21,12 @@
         android:id="@+id/navigationView_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tony Green"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Goying"
         android:textColor="#FFF"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/navigationView_circleImageView"
+        android:textSize="11pt"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/navigationView_circleImageView"
         app:layout_constraintTop_toBottomOf="@+id/navigationView_circleImageView" />
 
@@ -33,11 +34,12 @@
         android:id="@+id/navigationView_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="tonygreendev@gmail.com"
+        android:layout_marginStart="24dp"
+        android:text="我想走不一样的路"
         android:textColor="#FFF"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/navigationView_username"
-        app:layout_constraintStart_toStartOf="@+id/navigationView_username"
-        app:layout_constraintTop_toBottomOf="@+id/navigationView_username" />
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/navigationView_username"
+        app:layout_constraintStart_toEndOf="@+id/navigationView_username"
+        app:layout_constraintTop_toTopOf="@+id/navigationView_username"
+        app:layout_constraintVertical_bias="0.75" />
 </android.support.constraint.ConstraintLayout>

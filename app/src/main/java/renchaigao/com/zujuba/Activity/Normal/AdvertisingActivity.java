@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity;
+package renchaigao.com.zujuba.Activity.Normal;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -36,6 +36,7 @@ import okhttp3.Response;
 import com.renchaigao.zujuba.dao.User;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
+import renchaigao.com.zujuba.Activity.MainActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.FinalDefine;

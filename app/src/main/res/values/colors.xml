@@ -12,6 +12,12 @@
     <color name="button_background">#ffffff</color>
     <color name="button_text">#848484</color>
 
+    <color name="word_title_black">#000000</color>
+    <color name="word_note">#797979</color>
+    <color name="word_background">#f2f2f2</color>
+    <color name="word_white">#ffffff</color>
+
+
 
     <!--二维码部分-->
     <!-- QRCode scanner color begin -->

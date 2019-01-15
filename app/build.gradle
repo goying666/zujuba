@@ -66,6 +66,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife-annotations:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+//    compile 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
 
     dependencies {
         compile files('F:\\00project\\zjb\\code\\server\\data2.0\\data20\\target\\data2.0-1.0-SNAPSHOT.jar')

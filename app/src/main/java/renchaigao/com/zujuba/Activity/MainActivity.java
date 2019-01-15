@@ -9,11 +9,13 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -28,6 +30,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +56,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import renchaigao.com.zujuba.Activity.User.UserActivity;
 import renchaigao.com.zujuba.Fragment.GameFragment;
 import renchaigao.com.zujuba.Fragment.HallFragment;
 import renchaigao.com.zujuba.Fragment.MessageFragment;
@@ -80,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
     private UserInfo userInfo;
     private String userPlace;
 
+    private ConstraintLayout header_layout;
+
+    private ImageView main__user_icon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         setViewPager();
         setUpDrawer();
         setLocationPart();
+
 //        getLocation();
     }
 
@@ -114,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
         }
 
-        ;
+
     };
 
     private void initData() {
@@ -201,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setNavigationView() {
         navigationView = findViewById(R.id.main_navigationView);
+
+        View headview = navigationView.inflateHeaderView(R.layout.left_page_layout);
 //        Menu  menu =navigationView.getMenu();
 //        MenuItem menuItem = menu.findItem(R.id.nav_person);
 //        View actionView = menuItem.getActionView();
@@ -208,6 +220,15 @@ public class MainActivity extends AppCompatActivity {
         nva_1 = (LinearLayout) navigationView.getMenu().findItem(R.id.nav_person).getActionView();
         TextView textView = (TextView) nva_1.findViewById(R.id.menu_use_text);
         textView.setText("1");
+
+        header_layout = headview.findViewById(R.id.navigation_header_layout);
+        header_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateSystemData() {
@@ -301,6 +322,10 @@ public class MainActivity extends AppCompatActivity {
         });
         initBottomNavigationView(customViewPager);
 
+        navigationView.setFocusable(true);
+
+        initUserImageView();
+
 //        hallFragment.reloadAdapter();
     }
 
@@ -354,6 +379,16 @@ public class MainActivity extends AppCompatActivity {
             return mFragments.size();
         }
 
+    }
+
+    private void initUserImageView(){
+        main__user_icon = findViewById(R.id.main__user_icon);
+        main__user_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationView.setClickable(true);
+            }
+        });
     }
 
     /**

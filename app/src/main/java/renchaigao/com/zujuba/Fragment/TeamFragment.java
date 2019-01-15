@@ -158,8 +158,6 @@ public class TeamFragment extends Fragment {
             case MAIN_TEAM_MY_TEAM:
                 Log.e(TAG, "MAIN_TEAM_MY_TEAM");
                 break;
-
-
         }
     }
 

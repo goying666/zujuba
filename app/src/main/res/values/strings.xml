@@ -82,6 +82,7 @@
     <string name="business_class_title">请选择一个适合您店铺的类型</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_store">StoreActivity</string>
+    <string name="title_activity_user">UserActivity</string>
 
 
     <!--Create Team-->

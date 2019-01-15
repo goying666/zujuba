@@ -42,4 +42,7 @@ public class MessageContentInfo extends LitePalSupport {
         this.content = content;
     }
 
+    public void setSendTime(long sendTime) {
+        this.sendTime = sendTime;
+    }
 }

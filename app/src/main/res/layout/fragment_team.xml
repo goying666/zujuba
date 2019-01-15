@@ -1,11 +1,11 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="renchaigao.com.zujuba.Fragment.TeamFragment">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/team_appbar"
         android:layout_width="match_parent"
@@ -15,7 +15,8 @@
         android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/team_toolbar"
@@ -30,21 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/team_user_icon"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/user"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <android.support.v7.widget.SearchView
                     android:id="@+id/searchView"
-                    android:layout_width="220dp"
+                    android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
@@ -54,18 +43,18 @@
                     android:background="@drawable/search_drawable"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintCircleRadius="10dp"
-                    app:layout_constraintEnd_toStartOf="@+id/team_erweima"
-                    app:layout_constraintStart_toEndOf="@+id/team_user_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/frag_team_user_icon"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/team_erweima"
+                    android:id="@+id/frag_team_user_icon"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/erweima"
+                    android:src="@drawable/user"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

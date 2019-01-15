@@ -39,7 +39,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.renchaigao.zujuba.dao.User;
 
-import renchaigao.com.zujuba.Activity.AdvertisingActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.FinalDefine;
 import renchaigao.com.zujuba.util.OkhttpFunc;
