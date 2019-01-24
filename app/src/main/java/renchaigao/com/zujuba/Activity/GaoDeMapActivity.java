@@ -465,8 +465,8 @@ public class GaoDeMapActivity extends AppCompatActivity implements LocationSourc
                 Address addressRet = new Address();
                 switch (whereFlag){
                     case "MAIN_ACT":
-                        addressRet.setId(DataUtil.getUserData(GaoDeMapActivity.this).getMyAddressId());
-                        addressRet.setOwnerId(DataUtil.getUserData(GaoDeMapActivity.this).getId());
+                        addressRet.setId(DataUtil.GetUserData(GaoDeMapActivity.this).getMyAddressId());
+                        addressRet.setOwnerId(DataUtil.GetUserData(GaoDeMapActivity.this).getId());
                         addressRet.setAddressClass("user");
                         break;
                     case "CREAT_STORE":

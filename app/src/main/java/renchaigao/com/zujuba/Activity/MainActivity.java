@@ -9,8 +9,6 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Image;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,7 +35,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.renchaigao.zujuba.dao.Address;
 import com.renchaigao.zujuba.dao.User;
 import com.renchaigao.zujuba.mongoDB.info.AddressInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
@@ -69,8 +66,6 @@ import renchaigao.com.zujuba.util.FinalDefine;
 import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.widgets.CustomViewPager;
-
-import static renchaigao.com.zujuba.Activity.GaoDeMapActivity.GAODE_MAP;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -128,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initData() {
-        userInfo = DataUtil.getUserInfoData(MainActivity.this);
-        user = DataUtil.getUserData(MainActivity.this);
+        userInfo = DataUtil.GetUserInfoData(MainActivity.this);
+        user = DataUtil.GetUserData(MainActivity.this);
     }
 
     @Override
@@ -137,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case MAIN_ADDRESS://是地图api返回的；
                 AddressInfo addressUse = JSONObject.parseObject(data.getStringExtra("addressStoreJsonStr"), AddressInfo.class);
-                userInfo.setMyAddressInfo(addressUse);
+                userInfo.setAddressInfo(addressUse);
                 user = userInfo;
-                DataUtil.saveUserInfoData(MainActivity.this, userInfo);
+                DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(userInfo));
                 DataUtil.saveUserData(MainActivity.this, user);
                 sendAddressToService();
                 //系统需要同步更新一次用户的位置信息；
@@ -164,11 +159,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if (userInfo != null) {
-            if (userInfo.getMyAddressInfo() == null) {
-
+            if (userInfo.getAddressInfo() == null) {
                 builder.show();
             } else {
-                if (userInfo.getMyAddressInfo().getLatitude() == null || userInfo.getMyAddressInfo().getLongitude() == null) {
+                if (userInfo.getAddressInfo().getLatitude() == null || userInfo.getAddressInfo().getLongitude() == null) {
                     builder.show();
                 }
             }
@@ -456,8 +450,8 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
                             switch (code) {
                                 case 0:
-                                    DataUtil.saveUserInfoData(MainActivity.this, JSONObject.toJSONString(responseJsonData));
-                                    UserInfo userTestINFO = DataUtil.getUserInfoData(MainActivity.this);
+                                    DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(responseJsonData));
+                                    UserInfo userTestINFO = DataUtil.GetUserInfoData(MainActivity.this);
                                     Message msg = new Message();
                                     msg.obj = "地址更新成功";
                                     // 把消息发送到主线程，在主线程里现实Toast
@@ -472,87 +466,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).start();
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected void onPreExecute() {
-//                super.onPreExecute();
-//            }
-//
-//            @Override
-//            protected void onCancelled() {
-//                super.onCancelled();
-//            }
-//
-//            @Override
-//            protected void onCancelled(Void aVoid) {
-//                super.onCancelled(aVoid);
-//            }
-//
-//            @Override
-//            protected void onProgressUpdate(Void... values) {
-//                super.onProgressUpdate(values);
-//            }
-//
-//            @Override
-//            protected Void doInBackground(Void... params) {
-//                String path = PropertiesConfig.testServerUrl + "/get/storeinfo/address";
-//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-//                        .connectTimeout(15, TimeUnit.SECONDS)
-//                        .readTimeout(15, TimeUnit.SECONDS)
-//                        .writeTimeout(15, TimeUnit.SECONDS)
-//                        .retryOnConnectionFailure(true);
-//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-//                builder.hostnameVerifier(new HostnameVerifier() {
-//                    @Override
-//                    public boolean verify(String hostname, SSLSession session) {
-//                        return true;
-//                    }
-//                });
-//                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, JSONObject.toJSONString(userInfo));
-//                final Request request = new Request.Builder()
-//                        .url(path)
-//                        .header("Content-Type", "application/json")
-//                        .post(body)
-//                        .build();
-//                builder.build().newCall(request).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                        Log.e(TAG, call.request().body().toString());
-//                        Message msg = new Message();
-//                        msg.obj = "发送失败，e";
-//                        // 把消息发送到主线程，在主线程里现实Toast
-//                        handler.sendMessage(msg);
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        try {
-//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-//                            int code = Integer.valueOf(responseJson.get("code").toString());
-//                            JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
-//                            switch (code) {
-//                                case 0:
-////                                    DataUtil.saveUserInfoData(MainActivity.this,JSONObject.toJSONString(responseJsonData));
-//                                    Message msg = new Message();
-//                                    msg.obj = "地址更新成功";
-//                                    // 把消息发送到主线程，在主线程里现实Toast
-//                                    handler.sendMessage(msg);
-//                                    break;
-//                            }
-//                        } catch (Exception e) {
-//                            Log.e(TAG, e.toString());
-//                        }
-//                    }
-//                });
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                Log.e(TAG, "onPostExecute");
-//            }
-//        }.execute();
     }
 
 }

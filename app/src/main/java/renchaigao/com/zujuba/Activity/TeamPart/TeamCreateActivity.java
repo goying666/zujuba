@@ -153,7 +153,7 @@ public class TeamCreateActivity extends AppCompatActivity {
 
     //    初始化一些准备数据；
     private void initData() {
-        userInfo = DataUtil.getUserInfoData(this);
+        userInfo = DataUtil.GetUserInfoData(this);
         userId = userInfo.getId();
         teamInfo = new TeamInfo();
         teamInfo.setCreaterId(userId);

@@ -22,8 +22,8 @@ public class MessageNoteInfo extends LitePalSupport {
     private Integer unreadMessageSum;//消息数
     private String currentContent;//当前最后一条消息；
     private Integer messageImageUrl;//聊天头像；
-
-    public Long getSendTime() {
-        return sendTime;
-    }
+//
+//    public Long getSendTime() {
+//        return sendTime;
+//    }
 }

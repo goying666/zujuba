@@ -4,83 +4,92 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
+import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import org.litepal.LitePal;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.util.FinalDefine;
-import renchaigao.com.zujuba.util.OkhttpFunc;
+import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
 /**
  * Created by Administrator on 2018/7/27/027.
  */
 
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
 
     private final String TAG = "StartActivity";
 
     // 要申请的权限
     private String[] permissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION};
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.READ_PHONE_STATE
+    };
     private ArrayList<String> waitPermissions = new ArrayList<>();
     private AlertDialog dialog;
-
+    private String path = null;
     private String dataJsonString = null;
     // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
-
         public void handleMessage(Message msg) {
             String str = (String) msg.obj;
             Toast.makeText(StartActivity.this, str, Toast.LENGTH_SHORT).show();
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        LitePal.initialize(this);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_start);
+//        Intent startHttpService = new Intent(this, HttpService.class);
+////        startService(startHttpService);
+////        ActionBar actionBar = getSupportActionBar();
+////        if (actionBar != null) {
+////            actionBar.hide();
+////        }
+//
+//
+//    }
 
+    @Override
+    protected void InitView() {
+    }
+
+    @Override
+    protected void InitData() {
+
+    }
+
+    @Override
+    protected void InitOther() {
+        LitePal.initialize(this);
         // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Boolean allCheckResult = true;//当所有授权均通过时，才为true；
@@ -102,20 +111,301 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_start;
+    }
+
+    UserInfo userInfo = new UserInfo();
+    String userId = null;
+    String userToken = null;
+//
+//    private HttpService.ClientBinder clientBinder;
+//
+//    private ServiceConnection connection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+////            clientBinder = (HttpService.ClientBinder) service;
+////            clientBinder.SetActivity(StartActivity.this);
+////            clientBinder.starClient(path,dataJsonString);
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//
+//        }
+//    };
+
+
     private void afterPermissonSteps() {
-        if(checkAllPermisson()){
-            SharedPreferences pref = getSharedPreferences("userData", MODE_PRIVATE);
-            dataJsonString = pref.getString("user", null);
-            if (null != dataJsonString)
-                sendAutoLogin();
-            else {
+        if (checkAllPermisson()) {
+            dataJsonString = DataUtil.GetUserInfoStringData(this);
+            if (null != dataJsonString) {
+                userInfo = JSONObject.parseObject(dataJsonString, UserInfo.class);
+                userId = userInfo.getId();
+                userToken = userInfo.getToken();
+//                path = PropertiesConfig.userServerUrl + "login/auto/" + userInfo.getTelephone() + "/" + userId;
+//                dataJsonString = jsonObject.toJSONString();
+//                Intent bindIntent = new Intent(this, HttpService.class);
+//                bindService(bindIntent, connection, BIND_ABOVE_CLIENT);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("userToken", userToken);
+//                RetrofitServiceManager.getInstance().getMRetrofit().baseUrl(PropertiesConfig.serverUrlBD);
+//                for (int i = 0; i < 10; i++) {
+//                    Log.i(TAG, "times is : " + String.valueOf(i));
+//                    addSubscribe(RetrofitServiceManager.getInstance(PropertiesConfig.userServerUrl).creat(ApiService.class)
+//                            .UserServicePost(
+//                                    "login",
+//                                    "auto",
+//                                    userInfo.getTelephone(),
+//                                    userId,
+//                                    jsonObject)
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribeWith(new BaseObserver<ResponseEntity>(this) {
+//                                @Override
+//                                public void onNext(ResponseEntity value) {
+////                                    try {
+////                                        JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+////                                        int code = Integer.valueOf(responseJson.get("code").toString());
+////                                        String token;
+////                                        Intent intent;
+////                                        Message msg = new Message();
+////                                        switch (code) {
+////                                            case RespCodeNumber.LOGIN_AUTO_SUCCESS:
+////                                                //用户是存在的，更新数据成功；
+////                                                //将token信息保存至本地
+////                                                String responseJsonDataString = responseJson.getJSONObject("data").toJSONString();
+////                                                userInfo = JSONObject.parseObject(responseJsonDataString, UserInfo.class);
+////                                                token = userInfo.getToken();
+////                                                DataUtil.SaveUserInfoData(StartActivity.this, responseJsonDataString);
+////                                                DataUtil.saveToken(StartActivity.this, token);
+////                                                intent = new Intent(StartActivity.this, AdvertisingActivity.class);
+////                                                startActivity(intent);
+////                                                msg.obj = "登录成功";
+////                                                // 把消息发送到主线程，在主线程里现实Toast
+////                                                handler.sendMessage(msg);
+////                                                finish();
+////                                                break;
+////                                            case RespCodeNumber.LOGIN_AUTO_FAIL:
+////                                                msg.obj = "LOGIN_AUTO_FAIL";
+////                                                break;
+////                                            case RespCodeNumber.LOGIN_AUTO_EXCEPTION:
+////                                                msg.obj = "LOGIN_AUTO_EXCEPTION";
+////                                                break;
+////                                            case RespCodeNumber.LOGIN_AUTO_WRONG:
+////                                                msg.obj = "LOGIN_AUTO_WRONG";
+////                                                break;
+////                                        }
+////                                        handler.sendMessage(msg);
+////                                        intent = new Intent(StartActivity.this, LoginActivity.class);
+////                                        startActivity(intent);
+////                                        finish();
+////                                    } catch (Exception e) {
+////                                        Log.e(TAG, e.toString());
+////                                    }
+//                                }
+//
+//                                @Override
+//                                protected void onSuccess(ResponseEntity responseEntity) {
+//                                    Log.e(TAG, "onSuccess:");
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+////                                    Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+////                                    startActivity(intent);
+////                                    finish();
+//                                }
+//
+//                                @Override
+//                                public void onComplete() {
+//
+////                                    Toast.makeText(StartActivity.this, "onComplete", Toast.LENGTH_SHORT);
+//                                    Log.e(TAG, "onComplete:");
+//
+//                                }
+//                            }));
+//
+//                }
+                addSubscribe(RetrofitServiceManager.getInstance(PropertiesConfig.userServerUrl).creat(ApiService.class)
+                        .UserServicePost(
+                                "login",
+                                "auto",
+                                userInfo.getTelephone(),
+                                userId,
+                                jsonObject)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new BaseObserver<ResponseEntity>(this) {
+                            @Override
+                            public void onNext(ResponseEntity value) {
+                                try {
+                                    JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+                                    int code = Integer.valueOf(responseJson.get("code").toString());
+                                    String token;
+                                    Intent intent;
+                                    Message msg = new Message();
+                                    switch (code) {
+                                        case RespCodeNumber.LOGIN_AUTO_SUCCESS:
+                                            //用户是存在的，更新数据成功；
+                                            //将token信息保存至本地
+                                            String responseJsonDataString = responseJson.getJSONObject("data").toJSONString();
+                                            userInfo = JSONObject.parseObject(responseJsonDataString, UserInfo.class);
+                                            token = userInfo.getToken();
+                                            DataUtil.SaveUserInfoData(StartActivity.this, responseJsonDataString);
+                                            DataUtil.saveToken(StartActivity.this, token);
+                                            intent = new Intent(StartActivity.this, AdvertisingActivity.class);
+                                            startActivity(intent);
+                                            msg.obj = "登录成功";
+                                            // 把消息发送到主线程，在主线程里现实Toast
+                                            handler.sendMessage(msg);
+                                            finish();
+                                            break;
+                                        case RespCodeNumber.LOGIN_AUTO_FAIL:
+                                            msg.obj = "LOGIN_AUTO_FAIL";
+                                            break;
+                                        case RespCodeNumber.LOGIN_AUTO_EXCEPTION:
+                                            msg.obj = "LOGIN_AUTO_EXCEPTION";
+                                            break;
+                                        case RespCodeNumber.LOGIN_AUTO_WRONG:
+                                            msg.obj = "LOGIN_AUTO_WRONG";
+                                            break;
+                                    }
+                                    handler.sendMessage(msg);
+                                    intent = new Intent(StartActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } catch (Exception e) {
+                                    Log.e(TAG, e.toString());
+                                }
+                            }
+
+                            @Override
+                            protected void onSuccess(ResponseEntity responseEntity) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                                Toast.makeText(StartActivity.this, "onComplete", Toast.LENGTH_SHORT);
+                                Log.e(TAG, "onComplete:");
+
+                            }
+                        }));
+
+//
+//                RetrofitServiceManager.getInstance().create(ApiService.class)
+//                        .UserServicePost("login",
+//                                "auto",
+//                                userInfo.getTelephone(),
+//                                userId,
+//                                jsonObject)
+////                        .compose(RxjavaHelper.<BaseResponse<List<RecommendEntity>>>observeOnMainThread())
+//                OkHttpUtil okHttpUtil = new OkHttpUtil();
+//                Retrofit retrofit = new Retrofit.Builder()
+////                        .client(OkHttpUtil.getOkHttpUtil().build())
+//                        .client(okHttpUtil.getBuilder().build())
+//                        .baseUrl(PropertiesConfig.userServerUrl)
+//                        //设置数据解析器
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                        .build();
+//                ApiService apiService = retrofit.create(ApiService.class);
+//                apiService.UserServicePost("login",
+//                        "auto",
+//                        userInfo.getTelephone(),
+//                        userId,
+//                        jsonObject)
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new Observer<ResponseEntity>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//                                Toast.makeText(StartActivity.this, "onSubscribe", Toast.LENGTH_SHORT);
+//                                Log.e(TAG, "onSubscribe:");
+//                            }
+//
+//                            @Override
+//                            public void onNext(ResponseEntity value) {
+//                                try {
+//                                    JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+//                                    int code = Integer.valueOf(responseJson.get("code").toString());
+//                                    String token;
+//                                    Intent intent;
+//                                    Message msg = new Message();
+//                                    switch (code) {
+//                                        case RespCodeNumber.LOGIN_AUTO_SUCCESS:
+//                                            //用户是存在的，更新数据成功；
+//                                            //将token信息保存至本地
+//                                            String responseJsonDataString = responseJson.getJSONObject("data").toJSONString();
+//                                            userInfo = JSONObject.parseObject(responseJsonDataString, UserInfo.class);
+//                                            token = userInfo.getToken();
+//                                            DataUtil.SaveUserInfoData(StartActivity.this, responseJsonDataString);
+//                                            DataUtil.saveToken(StartActivity.this, token);
+//                                            intent = new Intent(StartActivity.this, AdvertisingActivity.class);
+//                                            startActivity(intent);
+//                                            msg.obj = "登录成功";
+//                                            // 把消息发送到主线程，在主线程里现实Toast
+//                                            handler.sendMessage(msg);
+//                                            finish();
+//                                            break;
+//                                        case RespCodeNumber.LOGIN_AUTO_FAIL:
+//                                            msg.obj = "LOGIN_AUTO_FAIL";
+//                                            break;
+//                                        case RespCodeNumber.LOGIN_AUTO_EXCEPTION:
+//                                            msg.obj = "LOGIN_AUTO_EXCEPTION";
+//                                            break;
+//                                        case RespCodeNumber.LOGIN_AUTO_WRONG:
+//                                            msg.obj = "LOGIN_AUTO_WRONG";
+//                                            break;
+//                                    }
+//                                    handler.sendMessage(msg);
+//                                    intent = new Intent(StartActivity.this, LoginActivity.class);
+//                                    startActivity(intent);
+//                                    finish();
+//                                } catch (Exception e) {
+//                                    Log.e(TAG, e.toString());
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                                Toast.makeText(StartActivity.this, "onComplete", Toast.LENGTH_SHORT);
+//                                Log.e(TAG, "onComplete:");
+//
+//                            }
+//                        });
+
+            } else {
                 Intent intent = new Intent(StartActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
-        }else finish();
+        } else
+
+            finish();
+
     }
-    private Boolean checkAllPermisson(){
+
+    private Boolean checkAllPermisson() {
         for (int num = 0; num < permissions.length; num++) {
             // 轮训检查所有权限是否已经获取
             int i = ContextCompat.checkSelfPermission(this, permissions[num]);
@@ -244,155 +534,54 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private void sendAutoLogin() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                String path = PropertiesConfig.userServerUrl + "login/auto/0";
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(3, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                String str = dataJsonString;
-                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, dataJsonString);
-                final Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .post(body)
-                        .build();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e(TAG, call.request().body().toString());
-                        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-                            int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
-                            String token;
-                            SharedPreferences.Editor editor;
-                            Intent intent;
-                            Message msg = new Message();
-                            switch (code) {
-                                case 0: //用户是存在的，更新数据成功；
-                                    //将token信息保存至本地
-                                    token = responseJsonData.get("token").toString();
-                                    editor = getSharedPreferences("userData", MODE_PRIVATE).edit();
-                                    editor.putString("token", token);
-                                    editor.putString("user", responseJsonData.toJSONString());
-                                    editor.apply();
-                                    intent = new Intent(StartActivity.this, AdvertisingActivity.class);
-                                    startActivity(intent);
-                                    msg.obj = "登录成功";
-                                    // 把消息发送到主线程，在主线程里现实Toast
-                                    handler.sendMessage(msg);
-                                    finish();
-                                    break;
-                                case 1: //在数据库中更新用户数据出错；
-                                    intent = new Intent(StartActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case -1003: //用户是存在的，本地的TOKEN超时，需要重新登录；
-                                    intent = new Intent(StartActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    msg.obj = "token过期";
-                                    // 把消息发送到主线程，在主线程里现实Toast
-                                    handler.sendMessage(msg);
-                                    finish();
-                                    break;
-                                case -1004: //用户是存在的，本地的TOKEN错误；
-                                    intent = new Intent(StartActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    msg.obj = "token错误";
-                                    // 把消息发送到主线程，在主线程里现实Toast
-                                    handler.sendMessage(msg);
-                                    finish();
-                                    break;
-                                case -1005: //生成token错误；
-                                    intent = new Intent(StartActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    msg.obj = "生成token错误";
-                                    // 把消息发送到主线程，在主线程里现实Toast
-                                    handler.sendMessage(msg);
-                                    finish();
-                                    break;
-
-                                case -1010: //没有找到用户；
-                                    intent = new Intent(StartActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    msg.obj = "用户不存在，请确认手机号正确";
-                                    // 把消息发送到主线程，在主线程里现实Toast
-                                    handler.sendMessage(msg);
-                                    finish();
-                                    break;
-
-                            }
-                        } catch (Exception e) {
-                            Log.e(TAG, e.toString());
-                        }
-                    }
-                });
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                Log.e(TAG, "onPostExecute");
-            }
-        }.execute();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
-//    private void addUser(final String dataJsonString) {
-//        new Thread(new Runnable() {
+
+    //    @SuppressLint("StaticFieldLeak")
+//    private void sendAutoLogin() {
+//        new AsyncTask<Void, Void, Void>() {
 //            @Override
-//            public void run() {
-//                String path = PropertiesConfig.testServerUrl + "user/login/auto/0";
-//                OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//                OkhttpFunc okhttpFunc = new OkhttpFunc();
-//                builder.sslSocketFactory(okhttpFunc.createSSLSocketFactory());
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//            }
+//
+//            @Override
+//            protected void onCancelled() {
+//                super.onCancelled();
+//            }
+//
+//            @Override
+//            protected void onCancelled(Void aVoid) {
+//                super.onCancelled(aVoid);
+//            }
+//
+//            @Override
+//            protected void onProgressUpdate(Void... values) {
+//                super.onProgressUpdate(values);
+//            }
+//
+//            @Override
+//            protected Void doInBackground(Void... params) {
+//
+//
+//                String path = PropertiesConfig.userServerUrl + "login/auto/" + userInfo.getTelephone() + "/" + userId;
+//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
+//                        .connectTimeout(3, TimeUnit.SECONDS)
+//                        .readTimeout(15, TimeUnit.SECONDS)
+//                        .writeTimeout(15, TimeUnit.SECONDS)
+//                        .retryOnConnectionFailure(true);
+//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
 //                builder.hostnameVerifier(new HostnameVerifier() {
 //                    @Override
 //                    public boolean verify(String hostname, SSLSession session) {
 //                        return true;
 //                    }
 //                });
-//                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, dataJsonString);
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put("userToken", userToken);
+//                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, jsonObject.toString());
 //                final Request request = new Request.Builder()
 //                        .url(path)
 //                        .header("Content-Type", "application/json")
@@ -402,6 +591,9 @@ public class StartActivity extends AppCompatActivity {
 //                    @Override
 //                    public void onFailure(Call call, IOException e) {
 //                        Log.e(TAG, call.request().body().toString());
+//                        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+//                        startActivity(intent);
+//                        finish();
 //                    }
 //
 //                    @Override
@@ -409,41 +601,164 @@ public class StartActivity extends AppCompatActivity {
 //                        try {
 //                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
 //                            int code = Integer.valueOf(responseJson.get("code").toString());
-//                            JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
 //                            String token;
-//                            SharedPreferences.Editor editor;
 //                            Intent intent;
+//                            Message msg = new Message();
 //                            switch (code) {
-//                                case 1: //在数据库中更新用户数据出错；
-//                                    Toast.makeText(StartActivity.this, "在数据库中更新用户数据出错", Toast.LENGTH_LONG).show();
-//                                    break;
-//                                case 1002: //用户是存在的，更新数据成功；
+//                                case RespCodeNumber.LOGIN_AUTO_SUCCESS:
+//                                    //用户是存在的，更新数据成功；
 //                                    //将token信息保存至本地
-//                                    token = responseJsonData.get("token").toString();
-//                                    editor = getSharedPreferences("userData", MODE_PRIVATE).edit();
-//                                    editor.putString("token", token);
-//                                    editor.putString("responseJsonDataString", responseJsonData.toJSONString());
-//                                    editor.apply();
-//                                    if (!hasGo) {//程序执行到这一步说明返回的数据已经回来，
-//                                        hasGo = true;
-//                                        intent = new Intent(StartActivity.this, MainActivity.class);
-//                                        startActivity(intent);
-//                                        finish();
-//                                    }
+//                                    String responseJsonDataString = responseJson.getJSONObject("data").toJSONString();
+//                                    userInfo = JSONObject.parseObject(responseJsonDataString, UserInfo.class);
+//                                    token = userInfo.getToken();
+//                                    DataUtil.SaveUserInfoData(StartActivity.this, responseJsonDataString);
+//                                    DataUtil.saveToken(StartActivity.this, token);
+//                                    intent = new Intent(StartActivity.this, AdvertisingActivity.class);
+//                                    startActivity(intent);
+//                                    msg.obj = "登录成功";
+//                                    // 把消息发送到主线程，在主线程里现实Toast
+//                                    handler.sendMessage(msg);
+//                                    finish();
 //                                    break;
-//                                case -1003: //用户是存在的，本地的TOKEN超时，需要重新登录；
-//                                    Toast.makeText(StartActivity.this, "本地的TOKEN超时，需要重新登录", Toast.LENGTH_LONG).show();
+//                                case RespCodeNumber.LOGIN_AUTO_FAIL:
+//                                    msg.obj = "LOGIN_AUTO_FAIL";
 //                                    break;
-//                                case -1004: //用户是存在的，本地的TOKEN错误；
-//                                    Toast.makeText(StartActivity.this, "本地的TOKEN错误", Toast.LENGTH_LONG).show();
+//                                case RespCodeNumber.LOGIN_AUTO_EXCEPTION:
+//                                    msg.obj = "LOGIN_AUTO_EXCEPTION";
+//                                    break;
+//                                case RespCodeNumber.LOGIN_AUTO_WRONG:
+//                                    msg.obj = "LOGIN_AUTO_WRONG";
 //                                    break;
 //                            }
+//                            handler.sendMessage(msg);
+//                            intent = new Intent(StartActivity.this, LoginActivity.class);
+//                            startActivity(intent);
+//                            finish();
 //                        } catch (Exception e) {
 //                            Log.e(TAG, e.toString());
 //                        }
 //                    }
+//
 //                });
+//                return null;
 //            }
-//        }).start();
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid) {
+//                super.onPostExecute(aVoid);
+//                Log.e(TAG, "onPostExecute");
+//            }
+//        }.execute();
+//    }
+
+//
+//    @SuppressLint("StaticFieldLeak")
+//    private void sendAutoLogin() {
+//        new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//            }
+//
+//            @Override
+//            protected void onCancelled() {
+//                super.onCancelled();
+//            }
+//
+//            @Override
+//            protected void onCancelled(Void aVoid) {
+//                super.onCancelled(aVoid);
+//            }
+//
+//            @Override
+//            protected void onProgressUpdate(Void... values) {
+//                super.onProgressUpdate(values);
+//            }
+//
+//            @Override
+//            protected Void doInBackground(Void... params) {
+//                String path = PropertiesConfig.userServerUrl + "login/auto/" + userInfo.getTelephone() + "/" + userId;
+//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
+//                        .connectTimeout(3, TimeUnit.SECONDS)
+//                        .readTimeout(15, TimeUnit.SECONDS)
+//                        .writeTimeout(15, TimeUnit.SECONDS)
+//                        .retryOnConnectionFailure(true);
+//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
+//                builder.hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                });
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put("userToken", userToken);
+//                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, jsonObject.toString());
+//                final Request request = new Request.Builder()
+//                        .url(path)
+//                        .header("Content-Type", "application/json")
+//                        .post(body)
+//                        .build();
+//                builder.build().newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        Log.e(TAG, call.request().body().toString());
+//                        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        try {
+//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
+//                            int code = Integer.valueOf(responseJson.get("code").toString());
+//                            String token;
+//                            Intent intent;
+//                            Message msg = new Message();
+//                            switch (code) {
+//                                case RespCodeNumber.LOGIN_AUTO_SUCCESS:
+//                                    //用户是存在的，更新数据成功；
+//                                    //将token信息保存至本地
+//                                    String responseJsonDataString = responseJson.getJSONObject("data").toJSONString();
+//                                    userInfo = JSONObject.parseObject(responseJsonDataString, UserInfo.class);
+//                                    token = userInfo.getToken();
+//                                    DataUtil.SaveUserInfoData(StartActivity.this, responseJsonDataString);
+//                                    DataUtil.saveToken(StartActivity.this, token);
+//                                    intent = new Intent(StartActivity.this, AdvertisingActivity.class);
+//                                    startActivity(intent);
+//                                    msg.obj = "登录成功";
+//                                    // 把消息发送到主线程，在主线程里现实Toast
+//                                    handler.sendMessage(msg);
+//                                    finish();
+//                                    break;
+//                                case RespCodeNumber.LOGIN_AUTO_FAIL:
+//                                    msg.obj = "LOGIN_AUTO_FAIL";
+//                                    break;
+//                                case RespCodeNumber.LOGIN_AUTO_EXCEPTION:
+//                                    msg.obj = "LOGIN_AUTO_EXCEPTION";
+//                                    break;
+//                                case RespCodeNumber.LOGIN_AUTO_WRONG:
+//                                    msg.obj = "LOGIN_AUTO_WRONG";
+//                                    break;
+//                            }
+//                            handler.sendMessage(msg);
+//                            intent = new Intent(StartActivity.this, LoginActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        } catch (Exception e) {
+//                            Log.e(TAG, e.toString());
+//                        }
+//                    }
+//
+//                });
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid) {
+//                super.onPostExecute(aVoid);
+//                Log.e(TAG, "onPostExecute");
+//            }
+//        }.execute();
 //    }
 }

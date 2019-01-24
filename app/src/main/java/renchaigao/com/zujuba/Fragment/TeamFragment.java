@@ -20,6 +20,8 @@ import android.widget.Button;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
+import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.team.TeamInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
@@ -30,6 +32,10 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -37,12 +43,18 @@ import okhttp3.Request;
 import okhttp3.Response;
 import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.Activity.MyTeamActivity;
+import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.Fragment.Adapter.TeamFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.OkHttpUtil;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TeamFragment extends Fragment {
 
@@ -57,9 +69,6 @@ public class TeamFragment extends Fragment {
     private Button button_creatTeam, button_myTeam, button_joinTeam;
 
     final private String TAG = "TeamFragment";
-    private SharedPreferences pref;
-    private String dataJsonString;
-    private JSONObject jsonObject;
     private String userId;
     private UserInfo userInfo;
 
@@ -78,7 +87,7 @@ public class TeamFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                reloadAdapter();
+//                reloadAdapter();
             }
         });
     }
@@ -164,8 +173,8 @@ public class TeamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userInfo = DataUtil.getUserInfoData(mContext);
-       userId= userInfo.getId();
+        userInfo = DataUtil.GetUserInfoData(mContext);
+        userId = userInfo.getId();
     }
 
     @Override
@@ -178,114 +187,79 @@ public class TeamFragment extends Fragment {
         setRecyclerView(rootView);
         setFloatingActionButton(rootView);
         setButton(rootView);
-        reloadAdapter();
+//        InitRxJavaAndRetrofit();
+//        reloadAdapter();
         return rootView;
+    }
+
+    ApiService apiService;
+
+    private void InitRxJavaAndRetrofit() {
+//        OkHttpUtil okHttpUtil = new OkHttpUtil();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(OkHttpUtil.builder.build())
+//                .client(okHttpUtil.getBuilder().build())
+                .baseUrl(PropertiesConfig.teamServerUrl)
+                //设置数据解析器
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        apiService = retrofit.create(ApiService.class);
     }
 
     private String reloadFlag;
 
     @SuppressLint("StaticFieldLeak")
     public void reloadAdapter() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                reloadFlag = "onPreExecute";
-            }
-
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                Log.e(TAG, "doInBackground");
-
-                String path = PropertiesConfig.teamServerUrl + "get/" + userId;
-//                String path = PropertiesConfig.serverUrl + "store/get/storeinfo/" + JSONObject.parseObject(getActivity().getSharedPreferences("userData",getActivity().MODE_PRIVATE).getString("responseJsonDataString",null)).get("id").toString();
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
+        apiService.UserServicePost("get",  userInfo.getId(), "null","null",
+                JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseEntity>() {
                     @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                final Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .get()
-                        .build();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e("onFailure", e.toString());
-                        reloadFlag = "doInBackground";
+                    public void onSubscribe(Disposable d) {
+                        Log.e(TAG, "onSubscribe:");
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onNext(ResponseEntity value) {
                         try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-                            String responseJsoStr = responseJson.toJSONString();
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             JSONArray responseJsonData = responseJson.getJSONArray("data");
 
                             Log.e(TAG, "onResponse CODE OUT");
                             Log.e(TAG, "onResponse CODE is" + code);
 
-//                            ArrayList<StoreInfo> mStores = new ArrayList<>();
                             switch (code) {
                                 case 0: //在数据库中更新用户数据出错；
                                     ArrayList<TeamInfo> mTeam = new ArrayList();
                                     for (Object m : responseJsonData) {
                                         mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
                                     }
-//                                    Log.e("responseJsonData",responseJsonData.toJSONString());
                                     if (teamFragmentAdapter == null) {
                                         teamFragmentAdapter = new TeamFragmentAdapter(mContext);
                                     }
                                     teamFragmentAdapter.updateResults(mTeam);
-
+                                    teamFragmentAdapter.notifyDataSetChanged();
                                     Log.e(TAG, "onResponse");
                                     break;
                             }
-//                            swipeRefreshLayout.setRefreshing(false);
                         } catch (Exception e) {
                         }
-                        reloadFlag = "doInBackground";
                     }
 
-                });
-                while (!reloadFlag.equals("doInBackground")) ;
-                return null;
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError:");
+                    }
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                Log.e(TAG, "onPostExecute");
-                if (mContext == null)
-                    return;
-                teamFragmentAdapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }.execute();
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete:");
+                    }
+                });
+
     }
 
     @Override

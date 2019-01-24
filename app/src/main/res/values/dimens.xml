@@ -16,6 +16,8 @@
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
 
+    <dimen name="_0dp">0dp</dimen>
+
 
     <!--Material Design Image Size-->
     <dimen name="md_image">40dp</dimen>

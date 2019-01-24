@@ -35,14 +35,11 @@
         android:id="@+id/login_help_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
         android:text="帮助"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/login_back_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login_back_button" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/login_welcome_text"
@@ -70,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入手机号"
+            android:maxLines="1"
             android:lines="1" />
     </android.support.design.widget.TextInputLayout>
 
@@ -85,16 +83,6 @@
         app:layout_constraintTop_toTopOf="@+id/login_telephone_TextInputLayout" />
 
 
-    <TextView
-        android:id="@+id/login_recode_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="获取验证码"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/login_pwd_TextInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/login_pwd_TextInputLayout" />
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_pwd_TextInputLayout"
         android:layout_width="0dp"
@@ -109,32 +97,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入密码"
+            android:maxLines="1"
             android:lines="1"/>
     </android.support.design.widget.TextInputLayout>
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_yzm_TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/login_pwd_TextInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/login_pwd_TextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/login_pwd_TextInputLayout">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/login_yzm_TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入验证码"
+            android:maxLines="1"
+            android:lines="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/login_recode_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="获取验证码"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/login_yzm_TextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/login_yzm_TextInputLayout" />
     <Button
         android:id="@+id/login_enter_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/login_button_shape"
-        android:text="密码登陆"
+        android:text="登陆"
         android:textColor="#ffffff"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="@+id/login_pwd_TextInputLayout"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/login_pwd_TextInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/login_pwd_TextInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/login_join_app" />
 
     <TextView
         android:id="@+id/login_join_app"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="@dimen/margin_16dp"
-        android:textColor="#00dbc3"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
         android:text="手机注册"
+        android:textColor="#00dbc3"
         app:layout_constraintEnd_toEndOf="@+id/login_pwd_TextInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/login_pwd_TextInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/login_yzm_TextInputLayout" />
     <TextView
         android:id="@+id/login_yzm_text"
         android:layout_width="wrap_content"
@@ -142,6 +162,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:text="验证码登陆"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/login_enter_button"
         app:layout_constraintTop_toBottomOf="@+id/login_enter_button" />
 
@@ -163,6 +184,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/login_wx"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/login_user_protocol"
         app:layout_constraintStart_toStartOf="@+id/login_user_protocol"
         app:layout_constraintTop_toBottomOf="@+id/login_yzm_text"
@@ -176,6 +198,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/login_qq"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/login_user_protocol"
         app:layout_constraintEnd_toEndOf="@+id/login_user_protocol"
         app:layout_constraintTop_toBottomOf="@+id/login_repwd_text"

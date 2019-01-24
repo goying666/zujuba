@@ -21,6 +21,8 @@ public class OkhttpFunc {
             sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
 
             ssfFactory = sc.getSocketFactory();
+
+
         } catch (Exception e) {
         }
 

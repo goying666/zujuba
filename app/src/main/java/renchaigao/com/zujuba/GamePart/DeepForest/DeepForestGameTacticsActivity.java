@@ -125,9 +125,9 @@ public class DeepForestGameTacticsActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
-                User user = DataUtil.getUserData(DeepForestGameTacticsActivity.this);
+                User user = DataUtil.GetUserData(DeepForestGameTacticsActivity.this);
                 String userId = user.getId();
-                String userToken = DataUtil.getUserData(DeepForestGameTacticsActivity.this).getToken();
+                String userToken = DataUtil.GetUserData(DeepForestGameTacticsActivity.this).getToken();
                 TeamInfo teamInfo = DataUtil.getTeamInfo(DeepForestGameTacticsActivity.this);
                 String path = PropertiesConfig.deepForestGameUrl + "dfg/do/" + teamInfo.getId() + "/" + userId + "/" + userToken;
                 OkHttpClient.Builder builder = new OkHttpClient.Builder()

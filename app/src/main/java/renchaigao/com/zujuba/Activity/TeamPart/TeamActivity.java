@@ -108,7 +108,7 @@ public class TeamActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String teamString = intent.getStringExtra("teamInfo");
         teamInfo = JSONObject.parseObject(teamString, TeamInfo.class);
-        userInfo = DataUtil.getUserInfoData(this);
+        userInfo = DataUtil.GetUserInfoData(this);
         userId = userInfo.getId();
         teamId = teamInfo.getId();
         try{

@@ -102,7 +102,7 @@ public class MessageInfoActivity extends AppCompatActivity {
 
     private void InitNormalDate() {
         Intent intent = getIntent();
-        UserInfo userInfo = DataUtil.getUserInfoData(this);
+        UserInfo userInfo = DataUtil.GetUserInfoData(this);
         teamInfo = JSONObject.parseObject(intent.getStringExtra("teamInfo"), TeamInfo.class);
         userId = userInfo.getId();
         teamId = teamInfo.getId();

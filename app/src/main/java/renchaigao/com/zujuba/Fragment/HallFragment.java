@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import com.youth.banner.Banner;
@@ -41,6 +43,10 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -48,43 +54,37 @@ import okhttp3.Request;
 import okhttp3.Response;
 import renchaigao.com.zujuba.Activity.Center.CreateStoreActivity;
 import renchaigao.com.zujuba.Activity.Center.JoinUsActivity;
+import renchaigao.com.zujuba.Activity.MainActivity;
+import renchaigao.com.zujuba.Activity.Normal.AdvertisingActivity;
 import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.OkHttpUtil;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HallFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import static renchaigao.com.zujuba.util.OkhttpFunc.createSSLSocketFactory;
+
 public class HallFragment extends Fragment implements OnBannerListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
     public Activity mContext;
-
+//
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.mContext = activity;
     }
 
-
     public HallFragment() {
+//        this.mContext = getActivity();
         // Required empty public constructor
     }
 
@@ -100,8 +100,6 @@ public class HallFragment extends Fragment implements OnBannerListener {
     public static HallFragment newInstance(String param1, String param2) {
         HallFragment fragment = new HallFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -109,27 +107,15 @@ public class HallFragment extends Fragment implements OnBannerListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        initData();
-//        pref = getActivity().getSharedPreferences("userData", getActivity().MODE_PRIVATE);
-//        dataJsonString = pref.getString("responseJsonDataString", null);
-//        jsonObject = JSONObject.parseObject(dataJsonString);
-//        userId = jsonObject.get("id").toString();
-//        userId = JSONObject.parseObject(getActivity().getSharedPreferences("userData",getActivity().MODE_PRIVATE).getString("responseJsonDataString",null)).get("id").toString();
-    }
+        initData();  }
+
     private UserInfo userInfo;
-    private void initData(){
-        userInfo = DataUtil.getUserInfoData(mContext);
+
+    private void initData() {
+        userInfo = DataUtil.GetUserInfoData(mContext);
 
     }
 
-    private SharedPreferences pref;
-    private String dataJsonString;
-    private JSONObject jsonObject;
-    String userId;
     final private String TAG = "HallFragment";
     private Banner banner;
     private ArrayList<String> list_path;
@@ -142,18 +128,45 @@ public class HallFragment extends Fragment implements OnBannerListener {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
 
-    private String reloadFlag;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        View rootView = inflater.inflate(
+                R.layout.fragment_hall, container, false);
+        setSwipeRefresh(rootView);
+        setRecyclerView(rootView);
+        setFloatingActionButton(rootView);
+        setBanner(rootView);
+        setButton(rootView);
+//        InitRxJavaAndRetrofit();
+//        reloadAdapter();
+        return rootView;
+    }
+
+    ApiService apiService;
+
+    private void InitRxJavaAndRetrofit() {
+//        OkHttpUtil okHttpUtil = new OkHttpUtil();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(OkHttpUtil.builder.build())
+//                .client(okHttpUtil.getBuilder().build())
+                .baseUrl(PropertiesConfig.storeServerUrl)
+                //设置数据解析器
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        apiService = retrofit.create(ApiService.class);
+    }
 
     private void setSwipeRefresh(View view) {
         swipeRefreshLayout = view.findViewById(R.id.hall_SwipeRefreshLayout); //设置没有item动画
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                reloadAdapter();
+//                reloadAdapter();
             }
         });
     }
-
     private void setRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.hall_recyclerView);
         layoutManager = new LinearLayoutManager(mContext);
@@ -164,7 +177,6 @@ public class HallFragment extends Fragment implements OnBannerListener {
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
-
     private void setFloatingActionButton(View view) {
         floatingActionButton = view.findViewById(R.id.hall_float_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -173,156 +185,6 @@ public class HallFragment extends Fragment implements OnBannerListener {
                 recyclerView.scrollToPosition(1);
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(
-                R.layout.fragment_hall, container, false);
-        setSwipeRefresh(rootView);
-        setRecyclerView(rootView);
-        setFloatingActionButton(rootView);
-        setBanner(rootView);
-        setButton(rootView);
-//        reloadAdapter();
-        Log.e(TAG,"onCreateView");
-        return rootView;
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            //相当于Fragment的onResume
-//            reloadAdapter();
-        }
-    }
-
-    /**
-     * Called when the fragment is visible to the user and actively running.
-     * This is generally
-     * tied to {@link Activity#onResume() Activity.onResume} of the containing
-     * Activity's lifecycle.
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-        reloadAdapter();
-        Log.e(TAG,"onResume");
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//        }
-//        reloadAdapter();
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public void reloadAdapter() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                reloadFlag = "onPreExecute";
-            }
-
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                Log.e(TAG,"doInBackground");
-
-                String path = PropertiesConfig.storeServerUrl + "get/storeinfo/" + userInfo.getId();
-//                String path = PropertiesConfig.serverUrl + "store/get/storeinfo/" + JSONObject.parseObject(getActivity().getSharedPreferences("userData",getActivity().MODE_PRIVATE).getString("responseJsonDataString",null)).get("id").toString();
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                final Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .get()
-                        .build();
-                final Long startTimeMil = System.currentTimeMillis();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e("onFailure", e.toString());
-                        Log.i(TAG , String.valueOf(System.currentTimeMillis() - startTimeMil));
-
-                        reloadFlag = "doInBackground";
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-                            String responseJsoStr = responseJson.toJSONString();
-                            int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-
-                            Log.e(TAG,"onResponse CODE OUT");
-                            Log.e(TAG,"onResponse CODE is" + code);
-
-//                            ArrayList<StoreInfo> mStores = new ArrayList<>();
-                            Log.i(TAG, String.valueOf(System.currentTimeMillis() - startTimeMil));
-                            switch (code) {
-                                case 0: //在数据库中更新用户数据出错；
-                                    ArrayList<StoreInfo> mStores = new ArrayList();
-                                    for (Object m : responseJsonData) {
-                                        mStores.add(JSONObject.parseObject(JSONObject.toJSONString(m), StoreInfo.class));
-                                    }
-//                                    Log.e("responseJsonData",responseJsonData.toJSONString());
-                                    if (hallFragmentAdapter == null) {
-                                        hallFragmentAdapter = new HallFragmentAdapter(mContext);
-                                    }
-                                    hallFragmentAdapter.updateResults(mStores);
-//                                    hallFragmentAdapter.notifyDataSetChanged();
-                                    Log.e(TAG,"onResponse");
-                                    break;
-                            }
-                            reloadFlag = "doInBackground";
-//                            swipeRefreshLayout.setRefreshing(false);
-                        } catch (Exception e) {
-                        }
-                    }
-                });
-                while (!reloadFlag.equals("doInBackground"));
-                return null;
-            }
-            @Override
-            protected void onPostExecute(Void aVoid){
-                super.onPostExecute(aVoid);
-                Log.e(TAG,"onPostExecute");
-                if (mContext == null)
-                    return;
-                hallFragmentAdapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }.execute();
     }
 
     private void setButton(View view) {
@@ -381,6 +243,200 @@ public class HallFragment extends Fragment implements OnBannerListener {
                 .start();
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+//        reloadAdapter();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//        }
+//        reloadAdapter();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void reloadAdapter() {
+        apiService.UserServicePost("get","storeinfo",userInfo.getId(),  "null",
+                JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseEntity>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.e(TAG, "onSubscribe:");
+                    }
+
+                    @Override
+                    public void onNext(ResponseEntity value) {
+                        try {
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+                            int code = Integer.valueOf(responseJson.get("code").toString());
+                            JSONArray responseJsonData = responseJson.getJSONArray("data");
+                            Log.e(TAG, "onResponse CODE OUT");
+                            Log.e(TAG, "onResponse CODE is" + code);
+                            switch (code) {
+                                case 0: //在数据库中更新用户数据出错；
+                                    ArrayList<StoreInfo> mStores = new ArrayList();
+                                    for (Object m : responseJsonData) {
+                                        mStores.add(JSONObject.parseObject(JSONObject.toJSONString(m), StoreInfo.class));
+                                    }
+                                    if (hallFragmentAdapter == null) {
+                                        hallFragmentAdapter = new HallFragmentAdapter(mContext);
+                                    }
+                                    hallFragmentAdapter.updateResults(mStores);
+                                    hallFragmentAdapter.notifyDataSetChanged();
+                                    Log.e(TAG, "onResponse");
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError:");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete:");
+                    }
+                });
+//        new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//                reloadFlag = "onPreExecute";
+//            }
+//
+//            @Override
+//            protected void onCancelled() {
+//                super.onCancelled();
+//            }
+//
+//            @Override
+//            protected void onCancelled(Void aVoid) {
+//                super.onCancelled(aVoid);
+//            }
+//
+//            @Override
+//            protected void onProgressUpdate(Void... values) {
+//                super.onProgressUpdate(values);
+//            }
+//
+//            @Override
+//            protected Void doInBackground(Void... params) {
+//                Log.e(TAG, "doInBackground");
+//
+//                String path = PropertiesConfig.storeServerUrl + "get/storeinfo/" + userInfo.getId();
+////              String path = PropertiesConfig.serverUrl + "store/get/storeinfo/" + JSONObject.parseObject(getActivity().getSharedPreferences("userData",getActivity().MODE_PRIVATE).getString("responseJsonDataString",null)).get("id").toString();
+//                final OkHttpClient.Builder builder = new OkHttpClient.Builder()
+//                        .connectTimeout(15, TimeUnit.SECONDS)
+//                        .readTimeout(15, TimeUnit.SECONDS)
+//                        .writeTimeout(15, TimeUnit.SECONDS)
+//                        .retryOnConnectionFailure(true);
+//                builder.sslSocketFactory(createSSLSocketFactory());
+//                builder.hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                });
+//                final Request request = new Request.Builder()
+//                        .url(path)
+//                        .header("Content-Type", "application/json")
+//                        .get()
+//                        .build();
+//                final Long startTimeMil = System.currentTimeMillis();
+//
+//
+////                OkHttpClient client = new OkHttpClient();
+////                Call call = client.newCall(request);
+////                //异步调用并设置回调函数
+////                call.enqueue(new Callback() {
+////                    @Override
+////                    public void onFailure(Call call, IOException e) {
+////                    }
+////
+////                    @Override
+////                    public void onResponse(Call call, final Response response) throws IOException {
+////
+////                    }
+////                });
+//
+//                builder.build().newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        Log.e("onFailure", e.toString());
+//                        Log.i(TAG, String.valueOf(System.currentTimeMillis() - startTimeMil));
+//
+//                        reloadFlag = "doInBackground";
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        try {
+//
+//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
+//                            String responseJsoStr = responseJson.toJSONString();
+//                            int code = Integer.valueOf(responseJson.get("code").toString());
+//                            JSONArray responseJsonData = responseJson.getJSONArray("data");
+//
+//                            Log.e(TAG, "onResponse CODE OUT");
+//                            Log.e(TAG, "onResponse CODE is" + code);
+//
+////                            ArrayList<StoreInfo> mStores = new ArrayList<>();
+//                            Log.i(TAG, String.valueOf(System.currentTimeMillis() - startTimeMil));
+//                            switch (code) {
+//                                case 0: //在数据库中更新用户数据出错；
+//                                    ArrayList<StoreInfo> mStores = new ArrayList();
+//                                    for (Object m : responseJsonData) {
+//                                        mStores.add(JSONObject.parseObject(JSONObject.toJSONString(m), StoreInfo.class));
+//                                    }
+////                                    Log.e("responseJsonData",responseJsonData.toJSONString());
+//                                    if (hallFragmentAdapter == null) {
+//                                        hallFragmentAdapter = new HallFragmentAdapter(mContext);
+//                                    }
+//                                    hallFragmentAdapter.updateResults(mStores);
+////                                    hallFragmentAdapter.notifyDataSetChanged();
+//                                    Log.e(TAG, "onResponse");
+//                                    break;
+//                            }
+//                            reloadFlag = "doInBackground";
+////                            swipeRefreshLayout.setRefreshing(false);
+//                        } catch (Exception e) {
+//                        }
+//                    }
+//                });
+//                while (!reloadFlag.equals("doInBackground")) ;
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid) {
+//                super.onPostExecute(aVoid);
+//                Log.e(TAG, "onPostExecute");
+//                if (mContext == null)
+//                    return;
+//                hallFragmentAdapter.notifyDataSetChanged();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        }.execute();
+    }
+
+
     @Override
     public void OnBannerClick(int position) {
         Log.i("tag", "你点了第" + position + "张轮播图");
@@ -408,58 +464,8 @@ public class HallFragment extends Fragment implements OnBannerListener {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
-
-  /*   class MAsyncTask extends AsyncTask {
-
-           private int next;
-
-           public MAsyncTask(int next) {
-               this.next = next;
-           }
-
-           @Override
-           protected Object doInBackground(Object[] params) {
-
-               JsonObject result = HttpUtil.getResposeJsonObject(BMA.GeDan.geDan(next, 10));
-               if (result == null) {
-                   return null;
-               }
-               //热门歌单
-               JsonArray pArray = result.get("content").getAsJsonArray();
-               if (pArray == null) {
-                   return null;
-               }
-
-               int plen = pArray.size();
-
-               for (int i = 0; i < plen; i++) {
-                   GedanInfo gedanInfo = gson.fromJson(pArray.get(i), GedanInfo.class);
-                   recommendList.add(gedanInfo);
-               }
-
-               return null;
-           }
-
-           @Override
-           protected void onPostExecute(Object o) {
-               super.onPostExecute(o);
-               recomendAdapter.update(recommendList);
-           }
-
-       }
-       */

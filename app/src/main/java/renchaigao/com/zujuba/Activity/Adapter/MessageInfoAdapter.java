@@ -34,7 +34,7 @@ public class MessageInfoAdapter extends RecyclerView.Adapter<MessageInfoAdapter.
 
     public MessageInfoAdapter(Context context) {
         this.mContext = context;
-        UserInfo userInfo = DataUtil.getUserInfoData(this.mContext);
+        UserInfo userInfo = DataUtil.GetUserInfoData(this.mContext);
         userId = userInfo.getId();
     }
 

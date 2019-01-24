@@ -25,14 +25,14 @@ public class PropertiesConfig {
     public final static String serverUrlBD = homeIp;
 //    public final static String serverUrlBD = "http://192.168.199.155";
 
-    public final static String userServerUrl = serverUrlAL + "user/";
-//    public final static String userServerUrl = serverUrlBD + ":7801/";
+//    public final static String userServerUrl = serverUrlAL + "user/";
+    public final static String userServerUrl = serverUrlBD + ":7801/";
 
 //    public final static String teamServerUrl = serverUrlAL + "team/";
     public final static String teamServerUrl = serverUrlBD + ":7802/";
 
-    public final static String storeServerUrl = serverUrlAL + "store/";//
-//    public final static String storeServerUrl = serverUrlBD + ":7803/";
+//    public final static String storeServerUrl = serverUrlAL + "store/";//
+    public final static String storeServerUrl = serverUrlBD + ":7803/";
 //
 //    public final static String playerServerUrl = serverUrlAL + "player/";
 //
@@ -53,6 +53,8 @@ public class PropertiesConfig {
     public final static int ACTIVITY_TEAM_CREATE = 3;
     public final static int FRAGMENT_MESSAGE = 4;
     public final static int FRAGMENT_TEAM = 5;
+
+    public final static String SOFTWARE_CODE = "20190122.1.0.1";
 
 //    public final static String ;
 

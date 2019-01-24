@@ -36,8 +36,9 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
 
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compile "org.projectlombok:lombok:1.16.18"
-//    provided group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    provided group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+
 
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'de.hdodenhof:circleimageview:2.2.0'
@@ -67,6 +68,14 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 //    compile 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
+
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'//转换器，请求结果转换成Model
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'//配合Rxjava 使用
+
+    // Retrofit库
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
 
     dependencies {
         compile files('F:\\00project\\zjb\\code\\server\\data2.0\\data20\\target\\data2.0-1.0-SNAPSHOT.jar')

@@ -20,7 +20,9 @@ public class PatternUtil {
 
     public final static String FUNC_TELEPHONE_NUMBER = "^[1-9]\\d{10}$"; //
     public final static String FUNC_NUMBER_1_99 = "^[1-9]\\d?$"; //
-    public final static String FUNC_NUMBER_0000_9999 = "^[1-9]\\d{4}$"; //
+    public final static String FUNC_NUMBER_1000_9999 = "^[1-9]{1}\\d{3}$"; //
+    public final static String FUNC_NUMBER_0000_9999 = "^[1-9]\\d{4}$";
+
 
 
     public static boolean strMatcher(String s,String _FUNC_){

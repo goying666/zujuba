@@ -27,7 +27,6 @@ import renchaigao.com.zujuba.Fragment.Adapter.MessageFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.Bean.MessageNoteInfo;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.support.ViewInject;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
 
@@ -56,7 +55,7 @@ public class MessageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userInfo = DataUtil.getUserInfoData(mContext);
+        userInfo = DataUtil.GetUserInfoData(mContext);
         userId= userInfo.getId();
     }
 

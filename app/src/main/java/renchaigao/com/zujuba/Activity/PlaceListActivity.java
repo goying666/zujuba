@@ -115,7 +115,7 @@ public class PlaceListActivity extends AppCompatActivity {
     }
     private UserInfo userInfo;
     private void initeData(){
-        userInfo = DataUtil.getUserInfoData(this);
+        userInfo = DataUtil.GetUserInfoData(this);
         userId = userInfo.getId();
     }
 

@@ -22,27 +22,27 @@ public class MessageContentInfo extends LitePalSupport {
     private Integer myImageUrl;
     private String teamId;
 
-    public Long getSendTime() {
-        return sendTime;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
-    public void setTeamId(String teamId) {
-        this.teamId = teamId;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setSendTime(long sendTime) {
-        this.sendTime = sendTime;
-    }
+//    public Long getSendTime() {
+//        return sendTime;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public void setSenderId(String senderId) {
+//        this.senderId = senderId;
+//    }
+//
+//    public void setTeamId(String teamId) {
+//        this.teamId = teamId;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
+//
+//    public void setSendTime(long sendTime) {
+//        this.sendTime = sendTime;
+//    }
 }

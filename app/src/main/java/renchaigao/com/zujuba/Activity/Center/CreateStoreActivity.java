@@ -151,7 +151,7 @@ public class CreateStoreActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        saveUser = DataUtil.getUserData(CreateStoreActivity.this);
+        saveUser = DataUtil.GetUserData(CreateStoreActivity.this);
         builder = new AlertDialog.Builder(this);
         business_join_introduce_button_next = findViewById(R.id.business_join_introduce_button_next);
         business_join_NestedScrollView = findViewById(R.id.business_join_NestedScrollView);

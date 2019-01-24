@@ -1,69 +1,94 @@
 package renchaigao.com.zujuba.Activity.Normal;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
+import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-import com.renchaigao.zujuba.dao.User;
-import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
-
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.MainActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.FinalDefine;
-import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AdvertisingActivity extends AppCompatActivity implements OnBannerListener {
+public class AdvertisingActivity extends BaseActivity implements OnBannerListener {
     final static String TAG = "AdvertisingActivity";
-    private User userApp;
     private String userString;
+    private UserInfo userInfo;
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_advertising);
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.hide();
+//        }
+////        InitRxJavaAndRetrofit();
+//    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_advertising);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+    protected void InitView() {
         setBanner();
-        SharedPreferences pref = getSharedPreferences("userData", MODE_PRIVATE);
-        userString = pref.getString("user", null);
-//        userApp = JSONObject.parseObject(userString,User.class);
+    }
 
+    @Override
+    protected void InitData() {
+
+        userString = DataUtil.GetUserInfoStringData(this);
+        userInfo = DataUtil.GetUserInfoData(this);
+    }
+
+    @Override
+    protected void InitOther() {
 
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_advertising;
+    }
+
+    ApiService apiService;
+
+//    private void InitRxJavaAndRetrofit() {
+////        OkHttpUtil okHttpUtil = new OkHttpUtil();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .client(OkHttpUtil.builder.build())
+////                .client(okHttpUtil.getBuilder().build())
+//                .baseUrl(PropertiesConfig.userServerUrl)
+//                //设置数据解析器
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build();
+//        apiService = retrofit.create(ApiService.class);
+//    }
 
     private Banner banner;
     private ArrayList<String> list_path;
@@ -125,127 +150,57 @@ public class AdvertisingActivity extends AppCompatActivity implements OnBannerLi
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void getUserInfo() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
+        addSubscribe(RetrofitServiceManager.getInstance(PropertiesConfig.userServerUrl).creat(ApiService.class)
+                .UserServicePost(
+//        apiService.UserServicePost(
+                "get", userInfo.getId(), "nul", "null",
+                JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<ResponseEntity>() {
+                .subscribeWith(new BaseObserver<ResponseEntity>(this) {
 
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                String path = PropertiesConfig.userServerUrl + "info/get";
-                OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                OkhttpFunc okhttpFunc = new OkhttpFunc();
-                builder.sslSocketFactory(okhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
                     @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
+                    protected void onSuccess(ResponseEntity responseEntity) {
+
                     }
-                });
-                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, userString);
-                final Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .post(body)
-                        .build();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e(TAG, call.request().body().toString());
-                        Intent intent = new Intent(AdvertisingActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-//                        join_progressBar.setVisibility(View.GONE);
-                    }
+//
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                        Log.e(TAG, "onSubscribe:");
+//                    }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onNext(ResponseEntity value) {
                         try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             JSONObject responseJsonData;
-                            SharedPreferences.Editor editor;
-                            Intent intent;
-                            UserInfo userInfo;
+                            Intent intent = new Intent(AdvertisingActivity.this, MainActivity.class);
                             switch (code) {
-                                //                                    用户首次登陆系统进行创建账号，
-                                case 500:
-                                    Toast.makeText(AdvertisingActivity.this, "错误500", Toast.LENGTH_LONG).show();
-                                    break;
-                                case 0://
-                                    responseJsonData = (JSONObject) responseJson.getJSONObject("data");
+                                case RespCodeNumber.SUCCESS://
+                                    responseJsonData = responseJson.getJSONObject("data");
                                     String userInfoString = JSONObject.toJSONString(responseJsonData);
-                                    DataUtil.saveUserInfoData(AdvertisingActivity.this, userInfoString);
-                                    intent = new Intent(AdvertisingActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case 1: //在数据库中更新用户数据出错；
-                                    Toast.makeText(AdvertisingActivity.this, "在数据库中更新用户数据出错", Toast.LENGTH_LONG).show();
-                                    break;
-                                case 1002: //UserInfo 新增成功；
-                                    responseJsonData = (JSONObject) responseJson.getJSONObject("data");
-                                    String userInfoStringa = JSONObject.toJSONString(responseJsonData);
-                                    editor = getSharedPreferences("userData", MODE_PRIVATE).edit();
-                                    editor.putString("userInfo", responseJsonData.toJSONString());
-                                    editor.apply();
-                                    intent = new Intent(AdvertisingActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    break;
-                                case -1001://用户登录，密码错误；
-                                    Toast.makeText(AdvertisingActivity.this, "用户登录，密码错误", Toast.LENGTH_LONG).show();
-                                    break;
-                                case -1002: //创建新用户，电话号码错误
-                                    Toast.makeText(AdvertisingActivity.this, "创建新用户，电话号码错误", Toast.LENGTH_LONG).show();
-                                    break;
-                                case -1003: //用户是存在的，本地的TOKEN超时，需要重新登录；
-                                    Toast.makeText(AdvertisingActivity.this, "本地的TOKEN超时，需要重新登录", Toast.LENGTH_LONG).show();
-                                    break;
-                                case -1004: //用户是存在的，本地的TOKEN错误；
-                                    Toast.makeText(AdvertisingActivity.this, "本地的TOKEN错误", Toast.LENGTH_LONG).show();
-                                    break;
-                                case -1009: //用户是存在的，本地的TOKEN错误；
-                                    Toast.makeText(AdvertisingActivity.this, "该手机号还未注册", Toast.LENGTH_LONG).show();
+                                    DataUtil.SaveUserInfoData(AdvertisingActivity.this, userInfoString);
                                     break;
                             }
-                            //                        switch (jsonObject1)
-                            Log.e(TAG, response.body().string());
-
+                            startActivity(intent);
+                            finish();
                         } catch (Exception e) {
                             Log.e(TAG, e.toString());
                         }
-                        Intent intent = new Intent(AdvertisingActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
-                });
-                return null;
-            }
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-            }
-        }.execute();
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete:");
+                    }
+                }));
     }
 
     @Override

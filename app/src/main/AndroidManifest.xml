@@ -51,6 +51,7 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 摄像头权限 -->
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <!-- <uses-feature android:name="android.permission.READ_PHONE_STATE" /> -->
     <!-- 自动聚焦权限 -->
     <application
         android:name="org.litepal.LitePalApplication"
@@ -72,18 +73,22 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Activity.Normal.StartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".Activity.MainActivity"
-            android:label="@string/app_name" />
-        <activity android:name=".Activity.Center.JoinUsActivity" />
-        <activity android:name=".Activity.Center.CreateStoreActivity" />
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name=".Activity.Center.JoinUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Center.CreateStoreActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -91,21 +96,33 @@
 
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".Activity.GaoDeMapActivity" />
+        <activity
+            android:name=".Activity.GaoDeMapActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.Normal.LoginActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.Center.StoreActivity"
             android:label="@string/title_activity_store"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.TeamPart.TeamCreateActivity" />
-        <activity android:name=".Activity.MyTeamActivity" />
-        <activity android:name=".Activity.PlaceListActivity" />
+        <activity
+            android:name=".Activity.TeamPart.TeamCreateActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.MyTeamActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.PlaceListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.TeamPart.TeamActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".Activity.Normal.AdvertisingActivity" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Normal.AdvertisingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GamePart.World.GameInfoActivity"
             android:label="@string/title_activity_game_info"
@@ -160,21 +177,24 @@
         <service
             android:name=".GamePart.DeepForest.DFGService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".Activity.MessageInfoActivity"
             android:label="@string/title_activity_message_info"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GamePart.DeepForest.DeepForestGmaeSetUpActivity" />
-        <activity android:name=".Activity.Game.GameBeginActivity" />
-        <activity android:name=".Activity.Game.GameReadyActivity" />
+        <activity
+            android:name=".GamePart.DeepForest.DeepForestGmaeSetUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Game.GameBeginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Game.GameReadyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <service
-            android:name=".Service.GameService"
-            android:enabled="true"
-            android:exported="true" />
 
         <!-- <activity android:name=".util.Google.zxing.activity.CaptureActivity" -->
         <!-- tools:ignore="InnerclassSeparator"> -->
@@ -190,8 +210,31 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.User.UserSettingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.User.UserCreateTeamActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".Activity.User.UserTeamActivity" />
+        <activity
+            android:name=".Activity.Normal.StartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".Service.HttpService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <service
+            android:name=".Service.GameService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
