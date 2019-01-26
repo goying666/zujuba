@@ -29,7 +29,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void InitView();
     protected abstract void InitData();
     protected abstract void InitOther();
-
     protected abstract int getLayoutId();
 
     protected void addSubscribe(Disposable disposable) {

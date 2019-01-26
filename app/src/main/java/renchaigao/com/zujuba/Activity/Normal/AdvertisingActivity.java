@@ -151,7 +151,8 @@ public class AdvertisingActivity extends BaseActivity implements OnBannerListene
     }
 
     private void getUserInfo() {
-        addSubscribe(RetrofitServiceManager.getInstance(PropertiesConfig.userServerUrl).creat(ApiService.class)
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
                 .UserServicePost(
 //        apiService.UserServicePost(
                 "get", userInfo.getId(), "nul", "null",

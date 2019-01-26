@@ -27,6 +27,8 @@ import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -38,8 +40,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.Activity.MyTeamActivity;
@@ -50,13 +54,15 @@ import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.OkHttpUtil;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TeamFragment extends Fragment {
+public class TeamFragment extends BaseFragment {
 
     public Activity mContext;
 
@@ -69,17 +75,12 @@ public class TeamFragment extends Fragment {
     private Button button_creatTeam, button_myTeam, button_joinTeam;
 
     final private String TAG = "TeamFragment";
-    private String userId;
     private UserInfo userInfo;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.mContext = activity;
-    }
-
-    public TeamFragment() {
-        // Required empty public constructor
     }
 
     private void setSwipeRefresh(View view) {
@@ -170,97 +171,143 @@ public class TeamFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        userInfo = DataUtil.GetUserInfoData(mContext);
-        userId = userInfo.getId();
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(
-                R.layout.fragment_team, container, false);
+    protected void InitView(View rootView) {
         setSwipeRefresh(rootView);
         setRecyclerView(rootView);
         setFloatingActionButton(rootView);
         setButton(rootView);
-//        InitRxJavaAndRetrofit();
-//        reloadAdapter();
-        return rootView;
     }
 
-    ApiService apiService;
-
-    private void InitRxJavaAndRetrofit() {
-//        OkHttpUtil okHttpUtil = new OkHttpUtil();
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(OkHttpUtil.builder.build())
-//                .client(okHttpUtil.getBuilder().build())
-                .baseUrl(PropertiesConfig.teamServerUrl)
-                //设置数据解析器
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
+    @Override
+    protected void InitData(View rootView) {
+        userInfo = DataUtil.GetUserInfoData(mContext);
     }
 
-    private String reloadFlag;
-
-    @SuppressLint("StaticFieldLeak")
-    public void reloadAdapter() {
-        apiService.UserServicePost("get",  userInfo.getId(), "null","null",
-                JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.e(TAG, "onSubscribe:");
-                    }
-
-                    @Override
-                    public void onNext(ResponseEntity value) {
-                        try {
-                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
-                            int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-
-                            Log.e(TAG, "onResponse CODE OUT");
-                            Log.e(TAG, "onResponse CODE is" + code);
-
-                            switch (code) {
-                                case 0: //在数据库中更新用户数据出错；
-                                    ArrayList<TeamInfo> mTeam = new ArrayList();
-                                    for (Object m : responseJsonData) {
-                                        mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
-                                    }
-                                    if (teamFragmentAdapter == null) {
-                                        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
-                                    }
-                                    teamFragmentAdapter.updateResults(mTeam);
-                                    teamFragmentAdapter.notifyDataSetChanged();
-                                    Log.e(TAG, "onResponse");
-                                    break;
-                            }
-                        } catch (Exception e) {
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "onError:");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.e(TAG, "onComplete:");
-                    }
-                });
+    @Override
+    protected void InitOther(View rootView) {
 
     }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_team;
+    }
+
+//    public void reloadAdapter() {
+//        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
+//        Map<String, RequestBody> map = new HashMap<>();
+//        RequestBody multiBody = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM)
+//                .addFormDataPart("json", JSONObject.toJSONString(userInfo))
+//                .build();
+//        map.put("multiBody", multiBody);
+//        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+//                .PlaceServicePost("store",
+//                        "getnear",
+//                        "",
+//                        "",
+//                        multiBody)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new BaseObserver<ResponseEntity>(mContext) {
+//
+//                    @Override
+//                    public void onNext(ResponseEntity value) {
+//                        try {
+//                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+//                            int code = Integer.valueOf(responseJson.get("code").toString());
+//                            JSONArray responseJsonData = responseJson.getJSONArray("data");
+//
+//                            Log.e(TAG, "onResponse CODE OUT");
+//                            Log.e(TAG, "onResponse CODE is" + code);
+//
+//                            switch (code) {
+//                                case 0: //在数据库中更新用户数据出错；
+//                                    ArrayList<TeamInfo> mTeam = new ArrayList();
+//                                    for (Object m : responseJsonData) {
+//                                        mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
+//                                    }
+//                                    if (teamFragmentAdapter == null) {
+//                                        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
+//                                    }
+//                                    teamFragmentAdapter.updateResults(mTeam);
+//                                    teamFragmentAdapter.notifyDataSetChanged();
+//                                    Log.e(TAG, "onResponse");
+//                                    break;
+//                            }
+//                        } catch (Exception e) {
+//                        }
+//                    }
+//
+//                    @Override
+//                    protected void onSuccess(ResponseEntity responseEntity) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        super.onError(e);
+//                        Log.e(TAG, "onError");
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                }));
+//
+////        apiService.UserServicePost("get",  userInfo.getId(), "null","null",
+////                JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
+////                .subscribeOn(Schedulers.io())
+////                .observeOn(AndroidSchedulers.mainThread())
+////                .subscribe(new Observer<ResponseEntity>() {
+////                    @Override
+////                    public void onSubscribe(Disposable d) {
+////                        Log.e(TAG, "onSubscribe:");
+////                    }
+////
+////                    @Override
+////                    public void onNext(ResponseEntity value) {
+////                        try {
+////                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+////                            int code = Integer.valueOf(responseJson.get("code").toString());
+////                            JSONArray responseJsonData = responseJson.getJSONArray("data");
+////
+////                            Log.e(TAG, "onResponse CODE OUT");
+////                            Log.e(TAG, "onResponse CODE is" + code);
+////
+////                            switch (code) {
+////                                case 0: //在数据库中更新用户数据出错；
+////                                    ArrayList<TeamInfo> mTeam = new ArrayList();
+////                                    for (Object m : responseJsonData) {
+////                                        mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
+////                                    }
+////                                    if (teamFragmentAdapter == null) {
+////                                        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
+////                                    }
+////                                    teamFragmentAdapter.updateResults(mTeam);
+////                                    teamFragmentAdapter.notifyDataSetChanged();
+////                                    Log.e(TAG, "onResponse");
+////                                    break;
+////                            }
+////                        } catch (Exception e) {
+////                        }
+////                    }
+////
+////                    @Override
+////                    public void onError(Throwable e) {
+////                        Log.e(TAG, "onError:");
+////                    }
+////
+////                    @Override
+////                    public void onComplete() {
+////                        Log.e(TAG, "onComplete:");
+////                    }
+////                });
+//
+//    }
 
     @Override
     public void onDetach() {

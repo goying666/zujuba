@@ -2,15 +2,10 @@ package renchaigao.com.zujuba.Activity.User;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -24,39 +19,18 @@ import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import renchaigao.com.zujuba.Activity.MainActivity;
-import renchaigao.com.zujuba.Activity.Normal.AdvertisingActivity;
-import renchaigao.com.zujuba.Activity.Normal.LoginActivity;
-import renchaigao.com.zujuba.Activity.Normal.StartActivity;
+import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.FinalDefine;
-import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.ApiService;
-import renchaigao.com.zujuba.util.http.OkHttpUtil;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
-public class UserSettingActivity extends AppCompatActivity {
+public class UserSettingActivity extends BaseActivity {
 
     private final String TAG = "UserSettingActivity";
     private ConstraintLayout acivity_user_setting_ConstraintLayout_nickNamePart,
@@ -97,27 +71,40 @@ public class UserSettingActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_setting);
+    protected void InitView() {
+
         InitViewAndData();
-        InitRxJavaAndRetrofit();
+    }
+
+    @Override
+    protected void InitData() {
+
+    }
+
+    @Override
+    protected void InitOther() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_user_setting;
     }
 
     ApiService apiService;
 
-    private void InitRxJavaAndRetrofit() {
-//        OkHttpUtil okHttpUtil = new OkHttpUtil();
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(OkHttpUtil.builder.build())
-//                .client(okHttpUtil.getBuilder().build())
-                .baseUrl(PropertiesConfig.userServerUrl)
-                //设置数据解析器
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
-    }
+//    private void InitRxJavaAndRetrofit() {
+////        OkHttpUtil okHttpUtil = new OkHttpUtil();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .client(OkHttpUtil.builder.build())
+////                .client(okHttpUtil.getBuilder().build())
+//                .baseUrl(PropertiesConfig.userServerUrl)
+//                //设置数据解析器
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build();
+//        apiService = retrofit.create(ApiService.class);
+//    }
 
 
     private void InitViewAndData() {
@@ -315,18 +302,23 @@ public class UserSettingActivity extends AppCompatActivity {
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void UpdateUserInfo() {
-        apiService.UserServicePost("update", "basicInfo", user.getId(), "null",
+
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                .UserServicePost(
+                        "update",
+                        "basicInfo",
+                        user.getId(),
+                        "null",
                 JSONObject.parseObject(JSONObject.toJSONString(user), JSONObject.class))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseEntity>() {
+                .subscribeWith(new BaseObserver<ResponseEntity>(this) {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.e(TAG, "onSubscribe:");
-                    }
+                    protected void onSuccess(ResponseEntity responseEntity) {
 
+                    }
                     @Override
                     public void onNext(ResponseEntity value) {
                         try {
@@ -368,7 +360,7 @@ public class UserSettingActivity extends AppCompatActivity {
                     public void onComplete() {
                         Log.e(TAG, "onComplete:");
                     }
-                });
+                }));
 
     }
 }

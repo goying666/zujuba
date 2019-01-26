@@ -137,7 +137,6 @@ public class StartActivity extends BaseActivity {
 //        }
 //    };
 
-
     private void afterPermissonSteps() {
         if (checkAllPermisson()) {
             dataJsonString = DataUtil.GetUserInfoStringData(this);
@@ -149,87 +148,19 @@ public class StartActivity extends BaseActivity {
 //                dataJsonString = jsonObject.toJSONString();
 //                Intent bindIntent = new Intent(this, HttpService.class);
 //                bindService(bindIntent, connection, BIND_ABOVE_CLIENT);
+
+
+                for (int i=0;i<10;i++){
+
+                    RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
+                }
+
+
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("userToken", userToken);
-//                RetrofitServiceManager.getInstance().getMRetrofit().baseUrl(PropertiesConfig.serverUrlBD);
-//                for (int i = 0; i < 10; i++) {
-//                    Log.i(TAG, "times is : " + String.valueOf(i));
-//                    addSubscribe(RetrofitServiceManager.getInstance(PropertiesConfig.userServerUrl).creat(ApiService.class)
-//                            .UserServicePost(
-//                                    "login",
-//                                    "auto",
-//                                    userInfo.getTelephone(),
-//                                    userId,
-//                                    jsonObject)
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribeWith(new BaseObserver<ResponseEntity>(this) {
-//                                @Override
-//                                public void onNext(ResponseEntity value) {
-////                                    try {
-////                                        JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
-////                                        int code = Integer.valueOf(responseJson.get("code").toString());
-////                                        String token;
-////                                        Intent intent;
-////                                        Message msg = new Message();
-////                                        switch (code) {
-////                                            case RespCodeNumber.LOGIN_AUTO_SUCCESS:
-////                                                //用户是存在的，更新数据成功；
-////                                                //将token信息保存至本地
-////                                                String responseJsonDataString = responseJson.getJSONObject("data").toJSONString();
-////                                                userInfo = JSONObject.parseObject(responseJsonDataString, UserInfo.class);
-////                                                token = userInfo.getToken();
-////                                                DataUtil.SaveUserInfoData(StartActivity.this, responseJsonDataString);
-////                                                DataUtil.saveToken(StartActivity.this, token);
-////                                                intent = new Intent(StartActivity.this, AdvertisingActivity.class);
-////                                                startActivity(intent);
-////                                                msg.obj = "登录成功";
-////                                                // 把消息发送到主线程，在主线程里现实Toast
-////                                                handler.sendMessage(msg);
-////                                                finish();
-////                                                break;
-////                                            case RespCodeNumber.LOGIN_AUTO_FAIL:
-////                                                msg.obj = "LOGIN_AUTO_FAIL";
-////                                                break;
-////                                            case RespCodeNumber.LOGIN_AUTO_EXCEPTION:
-////                                                msg.obj = "LOGIN_AUTO_EXCEPTION";
-////                                                break;
-////                                            case RespCodeNumber.LOGIN_AUTO_WRONG:
-////                                                msg.obj = "LOGIN_AUTO_WRONG";
-////                                                break;
-////                                        }
-////                                        handler.sendMessage(msg);
-////                                        intent = new Intent(StartActivity.this, LoginActivity.class);
-////                                        startActivity(intent);
-////                                        finish();
-////                                    } catch (Exception e) {
-////                                        Log.e(TAG, e.toString());
-////                                    }
-//                                }
-//
-//                                @Override
-//                                protected void onSuccess(ResponseEntity responseEntity) {
-//                                    Log.e(TAG, "onSuccess:");
-//                                }
-//
-//                                @Override
-//                                public void onError(Throwable e) {
-////                                    Intent intent = new Intent(StartActivity.this, LoginActivity.class);
-////                                    startActivity(intent);
-////                                    finish();
-//                                }
-//
-//                                @Override
-//                                public void onComplete() {
-//
-////                                    Toast.makeText(StartActivity.this, "onComplete", Toast.LENGTH_SHORT);
-//                                    Log.e(TAG, "onComplete:");
-//
-//                                }
-//                            }));
-//
-//                }
-                addSubscribe(RetrofitServiceManager.getInstance(PropertiesConfig.userServerUrl).creat(ApiService.class)
+
+                RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
+                addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
                         .UserServicePost(
                                 "login",
                                 "auto",

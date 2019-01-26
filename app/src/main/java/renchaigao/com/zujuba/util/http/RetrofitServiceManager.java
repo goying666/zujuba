@@ -31,6 +31,9 @@ public class RetrofitServiceManager {
     private RetrofitDownloadListener retrofitDownloadListener;
 
     private RetrofitServiceManager() {
+        SetRetrofit(PropertiesConfig.serverUrlAL);
+    }
+    public void SetRetrofit(String path){
 
         /**
          * 设置证书的三种方式
@@ -83,12 +86,16 @@ public class RetrofitServiceManager {
         mRetrofit = new Retrofit.Builder()
                 .client(builder.build())
 //                .baseUrl(PropertiesConfig.serverUrlAL)
-                .baseUrl(PropertiesConfig.userServerUrl)
+//                .baseUrl(PropertiesConfig.userServerUrl)
+                .baseUrl(path)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
+    public void DestroyRetrofit(){
+
+    }
     public static SSLSocketFactory createSSLSocketFactory() {
         SSLSocketFactory ssfFactory = null;
         try {
@@ -148,7 +155,7 @@ public class RetrofitServiceManager {
      * }
      */
 
-    public static RetrofitServiceManager getInstance(String path) {
+    public static RetrofitServiceManager getInstance() {
         return SingletonHolder.retrofitServiceManager;
 
     }

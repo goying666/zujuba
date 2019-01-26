@@ -31,8 +31,11 @@ public class PropertiesConfig {
 //    public final static String teamServerUrl = serverUrlAL + "team/";
     public final static String teamServerUrl = serverUrlBD + ":7802/";
 
-//    public final static String storeServerUrl = serverUrlAL + "store/";//
-    public final static String storeServerUrl = serverUrlBD + ":7803/";
+    public final static String storeServerUrl = serverUrlAL + "store/";//
+//    public final static String storeServerUrl = serverUrlBD + ":7803/";
+
+    //    public final static String placeServerUrl = serverUrlAL + "place/";//
+    public final static String placeServerUrl = serverUrlBD + ":7809/";
 //
 //    public final static String playerServerUrl = serverUrlAL + "player/";
 //

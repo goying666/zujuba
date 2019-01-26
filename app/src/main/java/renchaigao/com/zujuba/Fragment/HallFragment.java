@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,6 +39,8 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -49,20 +52,27 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.BufferedSink;
 import renchaigao.com.zujuba.Activity.Center.CreateStoreActivity;
 import renchaigao.com.zujuba.Activity.Center.JoinUsActivity;
 import renchaigao.com.zujuba.Activity.MainActivity;
 import renchaigao.com.zujuba.Activity.Normal.AdvertisingActivity;
+import renchaigao.com.zujuba.Activity.Normal.LoginActivity;
 import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.OkHttpUtil;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -70,51 +80,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static renchaigao.com.zujuba.util.OkhttpFunc.createSSLSocketFactory;
 
-public class HallFragment extends Fragment implements OnBannerListener {
+public class HallFragment extends BaseFragment implements OnBannerListener {
 
 
     private OnFragmentInteractionListener mListener;
 
     public Activity mContext;
-//
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.mContext = activity;
     }
 
-    public HallFragment() {
-//        this.mContext = getActivity();
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HallFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HallFragment newInstance(String param1, String param2) {
-        HallFragment fragment = new HallFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initData();  }
+    }
 
     private UserInfo userInfo;
-
-    private void initData() {
-        userInfo = DataUtil.GetUserInfoData(mContext);
-
-    }
 
     final private String TAG = "HallFragment";
     private Banner banner;
@@ -122,40 +106,43 @@ public class HallFragment extends Fragment implements OnBannerListener {
     private ArrayList<String> list_title;
     private Button button_joinUs, button_business;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Toolbar toolbar;
     private FloatingActionButton floatingActionButton;
     private HallFragmentAdapter hallFragmentAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
 
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+//        View rootView = inflater.inflate(
+//                R.layout.fragment_hall, container, false);
+////        InitRxJavaAndRetrofit();
+////        reloadAdapter();
+//        return rootView;
+//    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View rootView = inflater.inflate(
-                R.layout.fragment_hall, container, false);
+    protected void InitView(View rootView) {
+        userInfo = DataUtil.GetUserInfoData(mContext);
         setSwipeRefresh(rootView);
         setRecyclerView(rootView);
         setFloatingActionButton(rootView);
         setBanner(rootView);
         setButton(rootView);
-//        InitRxJavaAndRetrofit();
-//        reloadAdapter();
-        return rootView;
     }
 
-    ApiService apiService;
+    @Override
+    protected void InitData(View rootView) {
 
-    private void InitRxJavaAndRetrofit() {
-//        OkHttpUtil okHttpUtil = new OkHttpUtil();
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(OkHttpUtil.builder.build())
-//                .client(okHttpUtil.getBuilder().build())
-                .baseUrl(PropertiesConfig.storeServerUrl)
-                //设置数据解析器
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        apiService = retrofit.create(ApiService.class);
+    }
+
+    @Override
+    protected void InitOther(View rootView) {
+        reloadAdapter();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_hall;
     }
 
     private void setSwipeRefresh(View view) {
@@ -163,10 +150,11 @@ public class HallFragment extends Fragment implements OnBannerListener {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                reloadAdapter();
+                reloadAdapter();
             }
         });
     }
+
     private void setRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.hall_recyclerView);
         layoutManager = new LinearLayoutManager(mContext);
@@ -177,6 +165,7 @@ public class HallFragment extends Fragment implements OnBannerListener {
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
+
     private void setFloatingActionButton(View view) {
         floatingActionButton = view.findViewById(R.id.hall_float_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -243,7 +232,6 @@ public class HallFragment extends Fragment implements OnBannerListener {
                 .start();
     }
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -251,6 +239,7 @@ public class HallFragment extends Fragment implements OnBannerListener {
 
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -265,18 +254,38 @@ public class HallFragment extends Fragment implements OnBannerListener {
 //        reloadAdapter();
     }
 
-    @SuppressLint("StaticFieldLeak")
+    //    private RequestBody toRequestBody(String value) {
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), value);
+//        return requestBody;
+//    }
     public void reloadAdapter() {
-        apiService.UserServicePost("get","storeinfo",userInfo.getId(),  "null",
-                JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
+        Map<String, RequestBody> map = new HashMap<>();
+//        RequestBody multiBody = RequestBody.create(MediaType.parse("multipart/form-data"), "json");
+////                new MultipartBody.Builder()
+////                .setType(MultipartBody.FORM)
+////                .addFormDataPart("json", "")
+////                .build();
+        RequestBody multiBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("json", "")
+                .build();
+        MultipartBody.Part.createFormData("json","aaa");
+        map.put("plateNo", multiBody);
+
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                .PlaceServicePost("store",
+                        "getnear",
+                        "null",
+                        "null",
+//                        new MultipartBody.Builder()
+//                                .setType(MultipartBody.MIXED)
+//                                .addFormDataPart("json", "")
+//                                .build())
+                        MultipartBody.Part.createFormData("json","aaa"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.e(TAG, "onSubscribe:");
-                    }
-
+                .subscribeWith(new BaseObserver<ResponseEntity>(mContext) {
                     @Override
                     public void onNext(ResponseEntity value) {
                         try {
@@ -302,18 +311,30 @@ public class HallFragment extends Fragment implements OnBannerListener {
                         } catch (Exception e) {
                             Log.e(TAG, e.toString());
                         }
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseEntity responseEntity) {
+
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError:");
+                        super.onError(e);
+                        swipeRefreshLayout.setRefreshing(false);
+                        Log.e(TAG, "onError");
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.e(TAG, "onComplete:");
+                        swipeRefreshLayout.setRefreshing(false);
+                        Log.e(TAG, "onComplete");
                     }
-                });
+                }));
+
+
 //        new AsyncTask<Void, Void, Void>() {
 //            @Override
 //            protected void onPreExecute() {
