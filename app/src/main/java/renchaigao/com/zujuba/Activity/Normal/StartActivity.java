@@ -150,10 +150,10 @@ public class StartActivity extends BaseActivity {
 //                bindService(bindIntent, connection, BIND_ABOVE_CLIENT);
 
 
-                for (int i=0;i<10;i++){
-
-                    RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
-                }
+//                for (int i=0;i<10;i++){
+//
+//                    RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
+//                }
 
 
                 JSONObject jsonObject = new JSONObject();

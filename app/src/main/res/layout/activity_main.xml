@@ -1,92 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="renchaigao.com.zujuba.Activity.MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/main_appbar"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/a_main_toolbar_constraintlayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="?attr/actionBarSize">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/main_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <ImageView
+                android:id="@+id/a_main_toolbar_location_image"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/location_address"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/a_main_toolbar_location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="深圳市"
+                app:layout_constraintBottom_toBottomOf="@+id/a_main_toolbar_location_image"
+                app:layout_constraintStart_toEndOf="@+id/a_main_toolbar_location_image" />
 
-                    <android.support.v7.widget.SearchView
-                        android:id="@+id/main_searchView"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:autofillHints="队伍名、好友名、房号"
-                        android:background="@drawable/search_drawable"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintCircleRadius="10dp"
-                        app:layout_constraintEnd_toStartOf="@+id/main__user_icon"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <android.support.v7.widget.SearchView
+                android:id="@+id/main_searchView"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:autofillHints="队伍名、好友名、房号"
+                android:background="@drawable/search_drawable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintCircleRadius="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/a_main_toolbar_usericon"
+                app:layout_constraintStart_toEndOf="@+id/a_main_toolbar_location_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/main__user_icon"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="8dp"
-                        android:src="@drawable/user"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </android.support.constraint.ConstraintLayout>
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+            <ImageView
+                android:id="@+id/a_main_toolbar_usericon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/buy_store"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
         <renchaigao.com.zujuba.widgets.CustomViewPager
             android:id="@+id/main_customView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/main_bootomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground"
             android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
             app:menu="@menu/navigation" />
     </LinearLayout>
+</android.support.constraint.ConstraintLayout>
+<!--<android.support.v4.widget.DrawerLayout -->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/main_drawerLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context="renchaigao.com.zujuba.Activity.MainActivity">-->
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/main_navigationView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:theme="@style/ItemHeight"
-        app:menu="@menu/left_page_menu"/>
-</android.support.v4.widget.DrawerLayout>
+   <!---->
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:id="@+id/main_appbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:layout_marginEnd="0dp"-->
+            <!--android:layout_marginStart="0dp"-->
+            <!--android:layout_marginTop="0dp"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent">-->
+
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:id="@+id/main_toolbar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--android:background="?attr/colorPrimary"-->
+                <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+                <!--app:layout_scrollFlags="scroll|enterAlways|snap"-->
+                <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light">-->
+
+                <!--<android.support.constraint.ConstraintLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<android.support.v7.widget.SearchView-->
+                        <!--android:id="@+id/main_searchView"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="35dp"-->
+                        <!--android:layout_marginBottom="8dp"-->
+                        <!--android:layout_marginEnd="8dp"-->
+                        <!--android:layout_marginStart="8dp"-->
+                        <!--android:layout_marginTop="8dp"-->
+                        <!--android:autofillHints="队伍名、好友名、房号"-->
+                        <!--android:background="@drawable/search_drawable"-->
+                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--app:layout_constraintCircleRadius="10dp"-->
+                        <!--app:layout_constraintEnd_toStartOf="@+id/main__user_icon"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"-->
+                        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/main__user_icon"-->
+                        <!--android:layout_width="35dp"-->
+                        <!--android:layout_height="35dp"-->
+                        <!--android:layout_marginBottom="8dp"-->
+                        <!--android:layout_marginEnd="16dp"-->
+                        <!--android:layout_marginTop="8dp"-->
+                        <!--android:src="@drawable/user"-->
+                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--app:layout_constraintTop_toTopOf="parent" />-->
+                <!--</android.support.constraint.ConstraintLayout>-->
+            <!--</android.support.v7.widget.Toolbar>-->
+        <!--</android.support.design.widget.AppBarLayout>-->
+
+        <!--<renchaigao.com.zujuba.widgets.CustomViewPager-->
+            <!--android:id="@+id/main_customView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1" />-->
+
+        <!--<android.support.design.widget.BottomNavigationView-->
+            <!--android:id="@+id/main_bootomNavigationView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="?android:attr/windowBackground"-->
+            <!--app:menu="@menu/navigation" />-->
+    <!--</LinearLayout>-->
+
+    <!--<android.support.design.widget.NavigationView-->
+        <!--android:id="@+id/main_navigationView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--app:menu="@menu/left_page_menu"-->
+        <!--app:theme="@style/ItemHeight" />-->
+<!--</android.support.v4.widget.DrawerLayout>-->

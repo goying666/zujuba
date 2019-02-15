@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity.Center;
+package renchaigao.com.zujuba.Activity.Place;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -17,7 +16,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
@@ -38,6 +36,8 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.dao.Address;
 import com.renchaigao.zujuba.dao.User;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.BusinessTimeInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.StoreBusinessInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
@@ -46,10 +46,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import normal.UUIDUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -58,6 +62,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.GaoDeMapActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -68,8 +73,11 @@ import renchaigao.com.zujuba.util.PatternUtil;
 import renchaigao.com.zujuba.util.PictureRAR;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.dateUse;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
-public class CreateStoreActivity extends AppCompatActivity {
+public class CreateStoreActivity extends BaseActivity {
 
     private String TAG = "This is CreateStoreActivity ";
     private TextView business_join_introduce_addres_name, business_join_introduce_time_textView_number, business_join_introduce_time_textView_title_note;
@@ -122,7 +130,7 @@ public class CreateStoreActivity extends AppCompatActivity {
     private Uri imageUri;
 
     private StoreInfo storeInfo = new StoreInfo();
-    private User saveUser;
+    private User user;
 
     private BusinessTimeInfo
             businessTimeInfo_1 = new BusinessTimeInfo(),
@@ -131,16 +139,29 @@ public class CreateStoreActivity extends AppCompatActivity {
             businessTimeInfo_4 = new BusinessTimeInfo();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_business);
+    protected void InitView() {
         setToolBar();
         initView();
+    }
+
+    @Override
+    protected void InitData() {
+
+    }
+
+    @Override
+    protected void InitOther() {
         initBasicPart();
         initExtraPart();
         initPhotoPart();
         initFinishPart();
         setLinearLayoutVisibile(1);
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_business;
     }
 
     private void setToolBar() {
@@ -151,7 +172,7 @@ public class CreateStoreActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        saveUser = DataUtil.GetUserData(CreateStoreActivity.this);
+        user = DataUtil.GetUserData(CreateStoreActivity.this);
         builder = new AlertDialog.Builder(this);
         business_join_introduce_button_next = findViewById(R.id.business_join_introduce_button_next);
         business_join_NestedScrollView = findViewById(R.id.business_join_NestedScrollView);
@@ -654,7 +675,7 @@ public class CreateStoreActivity extends AppCompatActivity {
         builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                sendStoresAddInfo();
+                reloadAdapter();
                 Toast.makeText(CreateStoreActivity.this, "你点击了确定发送", Toast.LENGTH_LONG).show();
             }
         });
@@ -748,8 +769,11 @@ public class CreateStoreActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             String str = (String) msg.obj;
             Toast.makeText(CreateStoreActivity.this, str, Toast.LENGTH_SHORT).show();
-        };
+        }
+
+        ;
     };
+
     private void sendStoresAddInfo() {
         /*进度条后续优化*/
         progDialog.show();
@@ -792,9 +816,10 @@ public class CreateStoreActivity extends AppCompatActivity {
                 RequestBody fileBodyPhoto6 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo6);
                 RequestBody fileBodyPhoto7 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo7);
 
-                storeInfo.setOwnerId(saveUser.getId());
+                storeInfo.setOwnerId(user.getId());
                 storeInfo.setId(UUIDUtil.getUUID());
                 storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
+
                 String storeInfoString = JSONObject.toJSONString(storeInfo);
                 RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, storeInfoString);
 
@@ -854,6 +879,103 @@ public class CreateStoreActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+    private void reloadAdapter() {
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
+        Map<String, RequestBody> map = new HashMap<>();
+
+        File photo1 = new File(getExternalCacheDir() + "/photo1.jpg");
+        File photo2 = new File(getExternalCacheDir() + "/photo2.jpg");
+        File photo3 = new File(getExternalCacheDir() + "/photo3.jpg");
+        File photo4 = new File(getExternalCacheDir() + "/photo4.jpg");
+        File photo5 = new File(getExternalCacheDir() + "/photo5.jpg");
+        File photo6 = new File(getExternalCacheDir() + "/photo6.jpg");
+        File photo7 = new File(getExternalCacheDir() + "/photo7.jpg");
+        PictureRAR.qualityCompress(getExternalCacheDir() + "/photo1.jpg", photo1);
+        PictureRAR.qualityCompress(getExternalCacheDir() + "/photo2.jpg", photo2);
+        PictureRAR.qualityCompress(getExternalCacheDir() + "/photo3.jpg", photo3);
+        PictureRAR.qualityCompress(getExternalCacheDir() + "/photo4.jpg", photo4);
+        PictureRAR.qualityCompress(getExternalCacheDir() + "/photo5.jpg", photo5);
+        PictureRAR.qualityCompress(getExternalCacheDir() + "/photo6.jpg", photo6);
+        PictureRAR.qualityCompress(getExternalCacheDir() + "/photo7.jpg", photo7);
+
+        RequestBody fileBodyPhoto1 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo1);
+        RequestBody fileBodyPhoto2 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo2);
+        RequestBody fileBodyPhoto3 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo3);
+        RequestBody fileBodyPhoto4 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo4);
+        RequestBody fileBodyPhoto5 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo5);
+        RequestBody fileBodyPhoto6 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo6);
+        RequestBody fileBodyPhoto7 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo7);
+        storeInfo.setOwnerId(user.getId());
+        storeInfo.setId(UUIDUtil.getUUID());
+        storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
+        storeInfo.setMaxDeskSum(1);
+        String storeInfoString = JSONObject.toJSONString(storeInfo);
+//        String storeInfoString = "{\"addressInfo\":{\"city\":\"北京市\",\"citycode\":\"010\",\"district\":\"西城区\",\"evaluationValue\":0.0,\"formatAddress\":\"北京市西城区什刹海街道景山公园\",\"id\":\"05d1d745497c48bcbec11a4724460067\",\"latitude\":39.92421106207774,\"longitude\":116.39786327434548,\"neighborhood\":\"景山公园\",\"province\":\"北京市\",\"towncode\":\"110102012000\",\"township\":\"什刹海街道\"},\"contact\":\"高先生\",\"id\":\"7b63f7dd41d445f29eea628315fee1d3\",\"maxPeopleSum\":63,\"name\":\"店铺测试\",\"ownerId\":\"6188dd9cffc64e2f9b76698be9a51d97\",\"placeinfo\":\"无备注\",\"storeBusinessInfo\":{\"allDateSum\":0,\"allFrameSum\":3,\"allMoneySum\":0,\"allTimeSum\":0,\"businessTimeInfos\":[{\"deleteStyle\":false,\"endTime\":\"12:00\",\"id\":\"45b9393bcf1a4f3ba67278ce4cee91c7\",\"startTime\":\"9:00\",\"timeFrame\":\"MOR\",\"upTime\":\"2019-02-13 18:35:59\"},{\"deleteStyle\":false,\"endTime\":\"17:00\",\"id\":\"80a52f8d845e456c973b36d90004b2a7\",\"startTime\":\"13:00\",\"timeFrame\":\"AFT\",\"upTime\":\"2019-02-13 18:36:00\"},{\"deleteStyle\":false,\"endTime\":\"21:00\",\"id\":\"e4ca01cbf32e4016a705846ea1efaa18\",\"startTime\":\"18:00\",\"timeFrame\":\"NON\",\"upTime\":\"2019-02-13 18:36:00\"},{\"deleteStyle\":false,\"id\":\"0226e97d2603478c851cf0fade10e4bc\",\"upTime\":\"2019-02-13 18:35:42\"}],\"deleteStyle\":false,\"id\":\"4c8a69f3ccea4eeb9bf15d94e357e776\",\"upTime\":\"2019年2月13日 下午6:37:04\"},\"storeEquipmentInfo\":{\"deleteStyle\":false,\"id\":\"437c8bcbfe5a47d5a4842b1e431448ef\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeEvaluationInfo\":{\"deleteStyle\":false,\"id\":\"1fc01175556f49e7b94295f60e683cd5\",\"storeAllEvaluationsNum\":0,\"storeScore\":0,\"upTime\":\"2019-02-13 18:35:42\"},\"storeHardwareInfo\":{\"deleteStyle\":false,\"existAir\":true,\"existFan\":false,\"existHeat\":true,\"existRoom\":false,\"existToilet\":false,\"existWifi\":true,\"id\":\"5348c83c2f2c402680568231b0651087\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeIntegrationInfo\":{\"activity\":0,\"allInter\":0,\"credit\":0,\"deleteStyle\":false,\"game\":0,\"id\":\"14e4c05ad04c458fb7bb2f3755c7330e\",\"instruction\":\"\",\"service\":0,\"startNum\":1,\"team\":0,\"upTime\":\"2019-02-13 18:35:42\",\"vitality\":0},\"storePackageInfo\":{\"deleteStyle\":false,\"id\":\"cbb34f0e0ba24bceaa9b50a8d8f5fbd3\",\"upTime\":\"2019-02-13 18:35:42\"},\"storePhotoInfo\":{\"deleteStyle\":false,\"id\":\"0aa85eeb043c4001ad26bd8863c7e5b5\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeRankInfo\":{\"cityIntegralRank\":0,\"countryIntegralRank\":0,\"deleteStyle\":false,\"id\":\"177cf33500f8437d9968df0571bdd90b\",\"integral\":0,\"provinceIntegralRank\":0,\"upTime\":\"2019-02-13 18:35:42\"},\"storeShoppingInfo\":{\"allSMoney\":0,\"allZMoney\":0,\"averageSpend\":0,\"deleteStyle\":false,\"id\":\"66ce1078807048458de3dbe64408a761\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeTeamInfo\":{\"allTeamsTimes\":0,\"allUsersNum\":0,\"deleteStyle\":false,\"id\":\"93932ec2d67a4b1b94c6d26c74221053\",\"todayDesk\":0,\"todayPeople\":0,\"upTime\":\"2019-02-13 18:35:42\"},\"storeclass\":\"0\",\"telephonenum\":\"13040837899\"}";
+
+        RequestBody multiBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("json", storeInfoString)
+                .addFormDataPart("photo", photo1.getName(), fileBodyPhoto1)
+                .addFormDataPart("photo", photo2.getName(), fileBodyPhoto2)
+                .addFormDataPart("photo", photo3.getName(), fileBodyPhoto3)
+                .addFormDataPart("photo", photo4.getName(), fileBodyPhoto4)
+                .addFormDataPart("photo", photo5.getName(), fileBodyPhoto5)
+                .addFormDataPart("photo", photo6.getName(), fileBodyPhoto6)
+                .addFormDataPart("photo", photo7.getName(), fileBodyPhoto7)
+                .build();
+
+//        MultipartBody.Part.createFormData("json","aaa");
+        map.put("plateNo", multiBody);
+
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                .PlaceServicePost("store",
+                        "join",
+                        user.getId(),
+                        storeInfo.getId(),
+//                        new MultipartBody.Builder()
+//                                .setType(MultipartBody.MIXED)
+//                                .addFormDataPart("json", "")
+//                                .build())
+//                        (MultipartBody) multiBody)
+                       multiBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new BaseObserver<ResponseEntity>(CreateStoreActivity.this) {
+                    @Override
+                    public void onNext(ResponseEntity value) {
+                        try {
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+                            int code = Integer.valueOf(responseJson.get("code").toString());
+                            switch (code) {
+                                case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+                                    finish();
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseEntity responseEntity) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.e(TAG, "onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete");
+                    }
+                }));
+    }
+
+
 
     public void dismissDialog() {
         Log.e(TAG, "dismissDialog");
@@ -1099,7 +1221,9 @@ public class CreateStoreActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
     }
+
     long time = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 

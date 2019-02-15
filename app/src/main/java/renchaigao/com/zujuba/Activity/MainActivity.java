@@ -4,12 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -24,7 +22,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -36,6 +33,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.dao.User;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.AddressInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
@@ -47,17 +46,21 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import renchaigao.com.zujuba.Activity.Normal.AdvertisingActivity;
 import renchaigao.com.zujuba.Activity.User.UserActivity;
+import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.Fragment.GameFragment;
 import renchaigao.com.zujuba.Fragment.HallFragment;
 import renchaigao.com.zujuba.Fragment.MessageFragment;
-import renchaigao.com.zujuba.Fragment.ShopFragment;
+import renchaigao.com.zujuba.Fragment.MineFragment;
 import renchaigao.com.zujuba.Fragment.TeamFragment;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.BottomNavigationViewHelper;
@@ -65,9 +68,12 @@ import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.FinalDefine;
 import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.CustomViewPager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     protected static String TAG = "MainActivity";
     private NavigationView navigationView;
@@ -80,34 +86,68 @@ public class MainActivity extends AppCompatActivity {
     private UserInfo userInfo;
     private String userPlace;
 
-    private ConstraintLayout header_layout;
+    private ConstraintLayout header_layout,a_main_toolbar_constraintlayout;
 
-    private ImageView main__user_icon;
+    private ImageView a_main_toolbar_usericon;
+    private TextView a_main_toolbar_location_text;
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+////        SharedPreferences pref = getSharedPreferences("userData", MODE_PRIVATE);
+////        initData();
+////        Log.e(TAG, pref.getString("token", "fail find"));
+////        drawerLayout = findViewById(R.id.main_drawerLayout);
+////        setNavigationView();
+////        setLocationPart();
+//
+////        getLocation();
+//    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        SharedPreferences pref = getSharedPreferences("userData", MODE_PRIVATE);
-        initData();
-        Log.e(TAG, pref.getString("token", "fail find"));
-//        Permission.selfPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION, getApplicationContext())){
-//            ActivityCompat.requestPermissions(this,
-//                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-//                    1);
-//                    /*Constant.LOCATION_STATE 为自己定义的一个常量，为权限弹窗回调时使用*/
-//        }
-        drawerLayout = findViewById(R.id.main_drawerLayout);
+    protected void InitView() {
+        a_main_toolbar_location_text = findViewById(R.id.a_main_toolbar_location_text);
+        a_main_toolbar_usericon = findViewById(R.id.a_main_toolbar_usericon);
         customViewPager = findViewById(R.id.main_customView);
         bottomNavigationView = findViewById(R.id.main_bootomNavigationView);
+        a_main_toolbar_constraintlayout = findViewById(R.id.a_main_toolbar_constraintlayout);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-        setNavigationView();
+    }
+
+    @Override
+    protected void InitData() {
+        userInfo = DataUtil.GetUserInfoData(MainActivity.this);
+        user = DataUtil.GetUserData(MainActivity.this);
+    }
+
+    @Override
+    protected void InitOther() {
         setToolBar();
         setViewPager();
         setUpDrawer();
-        setLocationPart();
+        a_main_toolbar_location_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-//        getLocation();
+                Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
+                intent.putExtra("whereCome", "MainActivity");
+                startActivityForResult(intent, MAIN_ADDRESS);
+
+            }
+        });
+        a_main_toolbar_usericon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
@@ -123,8 +163,6 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initData() {
-        userInfo = DataUtil.GetUserInfoData(MainActivity.this);
-        user = DataUtil.GetUserData(MainActivity.this);
     }
 
     @Override
@@ -133,9 +171,10 @@ public class MainActivity extends AppCompatActivity {
             case MAIN_ADDRESS://是地图api返回的；
                 AddressInfo addressUse = JSONObject.parseObject(data.getStringExtra("addressStoreJsonStr"), AddressInfo.class);
                 userInfo.setAddressInfo(addressUse);
-                user = userInfo;
-                DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(userInfo));
-                DataUtil.saveUserData(MainActivity.this, user);
+                userInfo.getAddressInfo().setSelectCityCode(addressUse.getCitycode());
+//                user = userInfo;
+//                DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(userInfo));
+//                DataUtil.saveUserData(MainActivity.this, user);
                 sendAddressToService();
                 //系统需要同步更新一次用户的位置信息；
 //                userPlace = addressUse.getFormatAddress();
@@ -147,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setLocationPart() {
         builder = new AlertDialog.Builder(this);
-        builder.setTitle("当前默认位置为“深圳”");
-        builder.setMessage("是否实际定位(获取所在地的真实市场信息)");
+        builder.setTitle("当前默认深圳为“深圳”");
+        builder.setMessage("是否进行切换");
         builder.setNegativeButton("否", null);
         builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
@@ -203,27 +242,27 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout nva_1;
 
-    private void setNavigationView() {
-        navigationView = findViewById(R.id.main_navigationView);
-
-        View headview = navigationView.inflateHeaderView(R.layout.left_page_layout);
-//        Menu  menu =navigationView.getMenu();
-//        MenuItem menuItem = menu.findItem(R.id.nav_person);
-//        View actionView = menuItem.getActionView();
-//        nva_1 = (LinearLayout)actionView;
-        nva_1 = (LinearLayout) navigationView.getMenu().findItem(R.id.nav_person).getActionView();
-        TextView textView = (TextView) nva_1.findViewById(R.id.menu_use_text);
-        textView.setText("1");
-
-        header_layout = headview.findViewById(R.id.navigation_header_layout);
-        header_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
+//    private void setNavigationView() {
+////        navigationView = findViewById(R.id.main_navigationView);
+//
+//        View headview = navigationView.inflateHeaderView(R.layout.left_page_layout);
+////        Menu  menu =navigationView.getMenu();
+////        MenuItem menuItem = menu.findItem(R.id.nav_person);
+////        View actionView = menuItem.getActionView();
+////        nva_1 = (LinearLayout)actionView;
+//        nva_1 = (LinearLayout) navigationView.getMenu().findItem(R.id.nav_person).getActionView();
+//        TextView textView = (TextView) nva_1.findViewById(R.id.menu_use_text);
+//        textView.setText("1");
+//
+//        header_layout = headview.findViewById(R.id.navigation_header_layout);
+//        header_layout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
 
     private void updateSystemData() {
         updateUserData();
@@ -271,17 +310,29 @@ public class MainActivity extends AppCompatActivity {
         final HallFragment hallFragment = new HallFragment();
         final GameFragment gameFragment = new GameFragment();
         final MessageFragment messageFragment = new MessageFragment();
-        final ShopFragment shopFragment = new ShopFragment();
+        final MineFragment mineFragment = new MineFragment();
         final TeamFragment teamFragment = new TeamFragment();
         CustomViewPagerAdapter customViewPagerAdapter = new CustomViewPagerAdapter(getSupportFragmentManager());
         customViewPagerAdapter.addFragment(messageFragment);
         customViewPagerAdapter.addFragment(teamFragment);
         customViewPagerAdapter.addFragment(hallFragment);
         customViewPagerAdapter.addFragment(gameFragment);
-        customViewPagerAdapter.addFragment(shopFragment);
+        customViewPagerAdapter.addFragment(mineFragment);
         customViewPager.setAdapter(customViewPagerAdapter);
         customViewPager.setCurrentItem(2);
         bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.navigation_message:
+//                        //在这里替换图标
+//                        item.setIcon(R.mipmap.ic_home_selected);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
         customViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -292,18 +343,28 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
+//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
+                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_message);
                         break;
                     case 1:
+                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
+//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_team);
                         break;
                     case 2:
+                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
+//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
                         break;
                     case 3:
+//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
+                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_game);
                         break;
                     case 4:
+//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
+                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_shop);
                         break;
                 }
@@ -316,9 +377,9 @@ public class MainActivity extends AppCompatActivity {
         });
         initBottomNavigationView(customViewPager);
 
-        navigationView.setFocusable(true);
+//        navigationView.setFocusable(true);
 
-        initUserImageView();
+//        initUserImageView();
 
 //        hallFragment.reloadAdapter();
     }
@@ -375,15 +436,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initUserImageView(){
-        main__user_icon = findViewById(R.id.main__user_icon);
-        main__user_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigationView.setClickable(true);
-            }
-        });
-    }
+//    private void initUserImageView(){
+//        main__user_icon = findViewById(R.id.main__user_icon);
+//        main__user_icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navigationView.setClickable(true);
+//            }
+//        });
+//    }
 
     /**
      * 双击返回桌面
@@ -408,50 +469,94 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void sendAddressToService() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String path = PropertiesConfig.userServerUrl + "info/update/address";
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
+//     private void sendAddressToService1() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                String path = PropertiesConfig.userServerUrl + "info/update/address";
+//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
+//                        .connectTimeout(15, TimeUnit.SECONDS)
+//                        .readTimeout(15, TimeUnit.SECONDS)
+//                        .writeTimeout(15, TimeUnit.SECONDS)
+//                        .retryOnConnectionFailure(true);
+//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
+//                builder.hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                });
+//                String str = JSONObject.toJSONString(userInfo);
+//                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, JSONObject.toJSONString(userInfo));
+//                final Request request = new Request.Builder()
+//                        .url(path)
+//                        .header("Content-Type", "application/json")
+//                        .post(body)
+//                        .build();
+//                builder.build().newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        Log.e(TAG, call.request().body().toString());
+//                        Message msg = new Message();
+//                        msg.obj = "发送失败，e";
+//                        // 把消息发送到主线程，在主线程里现实Toast
+//                        handler.sendMessage(msg);
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        try {
+//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
+//                            int code = Integer.valueOf(responseJson.get("code").toString());
+//                            JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
+//                            switch (code) {
+//                                case 0:
+//                                    DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(responseJsonData));
+////                                    UserInfo userTestINFO = DataUtil.GetUserInfoData(MainActivity.this);
+//
+//                                    Message msg = new Message();
+//                                    msg.obj = "地址更新成功";
+//                                    // 把消息发送到主线程，在主线程里现实Toast
+//                                    handler.sendMessage(msg);
+//                                    break;
+//                            }
+//                        } catch (Exception e) {
+//                            Log.e(TAG, e.toString());
+//                        }
+//                    }
+//                });
+//
+//            }
+//        }).start();
+//    }
+
+
+    private void sendAddressToService(){
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                .UserServicePost(
+                        "update","addressInfo" , userInfo.getId(),  "null",
+                        JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo()), JSONObject.class))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new BaseObserver<ResponseEntity>(this) {
+
                     @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                String str = JSONObject.toJSONString(userInfo);
-                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, JSONObject.toJSONString(userInfo));
-                final Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .post(body)
-                        .build();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e(TAG, call.request().body().toString());
-                        Message msg = new Message();
-                        msg.obj = "发送失败，e";
-                        // 把消息发送到主线程，在主线程里现实Toast
-                        handler.sendMessage(msg);
+                    protected void onSuccess(ResponseEntity responseEntity) {
+
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onNext(ResponseEntity value) {
                         try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
+                            JSONObject responseJsonData;
                             switch (code) {
-                                case 0:
-                                    DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(responseJsonData));
-                                    UserInfo userTestINFO = DataUtil.GetUserInfoData(MainActivity.this);
+                                case RespCodeNumber.SUCCESS://
+                                    responseJsonData = responseJson.getJSONObject("data");
+                                    String userInfoString = JSONObject.toJSONString(responseJsonData);
+                                    DataUtil.SaveUserInfoData(MainActivity.this, userInfoString);
                                     Message msg = new Message();
                                     msg.obj = "地址更新成功";
                                     // 把消息发送到主线程，在主线程里现实Toast
@@ -462,10 +567,16 @@ public class MainActivity extends AppCompatActivity {
                             Log.e(TAG, e.toString());
                         }
                     }
-                });
 
-            }
-        }).start();
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete:");
+                    }
+                }));
     }
 
 }

@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity.Center;
+package renchaigao.com.zujuba.Activity.Place;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;

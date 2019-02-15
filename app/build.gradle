@@ -83,4 +83,5 @@ dependencies {
     dependencies {
         compile files('F:\\00project\\zjb\\code\\server\\data2.0\\merge\\target\\merge-1.0-SNAPSHOT.jar')
     }
+    testCompile 'junit:junit:4.12'
 }

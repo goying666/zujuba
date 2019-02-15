@@ -87,7 +87,7 @@
             android:name=".Activity.Center.JoinUsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Center.CreateStoreActivity"
+            android:name=".Activity.Place.CreateStoreActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -104,7 +104,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Center.StoreActivity"
+            android:name=".Activity.Place.StoreActivity"
             android:label="@string/title_activity_store"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

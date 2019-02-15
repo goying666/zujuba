@@ -1,5 +1,6 @@
 package renchaigao.com.zujuba.Fragment.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -12,13 +13,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 
 import java.util.ArrayList;
 
+import renchaigao.com.zujuba.Activity.Place.StoreActivity;
 import renchaigao.com.zujuba.Activity.PlaceListActivity;
-import renchaigao.com.zujuba.Activity.Center.StoreActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.PropertiesConfig;
 
 /**
  * Created by Administrator on 2018/7/17/017.
@@ -27,14 +30,15 @@ import renchaigao.com.zujuba.R;
 public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapter.ItemHolder> {
     final static String TAG = "HallFragmentAdapter";
     private ArrayList<StoreInfo> mStore;
+    private ArrayList<JSONObject> mJsonObject;
     private Context mContext;
 
     public HallFragmentAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void updateResults(ArrayList<StoreInfo> mStore) {
-        this.mStore = mStore;
+    public void updateResults(ArrayList<JSONObject> mJsonObject) {
+        this.mJsonObject = mJsonObject;
     }
 
     @Override
@@ -44,29 +48,58 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
     }
 
     /*界面和数据关联部分*/
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ItemHolder holder, final int position) {
-        StoreInfo store = mStore.get(position);
+        JSONObject store = mJsonObject.get(position);
+//        StoreInfo store = mStore.get(position);
         String str = JSONObject.toJSONString(store);
-        holder.place_star_num.setNumStars(store.getStoreIntegrationInfo().getStartNum());
-        holder.store_cardview_name.setText(store.getName());
-        holder.store_cardview_place.setText(store.getAddressInfo().getFormatAddress());
+
+        Glide.with(mContext)
+                .load(PropertiesConfig.photoUrl + "showimage/" + store.get("ownerid") + "/" + store.get("placeid") + "/photo2.jpg")
+//                .load(PropertiesConfig.photoUrl + "showimage/" + store.getOwnerId() + "/" + store.getId() + "/photo2.jpg")
+                .dontAnimate()
+                .skipMemoryCache(false)
+//                .load("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg")
+                .into(holder.store_image);
+
+//        holder.place_star_num.setNumStars(store.getStoreIntegrationInfo().getStartNum());
+
+//        1组装店铺名字
+        holder.store_cardview_name.setText(store.get("name").toString());
+//        2组装店铺状态
+        holder.store_cardview_style.setText(store.get("state").toString());
+//        3组装店铺评分
+        holder.store_score.setText(store.get("score").toString());
+//        4组装店铺多少人玩过
+        holder.c_store_allpeoplenum.setText(store.get("allpeoplenum").toString());
+//        5组装店铺人均消费
+        holder.store_spend.setText(store.get("spend").toString());
+//        6组装店铺桌数
+        holder.store_desk_info.setText(store.get("desknum").toString());
+//        7组装店铺人数
+        holder.store_people_info.setText(store.get("todaypeople").toString());
+//        8组装店铺距离
+        holder.store_place_howlong.setText(store.get("distance").toString());
+//        9组装店铺时段
+        holder.store_start_time.setText(store.get("time").toString());
+//        10组装店铺排名、等荣誉
+        holder.store_store_rank.setText(store.get("class").toString());
+//        11组装店铺备注
+        holder.store_tips.setText(store.get("note").toString());
+//        12组装店铺评论1
+        holder.store_user_evaluate_1.setText(store.get("evaluate_1").toString());
+//        13组装店铺评论2
+        holder.store_user_evaluate_2.setText(store.get("evaluate_2").toString());
+
+
+//        holder.store_cardview_place.setText(store.getAddressInfo().getFormatAddress());
 
 //        holder.store_image.setImageResource(R.drawable.boy);
 
-        holder.store_desk_info.setText(store.getStoreTeamInfo().getTodayDesk()+"/"+store.getMaxDeskSum());
-        holder.store_people_info.setText(store.getStoreTeamInfo().getTodayPeople()+"/"+store.getMaxPeopleSum());
 //        holder.store_team_info.setText(store.get);
-//        holder.store_user_evaluate_1.setText(store.getStoreEvaluationInfo().getStoreScore());
-//        holder.store_user_evaluate_2.setText();
 //        holder.store_user_evaluate_3.setText();
-        holder.store_cardview_style.setText(store.getState());
-        holder.store_place_howlong.setText(store.getAddressInfo().getDistance().toString()+"米");
-//        holder.store_start_time.setText(store.getWorkingtimeid().toString());
-        holder.store_store_rank.setText(store.getStoreRankInfo().getCityIntegralRank().toString());
-        holder.store_tips.setText(store.getTipsinfo());
-        holder.store_score.setText(store.getStoreEvaluationInfo().getStoreScore().toString());
-        holder.store_spend.setText(store.getStoreShoppingInfo().getAverageSpend().toString());
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,33 +142,32 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
         private RatingBar place_star_num;
         private TextView store_desk_info, store_people_info, store_team_info, store_user_evaluate_1,
                 store_user_evaluate_2, store_user_evaluate_3, store_cardview_name, store_cardview_style,
-                store_cardview_place, store_place_howlong, store_start_time, store_store_rank, store_tips, store_score, store_spend;
+                store_cardview_place, store_place_howlong, store_start_time, store_store_rank, store_tips, store_score, store_spend, c_store_allpeoplenum;
 
         public ItemHolder(View view) {
             super(view);
             this.thisView = view;
-            this.cardView =(CardView) view;
-            this.store_cardview_place_icon = view.findViewById(R.id.store_cardview_place_icon);
+            this.cardView = (CardView) view;
             this.store_time_icon = view.findViewById(R.id.store_time_icon);
             this.store_image = view.findViewById(R.id.store_image);
             this.store_boy_icon = view.findViewById(R.id.store_boy_icon);
             this.store_girl_icon = view.findViewById(R.id.store_girl_icon);
-            this.place_star_num = view.findViewById(R.id.place_star_num);
+//            this.place_star_num = view.findViewById(R.id.place_star_num);
             this.store_desk_info = view.findViewById(R.id.store_desk_info);
             this.store_people_info = view.findViewById(R.id.store_people_info);
-            this.store_team_info = view.findViewById(R.id.store_team_info);
             this.store_user_evaluate_1 = view.findViewById(R.id.store_user_evaluate_1);
             this.store_user_evaluate_2 = view.findViewById(R.id.store_user_evaluate_2);
             this.store_user_evaluate_3 = view.findViewById(R.id.store_user_evaluate_3);
             this.store_cardview_name = view.findViewById(R.id.store_cardview_name);
             this.store_cardview_style = view.findViewById(R.id.store_cardview_style);
-            this.store_cardview_place = view.findViewById(R.id.store_cardview_place);
             this.store_place_howlong = view.findViewById(R.id.store_place_howlong);
             this.store_start_time = view.findViewById(R.id.store_start_time);
             this.store_store_rank = view.findViewById(R.id.store_store_rank);
             this.store_tips = view.findViewById(R.id.store_tips);
             this.store_score = view.findViewById(R.id.store_score);
             this.store_spend = view.findViewById(R.id.store_spend);
+            this.c_store_allpeoplenum = view.findViewById(R.id.c_store_allpeoplenum);
+
 //            cardView = (CardView) itemView;
         }
     }

@@ -19,8 +19,8 @@
             android:layout_height="@dimen/icon_size_height"
             android:layout_marginTop="16dp"
             android:src="@drawable/card_hall_store_desk"
-            app:layout_constraintStart_toStartOf="@+id/store_cardview_place_icon"
-            app:layout_constraintTop_toBottomOf="@+id/store_cardview_place_icon" />
+            app:layout_constraintStart_toStartOf="@+id/store_score"
+            app:layout_constraintTop_toBottomOf="@+id/store_score" />
 
 
         <TextView
@@ -59,19 +59,9 @@
             app:layout_constraintTop_toTopOf="@+id/store_girl_icon"
             app:layout_constraintVertical_bias="0.888" />
 
-        <TextView
-            android:id="@+id/store_team_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="0dp"
-            android:text="差1人"
-            android:textSize="@dimen/md_text_size_caption"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/store_people_info" />
-
         <ImageView
             android:id="@+id/store_image"
+            android:scaleType="fitXY"
             android:layout_width="@dimen/image_size_width"
             android:layout_height="@dimen/image_size_height"
             android:layout_marginStart="16dp"
@@ -94,11 +84,11 @@
             android:id="@+id/store_user_evaluate_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:text="‘环境好’"
             android:textSize="@dimen/md_text_size_caption"
-            app:layout_constraintStart_toEndOf="@+id/store_user_evaluate_3"
+            app:layout_constraintStart_toEndOf="@+id/store_user_evaluate_1"
             app:layout_constraintTop_toBottomOf="@+id/store_user_evaluate_1" />
 
         <TextView
@@ -118,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="6月29日生日派对聚会"
+            android:text="明记原味汤粉王"
             android:textSize="@dimen/md_text_size_body"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/store_image"
@@ -134,35 +124,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/store_cardview_name" />
 
-        <ImageView
-            android:id="@+id/store_cardview_place_icon"
-            android:layout_width="@dimen/md_horizontal_right_icon"
-            android:layout_height="@dimen/md_horizontal_right_icon"
-            android:layout_marginTop="36dp"
-            android:src="@drawable/location_address"
-            app:layout_constraintStart_toStartOf="@+id/store_cardview_name"
-            app:layout_constraintTop_toBottomOf="@+id/store_cardview_name" />
-
-        <TextView
-            android:id="@+id/store_cardview_place"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:maxWidth="150dp"
-            android:text="地址、商店名称"
-            android:textSize="@dimen/md_text_size_caption"
-            app:layout_constraintStart_toEndOf="@+id/store_cardview_place_icon"
-            app:layout_constraintTop_toTopOf="@+id/store_cardview_place_icon" />
-
         <TextView
             android:id="@+id/store_place_howlong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:text="1125m"
             android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="@+id/store_people_info"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/store_cardview_place" />
+            app:layout_constraintTop_toTopOf="@+id/store_people_info"
+            app:layout_constraintVertical_bias="1.0" />
 
 
         <ImageView
@@ -194,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="0dp"
-            android:text="市第12名"
+            android:text="深圳市第12名"
             android:textSize="@dimen/md_text_size_caption"
             app:layout_constraintBottom_toBottomOf="@+id/store_start_time"
             app:layout_constraintEnd_toEndOf="parent"
@@ -210,44 +183,45 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="16dp"
             android:maxLines="3"
-            android:text="本店入驻组局吧，希望通过我们的努力，将我市的桌游文化发扬起来。"
+            android:text="本店已入驻组局吧，希望通过我们的努力，将我市的桌游文化发展起来。"
             android:textSize="@dimen/md_text_size_caption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/store_time_icon"
             app:layout_constraintTop_toBottomOf="@+id/store_time_icon" />
 
-        <RatingBar
-            android:id="@+id/place_star_num"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:isIndicator="true"
-            android:rating="1"
-            app:layout_constraintStart_toStartOf="@+id/store_cardview_name"
-            app:layout_constraintTop_toBottomOf="@+id/store_cardview_name" />
-
         <TextView
             android:id="@+id/store_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="4.1分"
             android:textSize="@dimen/md_text_size_caption"
-            app:layout_constraintBottom_toBottomOf="@+id/place_star_num"
-            app:layout_constraintStart_toEndOf="@+id/place_star_num"
-            app:layout_constraintTop_toTopOf="@+id/place_star_num" />
+            app:layout_constraintStart_toStartOf="@+id/store_cardview_name"
+            app:layout_constraintTop_toBottomOf="@+id/store_cardview_name" />
 
         <TextView
             android:id="@+id/store_spend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="¥15/人*时"
+            android:text="人均:¥5/时"
             android:textSize="@dimen/md_text_size_caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/store_score" />
+
+        <TextView
+            android:id="@+id/c_store_allpeoplenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="900人玩过"
+            android:textSize="@dimen/md_text_size_caption"
+            app:layout_constraintBottom_toBottomOf="@+id/store_score"
+            app:layout_constraintStart_toEndOf="@+id/store_score"
+            app:layout_constraintTop_toTopOf="@+id/store_score"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </android.support.constraint.ConstraintLayout>

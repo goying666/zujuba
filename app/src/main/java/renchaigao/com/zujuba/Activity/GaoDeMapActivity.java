@@ -57,7 +57,7 @@ import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.dateUse;
 
-import static renchaigao.com.zujuba.Activity.Center.CreateStoreActivity.ADD_ADDRESS;
+import static renchaigao.com.zujuba.Activity.Place.CreateStoreActivity.ADD_ADDRESS;
 import static renchaigao.com.zujuba.Activity.MainActivity.MAIN_ADDRESS;
 
 public class GaoDeMapActivity extends AppCompatActivity implements LocationSource,
@@ -465,7 +465,7 @@ public class GaoDeMapActivity extends AppCompatActivity implements LocationSourc
                 Address addressRet = new Address();
                 switch (whereFlag){
                     case "MAIN_ACT":
-                        addressRet.setId(DataUtil.GetUserData(GaoDeMapActivity.this).getMyAddressId());
+                        addressRet.setId(DataUtil.GetUserData(GaoDeMapActivity.this).getId());
                         addressRet.setOwnerId(DataUtil.GetUserData(GaoDeMapActivity.this).getId());
                         addressRet.setAddressClass("user");
                         break;

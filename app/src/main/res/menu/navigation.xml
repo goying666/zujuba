@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_message"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="消息" />
+        android:enabled="true"
+        android:icon="@drawable/message_selector"
+        android:title="消息"
+        app:showAsAction="ifRoom"  />
     <item
         android:id="@+id/navigation_team"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/team_selector"
         android:title="组队" />
     <item
         android:id="@+id/navigation_dating"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="大厅" />
+        android:icon="@drawable/store_selector"
+        android:title="场地" />
     <item
         android:id="@+id/navigation_game"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/game_selector"
         android:title="游戏" />
     <item
         android:id="@+id/navigation_shop"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="商店" />
+        android:icon="@drawable/mine_selector"
+        android:title="我的" />
 
 </menu>
