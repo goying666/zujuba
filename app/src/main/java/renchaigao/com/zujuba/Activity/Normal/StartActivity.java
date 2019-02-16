@@ -468,6 +468,7 @@ public class StartActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        handler.;
     }
 
     //    @SuppressLint("StaticFieldLeak")

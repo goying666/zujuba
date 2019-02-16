@@ -8,6 +8,7 @@ import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -17,11 +18,15 @@ import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
+import renchaigao.com.zujuba.Activity.Adapter.PlaceListAdapter;
 import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.R;
@@ -35,7 +40,7 @@ import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 import static renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity.CREATE_TEAM_ADDRESS_STORE;
 
 /******     该活动用于创建Team时选择地点，展示地点list使用。    ******/
-public class PlaceListActivity extends BaseActivity {
+public class PlaceListActivity extends BaseActivity  implements CommonViewHolder.onItemCommonClickListener{
 
     final private String TAG = "PlaceListActivity";
 //    private ArrayList<StoreInfo> mStoreInfo;
@@ -47,6 +52,17 @@ public class PlaceListActivity extends BaseActivity {
     private LinearLayoutManager layoutManager;
     String userId;
     private String reloadFlag;
+
+    @Override
+    public void onItemClickListener(int position) {
+        Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+        Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT).show();
+    }
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
@@ -81,62 +97,69 @@ public class PlaceListActivity extends BaseActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         hallFragmentAdapter = new HallFragmentAdapter(this);
-        hallFragmentAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                final Intent intent = new Intent(PlaceListActivity.this, TeamCreateActivity.class);
-                RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
-                RequestBody multiBody = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("json", "")
-                        .build();
-                addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                        .PlaceServicePost("store",
-                                "getone",
-                                userInfo.getId(),
-                                mStoreInfo.get(position).get("placeid").toString(),
-                                (MultipartBody) multiBody)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new BaseObserver<ResponseEntity>(PlaceListActivity.this) {
-                            @Override
-                            public void onNext(ResponseEntity value) {
-                                try {
-                                    JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
-                                    int code = Integer.valueOf(responseJson.get("code").toString());
-                                    switch (code) {
-                                        case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
-                                            StoreInfo retStoreInfo  = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")), StoreInfo.class);
-                                            intent.putExtra("address",JSONObject.toJSONString(retStoreInfo.getAddressInfo()));
-                                            intent.putExtra("storeInfo",JSONObject.toJSONString(retStoreInfo));
-                                            intent.putExtra("name", retStoreInfo.getName());
-                                            setResult(CREATE_TEAM_ADDRESS_STORE, intent);
-                                            finish();
-                                        break;
-                                    }
-                                } catch (Exception e) {
-                                    Log.e(TAG, e.toString());
-                                }
-
-                            }
-
-                            @Override
-                            protected void onSuccess(ResponseEntity responseEntity) {
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                super.onError(e);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                            }
-                        }));
-
-            }
-        });
-        recyclerView.setAdapter(hallFragmentAdapter);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("a","b");
+        List<JSONObject> jsonObjectList  = new ArrayList<>();
+        jsonObjectList.add(jsonObject);
+        jsonObjectList.add(jsonObject);
+        PlaceListAdapter placeListAdapter = new PlaceListAdapter(this,jsonObjectList,this);
+//        hallFragmentAdapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                final Intent intent = new Intent(PlaceListActivity.this, TeamCreateActivity.class);
+//                RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
+//                RequestBody multiBody = new MultipartBody.Builder()
+//                        .setType(MultipartBody.FORM)
+//                        .addFormDataPart("json", "")
+//                        .build();
+//                addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+//                        .PlaceServicePost("store",
+//                                "getone",
+//                                userInfo.getId(),
+//                                mStoreInfo.get(position).get("placeid").toString(),
+//                                (MultipartBody) multiBody)
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribeWith(new BaseObserver<ResponseEntity>(PlaceListActivity.this) {
+//                            @Override
+//                            public void onNext(ResponseEntity value) {
+//                                try {
+//                                    JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+//                                    int code = Integer.valueOf(responseJson.get("code").toString());
+//                                    switch (code) {
+//                                        case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+//                                            StoreInfo retStoreInfo  = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")), StoreInfo.class);
+//                                            intent.putExtra("address",JSONObject.toJSONString(retStoreInfo.getAddressInfo()));
+//                                            intent.putExtra("storeInfo",JSONObject.toJSONString(retStoreInfo));
+//                                            intent.putExtra("name", retStoreInfo.getName());
+//                                            setResult(CREATE_TEAM_ADDRESS_STORE, intent);
+//                                            finish();
+//                                        break;
+//                                    }
+//                                } catch (Exception e) {
+//                                    Log.e(TAG, e.toString());
+//                                }
+//
+//                            }
+//
+//                            @Override
+//                            protected void onSuccess(ResponseEntity responseEntity) {
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                super.onError(e);
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                            }
+//                        }));
+//
+//            }
+//        });
+        recyclerView.setAdapter(placeListAdapter);
+//        recyclerView.setAdapter(hallFragmentAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);

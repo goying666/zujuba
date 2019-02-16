@@ -25,8 +25,8 @@ public class PropertiesConfig {
     public final static String serverUrlBD = homeIp;
 //    public final static String serverUrlBD = "http://192.168.199.155";
 
-//    public final static String userServerUrl = serverUrlAL + "user/";
-    public final static String userServerUrl = serverUrlBD + ":7801/";
+    public final static String userServerUrl = serverUrlAL + "user/";
+//    public final static String userServerUrl = serverUrlBD + ":7801/";
 
 //    public final static String teamServerUrl = serverUrlAL + "team/";
     public final static String teamServerUrl = serverUrlBD + ":7802/";

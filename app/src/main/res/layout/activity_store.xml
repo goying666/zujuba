@@ -8,41 +8,41 @@
     android:fitsSystemWindows="true"
     tools:context="renchaigao.com.zujuba.Activity.Place.StoreActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_create"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll">
-
-            <ImageView
-                android:id="@+id/store_image_top"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/toolbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--app:layout_collapseMode="pin"-->
-                <!--app:title="aa"/>-->
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-        <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
+    <!--<android.support.design.widget.AppBarLayout-->
         <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+        <!--android:layout_height="250dp"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
-    </android.support.design.widget.AppBarLayout>
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--android:id="@+id/collapsing_create"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+            <!--app:contentScrim="?attr/colorPrimary"-->
+            <!--app:layout_scrollFlags="scroll">-->
+
+            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/store_image_top"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<android.support.v7.widget.Toolbar&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/toolbar"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="?attr/actionBarSize"&ndash;&gt;-->
+                <!--&lt;!&ndash;app:layout_collapseMode="pin"&ndash;&gt;-->
+                <!--&lt;!&ndash;app:title="aa"/>&ndash;&gt;-->
+
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+        <!--&lt;!&ndash;<android.support.v7.widget.Toolbar&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/toolbar"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="?attr/actionBarSize"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="?attr/colorPrimary"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:popupTheme="@style/AppTheme.PopupOverlay" />&ndash;&gt;-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
 
 
     <android.support.v4.widget.NestedScrollView
@@ -54,8 +54,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginEnd="@dimen/margin_8dp">
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:layout_marginStart="@dimen/margin_8dp">
 
+
+            <com.youth.banner.Banner
+                android:id="@+id/a_place_page_banner"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"/>
 
             <TextView
                 android:id="@+id/store_name_text"
@@ -193,51 +199,44 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/store_page_null5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="组局时段:"
-                    app:layout_constraintBottom_toBottomOf="@+id/store_page_time_imge"
-                    app:layout_constraintStart_toEndOf="@+id/store_page_time_imge"
-                    app:layout_constraintTop_toTopOf="@+id/store_page_time_imge"
-                    app:layout_constraintVertical_bias="0.428" />
-
-                <TextView
                     android:id="@+id/store_page_time_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="09:00~12:00"
-                    app:layout_constraintBottom_toBottomOf="@+id/store_page_null5"
-                    app:layout_constraintStart_toEndOf="@+id/store_page_null5"
-                    app:layout_constraintTop_toTopOf="@+id/store_page_null5" />
+                    app:layout_constraintStart_toEndOf="@+id/store_page_time_imge"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/store_page_time_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="13:00~17:00"
-                    app:layout_constraintStart_toEndOf="@+id/store_page_time_1"
-                    app:layout_constraintTop_toTopOf="@+id/store_page_time_1" />
+                    app:layout_constraintStart_toStartOf="@+id/store_page_time_1"
+                    app:layout_constraintTop_toBottomOf="@+id/store_page_time_1" />
 
                 <TextView
                     android:id="@+id/store_page_time_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="18:00~21:00"
-                    app:layout_constraintStart_toStartOf="@+id/store_page_time_1"
-                    app:layout_constraintTop_toBottomOf="@+id/store_page_time_1" />
+                    app:layout_constraintStart_toStartOf="@+id/store_page_time_2"
+                    app:layout_constraintTop_toBottomOf="@+id/store_page_time_2" />
 
                 <TextView
                     android:id="@+id/store_page_time_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="21:00~24:00"
-                    app:layout_constraintStart_toStartOf="@+id/store_page_time_2"
-                    app:layout_constraintTop_toTopOf="@+id/store_page_time_3" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/store_page_time_3"
+                    app:layout_constraintTop_toBottomOf="@+id/store_page_time_3"
+                    app:layout_constraintVertical_bias="1.0" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -285,6 +284,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/a_store_info_environment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -299,6 +299,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <TextView
+                android:id="@+id/a_store_info_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_16dp"
@@ -407,6 +408,7 @@
                 <!--android:layout_height="wrap_content"/>-->
             </android.support.v7.widget.RecyclerView>
             <TextView
+                android:id="@+id/a_store_info_team_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"

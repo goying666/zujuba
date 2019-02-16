@@ -253,8 +253,6 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
                             JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             JSONArray responseJsonData = responseJson.getJSONArray("data");
-                            Log.e(TAG, "onResponse CODE OUT");
-                            Log.e(TAG, "onResponse CODE is" + code);
                             switch (code) {
                                 case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
                                     ArrayList<JSONObject> mStores = new ArrayList();

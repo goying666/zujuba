@@ -14,6 +14,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import renchaigao.com.zujuba.Activity.Place.CreateStoreActivity;
+import renchaigao.com.zujuba.Activity.Place.UserPlaceListPageActivity;
 import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.PropertiesConfig;
@@ -116,7 +117,7 @@ public class MineFragment extends BaseFragment {
         rootView.findViewById(R.id.activity_user_textview_changdi_own).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),CreateStoreActivity.class);
+                Intent intent = new Intent(getActivity(),UserPlaceListPageActivity.class);
                 startActivity(intent);
             }
         });

@@ -26,7 +26,7 @@ import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 public class MessageInfoAdapter extends RecyclerView.Adapter<MessageInfoAdapter.ViewHolder> {
 
-    final static String TAG = "PlaceListActivityAdapter";
+    final static String TAG = "MessageInfoAdapter";
     private ArrayList<MessageContentInfo> messageContentArrayList;
     private Context mContext;
 

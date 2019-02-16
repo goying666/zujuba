@@ -20,7 +20,7 @@ import renchaigao.com.zujuba.R;
  */
 
 public class TeamActivityAdapter extends RecyclerView.Adapter<TeamActivityAdapter.ViewHolder> {
-    final static String TAG = "PlaceListActivityAdapter";
+    final static String TAG = "TeamActivityAdapter";
     private ArrayList<TeamInfo> teamInfoArrayList;
     private Context mContext;
 

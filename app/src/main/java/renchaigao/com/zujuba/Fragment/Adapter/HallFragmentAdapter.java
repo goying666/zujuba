@@ -29,7 +29,7 @@ import renchaigao.com.zujuba.util.PropertiesConfig;
 
 public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapter.ItemHolder> {
     final static String TAG = "HallFragmentAdapter";
-    private ArrayList<StoreInfo> mStore;
+//    private ArrayList<StoreInfo> mStore;
     private ArrayList<JSONObject> mJsonObject;
     private Context mContext;
 
@@ -48,7 +48,7 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
     }
 
     /*界面和数据关联部分*/
-    @SuppressLint("SetTextI18n")
+//    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ItemHolder holder, final int position) {
         JSONObject store = mJsonObject.get(position);
@@ -56,7 +56,7 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
         String str = JSONObject.toJSONString(store);
 
         Glide.with(mContext)
-                .load(PropertiesConfig.photoUrl + "showimage/" + store.get("ownerid") + "/" + store.get("placeid") + "/photo2.jpg")
+                .load(PropertiesConfig.photoUrl + "showimage/" + store.get("ownerid") + "/" + store.get("placeid") + "/photo1.jpg")
 //                .load(PropertiesConfig.photoUrl + "showimage/" + store.getOwnerId() + "/" + store.getId() + "/photo2.jpg")
                 .dontAnimate()
                 .skipMemoryCache(false)
@@ -92,21 +92,12 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
 //        13组装店铺评论2
         holder.store_user_evaluate_2.setText(store.get("evaluate_2").toString());
 
-
-//        holder.store_cardview_place.setText(store.getAddressInfo().getFormatAddress());
-
-//        holder.store_image.setImageResource(R.drawable.boy);
-
-//        holder.store_team_info.setText(store.get);
-//        holder.store_user_evaluate_3.setText();
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StoreInfo storeInfo = mStore.get(position);
+                JSONObject storeJson = mJsonObject.get(position);
                 Intent intent = new Intent(mContext, StoreActivity.class);
-//                intent.putExtra("distance",storeInfo.getDistance());
-                intent.putExtra("json", JSONObject.toJSONString(storeInfo));
+                intent.putExtra("storeinfo", JSONObject.toJSONString(storeJson));
                 mContext.startActivity(intent);
             }
         });
@@ -122,10 +113,10 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
 
     @Override
     public int getItemCount() {
-        if (mStore == null) {
+        if (mJsonObject == null) {
             return 0;
         } else
-            return mStore.size();
+            return mJsonObject.size();
     }
 
     private PlaceListActivity.OnItemClickListener mOnItemClickListener;//声明接口

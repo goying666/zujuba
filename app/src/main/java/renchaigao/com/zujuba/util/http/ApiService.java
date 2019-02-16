@@ -7,6 +7,7 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -34,10 +35,15 @@ public interface ApiService {
             @Path("secondStr") String secondStr,
             @Path("thirdStr") String thirdStr,
             @Path("fourthStr") String fourthStr,
-//            @Body RequestBody Body
-//            @Part MultipartBody a
             @Body RequestBody requestBody
             );
+
+    @GET("{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
+    Observable<ResponseEntity> PlaceServiceGet(
+            @Path("firstStr") String firstStr,
+            @Path("secondStr") String secondStr,
+            @Path("thirdStr") String thirdStr,
+            @Path("fourthStr") String fourthStr);
 
 
 }
