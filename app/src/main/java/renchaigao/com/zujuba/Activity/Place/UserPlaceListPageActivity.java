@@ -11,9 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
@@ -23,11 +21,9 @@ import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import renchaigao.com.zujuba.Activity.Adapter.UserPlaceListPageActivityAdapter;
+import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
+import renchaigao.com.zujuba.Activity.Adapter.UserPlaceListPageAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
-import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
@@ -36,13 +32,19 @@ import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
-public class UserPlaceListPageActivity extends BaseActivity {
+public class UserPlaceListPageActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener{
 
-    final static String TAG = "StoreActivity";
+    private static String TAG = "UserPlaceListPageActivity";
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
-    private UserPlaceListPageActivityAdapter userPlaceListPageActivityAdapter;
+//    private UserPlaceListPageActivityAdapter userPlaceListPageActivityAdapter;
+    private UserPlaceListPageAdapter userPlaceListPageAdapter;
+
+    private TextView state_open, state_create, state_close;
+    private Button button;
+    UserInfo userInfo = new UserInfo();
+    ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
 
     // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
     @SuppressLint("HandlerLeak")
@@ -59,8 +61,6 @@ public class UserPlaceListPageActivity extends BaseActivity {
         state_close.setText(jsonObject.getString("state_close"));
     }
 
-    private TextView state_open, state_create, state_close;
-    private Button button;
 
     @Override
     protected void InitView() {
@@ -73,7 +73,6 @@ public class UserPlaceListPageActivity extends BaseActivity {
     }
 
 
-    UserInfo userInfo = new UserInfo();
 
     @Override
     protected void InitData() {
@@ -95,25 +94,26 @@ public class UserPlaceListPageActivity extends BaseActivity {
     private void setRecyclerView() {
         layoutManager = new LinearLayoutManager(UserPlaceListPageActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        userPlaceListPageActivityAdapter = new UserPlaceListPageActivityAdapter(UserPlaceListPageActivity.this);
-        recyclerView.setAdapter(userPlaceListPageActivityAdapter);
+//        userPlaceListPageActivityAdapter = new UserPlaceListPageActivityAdapter(UserPlaceListPageActivity.this);
+        userPlaceListPageAdapter = new UserPlaceListPageAdapter(this,jsonObjectArrayList,this,R.layout.card_place_list_page);
+
+        recyclerView.setAdapter(userPlaceListPageAdapter);
+//        recyclerView.setAdapter(userPlaceListPageActivityAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(UserPlaceListPageActivity.this, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
-
     private void reloadAdapter() {
         RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
-//        String storeInfoString = getIntent().getStringExtra("storeinfo");
 //        RequestBody multiBody = new MultipartBody.Builder()
 //                .setType(MultipartBody.FORM)
-//                .addFormDataPart("json", storeInfoString)
+//                .addFormDataPart("json", "")
 //                .build();
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
                 .PlaceServiceGet("user",
                         "allcreate",
                         userInfo.getId(),
-                        userInfo.getToken())
+                        "null")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(UserPlaceListPageActivity.this) {
@@ -128,9 +128,11 @@ public class UserPlaceListPageActivity extends BaseActivity {
                                 case RespCodeNumber.SUCCESS:
                                     msg.obj = responseJsonData;
                                     handler.sendMessage(msg);
-                                    ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>(responseJsonData.getJSONArray("array").toJavaList(JSONObject.class));
-                                    userPlaceListPageActivityAdapter.updateResults(jsonObjectArrayList);
-                                    userPlaceListPageActivityAdapter.notifyDataSetChanged();
+                                    jsonObjectArrayList = new ArrayList<>(responseJsonData.getJSONArray("array").toJavaList(JSONObject.class));
+                                    userPlaceListPageAdapter.updateResults(jsonObjectArrayList);
+                                    userPlaceListPageAdapter.notifyDataSetChanged();
+//                                    userPlaceListPageActivityAdapter.updateResults(jsonObjectArrayList);
+//                                    userPlaceListPageActivityAdapter.notifyDataSetChanged();
                                     break;
                             }
                         } catch (Exception e) {
@@ -158,6 +160,18 @@ public class UserPlaceListPageActivity extends BaseActivity {
 
     public void AddNewPlace(View view) {
         Intent intent = new Intent(UserPlaceListPageActivity.this, CreateStoreActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+        Intent intent = new Intent(UserPlaceListPageActivity.this, UserPlaceManagerActivity.class);
+        intent.putExtra("storeinfo", JSONObject.toJSONString(jsonObjectArrayList.get(position)));
         startActivity(intent);
     }
 }

@@ -110,12 +110,6 @@
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/hall_float_button"-->
-        <!--android:layout_width="46dp"-->
-        <!--android:layout_height="46dp"-->
-        <!--android:layout_gravity="bottom|right"-->
-        <!--android:layout_margin="16dp" />-->
 
 </android.support.design.widget.CoordinatorLayout>
 

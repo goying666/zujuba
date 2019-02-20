@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import renchaigao.com.zujuba.R;
@@ -16,11 +17,11 @@ public class PlaceListAdapter extends CommonRecycleAdapter<JSONObject> implement
 
     private CommonViewHolder.onItemCommonClickListener commonClickListener;
 
-    public PlaceListAdapter(Context context, List<JSONObject> dataList, int layoutId) {
+    public PlaceListAdapter(Context context, ArrayList<JSONObject> dataList, int layoutId) {
         super(context, dataList, layoutId);
     }
 
-    public PlaceListAdapter(Context context, List<JSONObject> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
+    public PlaceListAdapter(Context context, ArrayList<JSONObject> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
         super(context, dataList, R.layout.card_hall_store);
         this.commonClickListener = commonClickListener;
     }

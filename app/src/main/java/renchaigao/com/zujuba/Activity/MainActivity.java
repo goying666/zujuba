@@ -306,6 +306,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setViewPager() {
+
         final CustomViewPager customViewPager = findViewById(R.id.main_customView);
         final HallFragment hallFragment = new HallFragment();
         final GameFragment gameFragment = new GameFragment();

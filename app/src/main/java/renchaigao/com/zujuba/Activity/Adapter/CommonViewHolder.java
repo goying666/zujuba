@@ -1,10 +1,16 @@
 package renchaigao.com.zujuba.Activity.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.alibaba.idst.nls.internal.protocol.Content;
+import com.bumptech.glide.Glide;
+
+import renchaigao.com.zujuba.util.PropertiesConfig;
 
 /**
  * Created by Administrator on 2019/2/17/017.
@@ -56,6 +62,15 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
     public CommonViewHolder setImageResource(int viewId, int resourceId) {
         ImageView imageView = getView(viewId);
         imageView.setImageResource(resourceId);
+        return this;
+    }
+    CommonViewHolder setGlideImageResource(int viewId, String url, Context context) {
+        ImageView imageView = getView(viewId);
+        Glide.with(context)
+                .load(url)
+                .dontAnimate()
+                .skipMemoryCache(false)
+                .into(imageView);
         return this;
     }
 

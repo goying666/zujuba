@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,16 +19,19 @@ public abstract class CommonRecycleAdapter<T> extends RecyclerView.Adapter<Commo
 
     protected LayoutInflater layoutInflater;
 
-    protected List<T> dataList;
+    protected ArrayList<T> dataList;
 
     protected int layoutId;
 
     protected MultiTypeSupport<T> multiTypeSupport;
 
-    public CommonRecycleAdapter(Context context, List<T> dataList, int layoutId) {
+    public CommonRecycleAdapter(Context context, ArrayList<T> dataList, int layoutId) {
         this.layoutInflater = LayoutInflater.from(context);
         this.dataList = dataList;
         this.layoutId = layoutId;
+    }
+    public void updateResults(ArrayList<T> mJsonObject) {
+        this.dataList = mJsonObject;
     }
 
     @Override

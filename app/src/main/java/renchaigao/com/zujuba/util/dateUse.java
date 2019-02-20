@@ -80,4 +80,11 @@ public class dateUse {
         else
             return false;
     }
+
+    public static String IntTimeToStringTime(Integer hour,Integer minute){
+        if(minute<10)
+            return hour.toString() + ":0" + minute.toString();
+        else
+            return hour.toString() + ":" + minute.toString();
+    }
 }

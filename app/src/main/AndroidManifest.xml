@@ -244,9 +244,18 @@
             android:exported="true" />
 
         <activity
-            android:name=".Activity.Place.PlaceManagerActivity"
+            android:name=".Activity.Place.UserPlaceManagerActivity"
             android:label="@string/title_activity_place_manager"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".Activity.Place.PlaceAddDeskActivity"></activity>
     </application>
 
 </manifest>

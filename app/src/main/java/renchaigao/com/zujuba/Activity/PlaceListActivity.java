@@ -1,6 +1,5 @@
 package renchaigao.com.zujuba.Activity;
 
-import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +13,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
-import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -27,7 +23,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.PlaceListAdapter;
-import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -36,8 +31,6 @@ import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
-
-import static renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity.CREATE_TEAM_ADDRESS_STORE;
 
 /******     该活动用于创建Team时选择地点，展示地点list使用。    ******/
 public class PlaceListActivity extends BaseActivity  implements CommonViewHolder.onItemCommonClickListener{
@@ -55,17 +48,17 @@ public class PlaceListActivity extends BaseActivity  implements CommonViewHolder
 
     @Override
     public void onItemClickListener(int position) {
-        Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onItemClickListener :" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onItemLongClickListener(int position) {
-        Toast.makeText(this, "position:" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "onItemLongClickListener :" + position, Toast.LENGTH_SHORT).show();
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
+//    public interface OnItemClickListener {
+//        void onItemClick(View view, int position);
+//    }
     private void setSwipeRefresh() {
         swipeRefreshLayout = findViewById(R.id.place_list_SwipeRefreshLayout); //设置没有item动画
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -97,11 +90,13 @@ public class PlaceListActivity extends BaseActivity  implements CommonViewHolder
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         hallFragmentAdapter = new HallFragmentAdapter(this);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("a","b");
-        List<JSONObject> jsonObjectList  = new ArrayList<>();
+        ArrayList<JSONObject> jsonObjectList  = new ArrayList<>();
         jsonObjectList.add(jsonObject);
         jsonObjectList.add(jsonObject);
+
         PlaceListAdapter placeListAdapter = new PlaceListAdapter(this,jsonObjectList,this);
 //        hallFragmentAdapter.setOnItemClickListener(new OnItemClickListener() {
 //            @Override

@@ -132,11 +132,7 @@ public class CreateStoreActivity extends BaseActivity {
     private StoreInfo storeInfo = new StoreInfo();
     private User user;
 
-    private BusinessTimeInfo
-            businessTimeInfo_1 = new BusinessTimeInfo(),
-            businessTimeInfo_2 = new BusinessTimeInfo(),
-            businessTimeInfo_3 = new BusinessTimeInfo(),
-            businessTimeInfo_4 = new BusinessTimeInfo();
+    private BusinessTimeInfo businessTimeInfo_1, businessTimeInfo_2, businessTimeInfo_3, businessTimeInfo_4;
 
     @Override
     protected void InitView() {
@@ -348,7 +344,10 @@ public class CreateStoreActivity extends BaseActivity {
                     businessTimeInfo_1.setTimeFrame("MOR");
                     businessTimeInfo_1.setStartTime("9:00");
                     businessTimeInfo_1.setEndTime("12:00");
-
+                    businessTimeInfo_1.setStartHour(9);
+                    businessTimeInfo_1.setStartMinute(0);
+                    businessTimeInfo_1.setEndHour(12);
+                    businessTimeInfo_1.setEndMinute(0);
                 } else {
                     businessTimeInfo_1 = null;
                     checkBoxNum--;
@@ -367,6 +366,10 @@ public class CreateStoreActivity extends BaseActivity {
                     businessTimeInfo_2.setTimeFrame("AFT");
                     businessTimeInfo_2.setStartTime("13:00");
                     businessTimeInfo_2.setEndTime("17:00");
+                    businessTimeInfo_2.setStartHour(13);
+                    businessTimeInfo_2.setStartMinute(0);
+                    businessTimeInfo_2.setEndHour(16);
+                    businessTimeInfo_2.setEndMinute(0);
 
                 } else {
                     businessTimeInfo_2 = null;
@@ -386,6 +389,10 @@ public class CreateStoreActivity extends BaseActivity {
                     businessTimeInfo_3.setTimeFrame("NON");
                     businessTimeInfo_3.setStartTime("18:00");
                     businessTimeInfo_3.setEndTime("21:00");
+                    businessTimeInfo_3.setStartHour(18);
+                    businessTimeInfo_3.setStartMinute(0);
+                    businessTimeInfo_3.setEndHour(21);
+                    businessTimeInfo_3.setEndMinute(0);
 
                 } else {
                     businessTimeInfo_3 = null;
@@ -405,6 +412,10 @@ public class CreateStoreActivity extends BaseActivity {
                     businessTimeInfo_4.setTimeFrame("NIG");
                     businessTimeInfo_4.setStartTime("21:00");
                     businessTimeInfo_4.setEndTime("23:00");
+                    businessTimeInfo_4.setStartHour(21);
+                    businessTimeInfo_4.setStartMinute(0);
+                    businessTimeInfo_4.setEndHour(24);
+                    businessTimeInfo_4.setEndMinute(0);
 
                 } else {
                     businessTimeInfo_4 = null;
@@ -911,8 +922,7 @@ public class CreateStoreActivity extends BaseActivity {
         storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
         storeInfo.setMaxDeskSum(1);
         String storeInfoString = JSONObject.toJSONString(storeInfo);
-//        String storeInfoString = "{\"addressInfo\":{\"city\":\"北京市\",\"citycode\":\"010\",\"district\":\"西城区\",\"evaluationValue\":0.0,\"formatAddress\":\"北京市西城区什刹海街道景山公园\",\"id\":\"05d1d745497c48bcbec11a4724460067\",\"latitude\":39.92421106207774,\"longitude\":116.39786327434548,\"neighborhood\":\"景山公园\",\"province\":\"北京市\",\"towncode\":\"110102012000\",\"township\":\"什刹海街道\"},\"contact\":\"高先生\",\"id\":\"7b63f7dd41d445f29eea628315fee1d3\",\"maxPeopleSum\":63,\"name\":\"店铺测试\",\"ownerId\":\"6188dd9cffc64e2f9b76698be9a51d97\",\"placeinfo\":\"无备注\",\"storeBusinessInfo\":{\"allDateSum\":0,\"allFrameSum\":3,\"allMoneySum\":0,\"allTimeSum\":0,\"businessTimeInfos\":[{\"deleteStyle\":false,\"endTime\":\"12:00\",\"id\":\"45b9393bcf1a4f3ba67278ce4cee91c7\",\"startTime\":\"9:00\",\"timeFrame\":\"MOR\",\"upTime\":\"2019-02-13 18:35:59\"},{\"deleteStyle\":false,\"endTime\":\"17:00\",\"id\":\"80a52f8d845e456c973b36d90004b2a7\",\"startTime\":\"13:00\",\"timeFrame\":\"AFT\",\"upTime\":\"2019-02-13 18:36:00\"},{\"deleteStyle\":false,\"endTime\":\"21:00\",\"id\":\"e4ca01cbf32e4016a705846ea1efaa18\",\"startTime\":\"18:00\",\"timeFrame\":\"NON\",\"upTime\":\"2019-02-13 18:36:00\"},{\"deleteStyle\":false,\"id\":\"0226e97d2603478c851cf0fade10e4bc\",\"upTime\":\"2019-02-13 18:35:42\"}],\"deleteStyle\":false,\"id\":\"4c8a69f3ccea4eeb9bf15d94e357e776\",\"upTime\":\"2019年2月13日 下午6:37:04\"},\"storeEquipmentInfo\":{\"deleteStyle\":false,\"id\":\"437c8bcbfe5a47d5a4842b1e431448ef\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeEvaluationInfo\":{\"deleteStyle\":false,\"id\":\"1fc01175556f49e7b94295f60e683cd5\",\"storeAllEvaluationsNum\":0,\"storeScore\":0,\"upTime\":\"2019-02-13 18:35:42\"},\"storeHardwareInfo\":{\"deleteStyle\":false,\"existAir\":true,\"existFan\":false,\"existHeat\":true,\"existRoom\":false,\"existToilet\":false,\"existWifi\":true,\"id\":\"5348c83c2f2c402680568231b0651087\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeIntegrationInfo\":{\"activity\":0,\"allInter\":0,\"credit\":0,\"deleteStyle\":false,\"game\":0,\"id\":\"14e4c05ad04c458fb7bb2f3755c7330e\",\"instruction\":\"\",\"service\":0,\"startNum\":1,\"team\":0,\"upTime\":\"2019-02-13 18:35:42\",\"vitality\":0},\"storePackageInfo\":{\"deleteStyle\":false,\"id\":\"cbb34f0e0ba24bceaa9b50a8d8f5fbd3\",\"upTime\":\"2019-02-13 18:35:42\"},\"storePhotoInfo\":{\"deleteStyle\":false,\"id\":\"0aa85eeb043c4001ad26bd8863c7e5b5\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeRankInfo\":{\"cityIntegralRank\":0,\"countryIntegralRank\":0,\"deleteStyle\":false,\"id\":\"177cf33500f8437d9968df0571bdd90b\",\"integral\":0,\"provinceIntegralRank\":0,\"upTime\":\"2019-02-13 18:35:42\"},\"storeShoppingInfo\":{\"allSMoney\":0,\"allZMoney\":0,\"averageSpend\":0,\"deleteStyle\":false,\"id\":\"66ce1078807048458de3dbe64408a761\",\"upTime\":\"2019-02-13 18:35:42\"},\"storeTeamInfo\":{\"allTeamsTimes\":0,\"allUsersNum\":0,\"deleteStyle\":false,\"id\":\"93932ec2d67a4b1b94c6d26c74221053\",\"todayDesk\":0,\"todayPeople\":0,\"upTime\":\"2019-02-13 18:35:42\"},\"storeclass\":\"0\",\"telephonenum\":\"13040837899\"}";
-
+//
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", storeInfoString)
@@ -938,7 +948,7 @@ public class CreateStoreActivity extends BaseActivity {
 //                                .addFormDataPart("json", "")
 //                                .build())
 //                        (MultipartBody) multiBody)
-                       multiBody)
+                        multiBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(CreateStoreActivity.this) {
@@ -974,7 +984,6 @@ public class CreateStoreActivity extends BaseActivity {
                     }
                 }));
     }
-
 
 
     public void dismissDialog() {

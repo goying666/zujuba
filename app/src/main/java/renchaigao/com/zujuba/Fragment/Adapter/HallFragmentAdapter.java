@@ -101,14 +101,14 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
                 mContext.startActivity(intent);
             }
         });
-        if (mOnItemClickListener != null) {
-            holder.thisView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(holder.thisView, position);
-                }
-            });
-        }
+//        if (mOnItemClickListener != null) {
+//            holder.thisView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mOnItemClickListener.onItemClick(holder.thisView, position);
+//                }
+//            });
+//        }
     }
 
     @Override
@@ -119,11 +119,11 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
             return mJsonObject.size();
     }
 
-    private PlaceListActivity.OnItemClickListener mOnItemClickListener;//声明接口
-
-    public void setOnItemClickListener(PlaceListActivity.OnItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
+//    private PlaceListActivity.OnItemClickListener mOnItemClickListener;//声明接口
+//
+//    public void setOnItemClickListener(PlaceListActivity.OnItemClickListener onItemClickListener) {
+//        mOnItemClickListener = onItemClickListener;
+//    }
 
     public class ItemHolder extends RecyclerView.ViewHolder {
 
