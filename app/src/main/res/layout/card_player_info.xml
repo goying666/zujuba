@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:layout_marginTop="8dp"
-    app:cardCornerRadius="15dp">
+    app:cardBackgroundColor="#a0ffc2"
+    app:cardCornerRadius="24dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +21,6 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/place_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -94,6 +94,7 @@
             android:layout_height="@dimen/icon_style_m"
             android:layout_marginStart="16dp"
             android:src="@drawable/age_18up"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/card_player_you"
             app:layout_constraintStart_toEndOf="@+id/card_player_you_number"
             app:layout_constraintTop_toTopOf="@+id/card_player_you" />

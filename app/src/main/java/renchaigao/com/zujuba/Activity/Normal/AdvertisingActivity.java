@@ -2,9 +2,6 @@ package renchaigao.com.zujuba.Activity.Normal;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -21,9 +18,7 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.MainActivity;
@@ -33,9 +28,6 @@ import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdvertisingActivity extends BaseActivity implements OnBannerListener {
     final static String TAG = "AdvertisingActivity";
@@ -153,8 +145,8 @@ public class AdvertisingActivity extends BaseActivity implements OnBannerListene
     private void getUserInfo() {
         RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .UserServicePost(
-//        apiService.UserServicePost(
+                .FourParameterJsonPost(
+//        apiService.FourParameterJsonPost(
                 "get", userInfo.getId(), "nul", "null",
                 JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
                 .subscribeOn(Schedulers.io())

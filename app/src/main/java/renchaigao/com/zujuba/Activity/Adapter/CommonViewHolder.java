@@ -5,12 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.alibaba.idst.nls.internal.protocol.Content;
 import com.bumptech.glide.Glide;
 
-import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.R;
 
 /**
  * Created by Administrator on 2019/2/17/017.
@@ -53,6 +53,11 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
         tv.setText(text);
         return this;
     }
+    public CommonViewHolder setRatingBar(int viewId, float rating) {
+        RatingBar tv = getView(viewId);
+        tv.setRating(rating);
+        return this;
+    }
 
     public CommonViewHolder setViewVisibility(int viewId, int visibility) {
         getView(viewId).setVisibility(visibility);
@@ -64,12 +69,15 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
         imageView.setImageResource(resourceId);
         return this;
     }
-    CommonViewHolder setGlideImageResource(int viewId, String url, Context context) {
+
+    public CommonViewHolder setGlideImageResource(int viewId, String url, Context context) {
         ImageView imageView = getView(viewId);
         Glide.with(context)
                 .load(url)
                 .dontAnimate()
                 .skipMemoryCache(false)
+                .placeholder(R.drawable.image_loading)
+                .error(R.drawable.image_load_fail)
                 .into(imageView);
         return this;
     }

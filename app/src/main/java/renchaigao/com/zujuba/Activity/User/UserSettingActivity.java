@@ -306,7 +306,7 @@ public class UserSettingActivity extends BaseActivity {
 
         RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .UserServicePost(
+                .FourParameterJsonPost(
                         "update",
                         "basicInfo",
                         user.getId(),

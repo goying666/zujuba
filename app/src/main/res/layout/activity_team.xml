@@ -29,50 +29,26 @@
                     android:id="@+id/imageView3"
                     android:layout_width="@dimen/margin_32dp"
                     android:layout_height="@dimen/margin_32dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:src="@drawable/back_all"
+                    android:onClick="GoBack"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/ti_null1"
+                    android:id="@+id/ti_user_position"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="8dp"
-                    android:text="队号:"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:text="成员"
+                    android:textSize="@dimen/text_size_toolbar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/ti_team_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="9527"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/ti_null1"
-                    app:layout_constraintStart_toEndOf="@+id/ti_null1"
-                    app:layout_constraintTop_toTopOf="@+id/ti_null1" />
-
-                <TextView
-                    android:id="@+id/ti_user_position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="成员"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ti_team_number"
-                    app:layout_constraintEnd_toStartOf="@+id/ti_user_null"
-                    app:layout_constraintTop_toTopOf="@+id/ti_team_number" />
 
                 <TextView
                     android:id="@+id/ti_user_null"
@@ -80,22 +56,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="3dp"
                     android:text="状态："
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ti_team_number"
+                    android:textSize="@dimen/text_size_toolbar"
                     app:layout_constraintEnd_toStartOf="@+id/ti_user_state"
-                    app:layout_constraintTop_toTopOf="@+id/ti_team_number" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/ti_user_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="等待玩家入场"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_size_toolbar"
                     android:textStyle="italic"
-                    app:layout_constraintBottom_toBottomOf="@+id/ti_team_number"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/ti_team_number" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -109,12 +87,12 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
+
             <!--address image-->
             <ImageView
                 android:id="@+id/ti_store_image"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:src="@drawable/place_1" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -126,24 +104,37 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
             <!--address-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
+                <ImageView
+                    android:id="@+id/ImageView28"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="@dimen/icon_size_width"
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/location_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/ti_text_null1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
                     android:maxLines="1"
                     android:maxWidth="210dp"
                     android:text="大学城根据地咖啡厅"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_title"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/ImageView28"
+                    app:layout_constraintStart_toEndOf="@+id/ImageView28"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -151,22 +142,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginTop="8dp"
                     android:text="1250m"
-                    android:textSize="16sp"
-                    android:textStyle=""
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="@dimen/text_size_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/ti_text_null1"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                <RatingBar
+                <ImageView
                     android:id="@+id/ti_star_num"
                     style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:isIndicator="true"
-                    android:rating="1"
-                    app:layout_constraintStart_toStartOf="@+id/ti_text_null1"
+                    android:layout_width="@dimen/icon_size_width"
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/ImageView28"
                     app:layout_constraintTop_toBottomOf="@+id/ti_text_null1" />
 
                 <TextView
@@ -175,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="4.1分"
-                    android:textSize="@dimen/md_text_size_caption"
+                    android:textSize="@dimen/text_size_content"
                     app:layout_constraintBottom_toBottomOf="@+id/ti_star_num"
                     app:layout_constraintStart_toEndOf="@+id/ti_star_num"
                     app:layout_constraintTop_toTopOf="@+id/ti_star_num" />
@@ -186,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:text="¥5/人时"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_size_content"
                     android:textStyle=""
                     app:layout_constraintBottom_toBottomOf="@+id/ti_store_score"
                     app:layout_constraintStart_toEndOf="@+id/ti_store_score"
@@ -196,15 +186,12 @@
                     android:id="@+id/ti_text_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginTop="8dp"
                     android:text="深圳市11名"
-                    android:textSize="13sp"
-                    android:textStyle=""
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="@dimen/text_size_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/ti_text_spend"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ti_text_distance" />
+                    app:layout_constraintTop_toTopOf="@+id/ti_text_spend" />
             </android.support.constraint.ConstraintLayout>
 
             <TextView
@@ -226,9 +213,9 @@
                     android:id="@+id/ti_time_icon"
                     android:layout_width="@dimen/icon_size_width"
                     android:layout_height="@dimen/icon_size_height"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/card_hall_store_time"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -238,30 +225,31 @@
                     android:id="@+id/ti_start_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:text="8月07号"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="@dimen/text_size_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/ti_time_icon"
                     app:layout_constraintStart_toEndOf="@+id/ti_time_icon"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/ti_time_icon" />
 
                 <TextView
                     android:id="@+id/ti_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:textSize="@dimen/text_size_content"
                     android:text="18:00~21:00"
                     app:layout_constraintBottom_toBottomOf="@+id/ti_start_data"
                     app:layout_constraintStart_toEndOf="@+id/ti_start_data"
                     app:layout_constraintTop_toTopOf="@+id/ti_start_data" />
 
                 <TextView
-                    android:id="@+id/ti_time_introduce"
+                    android:id="@+id/ti_time_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="29h36m"
+                    android:textSize="@dimen/text_size_content"
                     app:layout_constraintBottom_toBottomOf="@+id/ti_start_time"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/ti_start_time" />
@@ -288,9 +276,9 @@
                     android:id="@+id/imageView5"
                     android:layout_width="@dimen/icon_size_width"
                     android:layout_height="@dimen/icon_size_height"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/spend_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -301,22 +289,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:text="消费方式"
+                    android:textSize="@dimen/text_size_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                     app:layout_constraintStart_toEndOf="@+id/imageView5"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
                 <TextView
                     android:id="@+id/ti_spend_way"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
                     android:text="所有人AA"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="@dimen/text_size_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView20"
                     app:layout_constraintStart_toEndOf="@+id/textView20"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/textView20" />
             </android.support.constraint.ConstraintLayout>
 
             <TextView
@@ -338,9 +326,9 @@
                     android:id="@+id/imageView6"
                     android:layout_width="@dimen/icon_size_width"
                     android:layout_height="@dimen/icon_size_height"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/game_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -351,10 +339,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:text="桌游类别"
+                    android:textSize="@dimen/text_size_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
                 <TextView
                     android:id="@+id/ti_game_class"
@@ -364,6 +353,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="狼人杀、天黑请闭眼"
+                    android:textSize="@dimen/text_size_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView21"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -411,6 +401,7 @@
                         android:layout_marginStart="@dimen/margin_8dp"
                         android:layout_marginTop="8dp"
                         android:text="筛选信息"
+                        android:textSize="@dimen/text_size_content"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -422,6 +413,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="6"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView13"
                         app:layout_constraintStart_toEndOf="@+id/textView13"
                         app:layout_constraintTop_toTopOf="@+id/textView13" />
@@ -445,6 +437,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
                         android:text="全满足"
+                        android:textSize="@dimen/text_size_content"
                         android:textColor="@color/colorAccent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -475,6 +468,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="诚信等级"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -485,6 +479,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_24dp"
                         android:text="基础认证（大于60分）"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView14"
                         app:layout_constraintStart_toEndOf="@+id/textView14"
                         app:layout_constraintTop_toTopOf="@+id/textView14" />
@@ -497,6 +492,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="8dp"
                         android:text="满足"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ti_IntegrityScore_result"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -509,7 +505,6 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ok_result"
-                        android:text="满足"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -540,6 +535,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="性别比例"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -550,6 +546,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_24dp"
                         android:text="男女各半"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView15"
                         app:layout_constraintStart_toEndOf="@+id/textView15"
                         app:layout_constraintTop_toTopOf="@+id/textView15" />
@@ -563,6 +560,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="8dp"
                         android:text="满足"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ti_sexRatio_result"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -575,7 +573,6 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
                         android:src="@drawable/wrong_result"
-                        android:text="满足"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -606,6 +603,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="年龄限制"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -616,6 +614,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_24dp"
                         android:text="大于25岁"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView16"
                         app:layout_constraintStart_toEndOf="@+id/textView16"
                         app:layout_constraintTop_toTopOf="@+id/textView16" />
@@ -628,6 +627,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="8dp"
                         android:text="满足"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ti_ageScreening_result"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -640,7 +640,6 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ok_result"
-                        android:text="满足"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -671,6 +670,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="评价筛选"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -681,6 +681,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_24dp"
                         android:text="无差评"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView17"
                         app:layout_constraintStart_toEndOf="@+id/textView17"
                         app:layout_constraintTop_toTopOf="@+id/textView17" />
@@ -693,6 +694,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="8dp"
                         android:text="满足"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ti_evaluationScreening_result"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -705,7 +707,6 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ok_result"
-                        android:text="满足"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -736,6 +737,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="职业筛选"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -746,6 +748,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_24dp"
                         android:text="学生"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView18"
                         app:layout_constraintStart_toEndOf="@+id/textView18"
                         app:layout_constraintTop_toTopOf="@+id/textView18" />
@@ -758,6 +761,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="8dp"
                         android:text="满足"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ti_careerScreening_result"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -770,7 +774,6 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
                         android:src="@drawable/ok_result"
-                        android:text="满足"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -801,6 +804,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="单身情况"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -811,6 +815,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_24dp"
                         android:text="单身"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="@+id/textView19"
                         app:layout_constraintStart_toEndOf="@+id/textView19"
                         app:layout_constraintTop_toTopOf="@+id/textView19" />
@@ -823,6 +828,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginTop="8dp"
                         android:text="满足"
+                        android:textSize="@dimen/text_size_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ti_marriage_result"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -873,9 +879,9 @@
                     android:id="@+id/ti_people_image"
                     android:layout_width="@dimen/icon_size_width"
                     android:layout_height="@dimen/icon_size_height"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/card_hall_store_people"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -887,6 +893,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="1"
+                    android:textSize="@dimen/text_size_content"
                     android:textColor="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="@+id/ti_people_image"
                     app:layout_constraintStart_toEndOf="@+id/ti_people_image"
@@ -898,21 +905,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="1dp"
                     android:text="/4~16"
+                    android:textSize="@dimen/text_size_content"
                     app:layout_constraintBottom_toBottomOf="@+id/ti_people_image"
                     app:layout_constraintStart_toEndOf="@+id/ti_player_number_now"
                     app:layout_constraintTop_toTopOf="@+id/ti_people_image" />
-
-                <TextView
-                    android:id="@+id/ti_player_introduce"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="差3人可开"
-                    android:textSize="13sp"
-                    android:textStyle="italic"
-                    app:layout_constraintBottom_toBottomOf="@+id/ti_player_number_all"
-                    app:layout_constraintStart_toEndOf="@+id/ti_player_number_all"
-                    app:layout_constraintTop_toTopOf="@+id/ti_player_number_all" />
 
                 <TextView
                     android:id="@+id/ti_people_null1"
@@ -920,7 +916,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="点击收缩"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_size_introduce"
                     app:layout_constraintBottom_toBottomOf="@+id/ti_people_image_more"
                     app:layout_constraintEnd_toStartOf="@+id/ti_people_image_more"
                     app:layout_constraintTop_toTopOf="@+id/ti_people_image_more" />
@@ -929,34 +925,77 @@
                     android:id="@+id/ti_people_image_more"
                     android:layout_width="@dimen/icon_size_width"
                     android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/more_up"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/textView118"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginStart="0dp"
                     android:background="#e0e0e0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView78"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="1人"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView26"
+                    app:layout_constraintStart_toEndOf="@+id/imageView26"
+                    app:layout_constraintTop_toTopOf="@+id/imageView26" />
+
+                <TextView
+                    android:id="@+id/textView79"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="0人"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView27"
+                    app:layout_constraintStart_toEndOf="@+id/imageView27"
+                    app:layout_constraintTop_toTopOf="@+id/imageView27" />
+
+                <ImageView
+                    android:id="@+id/imageView26"
+                    android:layout_width="@dimen/icon_size_width"
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ti_player_number_all"
+                    app:layout_constraintStart_toEndOf="@+id/ti_player_number_all"
+                    app:layout_constraintTop_toTopOf="@+id/ti_player_number_all"
+                    app:srcCompat="@drawable/boy" />
+
+                <ImageView
+                    android:id="@+id/imageView27"
+                    android:layout_width="@dimen/icon_size_width"
+                    android:layout_height="@dimen/icon_size_height"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ti_player_number_all"
+                    app:layout_constraintStart_toEndOf="@+id/textView78"
+                    app:layout_constraintTop_toTopOf="@+id/ti_player_number_all"
+                    app:layout_constraintVertical_bias="0.6"
+                    app:srcCompat="@drawable/girl" />
             </android.support.constraint.ConstraintLayout>
             <!--player info-->
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/ti_nesteScrollView_People"
                 android:layout_width="match_parent"
-                android:layout_height="460dp"
-                android:visibility="gone">
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/ti_RecyclerView_People"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"/>
 
             </android.support.v4.widget.NestedScrollView>
 
@@ -1004,10 +1043,30 @@
             </android.support.constraint.ConstraintLayout>
 
             <Button
+                android:id="@+id/ti_edit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="修改组队信息"
+                android:visibility="gone"
+                android:onClick="EditTeamButton"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
                 android:id="@+id/ti_join_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="加入" />
+                android:text="加入"
+                android:onClick="JoinTeamButton"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -1072,11 +1131,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/action_loading_image"
@@ -1094,6 +1153,6 @@
             android:id="@+id/action_loading_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="这里是loading提示"/>
+            android:text="这里是loading提示" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

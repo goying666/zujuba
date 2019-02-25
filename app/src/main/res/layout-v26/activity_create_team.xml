@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -678,7 +679,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <!--人数选择部分-->
+
             <LinearLayout
                 android:id="@+id/id_activity_create_team_people_number"
                 android:layout_width="match_parent"
@@ -851,8 +852,9 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
-                            android:max="20"
-                            android:min="10"
+                            android:max="10"
+                            android:min="4"
+                            android:progress="6"
                             app:layout_constraintBottom_toBottomOf="@+id/textView74"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -960,7 +962,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
-                            android:max="20"
+                            android:max="16"
                             android:min="10"
                             android:progress="12"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -1015,7 +1017,6 @@
 
             </LinearLayout>
 
-            <!--地点选择部分-->
             <LinearLayout
                 android:id="@+id/id_activity_create_team_place"
                 android:layout_width="match_parent"
@@ -1280,8 +1281,6 @@
 
             </LinearLayout>
 
-
-            <!--游戏选择部分-->
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/id_activity_create_team_game"
                 android:layout_width="match_parent"
@@ -1383,7 +1382,6 @@
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/LinearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -1507,8 +1505,6 @@
 
             </LinearLayout>
 
-
-            <!--附加信息-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

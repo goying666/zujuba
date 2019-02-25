@@ -419,7 +419,7 @@ public class LoginActivity extends BaseActivity {
         }
         RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-        .UserServicePost(str1, str2, str3, str4, JSONObject.parseObject(JSONObject.toJSONString(users),JSONObject.class))
+        .FourParameterJsonPost(str1, str2, str3, str4, JSONObject.parseObject(JSONObject.toJSONString(users),JSONObject.class))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(this) {

@@ -2,68 +2,181 @@ package renchaigao.com.zujuba.Activity.TeamPart;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.renchaigao.zujuba.mongoDB.info.team.TeamInfo;
+import com.bumptech.glide.Glide;
+import com.renchaigao.zujuba.PageBean.TeamActivityBean;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
-import okhttp3.Call;
-import okhttp3.Callback;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import renchaigao.com.zujuba.Activity.MessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Adapter.CardPlayerAdapter;
+import renchaigao.com.zujuba.Activity.BaseActivity;
+import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
+import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
-import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_MESSAGE;
-import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_TEAM;
-import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_TEAM;
+import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_MESSAGE_PAGE;
+import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_TEAM_PAGE;
+import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_TEAM_PAGE;
 
-public class TeamActivity extends AppCompatActivity {
+public class TeamActivity extends BaseActivity {
 
-    private TextView ti_team_number, ti_user_position, ti_user_state, ti_text_null1, ti_text_distance,
-            ti_store_score, ti_text_spend, ti_text_rank, ti_start_data, ti_start_time, ti_spend_way,
+    private static String TAG = "TeamActivity";
+    private TextView
+            ti_user_position,
+            ti_user_state,
+            ti_text_null1,
+            ti_text_distance,
+            ti_store_score,
+            ti_text_spend,
+            ti_text_rank,
+            ti_start_data,
+            ti_start_time,
+            ti_time_left,
+            ti_player_number_now,
+            boyNum,
+            girlNum, ti_spend_way,
             ti_game_class, ti_filter_all_number, ti_filter_my_sum, ti_IntegrityScore, ti_IntegrityScore_result_info,
             ti_sexRatio, ti_sexRatio_result_info, ti_ageScreening, ti_ageScreening_result_info, ti_evaluationScreening,
             ti_evaluationScreening_result_info, ti_careerScreening, ti_careerScreening_result_info, ti_marriage,
             ti_marriage_result_info, ti_note_info;
     private TextView ti_player_number_all;
-    private Button ti_join_button;
-    private UserInfo userInfo;
+    private Button ti_join_button,ti_edit_button;
+    private UserInfo userInfo = new UserInfo();
     private String userId, teamId;
-    private TeamInfo teamInfo;
+    private TeamActivityBean teamActivityBean = new TeamActivityBean();
     private Timer timer = new Timer();
     private TimerTask task;
-    private String reloadFlag = "RELOAD";
-    private Integer reloadNUM = 0;
+    private final static String RELOAD_FLAGE_VALUE_RELOAD = "RELOAD";
+    private final static String RELOAD_FLAGE_VALUE_STOP = "STOP";
+    private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
+    private Integer reloadNUM = 0,reloadViewNUM = 0;
+    private String whereCome;
     private int COME_FROM;
+    private ImageView ti_store_image,ti_people_image_more;
 
-    private void initView() {
-        ti_team_number = findViewById(R.id.ti_team_number);
+    private CardPlayerAdapter cardPlayerAdapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.arg1 == RespCodeNumber.SUCCESS && msg.arg2 == TEAMINFO_BASIC_LOAD) {
+                UpdateViewAndData(teamActivityBean);
+            }
+        }
+    };
+    private void UpdateViewAndData(TeamActivityBean teamActivityBean) {
+//        浏览者类型
+        ti_user_position.setText(teamActivityBean.getUserClass());
+//        队伍状态
+        ti_user_state.setText(teamActivityBean.getTeamState());
+//        地点图片url + 游戏图片
+        Glide.with(this)
+                .load(PropertiesConfig.photoUrl + teamActivityBean.getTeamPhotoUrlList().get(0))
+                .dontAnimate()
+                .skipMemoryCache(false)
+                .placeholder(R.drawable.image_loading)
+                .error(R.drawable.image_load_fail)
+                .into(ti_store_image);
+//        地点名称
+        ti_text_null1.setText(teamActivityBean.getPlaceName());
+
+//        距离我的距离
+        ti_text_distance.setText(teamActivityBean.getDistance());
+
+//        地点评分
+        ti_store_score.setText(teamActivityBean.getPlaceScore());
+
+//        地点名次
+        ti_text_rank.setText(teamActivityBean.getPlaceRank());
+
+//        组局日期
+        ti_start_data.setText(teamActivityBean.getStartDate());
+
+//        组局开始时间
+        ti_start_time.setText(teamActivityBean.getStartTime() + "~" + teamActivityBean.getEndTime());
+
+//        结束时间
+//        ti_user_state.setText(teamActivityBean.getTeamState());
+
+//        组局倒计时
+        ti_time_left.setText(teamActivityBean.getTimeLeft());
+
+//        已入局的玩家人数
+        ti_player_number_now.setText(teamActivityBean.getAllPlayerNum());
+
+//        已入局的男玩家人数
+        boyNum.setText(teamActivityBean.getBoyPlayerNum());
+
+//        已入局的女玩家人数
+        girlNum.setText(teamActivityBean.getGirlPlayerNum());
+
+//        组局最小人数
+        ti_player_number_all.setText("/" + teamActivityBean.getMinPlayer() + "~" + teamActivityBean.getMaxPlayer());
+
+//        加入按键
+        if(teamActivityBean.getUserClass().equals("游客")){
+            ti_join_button.setText("加入组局");
+            ti_edit_button.setVisibility(View.GONE);
+        }else {
+            ti_join_button.setText("进入聊天室");
+            ti_edit_button.setVisibility(View.VISIBLE);
+        }
+//        组局最大人数
+//        ti_player_number_all.setText(teamActivityBean.getMaxPlayer());
+
+//        玩家card的bean信息列表
+        cardPlayerAdapter.updateResults(teamActivityBean.getPlayerList());
+        cardPlayerAdapter.notifyDataSetChanged();
+        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
+    }
+
+    private void setRecyclerView() {
+        layoutManager = new LinearLayoutManager(TeamActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        cardPlayerAdapter = new CardPlayerAdapter(this, teamActivityBean.getPlayerList());
+        recyclerView.setAdapter(cardPlayerAdapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(TeamActivity.this, DividerItemDecoration.VERTICAL_LIST));
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+    }
+
+    @Override
+    protected void InitView() {
+        recyclerView = findViewById(R.id.ti_RecyclerView_People);
+        boyNum = findViewById(R.id.textView78);
+        girlNum = findViewById(R.id.textView79);
+        ti_player_number_now = findViewById(R.id.ti_player_number_now);
+        ti_time_left = findViewById(R.id.ti_time_left);
+        ti_store_image = findViewById(R.id.ti_store_image);
         ti_user_position = findViewById(R.id.ti_user_position);
         ti_user_state = findViewById(R.id.ti_user_state);
         ti_text_null1 = findViewById(R.id.ti_text_null1);
@@ -91,50 +204,36 @@ public class TeamActivity extends AppCompatActivity {
         ti_marriage_result_info = findViewById(R.id.ti_marriage_result_info);
         ti_note_info = findViewById(R.id.ti_note_info);
         ti_player_number_all = findViewById(R.id.ti_player_number_all);
-    }
-
-    private void setViewDate() {
-        ti_player_number_all.setText(teamInfo.getPlayerMin().toString() + "~" + teamInfo.getPlayerMax().toString());
-    }
-
-    private void setToolBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
-
-    private void InitNormalDate() {
-        Intent intent = getIntent();
-        String teamString = intent.getStringExtra("teamInfo");
-        teamInfo = JSONObject.parseObject(teamString, TeamInfo.class);
-        userInfo = DataUtil.GetUserInfoData(this);
-        userId = userInfo.getId();
-        teamId = teamInfo.getId();
-        try{
-            if (intent.getStringExtra("COME_FROM").equals("FRAGMENT_TEAM")){
-                COME_FROM = FRAGMENT_TEAM;
-            }
-        }catch (Exception e){
-            Log.e("e",e.toString());
-        }
+        ti_join_button = findViewById(R.id.ti_join_button);
+        ti_edit_button = findViewById(R.id.ti_edit_button);
+        setRecyclerView();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team);
-        setToolBar();
-        initView();
-        InitButton();
+    protected void InitData() {
+        teamActivityBean.setTeamId(getIntent().getStringExtra("teamId"));
+        whereCome = getIntent().getStringExtra("whereCome");
+        userInfo = DataUtil.GetUserInfoData(this);
+    }
+
+    @Override
+    protected void InitOther() {
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_team;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case ACTIVITY_MESSAGE:
-                COME_FROM = ACTIVITY_MESSAGE;
+            case ACTIVITY_MESSAGE_PAGE:
+                COME_FROM = ACTIVITY_MESSAGE_PAGE;
+                break;
+            case FRAGMENT_TEAM_PAGE:
+                COME_FROM = FRAGMENT_TEAM_PAGE;
                 break;
         }
     }
@@ -142,8 +241,6 @@ public class TeamActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        InitNormalDate();
-        setViewDate();
     }
 
     @Override
@@ -151,7 +248,7 @@ public class TeamActivity extends AppCompatActivity {
         super.onResume();
         InitTimer();
         timer = new Timer();
-        timer.schedule(task, 0, 3000);
+        timer.schedule(task, 0, 5000);
     }
 
     @Override
@@ -165,247 +262,151 @@ public class TeamActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    @SuppressLint("HandlerLeak")
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-            // 要做的事情
-            super.handleMessage(msg);
-            setViewDate();
-        }
-    };
-
-
     private void InitTimer() {
         task = new TimerTask() {
             @Override
             public void run() {
-//                reloadAdapter();
-//                    reloadNUM++;
-//                    Log.e("TeamActivity", reloadNUM.toString());
-                // TODO Auto-generated method stub
-                if (reloadFlag.equals("RELOAD")) {
+                if (reloadFlag.equals(RELOAD_FLAGE_VALUE_RELOAD)) {
                     reloadAdapter();
-                    reloadNUM++;
-                    Log.e("TeamActivity", reloadNUM.toString());
-                    reloadFlag = "STOP";
+                    reloadFlag = RELOAD_FLAGE_VALUE_STOP;
                 }
             }
         };
     }
 
-    public int TEAM_JION_PAGE = 901;
+    public void SendMessage() {
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.teamServerUrl);
+        Map<String, RequestBody> map = new HashMap<>();
+        RequestBody multiBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("json", "")
+                .build();
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                .FourParameterBodyPost("join",
+                        userInfo.getId(),
+                        teamActivityBean.getTeamId(),
+                        "null",
+                        multiBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new BaseObserver<ResponseEntity>(TeamActivity.this) {
+                    @Override
+                    public void onNext(ResponseEntity value) {
+                        try {
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+                            int code = Integer.valueOf(responseJson.get("code").toString());
+                            String responseJsonData = responseJson.getString("data");
+                            Message msg = new Message();
+                            switch (code) {
+                                case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+                                    teamActivityBean = JSONObject.parseObject(responseJsonData, TeamActivityBean.class);
+                                    msg.arg1 = RespCodeNumber.SUCCESS;
+                                    msg.arg2 = TEAMINFO_BASIC_LOAD;
+                                    handler.sendMessage(msg);
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
 
-    private void InitButton() {
+                    }
 
-        ti_join_button = findViewById(R.id.ti_join_button);
-        ti_join_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    @Override
+                    protected void onSuccess(ResponseEntity responseEntity) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                }));
+    }
+
+    private static final int TEAMINFO_BASIC_LOAD = 0;
+    private static final int TEAM_PLAYER_INFO_LOAD = 1;
+
+    public void reloadAdapter() {
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.teamServerUrl);
+        Map<String, RequestBody> map = new HashMap<>();
+        RequestBody multiBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("json", "")
+                .build();
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                .FourParameterBodyPost("getone",
+                        userInfo.getId(),
+                        teamActivityBean.getTeamId(),
+                        "null",
+                        multiBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new BaseObserver<ResponseEntity>(TeamActivity.this) {
+                    @Override
+                    public void onNext(ResponseEntity value) {
+                        try {
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+                            int code = Integer.valueOf(responseJson.get("code").toString());
+                            String responseJsonData = responseJson.getString("data");
+                            Message msg = new Message();
+                            switch (code) {
+                                case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+                                    teamActivityBean = JSONObject.parseObject(responseJsonData, TeamActivityBean.class);
+                                    msg.arg1 = RespCodeNumber.SUCCESS;
+                                    msg.arg2 = TEAMINFO_BASIC_LOAD;
+                                    handler.sendMessage(msg);
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseEntity responseEntity) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                }));
+    }
+
+    public void JoinTeamButton(View view) {
+        if(teamActivityBean.getUserClass().equals("游客")){
+
+        }else {
+            Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
+            intent.putExtra("teamId",teamId.toString());
+            intent.putExtra("teamName",teamActivityBean.getTeamName());
+            startActivityForResult(intent,ACTIVITY_TEAM_PAGE);
+        }
 //                判断资格
 //                资格不通过，提示错误信息
 //                资格通过，进入聊天界面；
 //               判断加入用户是否满足team的约束条件，若不满足则提示错误；
-
 //                请求服务器，获取team最新信息；
-                SendMessage();
+        SendMessage();
 //                修改“加入”按键文字；
-
 //                显示申请加入的提示，直到返回正确的加入信息后，否则提示失败。
-
-            }
-        });
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public void SendMessage() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                String path = PropertiesConfig.teamServerUrl + "join/" + userId + "/" + teamId;//
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                String userInfoString = JSONObject.toJSONString(userInfo);
-                String teamInfoString = JSONObject.toJSONString(teamInfo);
-//                RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, storeInfoString);
-//                final Request request = new Request.Builder()
-//                        .url(path)
-//                        .header("Content-Type", "application/json")
-//                        .post(jsonBody)
-//                        .build();
-
-                RequestBody multiBody = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("userInfo", userInfoString)
-                        .addFormDataPart("teamInfo", teamInfoString)
-                        .build();
-                Request mulRrequest = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "multipart/form-data")
-                        .post(multiBody)
-                        .build();
-
-                builder.build().newCall(mulRrequest).enqueue(new Callback() {
-                    //                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e("onFailure", e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-                            String responseJsoStr = responseJson.toJSONString();
-                            int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-//                根据服务器返回结果提示
-                            switch (code) {
-                                case 0: //在数据库中更新用户数据出错
-                                    Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
-                                    intent.putExtra("teamInfo", JSONObject.toJSONString(teamInfo));
-                                    startActivityForResult(intent, ACTIVITY_TEAM);
-                                    finish();
-                                    break;
-                            }
-                        } catch (Exception e) {
-                        }
-                    }
-                });
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                if (this == null)
-                    return;
-            }
-        }.execute();
+    public void GoBack(View view) {
+        onBackPressed();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public void reloadAdapter() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
+    public void EditTeamButton(View view) {
 
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                String path = PropertiesConfig.teamServerUrl + "/update/" + userId + "/" + teamId;
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .get()
-                        .build();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        reloadFlag = "RELOAD";
-                        Log.e("onFailure", e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        try {
-                            reloadFlag = "RELOAD";
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-                            int code = Integer.valueOf(responseJson.get("code").toString());
-                            Message message = new Message();
-                            switch (code) {
-                                case 1201: //更新teaminfo成功，并且判断出该用户已经加入该team
-                                    teamInfo = JSONObject.parseObject(responseJson.get("data").toString(), TeamInfo.class);
-                                    if (COME_FROM == FRAGMENT_TEAM) {
-                                        Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
-                                        intent.putExtra("teamInfo", JSONObject.toJSONString(teamInfo));
-                                        startActivityForResult(intent, ACTIVITY_TEAM);
-                                        finish();
-                                    } else if (COME_FROM == ACTIVITY_MESSAGE) {
-
-                                    }
-                                    break;
-                                case 1200://更新teaminfo成功，用户未加入该team
-                                    teamInfo = JSONObject.parseObject(responseJson.get("data").toString(), TeamInfo.class);
-                                    message.what = 2;
-                                    handler.sendMessage(message);
-                                    break;
-                            }
-                        } catch (Exception e) {
-                        }
-                    }
-                });
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                if (this == null)
-                    return;
-            }
-        }.execute();
     }
-
 }

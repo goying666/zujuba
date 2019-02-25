@@ -21,7 +21,6 @@ import renchaigao.com.zujuba.util.PropertiesConfig;
 
 public class MineFragment extends BaseFragment {
 
-    public Activity mContext;
     private ImageView f_mine_usersetting_image;
     private TextView activity_user_textview_zuju_title, activity_user_textview_title_dianzan,
             activity_user_textview_youxi_title, activity_user_textview_youxi_title_wanguo,
@@ -39,11 +38,6 @@ public class MineFragment extends BaseFragment {
 
     private CircleImageView activity_user_image;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mContext = activity;
-    }
 
     @SuppressLint("CutPasteId")
     @Override

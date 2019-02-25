@@ -20,7 +20,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
-import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -47,14 +46,6 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
 
 
     private OnFragmentInteractionListener mListener;
-
-    public Activity mContext;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mContext = activity;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -232,7 +223,7 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
 //        map.put("plateNo", multiBody);
 
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .PlaceServicePost("store",
+                .FourParameterBodyPost("store",
                         "getnear",
                         userInfo.getId(),
                         "null",
@@ -255,14 +246,10 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
                             JSONArray responseJsonData = responseJson.getJSONArray("data");
                             switch (code) {
                                 case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
-                                    ArrayList<JSONObject> mStores = new ArrayList();
-                                    for (Object m : responseJsonData) {
-                                        mStores.add(JSONObject.parseObject(JSONObject.toJSONString(m), JSONObject.class));
-                                    }
                                     if (hallFragmentAdapter == null) {
                                         hallFragmentAdapter = new HallFragmentAdapter(mContext);
                                     }
-                                    hallFragmentAdapter.updateResults(mStores);
+                                    hallFragmentAdapter.updateResults(new ArrayList<>(responseJsonData.toJavaList(JSONObject.class)));
                                     hallFragmentAdapter.notifyDataSetChanged();
                                     Log.e(TAG, "onResponse");
                                     break;

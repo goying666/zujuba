@@ -33,7 +33,7 @@ public class UserPlaceManagerPageActivityAdapter extends CommonRecycleAdapter<JS
     }
 
     @Override
-    void bindData(CommonViewHolder holder, JSONObject data) {
+    public void bindData(CommonViewHolder holder, JSONObject data) {
         switch (data.getString("WHICHCARD")) {
             case "BASIC_DESK":
                 holder.setGlideImageResource(R.id.imageView23, data.getString("imageUrl"), mContext)
@@ -62,7 +62,7 @@ public class UserPlaceManagerPageActivityAdapter extends CommonRecycleAdapter<JS
             case "BASIC_DESK":
                 return R.layout.card_place_manager_desk;
             case "b":
-                return R.layout.card_hall_store;
+                return R.layout.card_place_page;
             case "c":
                 return R.layout.card_player_info;
         }

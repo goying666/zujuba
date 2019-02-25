@@ -2,14 +2,9 @@ package renchaigao.com.zujuba.Activity.Place;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.Image;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -19,29 +14,19 @@ import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
-import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerClickListener;
-import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import normal.UUIDUtil;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Activity.BaseActivity;
-import renchaigao.com.zujuba.Activity.Normal.StartActivity;
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.util.FinalDefine;
-import renchaigao.com.zujuba.util.PictureRAR;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
@@ -170,7 +155,7 @@ public class StoreActivity extends BaseActivity {
                 .addFormDataPart("json", storeInfoString)
                 .build();
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .PlaceServicePost("store",
+                .FourParameterBodyPost("store",
                         "getone",
                         jsonObjectUP.get("placeid").toString(),
                         jsonObjectUP.get("placeid").toString(),

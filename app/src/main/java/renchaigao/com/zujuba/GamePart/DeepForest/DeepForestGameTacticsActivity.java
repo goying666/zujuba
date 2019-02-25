@@ -102,85 +102,87 @@ public class DeepForestGameTacticsActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     public void sendMessageToServer() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                User user = DataUtil.GetUserData(DeepForestGameTacticsActivity.this);
-                String userId = user.getId();
-                String userToken = DataUtil.GetUserData(DeepForestGameTacticsActivity.this).getToken();
-                TeamInfo teamInfo = DataUtil.getTeamInfo(DeepForestGameTacticsActivity.this);
-                String path = PropertiesConfig.deepForestGameUrl + "dfg/do/" + teamInfo.getId() + "/" + userId + "/" + userToken;
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("key", "KJ");
-                String stringBody = JSONObject.toJSONString(jsonObject);
-                RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, stringBody);
-                final Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .post(jsonBody)
-                        .build();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-                            String responseJsoStr = responseJson.toJSONString();
-                            int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-                            switch (code) {
-                                case 0: //在数据库中更新用户数据出错；
-                                    break;
-                            }
-//                            swipeRefreshLayout.setRefreshing(false);
-                        } catch (Exception e) {
-                        }
-                    }
-
-                });
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-            }
-        }.execute();
+//        new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//            }
+//
+//            @Override
+//            protected void onCancelled() {
+//                super.onCancelled();
+//            }
+//
+//            @Override
+//            protected void onCancelled(Void aVoid) {
+//                super.onCancelled(aVoid);
+//            }
+//
+//            @Override
+//            protected void onProgressUpdate(Void... values) {
+//                super.onProgressUpdate(values);
+//            }
+//
+//            @Override
+//            protected Void doInBackground(Void... params) {
+//                User user = DataUtil.GetUserData(DeepForestGameTacticsActivity.this);
+//                String userId = user.getId();
+//                String userToken = DataUtil.GetUserData(DeepForestGameTacticsActivity.this).getToken();
+//                TeamInfo teamInfo = DataUtil.getTeamInfo(DeepForestGameTacticsActivity.this);
+//                String path = PropertiesConfig.deepForestGameUrl + "dfg/do/" + teamInfo.getId() + "/" + userId + "/" + userToken;
+//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
+//                        .connectTimeout(15, TimeUnit.SECONDS)
+//                        .readTimeout(15, TimeUnit.SECONDS)
+//                        .writeTimeout(15, TimeUnit.SECONDS)
+//                        .retryOnConnectionFailure(true);
+//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
+//                builder.hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                });
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put("key", "KJ");
+//                String stringBody = JSONObject.toJSONString(jsonObject);
+//                RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, stringBody);
+//                final Request request = new Request.Builder()
+//                        .url(path)
+//                        .header("Content-Type", "application/json")
+//                        .post(jsonBody)
+//                        .build();
+//                builder.build().newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        try {
+//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
+//                            String responseJsoStr = responseJson.toJSONString();
+//                            int code = Integer.valueOf(responseJson.get("code").toString());
+//                            JSONArray responseJsonData = responseJson.getJSONArray("data");
+//                            switch (code) {
+//                                case 0: //在数据库中更新用户数据出错；
+//                                    break;
+//                            }
+////                            swipeRefreshLayout.setRefreshing(false);
+//                        } catch (Exception e) {
+//                        }
+//                    }
+//
+//                });
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid) {
+//                super.onPostExecute(aVoid);
+//            }
+//        }.execute();
     }
+
+
 }

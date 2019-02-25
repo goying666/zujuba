@@ -372,7 +372,7 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
                                             .addFormDataPart("json", placeChangeInfoJSONArray.toJSONString())
                                             .build();
                                     addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                                            .PlaceServicePost("user",
+                                            .FourParameterBodyPost("user",
                                                     "update",
                                                     userInfo.getId(),
                                                     jsonObject.getString("placeid"),
@@ -689,7 +689,7 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
                 .addFormDataPart("json", "")
                 .build();
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .PlaceServicePost("user",
+                .FourParameterBodyPost("user",
                         "one",
                         userInfo.getId(),
                         jsonObject.getString("placeid"),

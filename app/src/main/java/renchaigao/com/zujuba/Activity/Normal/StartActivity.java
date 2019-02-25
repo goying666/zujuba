@@ -161,7 +161,7 @@ public class StartActivity extends BaseActivity {
 
                 RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
                 addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                        .UserServicePost(
+                        .FourParameterJsonPost(
                                 "login",
                                 "auto",
                                 userInfo.getTelephone(),
@@ -236,7 +236,7 @@ public class StartActivity extends BaseActivity {
 
 //
 //                RetrofitServiceManager.getInstance().create(ApiService.class)
-//                        .UserServicePost("login",
+//                        .FourParameterJsonPost("login",
 //                                "auto",
 //                                userInfo.getTelephone(),
 //                                userId,
@@ -252,7 +252,7 @@ public class StartActivity extends BaseActivity {
 //                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 //                        .build();
 //                ApiService apiService = retrofit.create(ApiService.class);
-//                apiService.UserServicePost("login",
+//                apiService.FourParameterJsonPost("login",
 //                        "auto",
 //                        userInfo.getTelephone(),
 //                        userId,

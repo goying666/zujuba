@@ -4,6 +4,7 @@ import org.litepal.crud.LitePalSupport;
 
 import lombok.Getter;
 import lombok.Setter;
+import renchaigao.com.zujuba.util.dateUse;
 
 
 /**
@@ -11,16 +12,22 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class MessageContentInfo extends LitePalSupport {
+public class MessageContent extends LitePalSupport {
     private Long id;
-    private Boolean isGroup;
+    private Boolean deleteStyle = false;
+    private String upTime = dateUse.GetStringDateNow();
+    private Boolean isMe; //判断是否是我发送的
+    private Boolean isGroup; //判断是否是俱乐部
     private String senderId;
+    private String title;
     private String content;
+    private String gotoId = null;
     private Long sendTime;
     private Boolean isReceived;
-    private Integer senderImageUrl;
-    private Integer myImageUrl;
+    private String senderImageUrl;
+    private String myImageUrl;
     private String teamId;
+    private String friendId;//好友id
 
 //    public Long getSendTime() {
 //        return sendTime;

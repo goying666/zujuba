@@ -5,7 +5,6 @@ import android.content.Context;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import renchaigao.com.zujuba.R;
 
@@ -22,26 +21,18 @@ public class PlaceListAdapter extends CommonRecycleAdapter<JSONObject> implement
     }
 
     public PlaceListAdapter(Context context, ArrayList<JSONObject> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
-        super(context, dataList, R.layout.card_hall_store);
+        super(context, dataList, R.layout.card_place_page);
         this.commonClickListener = commonClickListener;
     }
 
     @Override
-    void bindData(CommonViewHolder holder, JSONObject data) {
+    public void bindData(CommonViewHolder holder, JSONObject data) {
         holder.setText(R.id.store_user_evaluate_1, "aa")
                 .setCommonClickListener(commonClickListener);
     }
 
     @Override
     public int getLayoutId(JSONObject item, int position) {
-        switch (item.getString("ADAPTER")) {
-            case "a":
-                return R.layout.card_place_list_page;
-            case "b":
-                return R.layout.card_hall_store;
-            case "c":
-                return R.layout.card_player_info;
-        }
-        return R.id.card_equip_effect;
+        return R.layout.card_place_page;
     }
 }

@@ -23,7 +23,7 @@
 //    }
 //
 //    public Observable<ResponseEntity> get() {
-//        return observe(apiService.UserServicePost("", "", "", "", null)).map(new ){
+//        return observe(apiService.FourParameterJsonPost("", "", "", "", null)).map(new ){
 ////            @Override
 ////            public List<Movie> call(MovieSubject movieSubject) {
 ////                return movieSubject.subjects;

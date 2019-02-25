@@ -176,7 +176,7 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
                 .addFormDataPart("json", "")
                 .build();
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .PlaceServicePost("user",
+                .FourParameterBodyPost("user",
                         "one",
                         userInfo.getId(),
                         jsonObjectIntent.getString("placeid"),

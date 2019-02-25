@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 
-import renchaigao.com.zujuba.Activity.MessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.Bean.MessageNoteInfo;
 
@@ -58,7 +58,7 @@ public class MessageFragmentAdapter extends RecyclerView.Adapter<MessageFragment
                 MessageNoteInfo messageNoteInfo_ =  messageNoteInfoArrayList.get(position);
                 Intent intent = new Intent(mContext, MessageInfoActivity.class);
                 intent.putExtra("messageNoteInfo", JSONObject.toJSONString(messageNoteInfo_));
-                intent.putExtra("COME_FROM", "FRAGMENT_MESSAGE");
+                intent.putExtra("COME_FROM", "FRAGMENT_MESSAGE_PAGE");
                 mContext.startActivity(intent);
             }
         });

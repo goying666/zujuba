@@ -21,7 +21,7 @@ public interface ApiService {
     //    @FormUrlEncoded
 //    @POST("{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
     @POST("{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
-    Observable<ResponseEntity> UserServicePost(
+    Observable<ResponseEntity> FourParameterJsonPost(
             @Path("firstStr") String firstStr,
             @Path("secondStr") String secondStr,
             @Path("thirdStr") String thirdStr,
@@ -30,13 +30,21 @@ public interface ApiService {
 
 
     @POST("{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
-    Observable<ResponseEntity> PlaceServicePost(
+    Observable<ResponseEntity> FourParameterBodyPost(
             @Path("firstStr") String firstStr,
             @Path("secondStr") String secondStr,
             @Path("thirdStr") String thirdStr,
             @Path("fourthStr") String fourthStr,
             @Body RequestBody requestBody
-            );
+    );
+
+    @GET("{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
+    Observable<ResponseEntity> FourParameterGet(
+            @Path("firstStr") String firstStr,
+            @Path("secondStr") String secondStr,
+            @Path("thirdStr") String thirdStr,
+            @Path("fourthStr") String fourthStr
+    );
 
     @GET("{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
     Observable<ResponseEntity> PlaceServiceGet(

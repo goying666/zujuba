@@ -5,6 +5,6 @@
 
     <list>
         <mapping class="renchaigao.com.zujuba.Bean.MessageNoteInfo" />
-        <mapping class="renchaigao.com.zujuba.Bean.MessageContentInfo" />
+        <mapping class="renchaigao.com.zujuba.Bean.MessageContent" />
     </list>
 </litepal>

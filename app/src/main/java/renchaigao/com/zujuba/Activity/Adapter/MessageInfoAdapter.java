@@ -14,7 +14,7 @@ import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import java.util.ArrayList;
 
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.Bean.MessageContentInfo;
+import renchaigao.com.zujuba.Bean.MessageContent;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 
 import static android.view.View.TEXT_ALIGNMENT_TEXT_END;
@@ -27,7 +27,7 @@ import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 public class MessageInfoAdapter extends RecyclerView.Adapter<MessageInfoAdapter.ViewHolder> {
 
     final static String TAG = "MessageInfoAdapter";
-    private ArrayList<MessageContentInfo> messageContentArrayList;
+    private ArrayList<MessageContent> messageContentArrayList;
     private Context mContext;
 
     private String userId;
@@ -45,7 +45,7 @@ public class MessageInfoAdapter extends RecyclerView.Adapter<MessageInfoAdapter.
         return new ViewHolder(view);
     }
 
-    public void updateResults(ArrayList<MessageContentInfo> messageContents) {
+    public void updateResults(ArrayList<MessageContent> messageContents) {
         this.messageContentArrayList = messageContents;
     }
 
@@ -60,7 +60,7 @@ public class MessageInfoAdapter extends RecyclerView.Adapter<MessageInfoAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MessageContentInfo messageContent = new MessageContentInfo();
+        MessageContent messageContent = new MessageContent();
         messageContent = messageContentArrayList.get(position);
         if (messageContent.getSenderId().equals(userId)) {
             holder.message_info_me.setImageResource(R.drawable.boy);

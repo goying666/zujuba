@@ -20,7 +20,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -38,25 +37,12 @@ import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.AddressInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import renchaigao.com.zujuba.Activity.Normal.AdvertisingActivity;
 import renchaigao.com.zujuba.Activity.User.UserActivity;
-import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.Fragment.GameFragment;
 import renchaigao.com.zujuba.Fragment.HallFragment;
 import renchaigao.com.zujuba.Fragment.MessageFragment;
@@ -65,8 +51,6 @@ import renchaigao.com.zujuba.Fragment.TeamFragment;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.BottomNavigationViewHelper;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.FinalDefine;
-import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
@@ -74,23 +58,18 @@ import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.CustomViewPager;
 
 public class MainActivity extends BaseActivity {
-
     protected static String TAG = "MainActivity";
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
     private CustomViewPager customViewPager;
-
     private AlertDialog.Builder builder;
     private User user;
     private UserInfo userInfo;
     private String userPlace;
-
     private ConstraintLayout header_layout,a_main_toolbar_constraintlayout;
-
     private ImageView a_main_toolbar_usericon;
     private TextView a_main_toolbar_location_text;
-
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -105,13 +84,54 @@ public class MainActivity extends BaseActivity {
 ////        getLocation();
 //    }
 
+    // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            String str = (String) msg.obj;
+            Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+        }
+
+
+    };
     @Override
     protected void InitView() {
+
         a_main_toolbar_location_text = findViewById(R.id.a_main_toolbar_location_text);
         a_main_toolbar_usericon = findViewById(R.id.a_main_toolbar_usericon);
         customViewPager = findViewById(R.id.main_customView);
-        bottomNavigationView = findViewById(R.id.main_bootomNavigationView);
         a_main_toolbar_constraintlayout = findViewById(R.id.a_main_toolbar_constraintlayout);
+        bottomNavigationView = findViewById(R.id.main_bootomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navigation_message:
+                        item.setIcon(R.drawable.message_select);
+                        customViewPager.setCurrentItem(0);
+                        return true;
+                    case R.id.navigation_team:
+                        item.setIcon(R.drawable.team_select);
+                        customViewPager.setCurrentItem(1);
+                        return true;
+                    case R.id.navigation_dating:
+                        item.setIcon(R.drawable.home_select);
+                        customViewPager.setCurrentItem(2);
+                        return true;
+                    case R.id.navigation_game:
+                        item.setIcon(R.drawable.game_select);
+                        customViewPager.setCurrentItem(3);
+                        return true;
+                    case R.id.navigation_mine:
+                        item.setIcon(R.drawable.message_select);
+                        customViewPager.setCurrentItem(4);
+                        return true;
+                }
+                return false;
+            }
+        });
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
     }
 
@@ -123,9 +143,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void InitOther() {
-        setToolBar();
+//        setToolBar();
         setViewPager();
-        setUpDrawer();
+//        setUpDrawer();
+        setClick();
+    }
+    private void setClick(){
+
         a_main_toolbar_location_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,21 +172,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
-    }
-
-    // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-
-        public void handleMessage(Message msg) {
-            String str = (String) msg.obj;
-            Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
-        }
-
-
-    };
-
-    private void initData() {
     }
 
     @Override
@@ -208,7 +217,6 @@ public class MainActivity extends BaseActivity {
         }
 
     }
-
 
     private LocationManager locationManager;
     private String locationProvider;
@@ -265,34 +273,14 @@ public class MainActivity extends BaseActivity {
 //    }
 
     private void updateSystemData() {
-        updateUserData();
-        updateTeamData();
-        updateBusinessData();
-        updateGameData();
     }
 
-    private void updateUserData() {
-
-    }
-
-    private void updateTeamData() {
-
-    }
-
-    private void updateBusinessData() {
-
-    }
-
-    private void updateGameData() {
-
-    }
-
-    private void setToolBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
+//    private void setToolBar() {
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.hide();
+//        }
+//    }
 
     private void setUpDrawer() {
 //        navigationView.setCheckedItem(R.id.nav_call);
@@ -313,12 +301,15 @@ public class MainActivity extends BaseActivity {
         final MessageFragment messageFragment = new MessageFragment();
         final MineFragment mineFragment = new MineFragment();
         final TeamFragment teamFragment = new TeamFragment();
+
         CustomViewPagerAdapter customViewPagerAdapter = new CustomViewPagerAdapter(getSupportFragmentManager());
+
         customViewPagerAdapter.addFragment(messageFragment);
         customViewPagerAdapter.addFragment(teamFragment);
         customViewPagerAdapter.addFragment(hallFragment);
         customViewPagerAdapter.addFragment(gameFragment);
         customViewPagerAdapter.addFragment(mineFragment);
+
         customViewPager.setAdapter(customViewPagerAdapter);
         customViewPager.setCurrentItem(2);
         bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
@@ -366,7 +357,7 @@ public class MainActivity extends BaseActivity {
                     case 4:
 //                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
                         a_main_toolbar_constraintlayout.setVisibility(View.GONE);
-                        bottomNavigationView.setSelectedItemId(R.id.navigation_shop);
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_mine);
                         break;
                 }
             }
@@ -376,7 +367,6 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-        initBottomNavigationView(customViewPager);
 
 //        navigationView.setFocusable(true);
 
@@ -404,7 +394,7 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_game:
                         customViewPager.setCurrentItem(3);
                         return true;
-                    case R.id.navigation_shop:
+                    case R.id.navigation_mine:
                         customViewPager.setCurrentItem(4);
                         return true;
                 }
@@ -535,7 +525,7 @@ public class MainActivity extends BaseActivity {
     private void sendAddressToService(){
         RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .UserServicePost(
+                .FourParameterJsonPost(
                         "update","addressInfo" , userInfo.getId(),  "null",
                         JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo()), JSONObject.class))
                 .subscribeOn(Schedulers.io())

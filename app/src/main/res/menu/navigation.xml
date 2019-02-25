@@ -5,24 +5,23 @@
     <item
         android:id="@+id/navigation_message"
         android:enabled="true"
-        android:icon="@drawable/message_selector"
-        android:title="消息"
-        app:showAsAction="ifRoom"  />
+        android:icon="@drawable/message_no"
+        android:title="说" />
     <item
         android:id="@+id/navigation_team"
-        android:icon="@drawable/team_selector"
-        android:title="组队" />
+        android:icon="@drawable/team_no"
+        android:title="组" />
     <item
         android:id="@+id/navigation_dating"
-        android:icon="@drawable/store_selector"
-        android:title="场地" />
+        android:icon="@drawable/home_no"
+        android:title="场子" />
     <item
         android:id="@+id/navigation_game"
-        android:icon="@drawable/game_selector"
-        android:title="游戏" />
+        android:icon="@drawable/game_no"
+        android:title="玩" />
     <item
-        android:id="@+id/navigation_shop"
-        android:icon="@drawable/mine_selector"
-        android:title="我的" />
+        android:id="@+id/navigation_mine"
+        android:icon="@drawable/mine_no"
+        android:title="我" />
 
 </menu>

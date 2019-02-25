@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="renchaigao.com.zujuba.Activity.PlaceListActivity">
+    tools:context="renchaigao.com.zujuba.Activity.Place.PlaceListActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/place_list_SwipeRefreshLayout"

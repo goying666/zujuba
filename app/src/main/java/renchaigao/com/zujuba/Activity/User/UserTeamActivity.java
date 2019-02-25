@@ -2,8 +2,8 @@ package renchaigao.com.zujuba.Activity.User;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.renchaigao.zujuba.mongoDB.info.team.TeamInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.io.IOException;
@@ -26,6 +25,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Fragment.Adapter.TeamFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -33,12 +33,14 @@ import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
-public class UserTeamActivity extends AppCompatActivity {
+public class UserTeamActivity extends AppCompatActivity implements CommonViewHolder.onItemCommonClickListener{
 
+    final private String TAG = "UserTeamActivity";
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private TeamFragmentAdapter teamFragmentAdapter;
+    ArrayList<JSONObject> teamList = new ArrayList();
 
     private String userId;
     private UserInfo userInfo;
@@ -54,21 +56,17 @@ public class UserTeamActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemLongClickListener(int position) {
+
+    }
+
     private void setRecyclerView() {
         recyclerView = findViewById(R.id.a_u_createTeam_RecyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        teamFragmentAdapter = new TeamFragmentAdapter(this);
-//        teamFragmentAdapter.setOnItemClickListener(new PlaceListActivity.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                final Intent intent = new Intent(getActivity(), TeamCreateActivity.class);
-//                intent.putExtra("address",JSONObject.toJSONString(mStoreInfo.get(position).getAddressInfo()));
-//                intent.putExtra("storeInfo",JSONObject.toJSONString(mStoreInfo.get(position)));
-//                intent.putExtra("name", mStoreInfo.get(position).getName());
-//                setResult(CREATE_TEAM_ADDRESS_STORE, intent);
-//            }
-//        });
+        teamFragmentAdapter = new TeamFragmentAdapter(this,teamList,this);
+
         recyclerView.setAdapter(teamFragmentAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -130,31 +128,22 @@ public class UserTeamActivity extends AppCompatActivity {
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             JSONArray responseJsonData = responseJson.getJSONArray("data");
 
-
 //                            ArrayList<StoreInfo> mStores = new ArrayList<>();
                             switch (code) {
                                 case 0: //在数据库中更新用户数据出错；
-                                    ArrayList<TeamInfo> mTeam = new ArrayList();
-                                    for (Object m : responseJsonData) {
-                                        mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
-                                    }
-//                                    Log.e("responseJsonData",responseJsonData.toJSONString());
-                                    if (teamFragmentAdapter == null) {
-                                        teamFragmentAdapter = new TeamFragmentAdapter(UserTeamActivity.this);
-                                    }
-                                    teamFragmentAdapter.updateResults(mTeam);
-
+                                    teamList = new ArrayList<>(responseJsonData.toJavaList(JSONObject.class));
+                                    teamFragmentAdapter.updateResults(teamList);
+                                    teamFragmentAdapter.notifyDataSetChanged();
                                     break;
                             }
 //                            swipeRefreshLayout.setRefreshing(false);
                         } catch (Exception e) {
+                            Log.e(TAG, e.toString());
                         }
                     }
-
                 });
                 return null;
             }
-
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
@@ -164,4 +153,8 @@ public class UserTeamActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClickListener(int position) {
+
+    }
 }

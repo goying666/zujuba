@@ -1,6 +1,5 @@
 package renchaigao.com.zujuba.Fragment.Adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -14,12 +13,10 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
-import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 
 import java.util.ArrayList;
 
 import renchaigao.com.zujuba.Activity.Place.StoreActivity;
-import renchaigao.com.zujuba.Activity.PlaceListActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 
@@ -43,7 +40,7 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_hall_store, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_place_page, parent, false);
         return new ItemHolder(view);
     }
 
@@ -57,10 +54,8 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
 
         Glide.with(mContext)
                 .load(PropertiesConfig.photoUrl + "showimage/" + store.get("ownerid") + "/" + store.get("placeid") + "/photo1.jpg")
-//                .load(PropertiesConfig.photoUrl + "showimage/" + store.getOwnerId() + "/" + store.getId() + "/photo2.jpg")
                 .dontAnimate()
                 .skipMemoryCache(false)
-//                .load("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg")
                 .into(holder.store_image);
 
 //        holder.place_star_num.setNumStars(store.getStoreIntegrationInfo().getStartNum());

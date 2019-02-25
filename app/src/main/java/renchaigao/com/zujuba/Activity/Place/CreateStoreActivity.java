@@ -41,6 +41,7 @@ import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.BusinessTimeInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.StoreBusinessInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
+import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,6 +77,8 @@ import renchaigao.com.zujuba.util.dateUse;
 import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
+
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_STORE;
 
 public class CreateStoreActivity extends BaseActivity {
 
@@ -131,6 +134,7 @@ public class CreateStoreActivity extends BaseActivity {
 
     private StoreInfo storeInfo = new StoreInfo();
     private User user;
+    private UserInfo userInfo;
 
     private BusinessTimeInfo businessTimeInfo_1, businessTimeInfo_2, businessTimeInfo_3, businessTimeInfo_4;
 
@@ -168,6 +172,7 @@ public class CreateStoreActivity extends BaseActivity {
     }
 
     private void initView() {
+        userInfo = DataUtil.GetUserInfoData(CreateStoreActivity.this);
         user = DataUtil.GetUserData(CreateStoreActivity.this);
         builder = new AlertDialog.Builder(this);
         business_join_introduce_button_next = findViewById(R.id.business_join_introduce_button_next);
@@ -785,111 +790,111 @@ public class CreateStoreActivity extends BaseActivity {
         ;
     };
 
-    private void sendStoresAddInfo() {
-        /*进度条后续优化*/
-        progDialog.show();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-//                String path = "https://47.106.149.105/zujuba/join/addstores";
-                String path = PropertiesConfig.storeServerUrl + "join";
-//                OkHttpClient client = new OkHttpClient();
-                OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-//                builder.sslSocketFactory(createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                File photo1 = new File(getExternalCacheDir() + "/photo1.jpg");
-                File photo2 = new File(getExternalCacheDir() + "/photo2.jpg");
-                File photo3 = new File(getExternalCacheDir() + "/photo3.jpg");
-                File photo4 = new File(getExternalCacheDir() + "/photo4.jpg");
-                File photo5 = new File(getExternalCacheDir() + "/photo5.jpg");
-                File photo6 = new File(getExternalCacheDir() + "/photo6.jpg");
-                File photo7 = new File(getExternalCacheDir() + "/photo7.jpg");
-                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo1.jpg", photo1);
-                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo2.jpg", photo2);
-                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo3.jpg", photo3);
-                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo4.jpg", photo4);
-                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo5.jpg", photo5);
-                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo6.jpg", photo6);
-                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo7.jpg", photo7);
-
-                RequestBody fileBodyPhoto1 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo1);
-                RequestBody fileBodyPhoto2 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo2);
-                RequestBody fileBodyPhoto3 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo3);
-                RequestBody fileBodyPhoto4 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo4);
-                RequestBody fileBodyPhoto5 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo5);
-                RequestBody fileBodyPhoto6 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo6);
-                RequestBody fileBodyPhoto7 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo7);
-
-                storeInfo.setOwnerId(user.getId());
-                storeInfo.setId(UUIDUtil.getUUID());
-                storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
-
-                String storeInfoString = JSONObject.toJSONString(storeInfo);
-                RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, storeInfoString);
-
-                RequestBody multiBody = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("json", storeInfoString)
-                        .addFormDataPart("photo", photo1.getName(), fileBodyPhoto1)
-                        .addFormDataPart("photo", photo2.getName(), fileBodyPhoto2)
-                        .addFormDataPart("photo", photo3.getName(), fileBodyPhoto3)
-                        .addFormDataPart("photo", photo4.getName(), fileBodyPhoto4)
-                        .addFormDataPart("photo", photo5.getName(), fileBodyPhoto5)
-                        .addFormDataPart("photo", photo6.getName(), fileBodyPhoto6)
-                        .addFormDataPart("photo", photo7.getName(), fileBodyPhoto7)
-                        .build();
-                Request mulRrequest = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "multipart/form-data")
-                        .post(multiBody)
-                        .build();
-
-                builder.build().newCall(mulRrequest).enqueue(new Callback() {
-                    //                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        dismissDialog();
-                        Message msg = new Message();
-                        msg.obj = "发送失败，e";
-                        // 把消息发送到主线程，在主线程里现实Toast
-                        handler.sendMessage(msg);
-                        Log.e(TAG, call.request().body().toString());
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-//                        确认上传成功，结束当前活动；
-                        JSONObject responseJson = JSONObject.parseObject(response.body().string());
-                        int code = Integer.valueOf(responseJson.get("code").toString());
-                        JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
-                        Message msg = new Message();
-                        switch (code) {
-                            case 0:
-                                dismissDialog();
-                                msg.obj = "成功发送";
-                                // 把消息发送到主线程，在主线程里现实Toast
-                                handler.sendMessage(msg);
-                                finish();
-                                break;
-                            case 1:
-                                msg.obj = "Throw an exception";
-                                // 把消息发送到主线程，在主线程里现实Toast
-                                handler.sendMessage(msg);
-                                dismissDialog();
-                                break;
-                        }
-                    }
-                });
-            }
-        }).start();
-    }
+//    private void sendStoresAddInfo() {
+//        /*进度条后续优化*/
+//        progDialog.show();
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+////                String path = "https://47.106.149.105/zujuba/join/addstores";
+//                String path = PropertiesConfig.storeServerUrl + "join";
+////                OkHttpClient client = new OkHttpClient();
+//                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
+////                builder.sslSocketFactory(createSSLSocketFactory());
+//                builder.hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                });
+//                File photo1 = new File(getExternalCacheDir() + "/photo1.jpg");
+//                File photo2 = new File(getExternalCacheDir() + "/photo2.jpg");
+//                File photo3 = new File(getExternalCacheDir() + "/photo3.jpg");
+//                File photo4 = new File(getExternalCacheDir() + "/photo4.jpg");
+//                File photo5 = new File(getExternalCacheDir() + "/photo5.jpg");
+//                File photo6 = new File(getExternalCacheDir() + "/photo6.jpg");
+//                File photo7 = new File(getExternalCacheDir() + "/photo7.jpg");
+//                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo1.jpg", photo1);
+//                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo2.jpg", photo2);
+//                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo3.jpg", photo3);
+//                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo4.jpg", photo4);
+//                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo5.jpg", photo5);
+//                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo6.jpg", photo6);
+//                PictureRAR.qualityCompress(getExternalCacheDir() + "/photo7.jpg", photo7);
+//
+//                RequestBody fileBodyPhoto1 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo1);
+//                RequestBody fileBodyPhoto2 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo2);
+//                RequestBody fileBodyPhoto3 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo3);
+//                RequestBody fileBodyPhoto4 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo4);
+//                RequestBody fileBodyPhoto5 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo5);
+//                RequestBody fileBodyPhoto6 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo6);
+//                RequestBody fileBodyPhoto7 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo7);
+//
+//                storeInfo.setOwnerId(userInfo.getId());
+//                storeInfo.setId(UUIDUtil.getUUID());
+//                storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
+//
+//                String storeInfoString = JSONObject.toJSONString(storeInfo);
+//                RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, storeInfoString);
+//
+//                RequestBody multiBody = new MultipartBody.Builder()
+//                        .setType(MultipartBody.FORM)
+//                        .addFormDataPart("json", storeInfoString)
+//                        .addFormDataPart("photo", photo1.getName(), fileBodyPhoto1)
+//                        .addFormDataPart("photo", photo2.getName(), fileBodyPhoto2)
+//                        .addFormDataPart("photo", photo3.getName(), fileBodyPhoto3)
+//                        .addFormDataPart("photo", photo4.getName(), fileBodyPhoto4)
+//                        .addFormDataPart("photo", photo5.getName(), fileBodyPhoto5)
+//                        .addFormDataPart("photo", photo6.getName(), fileBodyPhoto6)
+//                        .addFormDataPart("photo", photo7.getName(), fileBodyPhoto7)
+//                        .build();
+//                Request mulRrequest = new Request.Builder()
+//                        .url(path)
+//                        .header("Content-Type", "multipart/form-data")
+//                        .post(multiBody)
+//                        .build();
+//
+//                builder.build().newCall(mulRrequest).enqueue(new Callback() {
+//                    //                builder.build().newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        dismissDialog();
+//                        Message msg = new Message();
+//                        msg.obj = "发送失败，e";
+//                        // 把消息发送到主线程，在主线程里现实Toast
+//                        handler.sendMessage(msg);
+//                        Log.e(TAG, call.request().body().toString());
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+////                        确认上传成功，结束当前活动；
+//                        JSONObject responseJson = JSONObject.parseObject(response.body().string());
+//                        int code = Integer.valueOf(responseJson.get("code").toString());
+//                        JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
+//                        Message msg = new Message();
+//                        switch (code) {
+//                            case 0:
+//                                dismissDialog();
+//                                msg.obj = "成功发送";
+//                                // 把消息发送到主线程，在主线程里现实Toast
+//                                handler.sendMessage(msg);
+//                                finish();
+//                                break;
+//                            case 1:
+//                                msg.obj = "Throw an exception";
+//                                // 把消息发送到主线程，在主线程里现实Toast
+//                                handler.sendMessage(msg);
+//                                dismissDialog();
+//                                break;
+//                        }
+//                    }
+//                });
+//            }
+//        }).start();
+//    }
 
     private void reloadAdapter() {
         RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
@@ -917,7 +922,8 @@ public class CreateStoreActivity extends BaseActivity {
         RequestBody fileBodyPhoto5 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo5);
         RequestBody fileBodyPhoto6 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo6);
         RequestBody fileBodyPhoto7 = RequestBody.create(FinalDefine.MEDIA_TYPE_JPG, photo7);
-        storeInfo.setOwnerId(user.getId());
+
+        storeInfo.setOwnerId(userInfo.getId());
         storeInfo.setId(UUIDUtil.getUUID());
         storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
         storeInfo.setMaxDeskSum(1);
@@ -939,7 +945,7 @@ public class CreateStoreActivity extends BaseActivity {
         map.put("plateNo", multiBody);
 
         addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-                .PlaceServicePost("store",
+                .FourParameterBodyPost("store",
                         "join",
                         user.getId(),
                         storeInfo.getId(),
@@ -1030,6 +1036,8 @@ public class CreateStoreActivity extends BaseActivity {
                 storeInfo.getAddressInfo().setTownship(addressUse.getTownship());
                 storeInfo.getAddressInfo().setLatitude(addressUse.getLatitude());
                 storeInfo.getAddressInfo().setLongitude(addressUse.getLongitude());
+                storeInfo.getAddressInfo().setAddressClass(ADDRESS_CLASS_STORE);
+                storeInfo.getAddressInfo().setOwnerId(userInfo.getId());
                 business_join_introduce_addres_name.setText(storeInfo.getAddressInfo().getFormatAddress());
                 break;
             case PHOTO_1:

@@ -4,16 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
@@ -32,43 +28,44 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
-import com.renchaigao.zujuba.mongoDB.info.AddressInfo;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.team.TeamInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import renchaigao.com.zujuba.Activity.MessageInfoActivity;
-import renchaigao.com.zujuba.Activity.PlaceListActivity;
+import renchaigao.com.zujuba.Activity.BaseActivity;
+import renchaigao.com.zujuba.Activity.Place.PlaceListActivity;
 import renchaigao.com.zujuba.Bean.FilterInfo;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.CalendarUtil;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.FinalDefine;
-import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PatternUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.dateUse;
+import renchaigao.com.zujuba.util.http.ApiService;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.WidgetDateAndWeekSelect;
 
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_CREATE_STYLE_USER;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_STATE_WAITING;
+import static renchaigao.com.zujuba.Activity.Place.PlaceListActivity.PLACE_LIST_ACTIVITY_CODE;
 
-public class TeamCreateActivity extends AppCompatActivity {
+
+public class TeamCreateActivity extends BaseActivity {
     private NestedScrollView nestedScrollView;
     private Integer pageNum;
-    private boolean click_id_activity_create_team_datetime_image_more,
+    private boolean
+            click_id_activity_create_team_datetime_image_more,
             click_id_activity_create_team_time_image_more,
-            click_create_team_address_more;
+            click_create_team_address_more,
+            click_create_team_game_more;
     private String TAG = "createTeam";
     private ImageView id_activity_create_team_datetime_image_more,
             id_activity_create_team_time_image_more,
@@ -129,26 +126,92 @@ public class TeamCreateActivity extends AppCompatActivity {
     private Integer gameNumber = 0;
     private TeamInfo teamInfo;
     private FilterInfo filterInfo;
-    final static public int CREATE_TEAM_ADDRESS_STORE = 1;
-    final static public int CREATE_TEAM_ADDRESS_OPEN_PLACE = 2;
     private UserInfo userInfo;
     private String userId;
 
+    private TextView ct_pwd_title;
+    private ConstraintLayout create_team_pwd_ConstraintLayout;
+    private TextInputLayout create_team_pwd_TextInputLayout;
+    private TextInputEditText create_team_pwd_TextInputEditText;
+    private Switch create_team_pwd_switch;
+    private boolean pwdFlag;
+
+    private TextView ct_filter_title_text;
+    private ImageView ct_filter_image_more;
+    private Switch switch_join_team_1, switch_join_team_2, switch_join_team_3, switch_join_team_4, switch_join_team_5, switch_join_team_6;
+    private AppCompatSpinner switch_join_team_spinner_1, switch_join_team_spinner_2, switch_join_team_spinner_3, switch_join_team_spinner_4, switch_join_team_spinner_5, switch_join_team_spinner_6;
+    private Integer filterNum = 0;
+    private LinearLayout filter_all_layout;
+    private ConstraintLayout filter_all_ConstrainLayout;
+    private boolean filterClickFlag;
+    private ImageView create_team_game_more;
+
+    private String filter1, filter2, filter3, filter4, filter5, filter6;
+    private AlertDialog.Builder builder;
+    private ProgressDialog progDialog;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_team);
+    protected void InitView() {
+        nestedScrollView = findViewById(R.id.ct_nestedScrollView);
+
         initData();
-        setToolBar();
-        initDate();
+        initDateView();
         initTime();
         initPeople();
         setAllClickListener();
         initAddress();
         setGame();
-        initExtraInfoPart();
+        setSecretPart();
+        setFilterPart();
         setButton();
-//        Glide.with(TeamCreateActivity.this).load("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg").into(create_team_place_pic1);
+    }
+
+    @Override
+    protected void InitData() {
+
+    }
+
+    @Override
+    protected void InitOther() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_create_team;
+    }
+
+    final static public int CREATE_TEAM_ADDRESS_STORE = 1001;
+    final static public int CREATE_TEAM_ADDRESS_OPEN_PLACE = 1002;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case PLACE_LIST_ACTIVITY_CODE:
+//                隐藏按键选项
+                create_team_address_button_cons1.setVisibility(View.GONE);
+                create_team_address_button_cons2.setVisibility(View.GONE);
+                create_team_address_more_image.setImageResource(R.drawable.more_down);
+                click_create_team_address_more = true;
+//                获取json内对应的store信息
+                JSONObject selectPlaceJson = JSONObject.parseObject(data.getStringExtra("place"));
+                create_team_address_name.setText(selectPlaceJson.getString("name"));
+                teamInfo.setPlaceName(selectPlaceJson.getString("name"));
+                String placeId = selectPlaceJson.getString("placeid");
+                teamInfo.getAddressInfo().setId(placeId);
+                teamInfo.setCreaterStyle(TEAM_CREATE_STYLE_USER);
+                Glide
+                        .with(TeamCreateActivity.this)
+                        .load(PropertiesConfig.photoUrl + "showimage/" + selectPlaceJson.get("ownerid") + "/" + selectPlaceJson.get("placeid") + "/photo1.jpg")
+                        .placeholder(R.drawable.image_loading)
+                        .error(R.drawable.image_load_fail)
+                        .into(create_team_place_pic1);
+//                更新图片信息
+
+                break;
+            case CREATE_TEAM_ADDRESS_OPEN_PLACE:
+                break;
+        }
     }
 
     //    初始化一些准备数据；
@@ -157,20 +220,21 @@ public class TeamCreateActivity extends AppCompatActivity {
         userId = userInfo.getId();
         teamInfo = new TeamInfo();
         teamInfo.setCreaterId(userId);
-        teamInfo.setState("WAITING");
-        teamInfo.setCreaterStyle("STORE");
 
         filterInfo = new FilterInfo();
 //        date选项部分，点击后是否打开
         click_id_activity_create_team_datetime_image_more = true;
 //        time选项部分，点击后是否打开
         click_id_activity_create_team_time_image_more = true;
+//        place选项部分，点击后是否打开
+        click_create_team_address_more = true;
+//        game选项部分，点击后是否打开
+        click_create_team_game_more = true;
 
-        nestedScrollView = findViewById(R.id.ct_nestedScrollView);
     }
 
     //    初始化日期相关默认选项
-    private void initDate() {
+    private void initDateView() {
 
         create_team_date_title = findViewById(R.id.create_team_date_title);
         id_activity_create_team_datetime_con = findViewById(R.id.id_activity_create_team_datetime_con);
@@ -303,6 +367,8 @@ public class TeamCreateActivity extends AppCompatActivity {
 
     //    初始化时间段
     private void initTime() {
+        id_activity_create_team_datetime = findViewById(R.id.id_activity_create_team_datetime);
+        id_activity_create_team_datetime.setVisibility(View.VISIBLE);
         id_activity_create_team_time_con = findViewById(R.id.id_activity_create_team_time_con);
         id_activity_create_team_time_selectinfo_morning = findViewById(R.id.id_activity_create_team_time_selectinfo_morning);
         id_activity_create_team_time_selectinfo_afternoon = findViewById(R.id.id_activity_create_team_time_selectinfo_afternoon);
@@ -350,6 +416,8 @@ public class TeamCreateActivity extends AppCompatActivity {
                 click_create_team_address_more = !click_create_team_address_more;
             }
         });
+
+
         create_team_open_place_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -366,54 +434,10 @@ public class TeamCreateActivity extends AppCompatActivity {
         });
     }
 
-//    private SharedPreferences pref;
-//    private String dataJsonString;
-//    private JSONObject jsonObject;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CREATE_TEAM_ADDRESS_STORE:
-//                pref = getSharedPreferences("createTeamAddressInfo", MODE_PRIVATE);
-//                dataJsonString = pref.getString("responseJsonDataString", null);
-//                jsonObject = JSONObject.parseObject(dataJsonString);
-
-//                隐藏按键选项
-                create_team_address_button_cons1.setVisibility(View.GONE);
-                create_team_address_button_cons2.setVisibility(View.GONE);
-                create_team_address_more_image.setImageResource(R.drawable.more_down);
-                click_create_team_address_more = true;
-//                获取json内对应的store信息
-
-                create_team_address_name.setText(data.getStringExtra("name"));
-                AddressInfo addressInfo = JSONObject.parseObject(data.getStringExtra("address"), AddressInfo.class);
-                teamInfo.setAddressInfo(addressInfo);
-
-                Glide
-                        .with(TeamCreateActivity.this)
-                        .load("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg")
-                        .placeholder(R.drawable.image_loading)
-                        .error(R.drawable.image_load_fail)
-                        .into(create_team_place_pic1);
-//                更新图片信息
-
-                break;
-            case CREATE_TEAM_ADDRESS_OPEN_PLACE:
-                break;
-        }
-    }
-
-
-    private void setToolBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
-
     //    游戏部分设置
     private void setGame() {
+        create_team_game_more = findViewById(R.id.create_team_game_more);
+
         create_team_game_title = findViewById(R.id.create_team_game_title);
         create_team_game_lrs = findViewById(R.id.create_team_game_lrs);
         create_team_game_thqby = findViewById(R.id.create_team_game_thqby);
@@ -422,13 +446,31 @@ public class TeamCreateActivity extends AppCompatActivity {
         id_activity_create_team_game = findViewById(R.id.id_activity_create_team_game);
         create_team_game_CheckBox_lrs = findViewById(R.id.create_team_game_CheckBox_lrs);
         create_team_game_CheckBox_thqby = findViewById(R.id.create_team_game_CheckBox_thqby);
-
+        create_team_game_number_thqby.setVisibility(View.GONE);
+        create_team_game_number_lrs.setVisibility(View.GONE);
+        id_activity_create_team_game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (click_create_team_game_more) { //当该flag为true时，点击展示按键
+                    create_team_game_number_lrs.setVisibility(View.VISIBLE);
+                    create_team_game_number_lrs.setVisibility(View.VISIBLE);
+                    create_team_game_more.setImageResource(R.drawable.more_up);
+                } else {
+                    create_team_game_number_thqby.setVisibility(View.GONE);
+                    create_team_game_number_lrs.setVisibility(View.GONE);
+                    create_team_game_more.setImageResource(R.drawable.more_down);
+                }
+                click_create_team_game_more = !click_create_team_game_more;
+            }
+        });
         create_team_game_CheckBox_lrs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    teamInfo.getTeamGameInfo().setSelect_LRS(true);
                     gameNumber++;
                 } else {
+                    teamInfo.getTeamGameInfo().setSelect_LRS(false);
                     gameNumber--;
                 }
                 create_team_game_title.setText("已选：" + gameNumber.toString() + "款");
@@ -438,8 +480,10 @@ public class TeamCreateActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    teamInfo.getTeamGameInfo().setSelect_THQBY(true);
                     gameNumber++;
                 } else {
+                    teamInfo.getTeamGameInfo().setSelect_THQBY(false);
                     gameNumber--;
                 }
                 create_team_game_title.setText("已选：" + gameNumber.toString() + "款");
@@ -471,7 +515,6 @@ public class TeamCreateActivity extends AppCompatActivity {
 //        });
     }
 
-
     private void initPeople() {
         ct_people_selectinfo_textview_value_min = findViewById(R.id.ct_people_selectinfo_textview_value_min);
         ct_people_selectinfo_textview_value_max = findViewById(R.id.ct_people_selectinfo_textview_value_max);
@@ -483,19 +526,19 @@ public class TeamCreateActivity extends AppCompatActivity {
             people_min_select.setMin(4);
             people_max_select.setMin(4);
         }
-        people_min_select.setMax(9);
+        people_min_select.setMax(19);
         people_max_select.setMax(19);
-        people_min_select.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+        people_min_select.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                people_min_textview.setText(Integer.toString(progress));
-                if (Integer.valueOf(people_max_textview.getText().toString()) < progress) {
+                if (progress > people_max_select.getProgress()) {
                     people_max_textview.setText(Integer.toString(progress));
                     ct_people_selectinfo_textview_value_max.setText(Integer.toString(progress));
                     people_max_select.setProgress(progress);
                 }
+                people_min_textview.setText(Integer.toString(progress));
                 ct_people_selectinfo_textview_value_min.setText(Integer.toString(progress));
             }
 
@@ -509,16 +552,17 @@ public class TeamCreateActivity extends AppCompatActivity {
                 Log.e("------------", "停止滑动！");
             }
         });
-        people_max_select.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+        people_max_select.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                people_max_textview.setText(Integer.toString(progress));
                 if (Integer.valueOf(people_min_textview.getText().toString()) > progress) {
                     people_min_textview.setText(Integer.toString(progress));
                     ct_people_selectinfo_textview_value_min.setText(Integer.toString(progress));
                     people_min_select.setProgress(progress);
                 }
+                people_max_textview.setText(Integer.toString(progress));
                 ct_people_selectinfo_textview_value_max.setText(Integer.toString(progress));
             }
 
@@ -532,6 +576,27 @@ public class TeamCreateActivity extends AppCompatActivity {
                 Log.e("------------", "停止滑动！");
             }
         });
+    }
+
+    public void peopleMinAddButton(View view) {
+        if (people_min_select.getProgress() < people_max_select.getProgress())
+            people_min_select.setProgress(people_min_select.getProgress() + 1);
+    }
+
+    public void peopleMinSubButton(View view) {
+        if (people_min_select.getProgress() > 4)
+            people_min_select.setProgress(people_min_select.getProgress() - 1);
+    }
+
+    public void peopleMaxAddButton(View view) {
+        if (people_max_select.getProgress() < 20)
+            people_max_select.setProgress(people_max_select.getProgress() + 1);
+    }
+
+    public void peopleMaxSubButton(View view) {
+        if (people_max_select.getProgress() > people_min_select.getProgress())
+            people_max_select.setProgress(people_max_select.getProgress() - 1);
+
     }
 
     private void setAllClickListener() {
@@ -570,6 +635,10 @@ public class TeamCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 id_activity_create_team_time_value.setText(R.string.create_team_time_morning);
+                teamInfo.setStartHour(9);
+                teamInfo.setEndHour(12);
+                teamInfo.setStartMinute(0);
+                teamInfo.setEndMinute(0);
                 id_activity_create_team_time_image_more.setImageResource(R.drawable.more_down);
                 id_activity_create_team_time_selectinfo.setVisibility(View.GONE);
                 click_id_activity_create_team_time_image_more = true;
@@ -580,6 +649,11 @@ public class TeamCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 id_activity_create_team_time_value.setText(R.string.create_team_time_afternoon);
+
+                teamInfo.setStartHour(13);
+                teamInfo.setEndHour(17);
+                teamInfo.setStartMinute(0);
+                teamInfo.setEndMinute(0);
                 id_activity_create_team_time_image_more.setImageResource(R.drawable.more_down);
                 id_activity_create_team_time_selectinfo.setVisibility(View.GONE);
                 click_id_activity_create_team_time_image_more = true;
@@ -590,6 +664,10 @@ public class TeamCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 id_activity_create_team_time_value.setText(R.string.create_team_time_evening);
+                teamInfo.setStartHour(18);
+                teamInfo.setEndHour(12);
+                teamInfo.setStartMinute(0);
+                teamInfo.setEndMinute(0);
                 id_activity_create_team_time_image_more.setImageResource(R.drawable.more_down);
                 id_activity_create_team_time_selectinfo.setVisibility(View.GONE);
                 click_id_activity_create_team_time_image_more = true;
@@ -600,6 +678,10 @@ public class TeamCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 id_activity_create_team_time_value.setText(R.string.create_team_time_night);
+                teamInfo.setStartHour(9);
+                teamInfo.setEndHour(12);
+                teamInfo.setStartMinute(0);
+                teamInfo.setEndMinute(0);
                 id_activity_create_team_time_image_more.setImageResource(R.drawable.more_down);
                 id_activity_create_team_time_selectinfo.setVisibility(View.GONE);
                 click_id_activity_create_team_time_image_more = true;
@@ -674,21 +756,236 @@ public class TeamCreateActivity extends AppCompatActivity {
                 Toast.makeText(TeamCreateActivity.this, "日期设置成功：" + sunday_widgetDateAndWeekSelect.getDate_textView().getText(), Toast.LENGTH_SHORT).show();
             }
         });
+
+//        people
+
     }
 
+    private void setFilterPart() {
+        filter1 = null;
+        filter2 = null;
+        filter3 = null;
+        filter4 = null;
+        filter5 = null;
+        filter6 = null;
+        filterClickFlag = true;
+        filter_all_ConstrainLayout = findViewById(R.id.filter_all_ConstrainLayout);
+        filter_all_layout = findViewById(R.id.filter_all_layout);
+        ct_filter_image_more = findViewById(R.id.ct_filter_image_more);
+        ct_filter_title_text = findViewById(R.id.ct_filter_title_text);
+        switch_join_team_1 = findViewById(R.id.switch_join_team_1);
+        switch_join_team_2 = findViewById(R.id.switch_join_team_2);
+        switch_join_team_3 = findViewById(R.id.switch_join_team_3);
+        switch_join_team_4 = findViewById(R.id.switch_join_team_4);
+        switch_join_team_5 = findViewById(R.id.switch_join_team_5);
+        switch_join_team_6 = findViewById(R.id.switch_join_team_6);
+        switch_join_team_spinner_1 = findViewById(R.id.switch_join_team_spinner_1);
+        switch_join_team_spinner_2 = findViewById(R.id.switch_join_team_spinner_2);
+        switch_join_team_spinner_3 = findViewById(R.id.switch_join_team_spinner_3);
+        switch_join_team_spinner_4 = findViewById(R.id.switch_join_team_spinner_4);
+        switch_join_team_spinner_5 = findViewById(R.id.switch_join_team_spinner_5);
+        switch_join_team_spinner_6 = findViewById(R.id.switch_join_team_spinner_6);
 
-    private void initExtraInfoPart() {
-        setSecretPart();
-        setFilterPart();
-        setSpendPart();
+        filter_all_ConstrainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filterClickFlag) {
+                    ct_filter_image_more.setImageResource(R.drawable.more_up);
+                    filter_all_layout.setVisibility(View.VISIBLE);
+                } else {
+                    ct_filter_image_more.setImageResource(R.drawable.more_down);
+                    filter_all_layout.setVisibility(View.GONE);
+                }
+                filterClickFlag = !filterClickFlag;
+            }
+        });
+        switch_join_team_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    filterNum++;
+                    switch_join_team_spinner_1.setVisibility(View.VISIBLE);
+                } else {
+                    filterNum--;
+                    switch_join_team_spinner_1.setVisibility(View.GONE);
+                    teamInfo.getTeamFilterInfo().setIntegrityScore(null);
+                }
+                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
+            }
+        });
+        switch_join_team_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    filterNum++;
+                    switch_join_team_spinner_2.setVisibility(View.VISIBLE);
+                } else {
+                    filterNum--;
+                    switch_join_team_spinner_2.setVisibility(View.GONE);
+                    teamInfo.getTeamFilterInfo().setGenderRatio(null);
+                }
+
+                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
+            }
+        });
+        switch_join_team_3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    filterNum++;
+                    switch_join_team_spinner_3.setVisibility(View.VISIBLE);
+                } else {
+                    filterNum--;
+                    switch_join_team_spinner_3.setVisibility(View.GONE);
+                    teamInfo.getTeamFilterInfo().setCareerScreening(null);
+                }
+
+                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
+            }
+        });
+        switch_join_team_4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    filterNum++;
+                    switch_join_team_spinner_4.setVisibility(View.VISIBLE);
+                } else {
+                    filterNum--;
+                    switch_join_team_spinner_4.setVisibility(View.GONE);
+                    teamInfo.getTeamFilterInfo().setAgeScreening(null);
+                }
+
+                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
+            }
+        });
+        switch_join_team_5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    filterNum++;
+                    switch_join_team_spinner_5.setVisibility(View.VISIBLE);
+                } else {
+                    filterNum--;
+                    switch_join_team_spinner_5.setVisibility(View.GONE);
+                    teamInfo.getTeamFilterInfo().setEvaluationScreening(null);
+                }
+
+                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
+            }
+        });
+        switch_join_team_6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    filterNum++;
+                    switch_join_team_spinner_6.setVisibility(View.VISIBLE);
+                } else {
+                    filterNum--;
+                    switch_join_team_spinner_6.setVisibility(View.GONE);
+                    teamInfo.getTeamFilterInfo().setMarriage(null);
+                }
+
+                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
+            }
+        });
+        switch_join_team_spinner_1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        switch_join_team_spinner_2.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        switch_join_team_spinner_3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        switch_join_team_spinner_4.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        switch_join_team_spinner_5.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        switch_join_team_spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter1 = getResources().getStringArray(R.array.compare_number_array)[position];
+                teamInfo.getTeamFilterInfo().setIntegrityScore(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                filter1 = null;
+                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
+            }
+        });
+        switch_join_team_spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter2 = getResources().getStringArray(R.array.filter_gender)[position];
+                teamInfo.getTeamFilterInfo().setGenderRatio(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                filter2 = null;
+                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
+            }
+        });
+        switch_join_team_spinner_3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter3 = getResources().getStringArray(R.array.filter_job)[position];
+                teamInfo.getTeamFilterInfo().setCareerScreening(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                filter3 = null;
+                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
+            }
+        });
+        switch_join_team_spinner_4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter4 = getResources().getStringArray(R.array.filter_age)[position];
+                teamInfo.getTeamFilterInfo().setAgeScreening(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                filter4 = null;
+                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
+            }
+        });
+        switch_join_team_spinner_5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter5 = getResources().getStringArray(R.array.filter_evaluation)[position];
+                teamInfo.getTeamFilterInfo().setEvaluationScreening(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                filter5 = null;
+                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
+            }
+        });
+        switch_join_team_spinner_6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter6 = getResources().getStringArray(R.array.filter_single)[position];
+                teamInfo.getTeamFilterInfo().setMarriage(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                filter6 = null;
+                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
+            }
+        });
+
+        spinner_ct_spend = findViewById(R.id.spinner_ct_spend);
+        spinner_ct_spend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filterInfo.setIntegrityScore(getResources().getStringArray(R.array.compare_number_array)[position]);
+                teamInfo.getTeamFilterInfo().setSettleWay(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
     }
-
-    private TextView ct_pwd_title;
-    private ConstraintLayout create_team_pwd_ConstraintLayout;
-    private TextInputLayout create_team_pwd_TextInputLayout;
-    private TextInputEditText create_team_pwd_TextInputEditText;
-    private Switch create_team_pwd_switch;
-    private boolean pwdFlag;
 
     private void setSecretPart() {
 //        加密部分
@@ -743,233 +1040,6 @@ public class TeamCreateActivity extends AppCompatActivity {
 
     }
 
-    private TextView ct_filter_title_text;
-    private ImageView ct_filter_image_more;
-    private Switch switch_join_team_1, switch_join_team_2, switch_join_team_3, switch_join_team_4, switch_join_team_5, switch_join_team_6;
-    private AppCompatSpinner switch_join_team_spinner_1, switch_join_team_spinner_2, switch_join_team_spinner_3, switch_join_team_spinner_4, switch_join_team_spinner_5, switch_join_team_spinner_6;
-    private Integer filterNum = 0;
-    private LinearLayout filter_all_layout;
-    private ConstraintLayout filter_all_ConstrainLayout;
-    private boolean filterClickFlag;
-
-    private void setFilterPart() {
-        filter1 = null;
-        filter2 = null;
-        filter3 = null;
-        filter4 = null;
-        filter5 = null;
-        filter6 = null;
-        filterClickFlag = true;
-        filter_all_ConstrainLayout = findViewById(R.id.filter_all_ConstrainLayout);
-        filter_all_layout = findViewById(R.id.filter_all_layout);
-        ct_filter_image_more = findViewById(R.id.ct_filter_image_more);
-        ct_filter_title_text = findViewById(R.id.ct_filter_title_text);
-        switch_join_team_1 = findViewById(R.id.switch_join_team_1);
-        switch_join_team_2 = findViewById(R.id.switch_join_team_2);
-        switch_join_team_3 = findViewById(R.id.switch_join_team_3);
-        switch_join_team_4 = findViewById(R.id.switch_join_team_4);
-        switch_join_team_5 = findViewById(R.id.switch_join_team_5);
-        switch_join_team_6 = findViewById(R.id.switch_join_team_6);
-        switch_join_team_spinner_1 = findViewById(R.id.switch_join_team_spinner_1);
-        switch_join_team_spinner_2 = findViewById(R.id.switch_join_team_spinner_2);
-        switch_join_team_spinner_3 = findViewById(R.id.switch_join_team_spinner_3);
-        switch_join_team_spinner_4 = findViewById(R.id.switch_join_team_spinner_4);
-        switch_join_team_spinner_5 = findViewById(R.id.switch_join_team_spinner_5);
-        switch_join_team_spinner_6 = findViewById(R.id.switch_join_team_spinner_6);
-
-        filter_all_ConstrainLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (filterClickFlag) {
-                    ct_filter_image_more.setImageResource(R.drawable.more_up);
-                    filter_all_layout.setVisibility(View.VISIBLE);
-                } else {
-                    ct_filter_image_more.setImageResource(R.drawable.more_down);
-                    filter_all_layout.setVisibility(View.GONE);
-                }
-                filterClickFlag = !filterClickFlag;
-            }
-        });
-        switch_join_team_1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    filterNum++;
-                    switch_join_team_spinner_1.setVisibility(View.VISIBLE);
-                    teamInfo.getTeamFilterInfo().setIntegrityScore(filter1);
-                } else {
-                    filterNum--;
-                    switch_join_team_spinner_1.setVisibility(View.GONE);
-                    teamInfo.getTeamFilterInfo().setIntegrityScore(null);
-                }
-                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
-            }
-        });
-        switch_join_team_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    filterNum++;
-                    switch_join_team_spinner_2.setVisibility(View.VISIBLE);
-                    teamInfo.getTeamFilterInfo().setSexRatio(filter2);
-                } else {
-                    filterNum--;
-                    switch_join_team_spinner_2.setVisibility(View.GONE);
-                    teamInfo.getTeamFilterInfo().setSexRatio(null);
-                }
-
-                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
-            }
-        });
-        switch_join_team_3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    filterNum++;
-                    switch_join_team_spinner_3.setVisibility(View.VISIBLE);
-                    teamInfo.getTeamFilterInfo().setSexRatio(filter3);
-                } else {
-                    filterNum--;
-                    switch_join_team_spinner_3.setVisibility(View.GONE);
-                    teamInfo.getTeamFilterInfo().setSexRatio(null);
-                }
-
-                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
-            }
-        });
-        switch_join_team_4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    filterNum++;
-                    switch_join_team_spinner_4.setVisibility(View.VISIBLE);
-                    teamInfo.getTeamFilterInfo().setAgeScreening(filter4);
-                } else {
-                    filterNum--;
-                    switch_join_team_spinner_4.setVisibility(View.GONE);
-                    teamInfo.getTeamFilterInfo().setAgeScreening(null);
-                }
-
-                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
-            }
-        });
-        switch_join_team_5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    filterNum++;
-                    switch_join_team_spinner_5.setVisibility(View.VISIBLE);
-                    teamInfo.getTeamFilterInfo().setEvaluationScreening(filter5);
-                } else {
-                    filterNum--;
-                    switch_join_team_spinner_5.setVisibility(View.GONE);
-                    teamInfo.getTeamFilterInfo().setEvaluationScreening(null);
-                }
-
-                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
-            }
-        });
-        switch_join_team_6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    filterNum++;
-                    switch_join_team_spinner_6.setVisibility(View.VISIBLE);
-                    teamInfo.getTeamFilterInfo().setMarriage(filter6);
-                } else {
-                    filterNum--;
-                    switch_join_team_spinner_6.setVisibility(View.GONE);
-                    teamInfo.getTeamFilterInfo().setMarriage(null);
-                }
-
-                ct_filter_title_text.setText("已选" + filterNum.toString() + "项筛选");
-            }
-        });
-        switch_join_team_spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter1 = getResources().getStringArray(R.array.compare_number_array)[position];
-                teamInfo.getTeamFilterInfo().setIntegrityScore(filter1);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                filter1 = null;
-                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
-            }
-        });
-        switch_join_team_spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter2 = getResources().getStringArray(R.array.filter_gender)[position];
-                teamInfo.getTeamFilterInfo().setIntegrityScore(filter2);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                filter2 = null;
-                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
-            }
-        });
-        switch_join_team_spinner_3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter3 = getResources().getStringArray(R.array.filter_job)[position];
-                teamInfo.getTeamFilterInfo().setIntegrityScore(filter3);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                filter3 = null;
-                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
-            }
-        });
-        switch_join_team_spinner_4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter4 = getResources().getStringArray(R.array.filter_age)[position];
-                teamInfo.getTeamFilterInfo().setIntegrityScore(filter4);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                filter4 = null;
-                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
-            }
-        });
-        switch_join_team_spinner_5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter5 = getResources().getStringArray(R.array.filter_evaluation)[position];
-                teamInfo.getTeamFilterInfo().setIntegrityScore(filter5);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                filter5 = null;
-                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
-            }
-        });
-        switch_join_team_spinner_6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter6 = getResources().getStringArray(R.array.filter_single)[position];
-                teamInfo.getTeamFilterInfo().setIntegrityScore(filter6);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                filter6 = null;
-                teamInfo.getTeamFilterInfo().setIntegrityScore(null);
-            }
-        });
-
-    }
-
-    private String filter1, filter2, filter3, filter4, filter5, filter6;
-    private AlertDialog.Builder builder;
-    private ProgressDialog progDialog;
-
     private void setButton() {
         builder = new AlertDialog.Builder(TeamCreateActivity.this);
         progDialog = new ProgressDialog(TeamCreateActivity.this);
@@ -1000,11 +1070,11 @@ public class TeamCreateActivity extends AppCompatActivity {
                     builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sendCreateInfo();
                             progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                             progDialog.setIndeterminate(false);
                             progDialog.setCancelable(true);
                             progDialog.setMessage("正在加载...");
+                            reloadAdapter();
                         }
                     });
                     builder.show();
@@ -1074,6 +1144,8 @@ public class TeamCreateActivity extends AppCompatActivity {
             nestedScrollView.scrollTo(1, 1000);
             return false;
         } else {
+//            AddressInfo addressInfo =
+//            teamInfo.setAddressInfo();
         }
 //        5、检查游戏；
         if (create_team_game_title.getText().equals("点击选择")) {
@@ -1097,126 +1169,161 @@ public class TeamCreateActivity extends AppCompatActivity {
                     .show();
             nestedScrollView.scrollTo(1, 1500);
             return false;
+        }else {
+            teamInfo.setJoinCode(ct_pwd_title.getText().toString());
         }
 //        7、检查筛选信息；
 //        8、检查消费方式；
         return true;
     }
 
-    public void dismissDialog() {
-        Log.e(TAG, "dismissDialog");
-        if (progDialog != null) {
-            progDialog.dismiss();
-        }
-    }
+    private void reloadAdapter() {
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.teamServerUrl);
+        teamInfo.setCreaterStyle("USER");
+        teamInfo.setState(TEAM_STATE_WAITING);
 
-    @SuppressLint("StaticFieldLeak")
-    private void sendCreateInfo() {
-        progDialog.show();
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-            }
-
-            @Override
-            protected void onCancelled(Void aVoid) {
-                super.onCancelled(aVoid);
-            }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                super.onProgressUpdate(values);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                String path = PropertiesConfig.teamServerUrl + "create";
-                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                        .connectTimeout(15, TimeUnit.SECONDS)
-                        .readTimeout(15, TimeUnit.SECONDS)
-                        .writeTimeout(15, TimeUnit.SECONDS)
-                        .retryOnConnectionFailure(true);
-                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-                builder.hostnameVerifier(new HostnameVerifier() {
+        RequestBody multiBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("json", JSONObject.toJSONString(teamInfo))
+                .build();
+        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                .FourParameterBodyPost("create",
+                        userInfo.getId(),
+                        teamInfo.getId(),
+                        "null",
+                        multiBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new BaseObserver<ResponseEntity>(this) {
                     @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-                String stringBody = JSONObject.toJSONString(teamInfo);
-                RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, stringBody);
-                final Request request = new Request.Builder()
-                        .url(path)
-                        .header("Content-Type", "application/json")
-                        .post(jsonBody)
-                        .build();
-                final Long startTimeMil = System.currentTimeMillis();
-                builder.build().newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e("onFailure", e.toString());
-                        Log.i(TAG + " callBack spend time : ", String.valueOf(System.currentTimeMillis() - startTimeMil));
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onNext(ResponseEntity value) {
                         try {
-                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-//                            String responseJsoStr = responseJson.toJSONString();
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONObject responseJsonData = responseJson.getJSONObject("data");
-//                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-//                            Log.e(TAG, "onResponse CODE OUT");
-//                            Log.e(TAG, "onResponse CODE is" + code);//
-////                            ArrayList<StoreInfo> mStores = new ArrayList<>();
-//                            Log.i(TAG + " callBack spend time : ", String.valueOf(System.currentTimeMillis() - startTimeMil));
                             switch (code) {
-                                case 0: //在数据库中更新用户数据出错；
-                                    Log.e(TAG, "onResponse");
-                                    Intent intent = new Intent(TeamCreateActivity.this, MessageInfoActivity.class);
-                                    intent.putExtra("teamInfo",JSONObject.toJSONString(responseJsonData));
-                                    startActivity(intent);
+                                case RespCodeNumber.SUCCESS:
+                                    if (progDialog != null) {
+                                        progDialog.dismiss();
+                                    }
                                     finish();
                                     break;
                             }
-//                            swipeRefreshLayout.setRefreshing(false);
                         } catch (Exception e) {
+
                         }
                     }
-                });
-                return null;
-            }
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                dismissDialog();
-                Log.e(TAG, "onPostExecute");
-            }
-        }.execute();
+                    @Override
+                    protected void onSuccess(ResponseEntity responseEntity) {
+
+                    }
+
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.e(TAG, "onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete");
+                    }
+                }));
     }
 
     private AppCompatSpinner spinner_ct_spend;
 
-    //
-    private void setSpendPart() {
-        spinner_ct_spend = findViewById(R.id.spinner_ct_spend);
-        spinner_ct_spend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filterInfo.setIntegrityScore(getResources().getStringArray(R.array.compare_number_array)[position]);
-//                teamInfo.setFilterInfo(filterInfo);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
 }
+
+//    @SuppressLint("StaticFieldLeak")
+//    private void sendCreateInfo() {
+//        progDialog.show();
+//        new AsyncTask<Void, Void, Void>() {
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//            }
+//
+//            @Override
+//            protected void onCancelled() {
+//                super.onCancelled();
+//            }
+//
+//            @Override
+//            protected void onCancelled(Void aVoid) {
+//                super.onCancelled(aVoid);
+//            }
+//
+//            @Override
+//            protected void onProgressUpdate(Void... values) {
+//                super.onProgressUpdate(values);
+//            }
+//
+//            @Override
+//            protected Void doInBackground(Void... params) {
+//                String path = PropertiesConfig.teamServerUrl + "create";
+//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
+//                        .connectTimeout(15, TimeUnit.SECONDS)
+//                        .readTimeout(15, TimeUnit.SECONDS)
+//                        .writeTimeout(15, TimeUnit.SECONDS)
+//                        .retryOnConnectionFailure(true);
+//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
+//                builder.hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                });
+//                String stringBody = JSONObject.toJSONString(teamInfo);
+//                RequestBody jsonBody = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, stringBody);
+//                final Request request = new Request.Builder()
+//                        .url(path)
+//                        .header("Content-Type", "application/json")
+//                        .post(jsonBody)
+//                        .build();
+//                final Long startTimeMil = System.currentTimeMillis();
+//                builder.build().newCall(request).enqueue(new Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        Log.e("onFailure", e.toString());
+//                        Log.i(TAG + " callBack spend time : ", String.valueOf(System.currentTimeMillis() - startTimeMil));
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        try {
+//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
+////                            String responseJsoStr = responseJson.toJSONString();
+//                            int code = Integer.valueOf(responseJson.get("code").toString());
+//                            JSONObject responseJsonData = responseJson.getJSONObject("data");
+////                            JSONArray responseJsonData = responseJson.getJSONArray("data");
+////                            Log.e(TAG, "onResponse CODE OUT");
+////                            Log.e(TAG, "onResponse CODE is" + code);//
+//////                            ArrayList<StoreInfo> mStores = new ArrayList<>();
+////                            Log.i(TAG + " callBack spend time : ", String.valueOf(System.currentTimeMillis() - startTimeMil));
+//                            switch (code) {
+//                                case 0: //在数据库中更新用户数据出错；
+//                                    Log.e(TAG, "onResponse");
+//                                    Intent intent = new Intent(TeamCreateActivity.this, MessageInfoActivity.class);
+//                                    intent.putExtra("teamInfo", JSONObject.toJSONString(responseJsonData));
+//                                    startActivity(intent);
+//                                    finish();
+//                                    break;
+//                            }
+////                            swipeRefreshLayout.setRefreshing(false);
+//                        } catch (Exception e) {
+//                        }
+//                    }
+//                });
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid) {
+//                super.onPostExecute(aVoid);
+//                dismissDialog();
+//                Log.e(TAG, "onPostExecute");
+//            }
+//        }.execute();
+//    }

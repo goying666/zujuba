@@ -76,6 +76,7 @@
         <activity
             android:name=".Activity.MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
 
             <!-- <intent-filter> -->
@@ -90,6 +91,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.Place.CreateStoreActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -111,12 +113,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.TeamPart.TeamCreateActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.MyTeamActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.PlaceListActivity"
+            android:name=".Activity.Place.PlaceListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.TeamPart.TeamActivity"
@@ -183,7 +186,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".Activity.MessageInfoActivity"
+            android:name=".Activity.Message.MessageInfoActivity"
             android:label="@string/title_activity_message_info"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
