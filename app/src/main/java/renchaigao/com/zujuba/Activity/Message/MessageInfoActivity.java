@@ -49,6 +49,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.MessageInfoAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.TeamPart.TeamActivity;
@@ -68,16 +69,14 @@ import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_TEAM_PAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_MESSAGE_PAGE;
 
 
-public class MessageInfoActivity extends BaseActivity {
+public class MessageInfoActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener{
 
     final static String TAG = "MessageInfoActivity";
 
     private MessageInfoAdapter messageInfoAdapter;
     private String userId;
     private String teamId, teamNameString;
-    private TeamInfo teamInfo;
     private UserInfo userInfo;
-
     private Button message_info_sendButton;
     private TextInputEditText message_info_inputEdit;
     private SwipeRefreshLayout message_info_swip;
@@ -88,6 +87,11 @@ public class MessageInfoActivity extends BaseActivity {
     ArrayList<MessageContent> newMessages = new ArrayList();
     private Timer timer = new Timer();
 
+
+    @Override
+    public void onItemLongClickListener(int position) {
+
+    }
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
@@ -120,8 +124,6 @@ public class MessageInfoActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ACTIVITY_TEAM_PAGE:
-                teamId = data.getStringExtra("teamId");
-                teamNameString=data.getStringExtra("teamName");
                 break;
             case FRAGMENT_MESSAGE_PAGE:
                 break;
@@ -131,7 +133,6 @@ public class MessageInfoActivity extends BaseActivity {
     @Override
     protected void InitView() {
         messageName = findViewById(R.id.message_info_title);
-        messageName.setText(teamNameString);
         message_info_inputEdit = findViewById(R.id.message_info_inputEdit);
         message_info_sendButton = findViewById(R.id.message_info_sendButton);
         message_info_more = findViewById(R.id.message_info_more);
@@ -141,6 +142,8 @@ public class MessageInfoActivity extends BaseActivity {
     protected void InitData() {
         userInfo = DataUtil.GetUserInfoData(this);
         userId = userInfo.getId();
+        teamId = getIntent().getStringExtra("teamId");
+        messageName.setText(getIntent().getStringExtra("teamName"));
     }
 
     @Override
@@ -151,9 +154,9 @@ public class MessageInfoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MessageInfoActivity.this, TeamActivity.class);
-                intent.putExtra("teamInfo", JSONObject.toJSONString(teamInfo));
+                intent.putExtra("teamId", JSONObject.toJSONString(teamId));
                 startActivityForResult(intent, PropertiesConfig.ACTIVITY_MESSAGE_PAGE);
-                finish();
+//                finish();
             }
         });
         message_info_inputEdit.addTextChangedListener(new TextWatcher() {
@@ -221,7 +224,7 @@ public class MessageInfoActivity extends BaseActivity {
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(layoutManager);
-        messageInfoAdapter = new MessageInfoAdapter(this);
+        messageInfoAdapter = new MessageInfoAdapter(this,allMessages,this);
         recyclerView.setAdapter(messageInfoAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -593,4 +596,8 @@ public class MessageInfoActivity extends BaseActivity {
         timer.cancel();
     }
 
+    @Override
+    public void onItemClickListener(int position) {
+
+    }
 }

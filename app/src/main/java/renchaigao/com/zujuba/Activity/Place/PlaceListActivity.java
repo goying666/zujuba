@@ -52,17 +52,16 @@ public class PlaceListActivity extends BaseActivity implements CommonViewHolder.
 
     @Override
     public void onItemClickListener(int position) {
-        Toast.makeText(this, "onItemClickListener :" + position, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemLongClickListener(int position) {
         Intent intent = new Intent(PlaceListActivity.this, TeamCreateActivity.class);
         intent.putExtra("place", JSONObject.toJSONString(mStoreInfo.get(position)));
 //        intent.putExtra("name", JSONObject.toJSONString(mStoreInfo.get(position).get("placeName")));
         setResult(PLACE_LIST_ACTIVITY_CODE, intent);
         Toast.makeText(this, "onItemLongClickListener :" + position, Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
     }
 
     //    public interface OnItemClickListener {
@@ -183,7 +182,7 @@ public class PlaceListActivity extends BaseActivity implements CommonViewHolder.
                                     }
                                     placeListAdapter.updateResults(mStoreInfo);
                                     placeListAdapter.notifyDataSetChanged();
-                                        Log.e(TAG, "onResponse");
+                                    Log.e(TAG, "onResponse");
                                     break;
                             }
                         } catch (Exception e) {

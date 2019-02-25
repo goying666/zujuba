@@ -388,9 +388,10 @@ public class TeamActivity extends BaseActivity {
 
         }else {
             Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
-            intent.putExtra("teamId",teamId.toString());
+            intent.putExtra("teamId",teamActivityBean.getTeamId());
             intent.putExtra("teamName",teamActivityBean.getTeamName());
-            startActivityForResult(intent,ACTIVITY_TEAM_PAGE);
+            startActivity(intent);
+            finish();
         }
 //                判断资格
 //                资格不通过，提示错误信息

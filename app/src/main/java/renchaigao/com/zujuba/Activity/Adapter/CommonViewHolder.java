@@ -69,6 +69,11 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
         imageView.setImageResource(resourceId);
         return this;
     }
+    public CommonViewHolder setImagelucency(int viewId) {
+        ImageView imageView = getView(viewId);
+        imageView.setBackgroundColor(0x00000000);
+        return this;
+    }
 
     public CommonViewHolder setGlideImageResource(int viewId, String url, Context context) {
         ImageView imageView = getView(viewId);
@@ -97,14 +102,14 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
     @Override
     public void onClick(View v) {
         if (commonClickListener != null) {
-            commonClickListener.onItemLongClickListener(getAdapterPosition());
+            commonClickListener.onItemClickListener(getAdapterPosition());
         }
     }
 
     @Override
     public boolean onLongClick(View v) {
         if (commonClickListener != null) {
-            commonClickListener.onItemClickListener(getAdapterPosition());
+            commonClickListener.onItemLongClickListener(getAdapterPosition());
         }
         return false;
     }

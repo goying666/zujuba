@@ -56,12 +56,6 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
 
     @Override
     public void onItemLongClickListener(int position) {
-        JSONObject teamJSON = teamList.get(position);
-        Intent intent = new Intent(mContext, TeamActivity.class);
-        intent.putExtra("teamId", teamJSON.getString("teamId"));
-        intent.putExtra("teamFragmentData",JSONObject.toJSONString(teamJSON));
-        intent.putExtra("whereCome","TeamFragment");
-        mContext.startActivityForResult(intent,FRAGMENT_TEAM_PAGE);
     }
 
     private void setSwipeRefresh(View view) {
@@ -198,7 +192,12 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
 
     @Override
     public void onItemClickListener(int position) {
-
+        JSONObject teamJSON = teamList.get(position);
+        Intent intent = new Intent(mContext, TeamActivity.class);
+        intent.putExtra("teamId", teamJSON.getString("teamId"));
+        intent.putExtra("teamFragmentData",JSONObject.toJSONString(teamJSON));
+        intent.putExtra("whereCome","TeamFragment");
+        mContext.startActivityForResult(intent,FRAGMENT_TEAM_PAGE);
     }
 }
 //    public void reloadAdapter() {

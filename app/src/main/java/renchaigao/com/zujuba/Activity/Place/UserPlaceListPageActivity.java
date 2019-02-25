@@ -165,13 +165,12 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
 
     @Override
     public void onItemClickListener(int position) {
-
+        Intent intent = new Intent(UserPlaceListPageActivity.this, UserPlaceManagerActivity.class);
+        intent.putExtra("storeinfo", JSONObject.toJSONString(jsonObjectArrayList.get(position)));
+        startActivity(intent);
     }
 
     @Override
     public void onItemLongClickListener(int position) {
-        Intent intent = new Intent(UserPlaceListPageActivity.this, UserPlaceManagerActivity.class);
-        intent.putExtra("storeinfo", JSONObject.toJSONString(jsonObjectArrayList.get(position)));
-        startActivity(intent);
     }
 }
