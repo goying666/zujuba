@@ -40,6 +40,7 @@ import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_MESSAGE_PAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_TEAM_PAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_TEAM_PAGE;
@@ -70,8 +71,6 @@ public class TeamActivity extends BaseActivity {
     private UserInfo userInfo = new UserInfo();
     private String userId, teamId;
     private TeamActivityBean teamActivityBean = new TeamActivityBean();
-    private Timer timer = new Timer();
-    private TimerTask task;
     private final static String RELOAD_FLAGE_VALUE_RELOAD = "RELOAD";
     private final static String RELOAD_FLAGE_VALUE_STOP = "STOP";
     private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
@@ -84,6 +83,8 @@ public class TeamActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
 
+    private Timer timer = new Timer();
+    private TimerTask task;
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
@@ -388,7 +389,9 @@ public class TeamActivity extends BaseActivity {
 
         }else {
             Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
-            intent.putExtra("teamId",teamActivityBean.getTeamId());
+
+            intent.putExtra("messageClass",TEAM_SEND_MESSAGE);
+            intent.putExtra("ownerId",teamActivityBean.getTeamId());
             intent.putExtra("teamName",teamActivityBean.getTeamName());
             startActivity(intent);
             finish();

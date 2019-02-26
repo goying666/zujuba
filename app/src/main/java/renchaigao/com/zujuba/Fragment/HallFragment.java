@@ -1,6 +1,5 @@
 package renchaigao.com.zujuba.Fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -212,7 +211,7 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
 //        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), value);
 //        return requestBody;
 //    }
-    public void reloadAdapter() {
+    private void reloadAdapter() {
         RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
         Map<String, RequestBody> map = new HashMap<>();
         RequestBody multiBody = new MultipartBody.Builder()

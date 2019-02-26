@@ -1,7 +1,6 @@
 package renchaigao.com.zujuba.Fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +12,6 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import renchaigao.com.zujuba.Activity.Place.CreateStoreActivity;
 import renchaigao.com.zujuba.Activity.Place.UserPlaceListPageActivity;
 import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.R;

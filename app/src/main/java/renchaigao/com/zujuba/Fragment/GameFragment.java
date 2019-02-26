@@ -12,19 +12,10 @@ import android.widget.Button;
 import renchaigao.com.zujuba.Activity.Game.GameBeginActivity;
 import renchaigao.com.zujuba.R;
 
-public class GameFragment extends Fragment {
+public class GameFragment extends BaseFragment {
 
     private Button fragment_game_button2;
     public Activity mContext;
-
-    @Override
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-        this.mContext = activity;
-    }
-    public GameFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
@@ -34,6 +25,26 @@ public class GameFragment extends Fragment {
                 R.layout.fragment_game, container, false);
         initView(rootView);
         return rootView;
+    }
+
+    @Override
+    protected void InitView(View rootView) {
+
+    }
+
+    @Override
+    protected void InitData(View rootView) {
+
+    }
+
+    @Override
+    protected void InitOther(View rootView) {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return 0;
     }
 
     @Override

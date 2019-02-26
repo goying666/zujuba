@@ -1,19 +1,22 @@
 package renchaigao.com.zujuba.Fragment;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.renchaigao.zujuba.PageBean.CardMessageFragmentTipBean;
+import com.renchaigao.zujuba.PageBean.MessageFragmentCardBean;
+import com.renchaigao.zujuba.domain.response.RespCodeNumber;
+import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import org.litepal.LitePal;
@@ -22,236 +25,257 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
+import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
+import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
 import renchaigao.com.zujuba.Fragment.Adapter.MessageFragmentAdapter;
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.Bean.MessageNoteInfo;
+import renchaigao.com.zujuba.util.Api.MessageApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
+import renchaigao.com.zujuba.util.PropertiesConfig;
+import renchaigao.com.zujuba.util.http.BaseObserver;
+import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.*;
+import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_MESSAGE_PAGE;
 
-public class MessageFragment extends Fragment {
 
+public class MessageFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
 
-    private String userId;
+    private static String TAG = "MessageFragment";
     private UserInfo userInfo;
-    public Context mContext;
-
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private MessageFragmentAdapter messageFragmentAdapter;
-
+    private MessageFragmentCardBean messageFragmentCardBean = new MessageFragmentCardBean();
+    private ArrayList<CardMessageFragmentTipBean> cardMessageFragmentTipBeansList = new ArrayList<>();
     private TextView fragement_message_note;
+    private Timer timer = new Timer();
+    private TimerTask task;
 
-    private ArrayList<MessageNoteInfo> messageNoteInfoArrayList = new ArrayList<>();
-    public MessageFragment() {
-        // Required empty public constructor
-    }
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.arg1 == RespCodeNumber.SUCCESS) {
+            }
+        }
+    };
 
-    private void initView(){
-        fragement_message_note = getActivity().findViewById(R.id.fragement_message_note);
+    @Override
+    public void onResume() {
+        super.onResume();
+        InitTimer();
+        timer = new Timer();
+        timer.schedule(task, 0, 5000);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        userInfo = DataUtil.GetUserInfoData(mContext);
-        userId= userInfo.getId();
+    public void onPause() {
+        super.onPause();
+        timer.cancel();
     }
 
-    private List<MessageNoteInfo> GetMessageNoteInfos(){
-        return LitePal.findAll(MessageNoteInfo.class);
+    private final static String RELOAD_FLAGE_VALUE_RELOAD = "RELOAD";
+    private final static String RELOAD_FLAGE_VALUE_STOP = "STOP";
+    private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
+
+    private void InitTimer() {
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                if (reloadFlag.equals(RELOAD_FLAGE_VALUE_RELOAD)) {
+//                    reloadAdapter();
+                    reloadFlag = RELOAD_FLAGE_VALUE_STOP;
+                }
+            }
+        };
     }
 
-    private List<MessageNoteInfo> InitMessageNoteInfos(){
-        List<MessageNoteInfo> messageNoteInfos = LitePal.findAll(MessageNoteInfo.class);
-        if (messageNoteInfos.size()>0){
+    private void InitMessageNoteInfos() {
+//        将所有存在本地的message拿出来
+        List<AndroidCardMessageFragmentTipBean> messageNoteInfos = LitePal.findAll(AndroidCardMessageFragmentTipBean.class);
+        if (messageNoteInfos.size() > 0) {
 //           本地存储的有数据，排序后显示
-            if (messageNoteInfos.size()>1){
-                Collections.sort(messageNoteInfos, new Comparator<MessageNoteInfo>() {
+            if (messageNoteInfos.size() > 1) {
+                Collections.sort(messageNoteInfos, new Comparator<AndroidCardMessageFragmentTipBean>() {
                     @Override
-                    public int compare(MessageNoteInfo o1, MessageNoteInfo o2) {
-                        return (int) (o2.getSendTime() - o1.getSendTime());
+                    public int compare(AndroidCardMessageFragmentTipBean o1, AndroidCardMessageFragmentTipBean o2) {
+                        return (int) (o2.getLastTime() - o1.getLastTime());
                     }
                 });
             }
-            messageFragmentAdapter.updateResults(new ArrayList<MessageNoteInfo>(messageNoteInfos));
+            for (AndroidCardMessageFragmentTipBean o : messageNoteInfos) {
+                cardMessageFragmentTipBeansList.add(JSONObject.parseObject(JSONObject.toJSONString(o), CardMessageFragmentTipBean.class));
+            }
+            messageFragmentAdapter.updateResults(cardMessageFragmentTipBeansList);
+            messageFragmentAdapter.notifyDataSetChanged();
+        } else {
+            reloadAdapter();
         }
-        try {
+    }
 
-        }catch (Exception e){
-
+    private ArrayList<CardMessageFragmentTipBean> UpdateNewCardTipBeanDate(ArrayList<CardMessageFragmentTipBean> oldData, ArrayList<CardMessageFragmentTipBean> newData) {
+//        找出新旧数据的重复项，并将最新的放入一个数列
+        ArrayList<CardMessageFragmentTipBean> retArrayList = new ArrayList<>();
+        for (int i = 0; i < oldData.size(); i++) {
+            CardMessageFragmentTipBean o = oldData.get(i);
+            for (int j = 0; j < newData.size(); j++) {
+                CardMessageFragmentTipBean n = newData.get(j);
+                if (n.getOwnerId().equals(o.getOwnerId())) {
+                    n.setId(o.getId());//服务端没有给回传carBean设置id，这里的id需要同本地通ownerId的消息同id，方便后面保存；
+                    retArrayList.add(n);
+                    break;
+                }
+            }
         }
-        return messageNoteInfos;
+        ArrayList<CardMessageFragmentTipBean> oldDataUse = new ArrayList<CardMessageFragmentTipBean>();
+        ArrayList<CardMessageFragmentTipBean> newDataUse = new ArrayList<CardMessageFragmentTipBean>();
+//        将旧数据数列中重复部分剔除后放入缓存数列中备用；
+        for (CardMessageFragmentTipBean o : oldData) {
+            Boolean isHave = false;
+            for (CardMessageFragmentTipBean same : retArrayList) {
+                if (o.getOwnerId().equals(same.getOwnerId())) {
+                    isHave = true;
+                    break;
+                }
+            }
+            if (!isHave) {
+                oldDataUse.add(o);
+            }
+        }
+//        将 新 数据数列中重复部分剔除后放入缓存数列中备用；
+        for (CardMessageFragmentTipBean n : newData) {
+            Boolean isHave = false;
+            for (CardMessageFragmentTipBean same : retArrayList) {
+                if (n.getOwnerId().equals(same.getOwnerId())) {
+                    isHave = true;
+                    break;
+                }
+            }
+            if (!isHave) {
+                newDataUse.add(n);
+            }
+        }
+//        将新数据存储进本地
+        for(CardMessageFragmentTipBean n:newDataUse){
+            JSONObject.parseObject(JSONObject.toJSONString(n),AndroidCardMessageFragmentTipBean.class).save();
+        }
+//        将重复部分的数据更新
+        for (CardMessageFragmentTipBean same:retArrayList){
+            AndroidCardMessageFragmentTipBean a = JSONObject.parseObject(JSONObject.toJSONString(same),AndroidCardMessageFragmentTipBean.class);
+            a.updateAll("ownerId = ?",a.getOwnerId());
+        }
+//        拼接三部分数列
+        retArrayList.addAll(oldDataUse);
+        retArrayList.addAll(newDataUse);
+//        排序
+        Collections.sort(retArrayList, new Comparator<CardMessageFragmentTipBean>() {
+            @Override
+            public int compare(CardMessageFragmentTipBean o1, CardMessageFragmentTipBean o2) {
+                return (int) (o2.getLastTime() - o1.getLastTime());
+            }
+        });
+        return retArrayList;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_message, container, false);
-        // Inflate the layout for this fragment
-//        reloadAdapter();
+    protected void InitView(View rootView) {
+        fragement_message_note = getActivity().findViewById(R.id.fragement_message_note);
         setRecyclerView(rootView);
-//        获取数据数据
+//        获取本地存储数据
+    }
+
+    @Override
+    protected void InitData(View rootView) {
+        userInfo = DataUtil.GetUserInfoData(mContext);
         InitMessageNoteInfos();
-
-        return rootView;
     }
 
-
-    @TargetApi(23)
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        onAttachToContext(context);
+    protected void InitOther(View rootView) {
     }
-    /*
-    * Deprecated on API 23
-    * Use onAttachToContext instead
-    */
 
-    @SuppressWarnings("deprecation")
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            onAttachToContext(activity);
-        }
-    }
-
-    /*
-     * Called when the fragment attaches to the context
-     */
-    protected void onAttachToContext(Context context) {
-        //do something
-        this.mContext = context;
+    protected int getLayoutId() {
+        return R.layout.fragment_message;
     }
 
     private void setRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.fragement_message_RecyclerView);
         layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
-        messageFragmentAdapter = new MessageFragmentAdapter(mContext);
-//        teamFragmentAdapter.setOnItemClickListener(new PlaceListActivity.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                final Intent intent = new Intent(getActivity(), TeamCreateActivity.class);
-//                intent.putExtra("address",JSONObject.toJSONString(mStoreInfo.get(position).getAddressInfo()));
-//                intent.putExtra("storeInfo",JSONObject.toJSONString(mStoreInfo.get(position)));
-//                intent.putExtra("name", mStoreInfo.get(position).getName());
-//                setResult(CREATE_TEAM_ADDRESS_STORE, intent);
-//            }
-//        });
+        messageFragmentAdapter = new MessageFragmentAdapter(mContext, messageFragmentCardBean.getAllMessageTips(), this);
         recyclerView.setAdapter(messageFragmentAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
+    @Override
+    public void onItemClickListener(int position) {
+        Intent intent = new Intent(mContext, MessageInfoActivity.class);
+        intent.putExtra("messageClass",cardMessageFragmentTipBeansList.get(position).getMClass());
+        intent.putExtra("ownerId",cardMessageFragmentTipBeansList.get(position).getOwnerId());
+        startActivity(intent);
+    }
 
-    private String reloadFlag;
+    @Override
+    public void onItemLongClickListener(int position) {
 
-//    @SuppressLint("StaticFieldLeak")
-//    public void reloadAdapter() {
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected void onPreExecute() {
-//                super.onPreExecute();
-//                reloadFlag = "onPreExecute";
-//            }
-//
-//            @Override
-//            protected void onCancelled() {
-//                super.onCancelled();
-//            }
-//
-//            @Override
-//            protected void onCancelled(Void aVoid) {
-//                super.onCancelled(aVoid);
-//            }
-//
-//            @Override
-//            protected void onProgressUpdate(Void... values) {
-//                super.onProgressUpdate(values);
-//            }
-//
-//            @Override
-//            protected Void doInBackground(Void... params) {
-////                Log.e(TAG, "doInBackground");
-//
-//                String path = PropertiesConfig.messageUrl + "get/" + userId;
-////                String path = PropertiesConfig.serverUrl + "store/get/storeinfo/" + JSONObject.parseObject(getActivity().getSharedPreferences("userData",getActivity().MODE_PRIVATE).getString("responseJsonDataString",null)).get("id").toString();
-//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-//                        .connectTimeout(15, TimeUnit.SECONDS)
-//                        .readTimeout(15, TimeUnit.SECONDS)
-//                        .writeTimeout(15, TimeUnit.SECONDS)
-//                        .retryOnConnectionFailure(true);
-//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-//                builder.hostnameVerifier(new HostnameVerifier() {
-//                    @Override
-//                    public boolean verify(String hostname, SSLSession session) {
-//                        return true;
-//                    }
-//                });
-//                final Request request = new Request.Builder()
-//                        .url(path)
-//                        .header("Content-Type", "application/json")
-//                        .get()
-//                        .build();
-//                builder.build().newCall(request).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                        Log.e("onFailure", e.toString());
-//                        reloadFlag = "doInBackground";
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        try {
-//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-//                            String responseJsoStr = responseJson.toJSONString();
-//                            int code = Integer.valueOf(responseJson.get("code").toString());
-//                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-//
-//                            Log.e(TAG, "onResponse CODE OUT");
-//                            Log.e(TAG, "onResponse CODE is" + code);
-//
-////                            ArrayList<StoreInfo> mStores = new ArrayList<>();
-//                            switch (code) {
-//                                case 0: //在数据库中更新用户数据出错；
-//                                    ArrayList<TeamInfo> mTeam = new ArrayList();
-//                                    for (Object m : responseJsonData) {
-//                                        mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
-//                                    }
-////                                    Log.e("responseJsonData",responseJsonData.toJSONString());
-//                                    if (teamFragmentAdapter == null) {
-//                                        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
-//                                    }
-//                                    teamFragmentAdapter.updateResults(mTeam);
-//
-//                                    Log.e(TAG, "onResponse");
-//                                    break;
-//                            }
-////                            swipeRefreshLayout.setRefreshing(false);
-//                        } catch (Exception e) {
-//                        }
-//                        reloadFlag = "doInBackground";
-//                    }
-//
-//                });
-//                while (!reloadFlag.equals("doInBackground")) ;
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                Log.e(TAG, "onPostExecute");
-//                if (mContext == null)
-//                    return;
-//                teamFragmentAdapter.notifyDataSetChanged();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        }.execute();
-//    }
+    }
+
+    private void reloadAdapter() {
+        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.messageUrl);
+        addSubscribe(RetrofitServiceManager.getInstance().creat(MessageApiService.class)
+                .GetMessageFragmentBean(userInfo.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new BaseObserver<ResponseEntity>(mContext) {
+                    @Override
+                    public void onNext(ResponseEntity value) {
+                        try {
+                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+                            int code = Integer.valueOf(responseJson.get("code").toString());
+                            Message msg = new Message();
+                            switch (code) {
+                                case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+                                    msg.arg1 = RespCodeNumber.SUCCESS;
+                                    handler.sendMessage(msg);
+                                    messageFragmentCardBean = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")),MessageFragmentCardBean.class);
+                                    messageFragmentAdapter.updateResults(UpdateNewCardTipBeanDate(cardMessageFragmentTipBeansList, messageFragmentCardBean.getAllMessageTips()));
+                                    messageFragmentAdapter.notifyDataSetChanged();
+                                    cardMessageFragmentTipBeansList = messageFragmentCardBean.getAllMessageTips();
+                                    Log.e(TAG, "onResponse");
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseEntity responseEntity) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        Log.e(TAG, "onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e(TAG, "onComplete");
+                    }
+                }));
+    }
+
 }

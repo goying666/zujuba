@@ -4,7 +4,7 @@
     <version value="2" />
 
     <list>
-        <mapping class="renchaigao.com.zujuba.Bean.MessageNoteInfo" />
-        <mapping class="renchaigao.com.zujuba.Bean.MessageContent" />
+        <mapping class="renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean" />
+        <mapping class="renchaigao.com.zujuba.Bean.AndroidMessageContent" />
     </list>
 </litepal>

@@ -1,6 +1,6 @@
 package renchaigao.com.zujuba.Fragment;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import renchaigao.com.zujuba.R;
 
 /**
  * Created by Administrator on 2019/1/25/025.
@@ -18,12 +17,13 @@ import renchaigao.com.zujuba.R;
 public abstract class BaseFragment extends Fragment {
     protected BaseFragment baseFragment;
     public CompositeDisposable compositeDisposable;
-    public Activity mContext;
+    public Context mContext;
+    //    public Context mContext;
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mContext = activity;
+    public void onAttach(Context context) {
+        super.onAttach(mContext);
+        this.mContext = context;
     }
 
     @Override
@@ -50,6 +50,7 @@ public abstract class BaseFragment extends Fragment {
         }
         compositeDisposable.add(disposable);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -197,7 +197,7 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
         intent.putExtra("teamId", teamJSON.getString("teamId"));
         intent.putExtra("teamFragmentData",JSONObject.toJSONString(teamJSON));
         intent.putExtra("whereCome","TeamFragment");
-        mContext.startActivityForResult(intent,FRAGMENT_TEAM_PAGE);
+        getActivity().startActivityForResult(intent,FRAGMENT_TEAM_PAGE);
     }
 }
 //    public void reloadAdapter() {

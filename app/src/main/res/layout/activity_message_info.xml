@@ -77,8 +77,8 @@
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/message_info_NestedScrollView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/message_info_SwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/title_background"
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/message_info_inputLayout"

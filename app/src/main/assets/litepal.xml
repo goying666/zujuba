@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="MessageDB" />
-    <version value="2" />
+    <version value="7" />
 
     <list>
-        <mapping class="renchaigao.com.zujuba.Bean.MessageNoteInfo" />
-        <mapping class="renchaigao.com.zujuba.Bean.MessageContent" />
+        <mapping class="renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean" />
+        <mapping class="renchaigao.com.zujuba.Bean.AndroidMessageContent" />
     </list>
 </litepal>

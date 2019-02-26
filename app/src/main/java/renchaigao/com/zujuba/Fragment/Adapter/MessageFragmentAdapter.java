@@ -1,92 +1,49 @@
 package renchaigao.com.zujuba.Fragment.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
+import com.renchaigao.zujuba.PageBean.CardMessageFragmentTipBean;
 
 import java.util.ArrayList;
 
-import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Adapter.CommonRecycleAdapter;
+import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
+import renchaigao.com.zujuba.Activity.Adapter.MultiTypeSupport;
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.Bean.MessageNoteInfo;
+import renchaigao.com.zujuba.util.PropertiesConfig;
 
 /**
  * Created by Administrator on 2018/11/28/028.
  */
 
-public class MessageFragmentAdapter extends RecyclerView.Adapter<MessageFragmentAdapter.ItemHolder>{
-    final static String TAG = "TeamFragmentAdapter";
-    private ArrayList<MessageNoteInfo> messageNoteInfoArrayList;
+public class MessageFragmentAdapter extends CommonRecycleAdapter<CardMessageFragmentTipBean> implements MultiTypeSupport<CardMessageFragmentTipBean> {
+
+    private CommonViewHolder.onItemCommonClickListener commonClickListener;
     private Context mContext;
 
-    public MessageFragmentAdapter(Context context) {
+    public MessageFragmentAdapter(Context context, ArrayList<CardMessageFragmentTipBean> dataList, int layoutId) {
+        super(context, dataList, layoutId);
+    }
+
+    public MessageFragmentAdapter(Context context, ArrayList<CardMessageFragmentTipBean> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
+        super(context, dataList, R.layout.card_team_main);
+        this.commonClickListener = commonClickListener;
         this.mContext = context;
     }
 
 
-    public void updateResults(ArrayList<MessageNoteInfo> messageNoteInfoArrayList) {
-        this.messageNoteInfoArrayList = messageNoteInfoArrayList;
-    }
     @Override
-    public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_message_tip, parent, false);
-        return new ItemHolder(view);
-    }
-
-
-    @Override
-    public void onBindViewHolder(ItemHolder holder,final int position) {
-        MessageNoteInfo messageNoteInfo =  messageNoteInfoArrayList.get(position);
-        holder.card_message_image.setImageResource(messageNoteInfo.getMessageImageUrl());
-        holder.card_message_name.setText(messageNoteInfo.getMessageName());
-        holder.card_message_current_content.setText(messageNoteInfo.getCurrentContent());
-        holder.card_message_state.setText(messageNoteInfo.getState());
-
-
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MessageNoteInfo messageNoteInfo_ =  messageNoteInfoArrayList.get(position);
-                Intent intent = new Intent(mContext, MessageInfoActivity.class);
-                intent.putExtra("messageNoteInfo", JSONObject.toJSONString(messageNoteInfo_));
-                intent.putExtra("COME_FROM", "FRAGMENT_MESSAGE_PAGE");
-                mContext.startActivity(intent);
-            }
-        });
-
+    public void bindData(CommonViewHolder holder, CardMessageFragmentTipBean data) {
+        holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext)
+                .setText(R.id.card_message_name, data.getName())
+                .setText(R.id.card_message_current_content, data.getContent())
+                .setText(R.id.card_message_state, data.getTime())
+                .setCommonClickListener(commonClickListener);
     }
 
     @Override
-    public int getItemCount() {
-        if (messageNoteInfoArrayList == null) {
-            return 0;
-        } else
-            return messageNoteInfoArrayList.size();
+    public int getLayoutId(CardMessageFragmentTipBean item, int position) {
+        return R.layout.card_message_tip;
     }
 
-    public class ItemHolder extends RecyclerView.ViewHolder {
-        private ImageView card_message_image;
-        private TextView card_message_name,card_message_current_content,card_message_state;
-        private CardView cardView;
-        private View thisView;
-
-        public ItemHolder(View view) {
-            super(view);
-            this.thisView = view;
-            this.cardView = (CardView) view;
-            this.card_message_image = view.findViewById(R.id.card_message_image);
-            this.card_message_name = view.findViewById(R.id.card_message_name);
-            this.card_message_current_content = view.findViewById(R.id.card_message_current_content);
-            this.card_message_state = view.findViewById(R.id.card_message_state);
-        }
-    }
 }
