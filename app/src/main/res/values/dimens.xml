@@ -106,8 +106,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <!--Message Size-->
     <dimen name="message_image_width">52dp</dimen>
     <dimen name="message_image_height">52dp</dimen>
-
-
+    <dimen name="card_marginSize">3dp</dimen>
 
 
 </resources>

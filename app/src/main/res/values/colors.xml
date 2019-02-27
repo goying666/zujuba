@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorWindowBackground">#FCFCFC</color>
+    <color name="colorPrimary">#ededed</color>
+    <!--<color name="colorPrimary">#ededed</color>-->
+    <color name="colorPrimaryDark">#ededed</color>
+    <!--<color name="colorPrimaryDark">#ededed</color>-->
+    <color name="colorAccent">#08c060</color>
+    <color name="textColorPrimary">#08c060</color>
+
+    <color name="colorWindowBackground">#FFFFFF</color>
+    <color name="colorControlNormal">#96ec6d</color>
 
     <color name="md_text_color_body">#222222</color>
+    <color name="message_input_layout">#f7f7f7</color>
 
     <!--Background color-->
-    <color name="title_background">#e0e0e0</color>
-    <color name="button_background">#ffffff</color>
-    <color name="button_text">#848484</color>
+    <color name="title_background">#ededed</color>
+
+    <color name="button_background">#96ec6d</color>
+    <color name="button_background_deep">#05c161</color>
+    <color name="button_text">#ffffff</color>
 
     <color name="word_title_black">#000000</color>
     <color name="word_note">#797979</color>

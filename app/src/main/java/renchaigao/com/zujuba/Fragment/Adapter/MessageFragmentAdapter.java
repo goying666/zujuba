@@ -26,7 +26,7 @@ public class MessageFragmentAdapter extends CommonRecycleAdapter<CardMessageFrag
     }
 
     public MessageFragmentAdapter(Context context, ArrayList<CardMessageFragmentTipBean> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
-        super(context, dataList, R.layout.card_team_main);
+        super(context, dataList, R.layout.card_message_tip);
         this.commonClickListener = commonClickListener;
         this.mContext = context;
     }

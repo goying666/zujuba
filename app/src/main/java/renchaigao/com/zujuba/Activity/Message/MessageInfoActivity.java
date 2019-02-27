@@ -9,9 +9,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.renchaigao.zujuba.PageBean.CardMessageFragmentTipBean;
+import com.renchaigao.zujuba.PageBean.MessageFragmentCardBean;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
@@ -29,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,6 +43,7 @@ import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.MessageInfoAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.TeamPart.TeamActivity;
+import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
 import renchaigao.com.zujuba.Bean.AndroidMessageContent;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.MessageApiService;
@@ -46,6 +52,7 @@ import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
+import renchaigao.com.zujuba.widgets.RecycleViewDivider;
 
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.FRIEND_SEND_MESSAGE;
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
@@ -54,17 +61,22 @@ import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.USER_SEN
 
 public class MessageInfoActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
     final static String TAG = "MessageInfoActivity";
+    private Toolbar toolbar;
     private MessageInfoAdapter messageInfoAdapter;
-    private String userId, ownerId, teamId, friendId, otherUserId, messageClass, inputString;
+    private String userId, ownerId, teamId, friendId, otherUserId, messageClass, inputString = "";
     private UserInfo userInfo;
     private Button message_info_sendButton;
     private TextInputEditText message_info_inputEdit;
     private ImageView message_info_more;
-    private TextView messageName;
+    private TextView messageName1;
     private SwipeRefreshLayout contentSwipeRefreshLayout;
     ArrayList<AndroidMessageContent> allMessages = new ArrayList<AndroidMessageContent>();
     ArrayList<AndroidMessageContent> newMessages = new ArrayList<AndroidMessageContent>();
     private Timer timer = new Timer();
+    private final static String RELOAD_FLAGE_VALUE_RELOAD = "RELOAD";
+    private final static String RELOAD_FLAGE_VALUE_STOP = "STOP";
+    private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
+    private RecyclerView recyclerView;
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
@@ -91,20 +103,22 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         Collections.sort(allMessages, new Comparator<AndroidMessageContent>() {
             @Override
             public int compare(AndroidMessageContent o1, AndroidMessageContent o2) {
-                return (int) (o1.getSendTime() - o2.getSendTime());
-                //  return (int) (o2.getSendTime() - o1.getSendTime());
+//                return (int) (o1.getSendTime() - o2.getSendTime());
+                return (int) (o2.getSendTime() - o1.getSendTime());
             }
         });
         messageListEnd = allMessages.get(allMessages.size() - 1).getSendTime();
         messageInfoAdapter.updateResults(allMessages);
         messageInfoAdapter.notifyDataSetChanged();
+        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
     }
 
 
     @Override
     protected void InitView() {
+
+        toolbar = findViewById(R.id.message_info_toolbar);
         contentSwipeRefreshLayout = findViewById(R.id.message_info_SwipeRefreshLayout);
-        messageName = findViewById(R.id.message_info_title);
         message_info_inputEdit = findViewById(R.id.message_info_inputEdit);
         message_info_sendButton = findViewById(R.id.message_info_sendButton);
         message_info_more = findViewById(R.id.message_info_more);
@@ -121,23 +135,31 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         switch (messageClass) {
             case TEAM_SEND_MESSAGE:
                 teamId = getIntent().getStringExtra("ownerId");
-                messageName.setText(getIntent().getStringExtra("teamName"));
                 break;
             case FRIEND_SEND_MESSAGE:
                 friendId = getIntent().getStringExtra("ownerId");
-                messageName.setText(getIntent().getStringExtra("friendName"));
                 break;
             case USER_SEND_MESSAGE:
                 otherUserId = getIntent().getStringExtra("ownerId");
-                messageName.setText(getIntent().getStringExtra("otherUserName"));
                 break;
         }
+        toolbar.setTitle(getIntent().getStringExtra("title"));
         GetLastMessageTimes();
         if (allMessages.size() > 0) {
             String text = JSONObject.toJSONString(allMessages);
             messageInfoAdapter.updateResults(allMessages);
             messageInfoAdapter.notifyDataSetChanged();
         }
+    }
+
+    /**
+     * Take care of popping the fragment back stack or finishing the activity
+     * as appropriate.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     @Override
@@ -152,20 +174,37 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
 //                finish();
             }
         });
+        message_info_inputEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    // 获得焦点
+//                    recyclerView.scrollToPosition(0);
+//                } else {
+//                    // 失去焦点
+//                    recyclerView.scrollToPosition(0);
+//                }
+                recyclerView.scrollToPosition(0);
+            }
+        });
         message_info_inputEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 inputString = s.toString();
+            }
+        });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         message_info_sendButton.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +243,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                     message_info_inputEdit.clearFocus();
                     message_info_inputEdit.setText("");
                     message_info_inputEdit.setHint("");
-                    inputString = null;
+                    inputString = "";
                 } else {
 
                 }
@@ -229,16 +268,19 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
     }
 
     private void InitRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.message_info_recycler_view);
+        recyclerView = findViewById(R.id.message_info_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.addItemDecoration(new RecycleViewDivider(
+//               MessageInfoActivity.this, LinearLayoutManager.HORIZONTAL, 10, getResources().getColor(R.color.colorPrimary)));
+
         messageInfoAdapter = new MessageInfoAdapter(this, allMessages, this);
         recyclerView.setAdapter(messageInfoAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+//        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
     private long messageListEnd = 0L;
@@ -296,11 +338,13 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                             switch (code) {
                                 case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
                                     newMessages.clear();
-                                    for (Object o : responseJsonData) {
-                                        newMessages.add(JSONObject.parseObject(JSONObject.toJSONString(o), AndroidMessageContent.class));
+                                    if (responseJsonData.size() > 0) {
+                                        for (Object o : responseJsonData) {
+                                            newMessages.add(JSONObject.parseObject(JSONObject.toJSONString(o), AndroidMessageContent.class));
+                                        }
+                                        msg.arg1 = RELOAD_TEAM_MESSAGE_INFO;
+                                        handler.sendMessage(msg);
                                     }
-                                    msg.arg2 = RELOAD_TEAM_MESSAGE_INFO;
-                                    handler.sendMessage(msg);
                                     break;
                             }
                         } catch (Exception e) {
@@ -379,16 +423,37 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-//                GetLastMessageTimes();
-//                reloadMessageInfo();
+                if (reloadFlag.equals(RELOAD_FLAGE_VALUE_RELOAD)) {
+                    GetLastMessageTimes();
+                    reloadMessageInfo();
+                    reloadFlag = RELOAD_FLAGE_VALUE_STOP;
+                }
             }
-        }, 0, 5000);
+        }, 0, 3000);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         timer.cancel();
+        if (allMessages.size() > 0) {
+//        每次页面停止时，将该页的message数据更新至数据库的messageFragmentBeam内
+            AndroidCardMessageFragmentTipBean androidCardMessageFragmentTipBean = new AndroidCardMessageFragmentTipBean();
+            AndroidMessageContent androidMessageContent = allMessages.get(allMessages.size() - 1);
+            androidCardMessageFragmentTipBean.setImageUrl(androidMessageContent.getSenderImageUrl());
+            androidCardMessageFragmentTipBean.setName(androidMessageContent.getTitle());
+            androidCardMessageFragmentTipBean.setContent(androidMessageContent.getContent());
+            androidCardMessageFragmentTipBean.setTime(androidMessageContent.getSendTime().toString());
+            androidCardMessageFragmentTipBean.setNoRead(0);
+            androidCardMessageFragmentTipBean.setMClass(androidMessageContent.getMessageClass());
+            androidCardMessageFragmentTipBean.setOwnerId(ownerId);
+            androidCardMessageFragmentTipBean.setLastTime(androidMessageContent.getSendTime());
+            if (LitePal.where("ownerId = ?", ownerId).find(AndroidCardMessageFragmentTipBean.class).size() == 0) {
+                androidCardMessageFragmentTipBean.save();
+            } else {
+                androidCardMessageFragmentTipBean.updateAll("ownerId = ?", ownerId);
+            }
+        }
     }
 
     @Override

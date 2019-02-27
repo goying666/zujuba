@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="renchaigao.com.zujuba.Activity.Message.MessageInfoActivity">
 
     <!--<android.support.design.widget.AppBarLayout-->
@@ -32,13 +34,26 @@
     <!--</android.support.design.widget.AppBarLayout>-->
 
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/message_info_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </android.support.v7.widget.Toolbar>
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/team_user_icon"
@@ -81,22 +96,24 @@
         android:id="@+id/message_info_SwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/title_background"
+        android:background="@color/colorPrimary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toTopOf="@+id/message_info_inputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/message_info_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/message_info_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"/>
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -104,7 +121,7 @@
         android:id="@+id/message_info_inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="120dp"
+        android:background="@color/message_input_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -113,10 +130,11 @@
             android:id="@+id/message_info_inputEdit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            android:background="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/message_info_sendButton"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,12 +142,14 @@
 
         <Button
             android:id="@+id/message_info_sendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="64dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:background="@color/button_background_deep"
             android:text="发送"
+            android:textColor="@color/button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

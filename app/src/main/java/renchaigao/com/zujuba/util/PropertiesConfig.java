@@ -13,8 +13,8 @@ public class PropertiesConfig {
     public final static String userServerUrl = serverUrlAL + "user/";
 //    public final static String userServerUrl = serverUrlBD + ":7801/";
 
-    //    public final static String teamServerUrl = serverUrlAL + "team/";
-    public final static String teamServerUrl = serverUrlBD + ":7802/";
+    public final static String teamServerUrl = serverUrlAL + "team/";
+//    public final static String teamServerUrl = serverUrlBD + ":7802/";
 
     //    public final static String storeServerUrl = serverUrlAL + "store/";//
 //    public final static String storeServerUrl = serverUrlBD + ":7803/";
@@ -28,8 +28,8 @@ public class PropertiesConfig {
     public final static String photoUrl = serverUrlAL + "photo/";//
 //    public final static String photoUrl = serverUrlBD + ":7811/";
 
-//    public final static String messageUrl = serverUrlAL + "message/";//
-    public final static String messageUrl = serverUrlBD + ":7807/";
+        public final static String messageUrl = serverUrlAL + "message/";//
+//    public final static String messageUrl = serverUrlBD + ":7807/";
 
     //    public final static String mxtWorldGameServerUrl = serverUrlAL + "mxt/";
 //    public final static String mxtWorldGameServerUrl = serverUrlBD + ":7805/";

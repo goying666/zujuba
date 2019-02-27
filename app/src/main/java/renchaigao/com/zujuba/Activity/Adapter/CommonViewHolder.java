@@ -72,6 +72,7 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
     public CommonViewHolder setImagelucency(int viewId) {
         ImageView imageView = getView(viewId);
         imageView.setBackgroundColor(0x00000000);
+
         return this;
     }
 
@@ -81,8 +82,8 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
                 .load(url)
                 .dontAnimate()
                 .skipMemoryCache(false)
-                .placeholder(R.drawable.image_loading)
-                .error(R.drawable.image_load_fail)
+                .placeholder(R.drawable.baqianliu)
+                .error(R.drawable.baqianliu)
                 .into(imageView);
         return this;
     }

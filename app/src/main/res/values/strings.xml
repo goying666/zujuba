@@ -19,7 +19,8 @@
     </string-array>
 
     <string-array name="compare_number_array">　　　　　　
-        <item>游客（大于0分）</item>        　　　　　　
+        <item>游客（大于0分）</item>
+        　　　　　　
         <item>注册用户（大于10分）</item>
         <item>基础认证（大于60分）</item>
         <item>附加认证（大于70分）</item>
@@ -176,6 +177,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_system_message">SystemMessageActivity</string>
 
 
     <!--Deep Forest Game Use Part-->

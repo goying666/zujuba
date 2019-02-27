@@ -142,6 +142,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="创建队伍"
+                android:background="@color/button_background"
+                android:textColor="@color/button_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -161,9 +163,10 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="加入队伍"
+                    android:background="@color/button_background"
+                    android:textColor="@color/button_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/button_myTeam"
-                    app:layout_constraintStart_toEndOf="@+id/button_creatTeam"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
@@ -174,6 +177,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginTop="8dp"
                     android:text="我的队伍"
+                    android:background="@color/button_background"
+                    android:textColor="@color/button_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

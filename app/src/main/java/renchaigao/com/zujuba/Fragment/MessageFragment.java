@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.PageBean.CardMessageFragmentTipBean;
 import com.renchaigao.zujuba.PageBean.MessageFragmentCardBean;
@@ -42,9 +41,6 @@ import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
-import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.*;
-import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_MESSAGE_PAGE;
-
 
 public class MessageFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
 
@@ -53,11 +49,15 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private MessageFragmentAdapter messageFragmentAdapter;
-    private MessageFragmentCardBean messageFragmentCardBean = new MessageFragmentCardBean();
-    private ArrayList<CardMessageFragmentTipBean> cardMessageFragmentTipBeansList = new ArrayList<>();
+    private MessageFragmentCardBean messageFragmentBean = new MessageFragmentCardBean();
+    private ArrayList<CardMessageFragmentTipBean> oldTipCardBeanList = new ArrayList<>();
+    private ArrayList<CardMessageFragmentTipBean> newTipCardBeanList = new ArrayList<>();
+    private ArrayList<CardMessageFragmentTipBean> displayTipCardBeanList = new ArrayList<>();
+    private final static String RELOAD_FLAGE_VALUE_RELOAD = "RELOAD";
+    private final static String RELOAD_FLAGE_VALUE_STOP = "STOP";
+    private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
     private TextView fragement_message_note;
     private Timer timer = new Timer();
-    private TimerTask task;
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
@@ -71,9 +71,16 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
     @Override
     public void onResume() {
         super.onResume();
-        InitTimer();
         timer = new Timer();
-        timer.schedule(task, 0, 5000);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (reloadFlag.equals(RELOAD_FLAGE_VALUE_RELOAD)) {
+                    reloadAdapter();
+                    reloadFlag = RELOAD_FLAGE_VALUE_STOP;
+                }
+            }
+        }, 0, 5000);
     }
 
     @Override
@@ -82,39 +89,27 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
         timer.cancel();
     }
 
-    private final static String RELOAD_FLAGE_VALUE_RELOAD = "RELOAD";
-    private final static String RELOAD_FLAGE_VALUE_STOP = "STOP";
-    private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
-
-    private void InitTimer() {
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                if (reloadFlag.equals(RELOAD_FLAGE_VALUE_RELOAD)) {
-//                    reloadAdapter();
-                    reloadFlag = RELOAD_FLAGE_VALUE_STOP;
-                }
-            }
-        };
-    }
 
     private void InitMessageNoteInfos() {
 //        将所有存在本地的message拿出来
-        List<AndroidCardMessageFragmentTipBean> messageNoteInfos = LitePal.findAll(AndroidCardMessageFragmentTipBean.class);
-        if (messageNoteInfos.size() > 0) {
+        for (AndroidCardMessageFragmentTipBean p : LitePal.findAll(AndroidCardMessageFragmentTipBean.class)) {
+            oldTipCardBeanList.add(JSONObject.parseObject(JSONObject.toJSONString(p), CardMessageFragmentTipBean.class));
+        }
+        if (oldTipCardBeanList.size() > 0) {
 //           本地存储的有数据，排序后显示
-            if (messageNoteInfos.size() > 1) {
-                Collections.sort(messageNoteInfos, new Comparator<AndroidCardMessageFragmentTipBean>() {
+            if (oldTipCardBeanList.size() > 1) {
+                Collections.sort(oldTipCardBeanList, new Comparator<CardMessageFragmentTipBean>() {
                     @Override
-                    public int compare(AndroidCardMessageFragmentTipBean o1, AndroidCardMessageFragmentTipBean o2) {
+                    public int compare(CardMessageFragmentTipBean o1, CardMessageFragmentTipBean o2) {
                         return (int) (o2.getLastTime() - o1.getLastTime());
                     }
                 });
             }
-            for (AndroidCardMessageFragmentTipBean o : messageNoteInfos) {
-                cardMessageFragmentTipBeansList.add(JSONObject.parseObject(JSONObject.toJSONString(o), CardMessageFragmentTipBean.class));
+            displayTipCardBeanList.clear();
+            for (CardMessageFragmentTipBean o : oldTipCardBeanList) {
+                displayTipCardBeanList.add(JSONObject.parseObject(JSONObject.toJSONString(o), CardMessageFragmentTipBean.class));
             }
-            messageFragmentAdapter.updateResults(cardMessageFragmentTipBeansList);
+            messageFragmentAdapter.updateResults(displayTipCardBeanList);
             messageFragmentAdapter.notifyDataSetChanged();
         } else {
             reloadAdapter();
@@ -164,13 +159,13 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
             }
         }
 //        将新数据存储进本地
-        for(CardMessageFragmentTipBean n:newDataUse){
-            JSONObject.parseObject(JSONObject.toJSONString(n),AndroidCardMessageFragmentTipBean.class).save();
+        for (CardMessageFragmentTipBean n : newDataUse) {
+            JSONObject.parseObject(JSONObject.toJSONString(n), AndroidCardMessageFragmentTipBean.class).save();
         }
 //        将重复部分的数据更新
-        for (CardMessageFragmentTipBean same:retArrayList){
-            AndroidCardMessageFragmentTipBean a = JSONObject.parseObject(JSONObject.toJSONString(same),AndroidCardMessageFragmentTipBean.class);
-            a.updateAll("ownerId = ?",a.getOwnerId());
+        for (CardMessageFragmentTipBean same : retArrayList) {
+            AndroidCardMessageFragmentTipBean a = JSONObject.parseObject(JSONObject.toJSONString(same), AndroidCardMessageFragmentTipBean.class);
+            a.updateAll("ownerId = ?", a.getOwnerId());
         }
 //        拼接三部分数列
         retArrayList.addAll(oldDataUse);
@@ -211,18 +206,19 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
         recyclerView = view.findViewById(R.id.fragement_message_RecyclerView);
         layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
-        messageFragmentAdapter = new MessageFragmentAdapter(mContext, messageFragmentCardBean.getAllMessageTips(), this);
+        messageFragmentAdapter = new MessageFragmentAdapter(mContext, displayTipCardBeanList, this);
         recyclerView.setAdapter(messageFragmentAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+//        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
+//        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
     @Override
     public void onItemClickListener(int position) {
         Intent intent = new Intent(mContext, MessageInfoActivity.class);
-        intent.putExtra("messageClass",cardMessageFragmentTipBeansList.get(position).getMClass());
-        intent.putExtra("ownerId",cardMessageFragmentTipBeansList.get(position).getOwnerId());
+        intent.putExtra("messageClass", displayTipCardBeanList.get(position).getMClass());
+        intent.putExtra("ownerId", displayTipCardBeanList.get(position).getOwnerId());
+        intent.putExtra("title", displayTipCardBeanList.get(position).getName());
         startActivity(intent);
     }
 
@@ -248,10 +244,11 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
                                 case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
                                     msg.arg1 = RespCodeNumber.SUCCESS;
                                     handler.sendMessage(msg);
-                                    messageFragmentCardBean = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")),MessageFragmentCardBean.class);
-                                    messageFragmentAdapter.updateResults(UpdateNewCardTipBeanDate(cardMessageFragmentTipBeansList, messageFragmentCardBean.getAllMessageTips()));
+                                    messageFragmentBean = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")), MessageFragmentCardBean.class);
+                                    newTipCardBeanList = messageFragmentBean.getAllMessageTips();
+                                    displayTipCardBeanList = UpdateNewCardTipBeanDate(oldTipCardBeanList, newTipCardBeanList);
+                                    messageFragmentAdapter.updateResults(displayTipCardBeanList);
                                     messageFragmentAdapter.notifyDataSetChanged();
-                                    cardMessageFragmentTipBeansList = messageFragmentCardBean.getAllMessageTips();
                                     Log.e(TAG, "onResponse");
                                     break;
                             }
@@ -269,11 +266,13 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
                     public void onError(Throwable e) {
                         super.onError(e);
                         Log.e(TAG, "onError");
+                        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e(TAG, "onComplete");
+                        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
                     }
                 }));
     }

@@ -58,7 +58,7 @@
             app:layout_constraintTop_toTopOf="@+id/team_girl_icon"
             app:layout_constraintVertical_bias="0.888" />
 
-        <ImageView
+        <renchaigao.com.zujuba.widgets.CustomRoundImageView
             android:id="@+id/team_image"
             android:layout_width="@dimen/image_size_width"
             android:layout_height="@dimen/image_size_height"
