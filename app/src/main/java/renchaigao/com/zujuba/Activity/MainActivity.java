@@ -21,10 +21,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,17 +43,16 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import renchaigao.com.zujuba.Activity.User.UserActivity;
+import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.Fragment.GameFragment;
 import renchaigao.com.zujuba.Fragment.HallFragment;
 import renchaigao.com.zujuba.Fragment.MessageFragment;
 import renchaigao.com.zujuba.Fragment.MineFragment;
 import renchaigao.com.zujuba.Fragment.TeamFragment;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.BottomNavigationViewHelper;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.CustomViewPager;
@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity {
     private ConstraintLayout header_layout,a_main_toolbar_constraintlayout;
     private ImageView a_main_toolbar_usericon;
     private TextView a_main_toolbar_location_text;
+    private Toolbar toolbar;
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -95,13 +96,35 @@ public class MainActivity extends BaseActivity {
 
 
     };
+
+    private void setToolBar() {
+        toolbar = findViewById(R.id.a_main_Toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("组局吧");
+        toolbar.inflateMenu(R.menu.main_toolbar_hall);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.item_location:
+                        break;
+                    case R.id.item_location_name:
+                        break;
+                }
+                Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
+                intent.putExtra("whereCome", "MainActivity");
+                startActivityForResult(intent, MAIN_ADDRESS);
+                return false;
+            }
+        });
+    }
     @Override
     protected void InitView() {
-
-        a_main_toolbar_location_text = findViewById(R.id.a_main_toolbar_location_text);
-        a_main_toolbar_usericon = findViewById(R.id.a_main_toolbar_usericon);
+        setToolBar();
+//        a_main_toolbar_location_text = findViewById(R.id.a_main_toolbar_location_text);
+//        a_main_toolbar_usericon = findViewById(R.id.a_main_toolbar_usericon);
         customViewPager = findViewById(R.id.main_customView);
-        a_main_toolbar_constraintlayout = findViewById(R.id.a_main_toolbar_constraintlayout);
+//        a_main_toolbar_constraintlayout = findViewById(R.id.a_main_toolbar_constraintlayout);
         bottomNavigationView = findViewById(R.id.main_bootomNavigationView);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -109,7 +132,7 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.navigation_message:
-                        item.setIcon(R.drawable.message_select);
+//                        item.setIcon(R.drawable.message_select);
                         customViewPager.setCurrentItem(0);
                         return true;
                     case R.id.navigation_team:
@@ -143,30 +166,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void InitOther() {
-//        setToolBar();
         setViewPager();
-//        setUpDrawer();
-        setClick();
-    }
-    private void setClick(){
-
-        a_main_toolbar_location_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
-                intent.putExtra("whereCome", "MainActivity");
-                startActivityForResult(intent, MAIN_ADDRESS);
-
-            }
-        });
-        a_main_toolbar_usericon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent);
-            }
-        });
+        setLocationPart();
     }
 
     @Override
@@ -181,9 +182,6 @@ public class MainActivity extends BaseActivity {
                 AddressInfo addressUse = JSONObject.parseObject(data.getStringExtra("addressStoreJsonStr"), AddressInfo.class);
                 userInfo.setAddressInfo(addressUse);
                 userInfo.getAddressInfo().setSelectCityCode(addressUse.getCitycode());
-//                user = userInfo;
-//                DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(userInfo));
-//                DataUtil.saveUserData(MainActivity.this, user);
                 sendAddressToService();
                 //系统需要同步更新一次用户的位置信息；
 //                userPlace = addressUse.getFormatAddress();
@@ -197,7 +195,12 @@ public class MainActivity extends BaseActivity {
         builder = new AlertDialog.Builder(this);
         builder.setTitle("当前默认深圳为“深圳”");
         builder.setMessage("是否进行切换");
-        builder.setNegativeButton("否", null);
+        builder.setNegativeButton("否", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getLocation();
+            }
+        });
         builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -239,11 +242,19 @@ public class MainActivity extends BaseActivity {
             return;
         }
         Location location = locationManager.getLastKnownLocation(locationProvider);
+        userInfo.setAddressInfo(new AddressInfo());
+        userInfo.getAddressInfo().setId(userInfo.getId());
+        userInfo.getAddressInfo().setOwnerId(userInfo.getId());
+        userInfo.getAddressInfo().setAddressClass("user");
+        userInfo.getAddressInfo().setCitycode("0755");
+                userInfo.getAddressInfo().setLatitude(location.getLatitude());
+                userInfo.getAddressInfo().setLongitude(location.getLongitude());
 
         Log.d(TAG, "onCreate: " + (location == null) + "..");
         if (location != null) {
             Log.d(TAG, "onCreate: location");
             //不为空,显示地理位置经纬度
+            sendAddressToService();
             Log.d(TAG, "定位成功------->" + "location------>经度为：" + location.getLatitude() + "\n纬度为" + location.getLongitude());
         }
     }
@@ -272,26 +283,6 @@ public class MainActivity extends BaseActivity {
 //        });
 //    }
 
-    private void updateSystemData() {
-    }
-
-//    private void setToolBar() {
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.hide();
-//        }
-//    }
-
-    private void setUpDrawer() {
-//        navigationView.setCheckedItem(R.id.nav_call);
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                drawerLayout.closeDrawers();
-//                return true;
-//            }
-//        });
-    }
 
     private void setViewPager() {
 
@@ -312,6 +303,7 @@ public class MainActivity extends BaseActivity {
 
         customViewPager.setAdapter(customViewPagerAdapter);
         customViewPager.setCurrentItem(2);
+
         bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
 //        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 //            @Override
@@ -333,30 +325,57 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+                Menu menu = toolbar.getMenu();
+                menu.clear();
                 switch (position) {
                     case 0:
 //                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
+//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_message);
                         break;
                     case 1:
-                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
+//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
 //                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_team);
                         break;
                     case 2:
-                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
+                        toolbar.inflateMenu(R.menu.main_toolbar_hall);
+                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()){
+                                    case R.id.item_location:
+                                        break;
+                                    case R.id.item_location_name:
+                                        break;
+                                }
+                                Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
+                                intent.putExtra("whereCome", "MainActivity");
+                                startActivityForResult(intent, MAIN_ADDRESS);
+                                return false;
+                            }
+                        });
+//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
 //                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
                         break;
                     case 3:
 //                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
+//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_game);
                         break;
                     case 4:
+                        toolbar.inflateMenu(R.menu.main_toolbar_mine);
+                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                               Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
+                               startActivity(intent);
+                                return false;
+                            }
+                        });
 //                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
+//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_mine);
                         break;
                 }
@@ -375,34 +394,34 @@ public class MainActivity extends BaseActivity {
 //        hallFragment.reloadAdapter();
     }
 
-    private void initBottomNavigationView(final CustomViewPager customViewPager) {
-        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-                = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_message:
-                        customViewPager.setCurrentItem(0);
-                        return true;
-                    case R.id.navigation_team:
-                        customViewPager.setCurrentItem(1);
-                        return true;
-                    case R.id.navigation_dating:
-                        customViewPager.setCurrentItem(2);
-                        return true;
-                    case R.id.navigation_game:
-                        customViewPager.setCurrentItem(3);
-                        return true;
-                    case R.id.navigation_mine:
-                        customViewPager.setCurrentItem(4);
-                        return true;
-                }
-                return true;
-            }
-        };
-        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
+//    private void initBottomNavigationView(final CustomViewPager customViewPager) {
+//        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+//                = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.navigation_message:
+//                        customViewPager.setCurrentItem(0);
+//                        return true;
+//                    case R.id.navigation_team:
+//                        customViewPager.setCurrentItem(1);
+//                        return true;
+//                    case R.id.navigation_dating:
+//                        customViewPager.setCurrentItem(2);
+//                        return true;
+//                    case R.id.navigation_game:
+//                        customViewPager.setCurrentItem(3);
+//                        return true;
+//                    case R.id.navigation_mine:
+//                        customViewPager.setCurrentItem(4);
+//                        return true;
+//                }
+//                return true;
+//            }
+//        };
+//        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//    }
 
     static class CustomViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
@@ -523,8 +542,7 @@ public class MainActivity extends BaseActivity {
 
 
     private void sendAddressToService(){
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
                 .FourParameterJsonPost(
                         "update","addressInfo" , userInfo.getId(),  "null",
                         JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo()), JSONObject.class))

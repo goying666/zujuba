@@ -1,14 +1,29 @@
 package renchaigao.com.zujuba.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -30,6 +45,7 @@ import java.util.TimerTask;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
+import renchaigao.com.zujuba.Activity.Club.CreateClubActivity;
 import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
 import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
 import renchaigao.com.zujuba.Fragment.Adapter.MessageFragmentAdapter;
@@ -39,7 +55,6 @@ import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
-import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
 
 public class MessageFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
@@ -58,19 +73,70 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
     private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
     private TextView fragement_message_note;
     private Timer timer = new Timer();
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TabLayout tabLayout;
+    private Button createNewClub, joinClub;
+    private int tabSelecte = 0;
+    final static private int TABSELECTED_CHANGE = 1003;
+
+    @Override
+    protected void InitView(View rootView) {
+        this.rootView = rootView;
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout_message_fragment);
+        fragement_message_note = rootView.findViewById(R.id.fragement_message_note);
+        tabLayout = rootView.findViewById(R.id.f_message_tabLayout);
+        createNewClub = rootView.findViewById(R.id.create_club);
+        joinClub = rootView.findViewById(R.id.jion_club);
+        setRecyclerView(rootView);
+//        获取本地存储数据
+    }
+
+    private void setButton() {
+        createNewClub.setVisibility(View.GONE);
+        joinClub.setVisibility(View.GONE);
+        createNewClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CreateClubActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        joinClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.arg1 == RespCodeNumber.SUCCESS) {
+            switch (msg.arg1) {
+                case RespCodeNumber.SUCCESS:
+                    UpdateViewData();
+                    break;
+                case TABSELECTED_CHANGE:
+//                    获取club数据，
+
+//                    将club数据和message数据公用一个adapter，重新封装后刷新
+                    break;
+
             }
         }
     };
 
+    public void UpdateViewData() {
+        messageFragmentAdapter.updateResults(displayTipCardBeanList);
+        messageFragmentAdapter.notifyDataSetChanged();
+        fragement_message_note.setVisibility(View.GONE);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        InitMessageNoteInfos();
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -89,9 +155,8 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
         timer.cancel();
     }
 
-
     private void InitMessageNoteInfos() {
-//        将所有存在本地的message拿出来
+        oldTipCardBeanList.clear();
         for (AndroidCardMessageFragmentTipBean p : LitePal.findAll(AndroidCardMessageFragmentTipBean.class)) {
             oldTipCardBeanList.add(JSONObject.parseObject(JSONObject.toJSONString(p), CardMessageFragmentTipBean.class));
         }
@@ -111,13 +176,15 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
             }
             messageFragmentAdapter.updateResults(displayTipCardBeanList);
             messageFragmentAdapter.notifyDataSetChanged();
+            fragement_message_note.setVisibility(View.GONE);
         } else {
             reloadAdapter();
+            fragement_message_note.setVisibility(View.VISIBLE);
         }
     }
 
     private ArrayList<CardMessageFragmentTipBean> UpdateNewCardTipBeanDate(ArrayList<CardMessageFragmentTipBean> oldData, ArrayList<CardMessageFragmentTipBean> newData) {
-//        找出新旧数据的重复项，并将最新的放入一个数列
+//        找出新旧数据的重复项，并将新增的放入一个数列
         ArrayList<CardMessageFragmentTipBean> retArrayList = new ArrayList<>();
         for (int i = 0; i < oldData.size(); i++) {
             CardMessageFragmentTipBean o = oldData.get(i);
@@ -170,6 +237,7 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
 //        拼接三部分数列
         retArrayList.addAll(oldDataUse);
         retArrayList.addAll(newDataUse);
+        oldData = retArrayList;
 //        排序
         Collections.sort(retArrayList, new Comparator<CardMessageFragmentTipBean>() {
             @Override
@@ -180,12 +248,7 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
         return retArrayList;
     }
 
-    @Override
-    protected void InitView(View rootView) {
-        fragement_message_note = getActivity().findViewById(R.id.fragement_message_note);
-        setRecyclerView(rootView);
-//        获取本地存储数据
-    }
+    private View rootView;
 
     @Override
     protected void InitData(View rootView) {
@@ -195,6 +258,9 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
 
     @Override
     protected void InitOther(View rootView) {
+        swipeRefreshLayout.setEnabled(false);
+        setTableLayoutView(rootView);
+        setButton();
     }
 
     @Override
@@ -213,6 +279,37 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
 //        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
+    private void setTableLayoutView(View view) {
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabSelecte = tab.getPosition();
+                switch (tabSelecte) {
+                    case 0:
+                        createNewClub.setVisibility(View.GONE);
+                        joinClub.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        createNewClub.setVisibility(View.VISIBLE);
+                        joinClub.setVisibility(View.VISIBLE);
+                        break;
+                }
+                Message msg = new Message();
+                msg.arg1 = TABSELECTED_CHANGE;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
     @Override
     public void onItemClickListener(int position) {
         Intent intent = new Intent(mContext, MessageInfoActivity.class);
@@ -222,13 +319,59 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
         startActivity(intent);
     }
 
+    public void showPopMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(mContext, view);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });
+        popupMenu.inflate(R.menu.item_select_menu);
+        popupMenu.show();
+
+//        popupWindow.showAsDropDown(view);
+
+//        PopupMenu popupMenu = new PopupMenu(mContext,view, Gravity.LEFT,0x111,0);
+//        Gravity gravity = new Gravity();
+//        PopupMenu popupMenu = new PopupMenu(mContext,view, Gravity.LEFT,0,0);
+//        popupMenu.setGravity(Gravity.CENTER);
+//        popupMenu.getMenuInflater().inflate(R.menu.item_select_menu, popupMenu.getMenu());
+//
+//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            public boolean onMenuItemClick(MenuItem item) {
+//                new AlertDialog.Builder(mContext)
+//                        .setMessage("确定删除这条消息吗？")
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                            }
+//                        })
+//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                            }
+//                        }).setCancelable(false).show();
+//                return false;
+//            }
+//        });
+//        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+//            @Override
+//            public void onDismiss(PopupMenu menu) {
+//                menu = null;
+//            }
+//        });
+//        popupMenu.show();
+    }
+
     @Override
     public void onItemLongClickListener(int position) {
-
+        showPopMenu(rootView);
     }
 
     private void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.messageUrl);
         addSubscribe(RetrofitServiceManager.getInstance().creat(MessageApiService.class)
                 .GetMessageFragmentBean(userInfo.getId())
                 .subscribeOn(Schedulers.io())
@@ -243,13 +386,16 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
                             switch (code) {
                                 case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
                                     msg.arg1 = RespCodeNumber.SUCCESS;
-                                    handler.sendMessage(msg);
                                     messageFragmentBean = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")), MessageFragmentCardBean.class);
                                     newTipCardBeanList = messageFragmentBean.getAllMessageTips();
+                                    //        将所有存在本地的message拿出来
+                                    oldTipCardBeanList.clear();
+                                    for (AndroidCardMessageFragmentTipBean p : LitePal.findAll(AndroidCardMessageFragmentTipBean.class)) {
+                                        oldTipCardBeanList.add(JSONObject.parseObject(JSONObject.toJSONString(p), CardMessageFragmentTipBean.class));
+                                    }
                                     displayTipCardBeanList = UpdateNewCardTipBeanDate(oldTipCardBeanList, newTipCardBeanList);
-                                    messageFragmentAdapter.updateResults(displayTipCardBeanList);
-                                    messageFragmentAdapter.notifyDataSetChanged();
-                                    Log.e(TAG, "onResponse");
+                                    if (displayTipCardBeanList.size() > 0)
+                                        handler.sendMessage(msg);
                                     break;
                             }
                         } catch (Exception e) {
@@ -275,6 +421,29 @@ public class MessageFragment extends BaseFragment implements CommonViewHolder.on
                         reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
                     }
                 }));
+    }
+
+    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragments = new ArrayList<>();
+
+        public CustomViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void addFragment(Fragment fragment) {
+            mFragments.add(fragment);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
     }
 
 }

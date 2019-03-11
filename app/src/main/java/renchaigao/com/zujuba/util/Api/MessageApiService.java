@@ -15,18 +15,18 @@ import retrofit2.http.Query;
 
 public interface MessageApiService {
 
-    @GET("getteam")
+    @GET("message/getteam")
     Observable<ResponseEntity> GetMessageInfo(
             @Query("userId") String userId,
             @Query("ownerId") String ownerId,
             @Query("messageClass") String messageClass,
             @Query("lastTime") long lastTime);
 
-    @GET("getall")
+    @GET("message/getall")
     Observable<ResponseEntity> GetMessageFragmentBean(
             @Query("userId") String userId);
 
-    @POST("add")
+    @POST("message/add")
     Observable<ResponseEntity> AddMessageInfo(
             @Query("userId") String userId,
             @Query("messageClass") String messageClass,

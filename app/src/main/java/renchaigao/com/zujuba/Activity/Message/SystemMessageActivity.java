@@ -7,9 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
 
-public class SystemMessageActivity extends AppCompatActivity {
+public class SystemMessageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,26 @@ public class SystemMessageActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    protected void InitView() {
+
+    }
+
+    @Override
+    protected void InitData() {
+
+    }
+
+    @Override
+    protected void InitOther() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return 0;
     }
 
 }

@@ -16,8 +16,6 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <!-- //地图包、搜索包需要的基础权限 -->
-
-
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 用于访问GPS定位 -->
@@ -57,10 +55,10 @@
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/zujuba_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/zujuba_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
@@ -78,6 +76,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
+
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
@@ -175,11 +174,13 @@
             android:name=".GamePart.DeepForest.DeepForestGameBusinessActivity"
             android:label="@string/title_activity_deep_forest_game_business"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <service
             android:name=".GamePart.DeepForest.DFGService"
             android:enabled="true"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Activity.Message.MessageInfoActivity"
             android:label="@string/title_activity_message_info"
@@ -208,6 +209,7 @@
         <activity
             android:name=".Activity.User.UserSettingActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
@@ -224,9 +226,11 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".Service.HttpService"
             android:enabled="true"
@@ -235,6 +239,7 @@
             android:name=".Service.GameService"
             android:enabled="true"
             android:exported="true" />
+
         <activity
             android:name=".Activity.Place.UserPlaceManagerActivity"
             android:label="@string/title_activity_place_manager"
@@ -251,7 +256,12 @@
         <activity
             android:name=".Activity.Message.SystemMessageActivity"
             android:label="@string/title_activity_system_message"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.Club.ClubInfoActivity" />
+        <activity
+            android:name=".Activity.Club.CreateClubActivity"
+            android:label="@string/title_activity_create_club"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

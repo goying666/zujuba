@@ -13,7 +13,6 @@ import com.bumptech.glide.load.model.LazyHeaders;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import renchaigao.com.zujuba.Activity.Place.UserPlaceListPageActivity;
-import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 
@@ -40,14 +39,7 @@ public class MineFragment extends BaseFragment {
     @SuppressLint("CutPasteId")
     @Override
     protected void InitView(View rootView) {
-        f_mine_usersetting_image = rootView.findViewById(R.id.f_mine_usersetting_image);
-        f_mine_usersetting_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserSettingActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
+
         activity_user_textview_zuju_title = rootView.findViewById(R.id.activity_user_textview_zuju_title);
         activity_user_textview_title_dianzan = rootView.findViewById(R.id.activity_user_textview_title_dianzan);
         activity_user_textview_youxi_title = rootView.findViewById(R.id.activity_user_textview_youxi_title);

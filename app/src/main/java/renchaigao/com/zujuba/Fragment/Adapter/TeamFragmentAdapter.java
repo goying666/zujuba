@@ -35,6 +35,7 @@ public class TeamFragmentAdapter extends CommonRecycleAdapter<JSONObject> implem
 
     @Override
     public void bindData(CommonViewHolder holder, JSONObject data) {
+//        holder.setImageResource(R.id.team_image, R.drawable.thqby)
         holder.setGlideImageResource(R.id.team_image, PropertiesConfig.photoUrl + data.getString("imageurl"), mContext)
                 .setText(R.id.team_cardview_name, data.getString("name"))
                 .setText(R.id.team_cardview_state, data.getString("state"))

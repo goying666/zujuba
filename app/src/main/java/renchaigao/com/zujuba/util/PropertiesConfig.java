@@ -6,11 +6,13 @@ public class PropertiesConfig {
     private final static String macIp = "http://192.168.1.190";
     public final static String homeIp = "http://192.168.199.155";
 
-    public final static String serverUrlAL = "https://www.zujuba.com/";
-    public final static String serverUrlBD = homeIp;
+//    public final static String serverUrlAL = "https://www.zujuba.com/";
+    public final static String serverUrlAL = "http://192.168.199.155:7814/";
+//    public final static String serverUrlBD = homeIp;
 //    public final static String serverUrlBD = "http://192.168.199.155";
 
-    public final static String userServerUrl = serverUrlAL + "user/";
+//    public final static String userServerUrl = serverUrlAL + "7801/";
+//    public final static String userServerUrl = serverUrlAL + "user/";
 //    public final static String userServerUrl = serverUrlBD + ":7801/";
 
     public final static String teamServerUrl = serverUrlAL + "team/";
@@ -28,8 +30,11 @@ public class PropertiesConfig {
     public final static String photoUrl = serverUrlAL + "photo/";//
 //    public final static String photoUrl = serverUrlBD + ":7811/";
 
-        public final static String messageUrl = serverUrlAL + "message/";//
+    public final static String messageUrl = serverUrlAL + "message/";//
 //    public final static String messageUrl = serverUrlBD + ":7807/";
+
+//    public final static String clubUrl = serverUrlAL + "club/";//
+    public final static String clubUrl = serverUrlAL + "7812/";//
 
     //    public final static String mxtWorldGameServerUrl = serverUrlAL + "mxt/";
 //    public final static String mxtWorldGameServerUrl = serverUrlBD + ":7805/";

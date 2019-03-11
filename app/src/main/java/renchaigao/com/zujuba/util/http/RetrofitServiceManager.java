@@ -31,10 +31,6 @@ public class RetrofitServiceManager {
     private RetrofitDownloadListener retrofitDownloadListener;
 
     private RetrofitServiceManager() {
-        SetRetrofit(PropertiesConfig.serverUrlAL);
-    }
-    public void SetRetrofit(String path){
-
         /**
          * 设置证书的三种方式
          */
@@ -64,8 +60,6 @@ public class RetrofitServiceManager {
 //                证书的inputstream,
 //                本地证书的inputstream,
 //                本地证书的密码)
-
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS)
@@ -87,12 +81,11 @@ public class RetrofitServiceManager {
                 .client(builder.build())
 //                .baseUrl(PropertiesConfig.serverUrlAL)
 //                .baseUrl(PropertiesConfig.userServerUrl)
-                .baseUrl(path)
+                .baseUrl(PropertiesConfig.serverUrlAL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
-
     public void DestroyRetrofit(){
 
     }

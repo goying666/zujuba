@@ -1,72 +1,66 @@
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout_message_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="renchaigao.com.zujuba.Fragment.MessageFragment">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:id="@+id/message_appbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--android:layout_marginEnd="0dp"-->
-        <!--android:layout_marginStart="0dp"-->
-        <!--android:layout_marginTop="0dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--android:visibility="gone">-->
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/team_toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="?attr/colorPrimary"-->
-            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-            <!--app:layout_scrollFlags="scroll"-->
-            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light">-->
-
-            <!--<android.support.constraint.ConstraintLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="@string/fragment_message_toolbar_title" />-->
-            <!--</android.support.constraint.ConstraintLayout>-->
-        <!--</android.support.v7.widget.Toolbar>-->
-    <!--</android.support.design.widget.AppBarLayout>-->
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/fragement_message_NestedScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/f_message_tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/fragement_message_note"
-                android:layout_width="match_parent"
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="聊天内容为空" />
+                android:text="消息" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/fragement_message_RecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="俱乐部" />
+        </android.support.design.widget.TabLayout>
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/fragement_message_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="聊天内容为空" />
 
-    </android.support.v4.widget.NestedScrollView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragement_message_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary" />
+        <Button
+            android:id="@+id/create_club"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="创建俱乐部"/>
+        <Button
+            android:id="@+id/jion_club"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="加入俱乐部"/>
 
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <!--<android.support.design.widget.AppBarLayout--><!--android:id="@+id/message_appbar"--><!--android:layout_width="match_parent"--><!--android:layout_height="?attr/actionBarSize"--><!--android:layout_marginEnd="0dp"--><!--android:layout_marginStart="0dp"--><!--android:layout_marginTop="0dp"--><!--app:layout_constraintEnd_toEndOf="parent"--><!--app:layout_constraintStart_toStartOf="parent"--><!--app:layout_constraintTop_toTopOf="parent"--><!--android:visibility="gone">-->
+
+    <!--<android.support.v7.widget.Toolbar--><!--android:id="@+id/team_toolbar"--><!--android:layout_width="match_parent"--><!--android:layout_height="?attr/actionBarSize"--><!--android:background="?attr/colorPrimary"--><!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"--><!--app:layout_scrollFlags="scroll"--><!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light">-->
+
+    <!--<android.support.constraint.ConstraintLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">-->
+
+    <!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="@string/fragment_message_toolbar_title" />--><!--</android.support.constraint.ConstraintLayout>--><!--</android.support.v7.widget.Toolbar>--><!--</android.support.design.widget.AppBarLayout>-->

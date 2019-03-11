@@ -33,16 +33,15 @@ import renchaigao.com.zujuba.Activity.Adapter.CardPlayerAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.TeamApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_MESSAGE_PAGE;
-import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_TEAM_PAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_TEAM_PAGE;
 
 public class TeamActivity extends BaseActivity {
@@ -276,13 +275,11 @@ public class TeamActivity extends BaseActivity {
     }
 
     public void SendMessage() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.teamServerUrl);
-        Map<String, RequestBody> map = new HashMap<>();
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", "")
                 .build();
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(TeamApiService.class)
                 .FourParameterBodyPost("join",
                         userInfo.getId(),
                         teamActivityBean.getTeamId(),
@@ -332,13 +329,12 @@ public class TeamActivity extends BaseActivity {
     private static final int TEAM_PLAYER_INFO_LOAD = 1;
 
     public void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.teamServerUrl);
         Map<String, RequestBody> map = new HashMap<>();
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", "")
                 .build();
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(TeamApiService.class)
                 .FourParameterBodyPost("getone",
                         userInfo.getId(),
                         teamActivityBean.getTeamId(),
@@ -385,23 +381,25 @@ public class TeamActivity extends BaseActivity {
     }
 
     public void JoinTeamButton(View view) {
-        if(teamActivityBean.getUserClass().equals("游客")){
 
-        }else {
-            Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
+        Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
 
-            intent.putExtra("messageClass",TEAM_SEND_MESSAGE);
-            intent.putExtra("ownerId",teamActivityBean.getTeamId());
-            intent.putExtra("teamName",teamActivityBean.getTeamName());
-            startActivity(intent);
-            finish();
-        }
+        intent.putExtra("messageClass",TEAM_SEND_MESSAGE);
+        intent.putExtra("ownerId",teamActivityBean.getTeamId());
+        intent.putExtra("teamName",teamActivityBean.getTeamName());
+        startActivity(intent);
+        finish();
+
+//        if(teamActivityBean.getUserClass().equals("游客")){
+//
+//        }else {
+//        }
 //                判断资格
 //                资格不通过，提示错误信息
 //                资格通过，进入聊天界面；
 //               判断加入用户是否满足team的约束条件，若不满足则提示错误；
 //                请求服务器，获取team最新信息；
-        SendMessage();
+//        SendMessage();
 //                修改“加入”按键文字；
 //                显示申请加入的提示，直到返回正确的加入信息后，否则提示失败。
     }

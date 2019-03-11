@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/card_club_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:maxWidth="166dp"
+            android:text="系统根据局生成的聊天群名fdsafdsaffdsafdsafdsafds"
+            android:textColor="@color/word_title_black"
+            android:textSize="@dimen/text_size_title"
+            app:layout_constraintEnd_toStartOf="@+id/textView121"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/card_club_address"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="8dp"
+            android:maxLines="1"
+            android:maxWidth="166dp"
+            android:text="121"
+            android:textColor="@color/word_note"
+            android:textSize="@dimen/text_size_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView28"
+            app:layout_constraintStart_toEndOf="@+id/imageView28"
+            app:layout_constraintTop_toTopOf="@+id/imageView28" />
+
+        <TextView
+            android:id="@+id/card_club_peopleNum"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="8dp"
+            android:text="51人"
+            android:textColor="@color/word_note"
+            android:textSize="@dimen/text_size_introduce"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView29"
+            app:layout_constraintStart_toEndOf="@+id/imageView29"
+            app:layout_constraintTop_toTopOf="@+id/imageView29" />
+
+        <TextView
+            android:id="@+id/TextView119"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/card_message_name" />
+
+        <ImageView
+            android:id="@+id/imageView28"
+            android:layout_width="@dimen/icon_style_m"
+            android:layout_height="@dimen/icon_style_m"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:layout_constraintStart_toStartOf="@+id/card_club_name"
+            app:layout_constraintTop_toBottomOf="@+id/card_club_name"
+            app:srcCompat="@drawable/club_home" />
+
+        <ImageView
+            android:id="@+id/imageView29"
+            android:layout_width="@dimen/icon_style_m"
+            android:layout_height="@dimen/icon_style_m"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView28"
+            app:layout_constraintTop_toBottomOf="@+id/imageView28"
+            app:srcCompat="@drawable/club_people" />
+
+        <ImageView
+            android:id="@+id/imageView30"
+            android:layout_width="@dimen/icon_style_m"
+            android:layout_height="@dimen/icon_style_m"
+            app:layout_constraintBottom_toBottomOf="@+id/card_club_peopleNum"
+            app:layout_constraintEnd_toEndOf="@+id/imageView31"
+            app:layout_constraintStart_toStartOf="@+id/imageView31"
+            app:layout_constraintTop_toTopOf="@+id/card_club_peopleNum"
+            app:srcCompat="@drawable/club_huodong" />
+
+        <TextView
+            android:id="@+id/textView119"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="11次活动"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView30"
+            app:layout_constraintStart_toEndOf="@+id/imageView30"
+            app:layout_constraintTop_toTopOf="@+id/imageView30" />
+
+        <TextView
+            android:id="@+id/textView120"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="开心的二哈"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView31"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView31" />
+
+        <ImageView
+            android:id="@+id/imageView31"
+            android:layout_width="@dimen/icon_style_m"
+            android:layout_height="@dimen/icon_style_m"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/card_club_address"
+            app:layout_constraintEnd_toStartOf="@+id/textView120"
+            app:layout_constraintTop_toTopOf="@+id/card_club_address"
+            app:srcCompat="@drawable/club_admin" />
+
+        <TextView
+            android:id="@+id/textView121"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="管理员"
+            app:layout_constraintBottom_toBottomOf="@+id/card_club_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/card_club_name" />
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.CardView>

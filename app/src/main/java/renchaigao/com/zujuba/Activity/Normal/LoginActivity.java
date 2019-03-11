@@ -30,10 +30,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.SecurityFunc;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
@@ -313,7 +312,6 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
-    ApiService apiService;
 
 //    private void InitRxJavaAndRetrofit() {
 ////        OkHttpUtil okHttpUtil = new OkHttpUtil();
@@ -417,8 +415,8 @@ public class LoginActivity extends BaseActivity {
                 str4 = "signin";
                 break;
         }
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        showLoading();
+        addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
         .FourParameterJsonPost(str1, str2, str3, str4, JSONObject.parseObject(JSONObject.toJSONString(users),JSONObject.class))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -517,10 +515,12 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        dismissLoading(false);
                     }
 
                     @Override
                     public void onComplete() {
+                        dismissLoading(true);
                         Log.e(TAG, "onComplete:");
 
                     }

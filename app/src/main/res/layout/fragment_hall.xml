@@ -1,115 +1,99 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/hall_CoordinatorLayout"
+    android:id="@+id/hall_SwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="renchaigao.com.zujuba.Fragment.HallFragment">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/hall_AppBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.design.widget.AppBarLayout>
-
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/hall_SwipeRefreshLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
 
-        <LinearLayout
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+        <!--<com.youth.banner.Banner-->
+        <!--android:id="@+id/hall_banner"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="120dp" />-->
+
+        <!--&lt;!&ndash;<android.support.constraint.ConstraintLayout&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/hall_button_cons"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<Button&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/hall_button_joinUs"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginBottom="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginStart="16dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="成为合伙人"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<Button&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/hall_button_business"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginBottom="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginEnd="16dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="商 铺 入 驻"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+        <!--&lt;!&ndash;</android.support.constraint.ConstraintLayout>&ndash;&gt;-->
+        <!--</LinearLayout>-->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/hall_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距离排序" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="星级排名" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热度/评价" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="筛选" />
+        </android.support.design.widget.TabLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hall_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp" />
+
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 
 
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical"-->
-                <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
-
-                <!--<com.youth.banner.Banner-->
-                    <!--android:id="@+id/hall_banner"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="120dp" />-->
-
-                <!--&lt;!&ndash;<android.support.constraint.ConstraintLayout&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:id="@+id/hall_button_cons"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="wrap_content">&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/hall_button_joinUs"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginBottom="8dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginStart="16dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginTop="8dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="成为合伙人"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<Button&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/hall_button_business"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginBottom="8dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginEnd="16dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_marginTop="8dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="商 铺 入 驻"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
-                <!--&lt;!&ndash;</android.support.constraint.ConstraintLayout>&ndash;&gt;-->
-            <!--</LinearLayout>-->
-            <android.support.design.widget.TabLayout
-                android:id="@+id/hall_tablayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap">
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="距离排序" />
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItem2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="星级排名" />
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItem3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="热度/评价" />
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItem4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="筛选" />
-            </android.support.design.widget.TabLayout>
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/hall_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"/>
-
-        </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-
-</android.support.design.widget.CoordinatorLayout>
 

@@ -25,9 +25,8 @@ import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.UserPlaceListPageAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
@@ -104,12 +103,11 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
     private void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
 //        RequestBody multiBody = new MultipartBody.Builder()
 //                .setType(MultipartBody.FORM)
 //                .addFormDataPart("json", "")
 //                .build();
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
                 .PlaceServiceGet("user",
                         "allcreate",
                         userInfo.getId(),

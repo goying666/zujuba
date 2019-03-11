@@ -34,9 +34,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.PlaceApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
@@ -72,7 +71,6 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
 ////        reloadAdapter();
 //        return rootView;
 //    }
-
     @Override
     protected void InitView(View rootView) {
         userInfo = DataUtil.GetUserInfoData(mContext);
@@ -212,7 +210,6 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
 //        return requestBody;
 //    }
     private void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
         Map<String, RequestBody> map = new HashMap<>();
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -221,7 +218,7 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
 //        MultipartBody.Part.createFormData("json", "aaa");
 //        map.put("plateNo", multiBody);
 
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(PlaceApiService.class)
                 .FourParameterBodyPost("store",
                         "getnear",
                         userInfo.getId(),

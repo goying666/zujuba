@@ -24,9 +24,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
@@ -90,8 +90,6 @@ public class UserSettingActivity extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_user_setting;
     }
-
-    ApiService apiService;
 
 //    private void InitRxJavaAndRetrofit() {
 ////        OkHttpUtil okHttpUtil = new OkHttpUtil();
@@ -304,8 +302,7 @@ public class UserSettingActivity extends BaseActivity {
 
     private void UpdateUserInfo() {
 
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
                 .FourParameterJsonPost(
                         "update",
                         "basicInfo",

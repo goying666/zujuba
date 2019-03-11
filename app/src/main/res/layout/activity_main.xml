@@ -7,66 +7,24 @@
     android:layout_height="match_parent"
     tools:context="renchaigao.com.zujuba.Activity.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/a_main_Toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </android.support.v7.widget.Toolbar>
+
     <LinearLayout
+        android:id="@+id/a_main_linearLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/a_main_Toolbar">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/a_main_toolbar_constraintlayout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <ImageView
-                android:id="@+id/a_main_toolbar_location_image"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/location_address"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/a_main_toolbar_location_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="深圳市"
-                app:layout_constraintBottom_toBottomOf="@+id/a_main_toolbar_location_image"
-                app:layout_constraintStart_toEndOf="@+id/a_main_toolbar_location_image" />
-
-            <android.support.v7.widget.SearchView
-                android:id="@+id/main_searchView"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                android:autofillHints="队伍名、好友名、房号"
-                android:background="@drawable/search_drawable"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintCircleRadius="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/a_main_toolbar_usericon"
-                app:layout_constraintStart_toEndOf="@+id/a_main_toolbar_location_image"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/a_main_toolbar_usericon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/buy_store"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
         <renchaigao.com.zujuba.widgets.CustomViewPager
             android:id="@+id/main_customView"
             android:layout_width="match_parent"

@@ -43,12 +43,12 @@ import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.Place.PlaceListActivity;
 import renchaigao.com.zujuba.Bean.FilterInfo;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.TeamApiService;
 import renchaigao.com.zujuba.util.CalendarUtil;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.PatternUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.dateUse;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.WidgetDateAndWeekSelect;
@@ -1178,15 +1178,14 @@ public class TeamCreateActivity extends BaseActivity {
     }
 
     private void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.teamServerUrl);
         teamInfo.setCreaterStyle("USER");
         teamInfo.setState(TEAM_STATE_WAITING);
-
+        String teamStr = JSONObject.toJSONString(teamInfo);
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("json", JSONObject.toJSONString(teamInfo))
+                .addFormDataPart("json", teamStr)
                 .build();
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(TeamApiService.class)
                 .FourParameterBodyPost("create",
                         userInfo.getId(),
                         teamInfo.getId(),

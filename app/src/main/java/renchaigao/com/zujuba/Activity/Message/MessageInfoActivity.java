@@ -1,6 +1,7 @@
 package renchaigao.com.zujuba.Activity.Message;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -121,7 +122,6 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         contentSwipeRefreshLayout = findViewById(R.id.message_info_SwipeRefreshLayout);
         message_info_inputEdit = findViewById(R.id.message_info_inputEdit);
         message_info_sendButton = findViewById(R.id.message_info_sendButton);
-        message_info_more = findViewById(R.id.message_info_more);
 
         InitRecyclerView();
     }
@@ -165,15 +165,15 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
     @Override
     protected void InitOther() {
         InitSwipeLayout();
-        message_info_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MessageInfoActivity.this, TeamActivity.class);
-                intent.putExtra("teamId", JSONObject.toJSONString(teamId));
-                startActivityForResult(intent, PropertiesConfig.ACTIVITY_MESSAGE_PAGE);
-//                finish();
-            }
-        });
+//        message_info_more.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MessageInfoActivity.this, TeamActivity.class);
+//                intent.putExtra("teamId", JSONObject.toJSONString(teamId));
+//                startActivityForResult(intent, PropertiesConfig.ACTIVITY_MESSAGE_PAGE);
+////                finish();
+//            }
+//        });
         message_info_inputEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -247,6 +247,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                 } else {
 
                 }
+                message_info_inputEdit.requestFocus();
             }
         });
     }
@@ -319,7 +320,6 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
     final private static int INPUTSTRING_IS_NULL = 1001;
 
     private void SendMessage(AndroidMessageContent androidMessageContent) {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.messageUrl);
         addSubscribe(RetrofitServiceManager.getInstance().creat(MessageApiService.class)
                 .AddMessageInfo(
                         userId,
@@ -369,7 +369,6 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
     }
 
     public void reloadMessageInfo() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.messageUrl);
         addSubscribe(RetrofitServiceManager.getInstance().creat(MessageApiService.class)
                 .GetMessageInfo(userId, ownerId, messageClass, messageListEnd)
                 .subscribeOn(Schedulers.io())
@@ -439,7 +438,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         if (allMessages.size() > 0) {
 //        每次页面停止时，将该页的message数据更新至数据库的messageFragmentBeam内
             AndroidCardMessageFragmentTipBean androidCardMessageFragmentTipBean = new AndroidCardMessageFragmentTipBean();
-            AndroidMessageContent androidMessageContent = allMessages.get(allMessages.size() - 1);
+            AndroidMessageContent androidMessageContent = allMessages.get(0);
             androidCardMessageFragmentTipBean.setImageUrl(androidMessageContent.getSenderImageUrl());
             androidCardMessageFragmentTipBean.setName(androidMessageContent.getTitle());
             androidCardMessageFragmentTipBean.setContent(androidMessageContent.getContent());
@@ -448,11 +447,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
             androidCardMessageFragmentTipBean.setMClass(androidMessageContent.getMessageClass());
             androidCardMessageFragmentTipBean.setOwnerId(ownerId);
             androidCardMessageFragmentTipBean.setLastTime(androidMessageContent.getSendTime());
-            if (LitePal.where("ownerId = ?", ownerId).find(AndroidCardMessageFragmentTipBean.class).size() == 0) {
-                androidCardMessageFragmentTipBean.save();
-            } else {
-                androidCardMessageFragmentTipBean.updateAll("ownerId = ?", ownerId);
-            }
+            androidCardMessageFragmentTipBean.saveOrUpdate("ownerId = ?", ownerId);
         }
     }
 

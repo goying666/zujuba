@@ -1,11 +1,14 @@
 package renchaigao.com.zujuba.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
+import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,37 +32,86 @@ import renchaigao.com.zujuba.Activity.TeamPart.TeamActivity;
 import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.Fragment.Adapter.TeamFragmentAdapter;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.TeamApiService;
+import renchaigao.com.zujuba.util.DataFunctions.DataSort;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
-import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
 import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_TEAM_PAGE;
 
-public class TeamFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener{
+public class TeamFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
 
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private TeamFragmentAdapter teamFragmentAdapter;
 
-    private FloatingActionButton floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Button button_creatTeam, button_myTeam, button_joinTeam;
+    private Button button_creatTeam;
 
+    private TabLayout tableLayout;
+    private TabItem item1, item2, item3, item4;
     final private String TAG = "TeamFragment";
     private UserInfo userInfo;
-
     ArrayList<JSONObject> teamList = new ArrayList();
+    private int tabSelecte = 0;
+    final static private int TABSELECTED_CHANGE = 1003;
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.arg1) {
+                case TABSELECTED_CHANGE:
+                    UpdateViewData();
+                    break;
+                case RespCodeNumber.SUCCESS:
+                    UpdateViewData();
+                    break;
+            }
+        }
+    };
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(teamList.size()>0){
+            teamFragmentAdapter.updateResults(teamList);
+            teamFragmentAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void UpdateViewData() {
+        DataSort<JSONObject> dataSort = new DataSort<>();
+        switch (tabSelecte) {
+            case 0:
+//                人数排序
+                teamList = dataSort.SequenceSort(teamList, "realPlayerNum");
+                break;
+            case 1:
+//                距离排序
+                teamList = dataSort.SequenceSort(teamList, "realDistance");
+                break;
+            case 2:
+//                时间排序
+                teamList = dataSort.SequenceSort(teamList, "realStartTime");
+                break;
+            case 3:
+//                筛选排序
+                teamList = dataSort.SequenceSort(teamList, "");
+                break;
+        }
+        teamFragmentAdapter.updateResults(teamList);
+        teamFragmentAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onItemLongClickListener(int position) {
     }
 
     private void setSwipeRefresh(View view) {
-        swipeRefreshLayout = view.findViewById(R.id.team_swipe_refresh); //设置没有item动画
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,26 +121,45 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
     }
 
     private void setRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.team_page_recycler_view);
         layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
-        teamFragmentAdapter = new TeamFragmentAdapter(mContext,teamList,this);
+        teamFragmentAdapter = new TeamFragmentAdapter(mContext, teamList, this);
         recyclerView.setAdapter(teamFragmentAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-
+//        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
+//        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
-    private void setFloatingActionButton(View view) {
-        floatingActionButton = view.findViewById(R.id.team_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+    private void setTableLayoutView(View view) {
+        tableLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                recyclerView.scrollToPosition(1);
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabSelecte = tab.getPosition();
+                Message msg = new Message();
+                msg.arg1 = TABSELECTED_CHANGE;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
     }
+
+//    private void setFloatingActionButton(View view) {
+//        floatingActionButton = view.findViewById(R.id.team_fab);
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                recyclerView.scrollToPosition(1);
+//            }
+//        });
+//    }
 
 
     private void setButton(View view) {
@@ -105,10 +176,13 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
 
     @Override
     protected void InitView(View rootView) {
-        setSwipeRefresh(rootView);
-        setRecyclerView(rootView);
-//        setFloatingActionButton(rootView);
-        setButton(rootView);
+        tableLayout = rootView.findViewById(R.id.tabLayout);
+        swipeRefreshLayout = rootView.findViewById(R.id.team_swipe_refresh); //设置没有item动画
+        recyclerView = rootView.findViewById(R.id.team_page_recycler_view);
+        item1 = rootView.findViewById(R.id.tabItem1);
+        item2 = rootView.findViewById(R.id.tabItem2);
+        item3 = rootView.findViewById(R.id.tabItem3);
+        item4 = rootView.findViewById(R.id.tabItem4);
     }
 
     @Override
@@ -118,6 +192,10 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
 
     @Override
     protected void InitOther(View rootView) {
+        setSwipeRefresh(rootView);
+        setRecyclerView(rootView);
+        setTableLayoutView(rootView);
+        setButton(rootView);
         reloadAdapter();
     }
 
@@ -127,16 +205,12 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
     }
 
     public void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.teamServerUrl);
         Map<String, RequestBody> map = new HashMap<>();
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", "")
                 .build();
-//        MultipartBody.Part.createFormData("json", "aaa");
-//        map.put("plateNo", multiBody);
-
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(TeamApiService.class)
                 .FourParameterBodyPost("getnear",
                         userInfo.getId(),
                         "null",
@@ -151,11 +225,12 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
                             JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             JSONArray responseJsonData = responseJson.getJSONArray("data");
+                            Message msg = new Message();
                             switch (code) {
                                 case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
                                     teamList = new ArrayList<>(responseJsonData.toJavaList(JSONObject.class));
-                                    teamFragmentAdapter.updateResults(teamList);
-                                    teamFragmentAdapter.notifyDataSetChanged();
+                                    msg.arg1 = RespCodeNumber.SUCCESS;
+                                    handler.sendMessage(msg);
                                     break;
                             }
                         } catch (Exception e) {
@@ -195,9 +270,9 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
         JSONObject teamJSON = teamList.get(position);
         Intent intent = new Intent(mContext, TeamActivity.class);
         intent.putExtra("teamId", teamJSON.getString("teamId"));
-        intent.putExtra("teamFragmentData",JSONObject.toJSONString(teamJSON));
-        intent.putExtra("whereCome","TeamFragment");
-        getActivity().startActivityForResult(intent,FRAGMENT_TEAM_PAGE);
+        intent.putExtra("teamFragmentData", JSONObject.toJSONString(teamJSON));
+        intent.putExtra("whereCome", "TeamFragment");
+        getActivity().startActivityForResult(intent, FRAGMENT_TEAM_PAGE);
     }
 }
 //    public void reloadAdapter() {

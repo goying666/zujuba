@@ -1,6 +1,5 @@
 <resources>
 
-
     <dimen name="text_size_toolbar">52px</dimen>
     <dimen name="text_size_title">46px</dimen>
     <dimen name="text_size_content">38px</dimen>

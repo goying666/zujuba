@@ -43,10 +43,9 @@ import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.UserPlaceManagerPageActivityAdapter;
 import renchaigao.com.zujuba.Fragment.BaseFragment;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.dateUse;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
@@ -366,12 +365,11 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
                             .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
                                     RequestBody multiBody = new MultipartBody.Builder()
                                             .setType(MultipartBody.FORM)
                                             .addFormDataPart("json", placeChangeInfoJSONArray.toJSONString())
                                             .build();
-                                    addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+                                    addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
                                             .FourParameterBodyPost("user",
                                                     "update",
                                                     userInfo.getId(),
@@ -683,12 +681,11 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
     }
 
     private void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", "")
                 .build();
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
                 .FourParameterBodyPost("user",
                         "one",
                         userInfo.getId(),

@@ -27,6 +27,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
 //    testImplementation
 //        'junit:junit:4.12'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -79,10 +80,10 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
 
     dependencies {
-        compile files('F:\\00project\\zjb\\code\\server\\data2.0\\data20\\target\\data2.0-1.0-SNAPSHOT.jar')
+        compile files('F:\\00project\\zjb\\code\\server\\data2.0\\data20\\target\\data20-1.0.0.jar')
     }
     dependencies {
-        compile files('F:\\00project\\zjb\\code\\server\\data2.0\\merge\\target\\merge-1.0-SNAPSHOT.jar')
+        compile files('F:\\00project\\zjb\\code\\server\\data2.0\\merge\\target\\merge-1.0.0.jar')
     }
     testCompile 'junit:junit:4.12'
 }

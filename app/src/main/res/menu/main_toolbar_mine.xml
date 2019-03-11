@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item android:id="@+id/item_mine_setting"
+        android:orderInCategory="80"
+        android:icon="@drawable/user_setting"
+        app:showAsAction="ifRoom"
+        android:title="设置" />
+
+</menu>

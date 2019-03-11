@@ -23,9 +23,8 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.MainActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
@@ -67,7 +66,6 @@ public class AdvertisingActivity extends BaseActivity implements OnBannerListene
         return R.layout.activity_advertising;
     }
 
-    ApiService apiService;
 
 //    private void InitRxJavaAndRetrofit() {
 ////        OkHttpUtil okHttpUtil = new OkHttpUtil();
@@ -143,8 +141,7 @@ public class AdvertisingActivity extends BaseActivity implements OnBannerListene
     }
 
     private void getUserInfo() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.userServerUrl);
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
                 .FourParameterJsonPost(
 //        apiService.FourParameterJsonPost(
                 "get", userInfo.getId(), "nul", "null",

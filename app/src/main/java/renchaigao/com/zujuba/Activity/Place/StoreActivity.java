@@ -27,8 +27,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
@@ -148,13 +148,12 @@ public class StoreActivity extends BaseActivity {
     }
 
     private void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
         String storeInfoString = getIntent().getStringExtra("storeinfo");
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", storeInfoString)
                 .build();
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(StoreApiService.class)
                 .FourParameterBodyPost("store",
                         "getone",
                         jsonObjectUP.get("placeid").toString(),

@@ -50,31 +50,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import normal.UUIDUtil;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.GaoDeMapActivity;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.Api.PlaceApiService;
+import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.FinalDefine;
 import renchaigao.com.zujuba.util.ImgUtil;
-import renchaigao.com.zujuba.util.OkhttpFunc;
 import renchaigao.com.zujuba.util.PatternUtil;
 import renchaigao.com.zujuba.util.PictureRAR;
-import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.dateUse;
-import renchaigao.com.zujuba.util.http.ApiService;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
@@ -897,7 +888,6 @@ public class CreateStoreActivity extends BaseActivity {
 //    }
 
     private void reloadAdapter() {
-        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
         Map<String, RequestBody> map = new HashMap<>();
 
         File photo1 = new File(getExternalCacheDir() + "/photo1.jpg");
@@ -944,7 +934,7 @@ public class CreateStoreActivity extends BaseActivity {
 //        MultipartBody.Part.createFormData("json","aaa");
         map.put("plateNo", multiBody);
 
-        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(PlaceApiService.class)
                 .FourParameterBodyPost("store",
                         "join",
                         user.getId(),

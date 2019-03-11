@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ededed</color>
-    <!--<color name="colorPrimary">#ededed</color>-->
-    <color name="colorPrimaryDark">#ededed</color>
-    <!--<color name="colorPrimaryDark">#ededed</color>-->
-    <color name="colorAccent">#08c060</color>
-    <color name="textColorPrimary">#08c060</color>
 
-    <color name="colorWindowBackground">#FFFFFF</color>
+
+    <color name="colorPrimary">#ededed</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="statusBarColor">#2200ff</color>
+    <color name="windowBackground">#ededed</color>
+    <color name="navigationBarColor">#ededed</color>
+    <color name="colorForeground">#ededed</color>
+    <color name="colorBackground">#ededed</color>
+    <color name="colorAccent">#08c060</color>
     <color name="colorControlNormal">#96ec6d</color>
+    <color name="colorControlHighlight">#96ec6d</color>
+    <color name="colorControlActivated">#96ec6d</color>
+    <color name="colorButtonNormal">#ededed</color>
+    <color name="editText_Color">#ededed</color>
+    <color name="textColor">#ededed</color>
+    <color name="textColorPrimaryDisableOnly">#ededed</color>
+    <color name="textColorPrimary">#08c060</color>
+    <color name="colorSwitchThumbNormal">#ededed</color>
+
 
     <color name="md_text_color_body">#222222</color>
     <color name="message_input_layout">#f7f7f7</color>
-
+    <color name="colorWindowBackground">#FFFFFF</color>
     <!--Background color-->
     <color name="title_background">#ededed</color>
 
@@ -24,6 +35,7 @@
     <color name="word_note">#797979</color>
     <color name="word_background">#f2f2f2</color>
     <color name="word_white">#ffffff</color>
+    <color name="colorWhite">#ffffff</color>
 
 
 

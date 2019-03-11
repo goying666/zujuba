@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="15dp">
+    android:background="@color/colorWhite"
+    app:cardCornerRadius="26dp"
+    app:cardElevation="15dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+
+        <!--<renchaigao.com.zujuba.widgets.CustomRoundImageView-->
+        <ImageView
+            android:id="@+id/team_image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="136dp"
+            android:src="@drawable/thqby"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageView
             android:id="@+id/team_boy_icon"
@@ -58,40 +76,33 @@
             app:layout_constraintTop_toTopOf="@+id/team_girl_icon"
             app:layout_constraintVertical_bias="0.888" />
 
-        <renchaigao.com.zujuba.widgets.CustomRoundImageView
-            android:id="@+id/team_image"
-            android:layout_width="@dimen/image_size_width"
-            android:layout_height="@dimen/image_size_height"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/place_3"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/team_cardview_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:maxWidth="160dp"
             android:maxLines="2"
+            android:maxWidth="160dp"
             android:text="6月29日生日派对聚会6月29日生日派对聚会6月29日生日派对聚会"
             android:textColor="#222222"
             android:textSize="@dimen/md_text_size_body"
-            app:layout_constraintStart_toEndOf="@+id/team_image"
-            app:layout_constraintTop_toTopOf="@+id/team_image" />
+            app:layout_constraintEnd_toStartOf="@+id/team_cardview_state"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/team_image" />
 
         <TextView
             android:id="@+id/team_cardview_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
             android:text="进行中"
             android:textSize="@dimen/md_text_size_caption"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/team_cardview_name" />
+            app:layout_constraintBottom_toBottomOf="@+id/team_cardview_name"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/team_cardview_place_icon"
@@ -104,13 +115,15 @@
 
         <TextView
             android:id="@+id/team_cardview_place"
-            android:layout_width="113dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="地址、商店名称"
             android:textSize="@dimen/md_text_size_caption"
             app:layout_constraintBottom_toBottomOf="@+id/team_cardview_place_icon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/team_cardview_place_icon"
             app:layout_constraintTop_toTopOf="@+id/team_cardview_place_icon"
             app:layout_constraintVertical_bias="1.0" />
@@ -122,9 +135,9 @@
             android:layout_marginEnd="16dp"
             android:text="1125m"
             android:textSize="@dimen/md_text_size_caption"
-            app:layout_constraintBottom_toBottomOf="@+id/team_cardview_place"
+            app:layout_constraintBottom_toBottomOf="@+id/team_shop_info"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/team_cardview_place" />
+            app:layout_constraintTop_toTopOf="@+id/team_shop_info" />
 
 
         <TextView
@@ -144,9 +157,10 @@
             android:id="@+id/team_time_icon"
             android:layout_width="@dimen/icon_size_width"
             android:layout_height="@dimen/icon_size_height"
-            android:layout_marginStart="0dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/card_hall_store_time"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/team_boy_icon"
             app:layout_constraintTop_toBottomOf="@+id/team_boy_icon" />
 
@@ -187,29 +201,15 @@
             app:layout_constraintTop_toTopOf="@+id/team_start_time" />
 
 
-        <TextView
-            android:id="@+id/team_tips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:maxLines="3"
-            android:textSize="@dimen/md_text_size_caption"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/team_time_icon"
-            app:layout_constraintTop_toBottomOf="@+id/team_time_icon" />
-
         <RatingBar
             android:id="@+id/place_star_num"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
             android:isIndicator="true"
             android:rating="5"
-            app:layout_constraintStart_toStartOf="@+id/team_cardview_place"
+            app:layout_constraintStart_toStartOf="@+id/team_cardview_place_icon"
             app:layout_constraintTop_toBottomOf="@+id/team_cardview_place" />
 
         <TextView
