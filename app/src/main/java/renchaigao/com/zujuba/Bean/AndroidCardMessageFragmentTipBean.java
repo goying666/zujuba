@@ -12,6 +12,7 @@ import normal.UUIDUtil;
 
 @Setter
 @Getter
+//同 data 内的：CardMessageFragmentTipBean，用于存储message Fragment页面的message 的封面信息；
 public class AndroidCardMessageFragmentTipBean extends LitePalSupport {
     private String imageUrl; //图片url
     private String name; //聊天室名称

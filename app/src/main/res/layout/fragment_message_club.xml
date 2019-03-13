@@ -1,0 +1,43 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout_message_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="renchaigao.com.zujuba.Fragment.Message.ClubFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragement_message_club_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:background="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/fragement_message_create_club_club"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_gravity="center"
+            android:text="创建俱乐部" />
+
+        <Button
+            android:id="@+id/fragement_message_jion_club_club"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_gravity="center"
+            android:text="加入俱乐部" />
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

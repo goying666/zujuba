@@ -142,16 +142,6 @@ public class PlaceListActivity extends BaseActivity implements CommonViewHolder.
         userId = userInfo.getId();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CREATE_TEAM_ADDRESS_STORE:
-                break;
-        }
-    }
-
-
     public void reloadAdapter() {
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

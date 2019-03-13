@@ -1,20 +1,16 @@
 package renchaigao.com.zujuba.Activity.Message;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,8 +18,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.renchaigao.zujuba.PageBean.CardMessageFragmentTipBean;
-import com.renchaigao.zujuba.PageBean.MessageFragmentCardBean;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
@@ -34,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,17 +36,13 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.MessageInfoAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
-import renchaigao.com.zujuba.Activity.TeamPart.TeamActivity;
 import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
 import renchaigao.com.zujuba.Bean.AndroidMessageContent;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.MessageApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
-import renchaigao.com.zujuba.widgets.DividerItemDecoration;
-import renchaigao.com.zujuba.widgets.RecycleViewDivider;
 
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.FRIEND_SEND_MESSAGE;
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
@@ -286,7 +275,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
 
     private long messageListEnd = 0L;
 
-    private long GetLastMessageTimes() {
+    private void GetLastMessageTimes() {
         try {
             switch (messageClass) {
                 case TEAM_SEND_MESSAGE:
@@ -313,7 +302,6 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
             messageListEnd = 0L;
         }
 
-        return messageListEnd;
     }
 
     final private static int RELOAD_TEAM_MESSAGE_INFO = 1000;

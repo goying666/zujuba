@@ -50,7 +50,8 @@ public class PropertiesConfig {
 
     public final static String SOFTWARE_CODE = "20190122.1.0.1";
 
-//    public final static String ;
-
+    final static public int CREATE_CLUB_ADDRESS_STORE = 1010;
+    final static public int CREATE_CLUB_ADDRESS_OPEN = 1011;
+    final static public int CREATE_CLUB_ADDRESS_MINE = 1012;
 
 }

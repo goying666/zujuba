@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.Fragment.GameFragment;
 import renchaigao.com.zujuba.Fragment.HallFragment;
-import renchaigao.com.zujuba.Fragment.MessageFragment;
+import renchaigao.com.zujuba.Fragment.Message.MessagePartFragment;
 import renchaigao.com.zujuba.Fragment.MineFragment;
 import renchaigao.com.zujuba.Fragment.TeamFragment;
 import renchaigao.com.zujuba.R;
@@ -67,7 +68,7 @@ public class MainActivity extends BaseActivity {
     private User user;
     private UserInfo userInfo;
     private String userPlace;
-    private ConstraintLayout header_layout,a_main_toolbar_constraintlayout;
+    private ConstraintLayout header_layout, a_main_toolbar_constraintlayout;
     private ImageView a_main_toolbar_usericon;
     private TextView a_main_toolbar_location_text;
     private Toolbar toolbar;
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.item_location:
                         break;
                     case R.id.item_location_name:
@@ -118,6 +119,7 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
     @Override
     protected void InitView() {
         setToolBar();
@@ -130,7 +132,7 @@ public class MainActivity extends BaseActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.navigation_message:
 //                        item.setIcon(R.drawable.message_select);
                         customViewPager.setCurrentItem(0);
@@ -247,8 +249,9 @@ public class MainActivity extends BaseActivity {
         userInfo.getAddressInfo().setOwnerId(userInfo.getId());
         userInfo.getAddressInfo().setAddressClass("user");
         userInfo.getAddressInfo().setCitycode("0755");
-                userInfo.getAddressInfo().setLatitude(location.getLatitude());
-                userInfo.getAddressInfo().setLongitude(location.getLongitude());
+        userInfo.getAddressInfo().setSelectCityCode("0755");
+        userInfo.getAddressInfo().setLatitude(location.getLatitude());
+        userInfo.getAddressInfo().setLongitude(location.getLongitude());
 
         Log.d(TAG, "onCreate: " + (location == null) + "..");
         if (location != null) {
@@ -289,13 +292,14 @@ public class MainActivity extends BaseActivity {
         final CustomViewPager customViewPager = findViewById(R.id.main_customView);
         final HallFragment hallFragment = new HallFragment();
         final GameFragment gameFragment = new GameFragment();
-        final MessageFragment messageFragment = new MessageFragment();
+        final MessagePartFragment messagePartFragment = new MessagePartFragment();
         final MineFragment mineFragment = new MineFragment();
         final TeamFragment teamFragment = new TeamFragment();
 
-        CustomViewPagerAdapter customViewPagerAdapter = new CustomViewPagerAdapter(getSupportFragmentManager());
+        CustomViewPagerAdapter customViewPagerAdapter =
+                new CustomViewPagerAdapter(getSupportFragmentManager());
 
-        customViewPagerAdapter.addFragment(messageFragment);
+        customViewPagerAdapter.addFragment(messagePartFragment);
         customViewPagerAdapter.addFragment(teamFragment);
         customViewPagerAdapter.addFragment(hallFragment);
         customViewPagerAdapter.addFragment(gameFragment);
@@ -329,21 +333,20 @@ public class MainActivity extends BaseActivity {
                 menu.clear();
                 switch (position) {
                     case 0:
-//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
+                        toolbar.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_message);
                         break;
                     case 1:
-//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
+                        toolbar.setVisibility(View.VISIBLE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_team);
                         break;
                     case 2:
+                        toolbar.setVisibility(View.VISIBLE);
                         toolbar.inflateMenu(R.menu.main_toolbar_hall);
                         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()){
+                                switch (item.getItemId()) {
                                     case R.id.item_location:
                                         break;
                                     case R.id.item_location_name:
@@ -355,22 +358,20 @@ public class MainActivity extends BaseActivity {
                                 return false;
                             }
                         });
-//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
                         break;
                     case 3:
-//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
+                        toolbar.setVisibility(View.VISIBLE);
                         bottomNavigationView.setSelectedItemId(R.id.navigation_game);
                         break;
                     case 4:
+                        toolbar.setVisibility(View.VISIBLE);
                         toolbar.inflateMenu(R.menu.main_toolbar_mine);
                         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                               Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
-                               startActivity(intent);
+                                Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
+                                startActivity(intent);
                                 return false;
                             }
                         });
@@ -541,10 +542,10 @@ public class MainActivity extends BaseActivity {
 //    }
 
 
-    private void sendAddressToService(){
+    private void sendAddressToService() {
         addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
                 .FourParameterJsonPost(
-                        "update","addressInfo" , userInfo.getId(),  "null",
+                        "update", "addressInfo", userInfo.getId(), "null",
                         JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo()), JSONObject.class))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

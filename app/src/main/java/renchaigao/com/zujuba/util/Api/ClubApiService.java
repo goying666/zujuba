@@ -16,15 +16,21 @@ import retrofit2.http.Query;
 public interface ClubApiService {
 
     @GET("club/get")
-    Observable<ResponseEntity> GetClub(
+    Observable<ResponseEntity> GetClubInfo(
             @Query("userId") String userId,
             @Query("clubId") String clubId,
+            @Query("token") String token);
+
+    @GET("club/getall")
+    Observable<ResponseEntity> GetMyAllClub(
+            @Query("userId") String userId,
             @Query("token") String token);
 
     @POST("club/create")
     Observable<ResponseEntity> CreateClub(
             @Query("userId") String userId,
             @Query("placeId") String placeId,
+            @Query("token") String token,
             @Body ClubInfo clubInfo);
 
 }

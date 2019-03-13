@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Fragment.Adapter;
+package renchaigao.com.zujuba.Fragment.Message;
 
 import android.content.Context;
 
@@ -76,7 +76,6 @@ public class MessageFragmentAdapter extends CommonRecycleAdapter<CardMessageFrag
 
     @Override
     public int getLayoutId(CardMessageFragmentTipBean item, int position) {
-        item.ge
         return R.layout.card_message_tip;
     }
 

@@ -1,0 +1,28 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout_message_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="renchaigao.com.zujuba.Fragment.Message.MessageFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fragement_message_message_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="聊天内容为空" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragement_message_message_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

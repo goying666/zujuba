@@ -15,11 +15,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.club.ClubInfo;
+import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.BaseActivity;
+import renchaigao.com.zujuba.Activity.Place.PlaceListActivity;
+import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.ClubApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -27,20 +30,23 @@ import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_STORE;
+import static renchaigao.com.zujuba.Activity.Place.PlaceListActivity.PLACE_LIST_ACTIVITY_CODE;
+import static renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity.CREATE_TEAM_ADDRESS_STORE;
+import static renchaigao.com.zujuba.util.PropertiesConfig.CREATE_CLUB_ADDRESS_MINE;
+import static renchaigao.com.zujuba.util.PropertiesConfig.CREATE_CLUB_ADDRESS_OPEN;
+import static renchaigao.com.zujuba.util.PropertiesConfig.CREATE_CLUB_ADDRESS_STORE;
+
 public class CreateClubActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private ConstraintLayout partOne, partTwo;
     private Button cancle, next;
-    private TextView placeName,stepText;
+    private TextView placeName, stepText;
     private TextInputEditText inputEditText;
-    private String userId, token, clubName, placeId;
-    private JSONObject clubJson = new JSONObject();
+    private String userId;
     private ClubInfo clubInfo = new ClubInfo();
     private int stepInt = 0;
-    final static public int SELETCT_STORE = 1201;
-    final static public int SELETCT_OPEN_PLACE = 1202;
-    final static public int SELETCT_MY_PLACE = 1203;
 
     @Override
     protected void InitView() {
@@ -72,23 +78,30 @@ public class CreateClubActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case SELETCT_MY_PLACE:
-                placeId = data.getStringExtra("placeId");
-//                if(resultCode == )
+            case CREATE_CLUB_ADDRESS_STORE:
+                if (resultCode == PLACE_LIST_ACTIVITY_CODE) {
+                    JSONObject selectPlaceJson = JSONObject.parseObject(data.getStringExtra("place"));
+                    clubInfo.setPlaceClass(ADDRESS_CLASS_STORE);
+                    clubInfo.setPlaceId(selectPlaceJson.getString("placeid"));
+                    clubInfo.setPlaceName(selectPlaceJson.getString("name"));
+                    placeName.setText(selectPlaceJson.getString("name"));
+                }
                 break;
-            case SELETCT_STORE:
+            case CREATE_CLUB_ADDRESS_OPEN:
                 break;
-            case SELETCT_OPEN_PLACE:
+            case CREATE_CLUB_ADDRESS_MINE:
                 break;
         }
     }
+
+    private String token;
 
     @Override
     protected void InitData() {
         UserInfo userInfo = DataUtil.GetUserInfoData(this);
         userId = userInfo.getId();
         token = userInfo.getToken();
-
+        clubInfo.setCreaterId(userId);
     }
 
     @Override
@@ -117,8 +130,9 @@ public class CreateClubActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                clubName = s.toString();
-                clubJson.put("clubName", clubName);
+//                检查名字合法性
+                if (s.length() != 0)
+                    clubInfo.setClubName(s.toString());
             }
         });
     }
@@ -162,10 +176,9 @@ public class CreateClubActivity extends BaseActivity {
         });
     }
 
-
     private void sendCreateMessageToServer() {
         addSubscribe(RetrofitServiceManager.getInstance().creat(ClubApiService.class)
-                .CreateClub(userId, placeId, clubInfo)
+                .CreateClub(userId, clubInfo.getPlaceId(), token, clubInfo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(this) {
@@ -176,6 +189,7 @@ public class CreateClubActivity extends BaseActivity {
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             switch (code) {
                                 case RespCodeNumber.SUCCESS:
+                                    finish();
                                     break;
                             }
                         } catch (Exception e) {
@@ -206,6 +220,8 @@ public class CreateClubActivity extends BaseActivity {
     }
 
     public void selectStore(View view) {
+        final Intent intent = new Intent(CreateClubActivity.this, PlaceListActivity.class);
+        startActivityForResult(intent, CREATE_CLUB_ADDRESS_STORE);
     }
 
     public void selectMyPlace(View view) {
