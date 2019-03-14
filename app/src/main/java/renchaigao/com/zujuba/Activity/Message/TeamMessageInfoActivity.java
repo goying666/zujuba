@@ -13,8 +13,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -34,7 +32,6 @@ import java.util.TimerTask;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
-import renchaigao.com.zujuba.Activity.Adapter.MessageInfoAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
 import renchaigao.com.zujuba.Bean.AndroidMessageContent;
@@ -44,21 +41,16 @@ import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
-import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.FRIEND_SEND_MESSAGE;
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
-import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.USER_SEND_MESSAGE;
 
-
-public class MessageInfoActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
-    final static String TAG = "MessageInfoActivity";
+public class TeamMessageInfoActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
+    final static String TAG = "TeamMessageInfoActivity";
     private Toolbar toolbar;
-    private MessageInfoAdapter messageInfoAdapter;
-    private String userId, ownerId, teamId, friendId, otherUserId, messageClass, inputString = "";
+    private TeamMessageInfoAdapter teamMessageInfoAdapter;
+    private String userId,token, ownerId, teamId,messageClass, inputString = "";
     private UserInfo userInfo;
     private Button message_info_sendButton;
     private TextInputEditText message_info_inputEdit;
-    private ImageView message_info_more;
-    private TextView messageName1;
     private SwipeRefreshLayout contentSwipeRefreshLayout;
     ArrayList<AndroidMessageContent> allMessages = new ArrayList<AndroidMessageContent>();
     ArrayList<AndroidMessageContent> newMessages = new ArrayList<AndroidMessageContent>();
@@ -82,6 +74,9 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         }
     };
 
+    /*
+     * 界面更新 、 数据刷新
+     * */
     private void UpdateMessageDate() {
         //  查询本地消息，从本地数据库读取当前群组的消息记录，并更新至界面；
         for (AndroidMessageContent o : newMessages) {
@@ -93,54 +88,52 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         Collections.sort(allMessages, new Comparator<AndroidMessageContent>() {
             @Override
             public int compare(AndroidMessageContent o1, AndroidMessageContent o2) {
-//                return (int) (o1.getSendTime() - o2.getSendTime());
                 return (int) (o2.getSendTime() - o1.getSendTime());
             }
         });
         messageListEnd = allMessages.get(allMessages.size() - 1).getSendTime();
-        messageInfoAdapter.updateResults(allMessages);
-        messageInfoAdapter.notifyDataSetChanged();
+        teamMessageInfoAdapter.updateResults(allMessages);
+        teamMessageInfoAdapter.notifyDataSetChanged();
         reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
     }
 
 
     @Override
     protected void InitView() {
-
         toolbar = findViewById(R.id.message_info_toolbar);
         contentSwipeRefreshLayout = findViewById(R.id.message_info_SwipeRefreshLayout);
         message_info_inputEdit = findViewById(R.id.message_info_inputEdit);
         message_info_sendButton = findViewById(R.id.message_info_sendButton);
-
         InitRecyclerView();
     }
 
     @Override
     protected void InitData() {
+        messageClass = TEAM_SEND_MESSAGE;
         userInfo = DataUtil.GetUserInfoData(this);
         userId = userInfo.getId();
-        messageClass = getIntent().getStringExtra("messageClass");
-        ownerId = getIntent().getStringExtra("ownerId");
-        switch (messageClass) {
-            case TEAM_SEND_MESSAGE:
-                teamId = getIntent().getStringExtra("ownerId");
-                break;
-            case FRIEND_SEND_MESSAGE:
-                friendId = getIntent().getStringExtra("ownerId");
-                break;
-            case USER_SEND_MESSAGE:
-                otherUserId = getIntent().getStringExtra("ownerId");
-                break;
-        }
+        token = userInfo.getToken();
+        ownerId = getIntent().getStringExtra("teamId");
+        teamId = getIntent().getStringExtra("teamId");
         toolbar.setTitle(getIntent().getStringExtra("title"));
-        GetLastMessageTimes();
+        initMessages();
         if (allMessages.size() > 0) {
             String text = JSONObject.toJSONString(allMessages);
-            messageInfoAdapter.updateResults(allMessages);
-            messageInfoAdapter.notifyDataSetChanged();
+            teamMessageInfoAdapter.updateResults(allMessages);
+            teamMessageInfoAdapter.notifyDataSetChanged();
         }
     }
 
+    private void initMessages(){
+
+        allMessages = new ArrayList<>(LitePal.where("teamId = ?", teamId).find(AndroidMessageContent.class));
+        Collections.sort(allMessages, new Comparator<AndroidMessageContent>() {
+            @Override
+            public int compare(AndroidMessageContent o1, AndroidMessageContent o2) {
+                return (int) (o2.getSendTime() - o1.getSendTime());
+            }
+        });
+    }
     /**
      * Take care of popping the fragment back stack or finishing the activity
      * as appropriate.
@@ -190,6 +183,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                 inputString = s.toString();
             }
         });
+        toolbar.setNavigationIcon(R.drawable.toolbar_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,19 +198,8 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                 if (inputString.length() > 0 && inputString.length() < 500) {
                     AndroidMessageContent androidMessageContent = new AndroidMessageContent();
                     long nowTimeLong = Calendar.getInstance().getTimeInMillis();
-                    androidMessageContent.setMessageClass(messageClass);
-                    switch (messageClass) {
-                        case TEAM_SEND_MESSAGE:
-                            androidMessageContent.setTitle(getIntent().getStringExtra("teamName"));
-                            break;
-                        case FRIEND_SEND_MESSAGE:
-                            androidMessageContent.setTitle(getIntent().getStringExtra("friendName"));
-                            androidMessageContent.setFriendId("");
-                            break;
-                        case USER_SEND_MESSAGE:
-                            androidMessageContent.setTitle(getIntent().getStringExtra("userName"));
-                            break;
-                    }
+                    androidMessageContent.setMessageClass(TEAM_SEND_MESSAGE);
+                    androidMessageContent.setTitle(getIntent().getStringExtra("title"));
                     androidMessageContent.setIdLong(nowTimeLong);
                     androidMessageContent.setIsMe(true);
                     androidMessageContent.setIsGroup(false);
@@ -233,8 +216,6 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                     message_info_inputEdit.setText("");
                     message_info_inputEdit.setHint("");
                     inputString = "";
-                } else {
-
                 }
                 message_info_inputEdit.requestFocus();
             }
@@ -250,11 +231,9 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         contentSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                GetLastMessageTimes();
-                reloadMessageInfo();
+//                reloadMessageInfo();
             }
         });
-//        message_info_swip = findViewById(R.id.message_info_swip);
     }
 
     private void InitRecyclerView() {
@@ -263,46 +242,39 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.addItemDecoration(new RecycleViewDivider(
-//               MessageInfoActivity.this, LinearLayoutManager.HORIZONTAL, 10, getResources().getColor(R.color.colorPrimary)));
-
-        messageInfoAdapter = new MessageInfoAdapter(this, allMessages, this);
-        recyclerView.setAdapter(messageInfoAdapter);
+        teamMessageInfoAdapter = new TeamMessageInfoAdapter(this, allMessages, this);
+        recyclerView.setAdapter(teamMessageInfoAdapter);
         recyclerView.setHasFixedSize(true);
-//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
-//        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
     private long messageListEnd = 0L;
 
-    private void GetLastMessageTimes() {
-        try {
-            switch (messageClass) {
-                case TEAM_SEND_MESSAGE:
-                    allMessages = new ArrayList<>(LitePal.where("teamId = ?", teamId).find(AndroidMessageContent.class));
-                    break;
-                case FRIEND_SEND_MESSAGE:
-                    allMessages = new ArrayList<>(LitePal.where("friendId = ?", friendId).find(AndroidMessageContent.class));
-                    break;
-                case USER_SEND_MESSAGE:
-                    allMessages = new ArrayList<>(LitePal.where("userId = ?", otherUserId).find(AndroidMessageContent.class));
-                    break;
-            }
-            Collections.sort(allMessages, new Comparator<AndroidMessageContent>() {
-                @Override
-                public int compare(AndroidMessageContent o1, AndroidMessageContent o2) {
-                    return (int) (o2.getSendTime() - o1.getSendTime());
-                }
-            });
-            if (allMessages.size() > 0)
-                messageListEnd = allMessages.get(0).getSendTime();
-            else
-                messageListEnd = 0L;
-        } catch (Exception e) {
-            messageListEnd = 0L;
-        }
-
-    }
+//    private void GetLastMessageTimes() {
+//        allMessages = new ArrayList<>(LitePal.where("teamId = ?", teamId).find(AndroidMessageContent.class));
+//        Collections.sort(allMessages, new Comparator<AndroidMessageContent>() {
+//            @Override
+//            public int compare(AndroidMessageContent o1, AndroidMessageContent o2) {
+//                return (int) (o2.getSendTime() - o1.getSendTime());
+//            }
+//        });
+////        try {
+////            switch (messageClass) {
+////                case TEAM_SEND_MESSAGE:
+////                    break;
+////                case FRIEND_SEND_MESSAGE:
+////                    allMessages = new ArrayList<>(LitePal.where("friendId = ?", friendId).find(AndroidMessageContent.class));
+////                    break;
+////                case USER_SEND_MESSAGE:
+////                    allMessages = new ArrayList<>(LitePal.where("userId = ?", otherUserId).find(AndroidMessageContent.class));
+////                    break;
+////            }
+//            if (allMessages.size() > 0)
+//                messageListEnd = allMessages.get(0).getSendTime();
+//            else
+//                messageListEnd = 0L;
+//
+//
+//    }
 
     final private static int RELOAD_TEAM_MESSAGE_INFO = 1000;
     final private static int INPUTSTRING_IS_NULL = 1001;
@@ -311,11 +283,11 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
         addSubscribe(RetrofitServiceManager.getInstance().creat(MessageApiService.class)
                 .AddMessageInfo(
                         userId,
-                        messageClass,
+                        token,
                         androidMessageContent)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<ResponseEntity>(MessageInfoActivity.this) {
+                .subscribeWith(new BaseObserver<ResponseEntity>(TeamMessageInfoActivity.this) {
                     @Override
                     public void onNext(ResponseEntity value) {
                         try {
@@ -324,7 +296,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                             JSONArray responseJsonData = responseJson.getJSONArray("data");
                             Message msg = new Message();
                             switch (code) {
-                                case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+                                case RespCodeNumber.MESSAGE_ADD_TEAM_SUCCESS: //在数据库中更新用户数据出错；
                                     newMessages.clear();
                                     if (responseJsonData.size() > 0) {
                                         for (Object o : responseJsonData) {
@@ -352,6 +324,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
 
                     @Override
                     public void onComplete() {
+                        reloadMessageInfo();
                     }
                 }));
     }
@@ -361,7 +334,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                 .GetMessageInfo(userId, ownerId, messageClass, messageListEnd)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<ResponseEntity>(MessageInfoActivity.this) {
+                .subscribeWith(new BaseObserver<ResponseEntity>(TeamMessageInfoActivity.this) {
                     @Override
                     public void onNext(ResponseEntity value) {
                         try {
@@ -370,7 +343,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
                             JSONArray responseJsonData = responseJson.getJSONArray("data");
                             Message msg = new Message();
                             switch (code) {
-                                case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+                                case RespCodeNumber.MESSAGE_USER_GET_TEAM_SUCCESS: //在数据库中更新用户数据出错；
                                     newMessages.clear();
                                     if (responseJsonData.size() > 0) {
                                         for (Object o : responseJsonData) {
@@ -411,7 +384,7 @@ public class MessageInfoActivity extends BaseActivity implements CommonViewHolde
             @Override
             public void run() {
                 if (reloadFlag.equals(RELOAD_FLAGE_VALUE_RELOAD)) {
-                    GetLastMessageTimes();
+//                    GetLastMessageTimes();
                     reloadMessageInfo();
                     reloadFlag = RELOAD_FLAGE_VALUE_STOP;
                 }

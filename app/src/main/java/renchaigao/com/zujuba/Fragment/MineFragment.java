@@ -12,7 +12,13 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import renchaigao.com.zujuba.Activity.Place.UserPlaceListPageActivity;
+import renchaigao.com.zujuba.Activity.User.UserCreateTeamListPageActivity;
+import renchaigao.com.zujuba.Activity.User.UserJoinTeamListPageActivity;
+import renchaigao.com.zujuba.Activity.User.UserOwnGameListPageActivity;
+import renchaigao.com.zujuba.Activity.User.UserPlaceListPageActivity;
+import renchaigao.com.zujuba.Activity.User.UserPlayGameListPageActivity;
+import renchaigao.com.zujuba.Activity.User.UserPlayPlaceListPageActivity;
+import renchaigao.com.zujuba.Activity.User.UserWantGameListPageActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 
@@ -38,6 +44,7 @@ public class MineFragment extends BaseFragment {
 
     @SuppressLint("CutPasteId")
     @Override
+
     protected void InitView(View rootView) {
 
         activity_user_textview_zuju_title = rootView.findViewById(R.id.activity_user_textview_zuju_title);
@@ -63,55 +70,57 @@ public class MineFragment extends BaseFragment {
         activity_user_changdi_title_play_2 = rootView.findViewById(R.id.activity_user_textview_changdi_play).findViewById(R.id.widget_user_content_TextView_info);
 
         activity_user_image = rootView.findViewById(R.id.activity_user_image);
-//        rootView.findViewById(R.id.activity_user_textview_zuju_create).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(),. class);
-//                startActivity(intent);
-//            }
-//        });
-//        rootView.findViewById(R.id.activity_user_textview_zuju_join).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(),. class);
-//                startActivity(intent);
-//            }
-//        });
-//        rootView.findViewById(R.id.activity_user_textview_youxi_own).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(),. class);
-//                startActivity(intent);
-//            }
-//        });
-//        rootView.findViewById(R.id.activity_user_textview_youxi_play).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(),. class);
-//                startActivity(intent);
-//            }
-//        });
-//        rootView.findViewById(R.id.activity_user_textview_youxi_want).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(),. class);
-//                startActivity(intent);
-//            }
-//        });
-        rootView.findViewById(R.id.activity_user_textview_changdi_own).setOnClickListener(new View.OnClickListener() {
+
+        rootView.findViewById(R.id.activity_user_textview_zuju_create).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),UserPlaceListPageActivity.class);
+                Intent intent = new Intent(getActivity(), UserCreateTeamListPageActivity.class);
                 startActivity(intent);
             }
         });
-//        rootView.findViewById(R.id.activity_user_textview_changdi_play).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(),. class);
-//                startActivity(intent);
-//            }
-//        });
+        rootView.findViewById(R.id.activity_user_textview_zuju_join).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserJoinTeamListPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        rootView.findViewById(R.id.activity_user_textview_youxi_own).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserOwnGameListPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        rootView.findViewById(R.id.activity_user_textview_youxi_play).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserPlayGameListPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        rootView.findViewById(R.id.activity_user_textview_youxi_want).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserWantGameListPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        rootView.findViewById(R.id.activity_user_textview_changdi_own).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserPlaceListPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        rootView.findViewById(R.id.activity_user_textview_changdi_play).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserPlayPlaceListPageActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -145,12 +154,12 @@ public class MineFragment extends BaseFragment {
 //        GlideUrl glideUrl = new GlideUrl("http://127.0.0.1:7811/show1image/6188dd9cffc64e2f9b76698be9a51d97/0a46957811ea42c3bfa67f1cfeda663f/photo9.jpg"
         GlideUrl glideUrl = new GlideUrl(PropertiesConfig.photoUrl + "showimage/6188dd9cffc64e2f9b76698be9a51d97/0a46957811ea42c3bfa67f1cfeda663f/photo9.jpg"
                 , new LazyHeaders.Builder()
-                .addHeader("Content-Type","image/jpeg")
+                .addHeader("Content-Type", "image/jpeg")
                 .build());
         Glide.with(mContext)
                 .load(glideUrl)
 //                .load("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg")
-                .dontAnimate() .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .dontAnimate().diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
                 .into(activity_user_image);
     }

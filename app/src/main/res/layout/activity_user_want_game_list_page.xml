@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="renchaigao.com.zujuba.Activity.Place.UserPlaceListPageActivity">
+    tools:context="renchaigao.com.zujuba.Activity.User.UserWantGameListPageActivity">
 
 
     <Button
@@ -17,7 +17,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="AddNewPlace"
-        android:text="新场地入驻"
+        android:text="创建新组局"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +32,7 @@
         android:layout_marginTop="32dp"
         android:textSize="@dimen/margin_40dp"
         android:textStyle="bold"
-        android:text="我的场地"
+        android:text="我想要的游戏"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="营业中"
+        android:text="进行中"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView50" />
 
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="创建/审核"
+        android:text="预约中"
         app:layout_constraintEnd_toStartOf="@+id/textView53"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toEndOf="@+id/textView51"
@@ -62,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:text="关闭"
+        android:text="已完结"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView52" />
 

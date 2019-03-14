@@ -77,6 +77,7 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
     @Override
     public void onResume() {
         super.onResume();
+        reloadAdapter();
         if(teamList.size()>0){
             teamFragmentAdapter.updateResults(teamList);
             teamFragmentAdapter.notifyDataSetChanged();
@@ -205,7 +206,6 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
     }
 
     public void reloadAdapter() {
-        Map<String, RequestBody> map = new HashMap<>();
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", "")
@@ -275,118 +275,6 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
         getActivity().startActivityForResult(intent, FRAGMENT_TEAM_PAGE);
     }
 }
-//    public void reloadAdapter() {
-//        RetrofitServiceManager.getInstance().SetRetrofit(PropertiesConfig.placeServerUrl);
-//        Map<String, RequestBody> map = new HashMap<>();
-//        RequestBody multiBody = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("json", JSONObject.toJSONString(userInfo))
-//                .build();
-//        map.put("multiBody", multiBody);
-//        addSubscribe(RetrofitServiceManager.getInstance().creat(ApiService.class)
-//                .FourParameterBodyPost("store",
-//                        "getnear",
-//                        "",
-//                        "",
-//                        multiBody)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(new BaseObserver<ResponseEntity>(mContext) {
-//
-//                    @Override
-//                    public void onNext(ResponseEntity value) {
-//                        try {
-//                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
-//                            int code = Integer.valueOf(responseJson.get("code").toString());
-//                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-//
-//                            Log.e(TAG, "onResponse CODE OUT");
-//                            Log.e(TAG, "onResponse CODE is" + code);
-//
-//                            switch (code) {
-//                                case 0: //在数据库中更新用户数据出错；
-//                                    ArrayList<TeamInfo> mTeam = new ArrayList();
-//                                    for (Object m : responseJsonData) {
-//                                        mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
-//                                    }
-//                                    if (teamFragmentAdapter == null) {
-//                                        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
-//                                    }
-//                                    teamFragmentAdapter.updateResults(mTeam);
-//                                    teamFragmentAdapter.notifyDataSetChanged();
-//                                    Log.e(TAG, "onResponse");
-//                                    break;
-//                            }
-//                        } catch (Exception e) {
-//                        }
-//                    }
-//
-//                    @Override
-//                    protected void onSuccess(ResponseEntity responseEntity) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        super.onError(e);
-//                        Log.e(TAG, "onError");
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                }));
-//
-////        apiService.FourParameterJsonPost("get",  userInfo.getId(), "null","null",
-////                JSONObject.parseObject(JSONObject.toJSONString(userInfo), JSONObject.class))
-////                .subscribeOn(Schedulers.io())
-////                .observeOn(AndroidSchedulers.mainThread())
-////                .subscribe(new Observer<ResponseEntity>() {
-////                    @Override
-////                    public void onSubscribe(Disposable d) {
-////                        Log.e(TAG, "onSubscribe:");
-////                    }
-////
-////                    @Override
-////                    public void onNext(ResponseEntity value) {
-////                        try {
-////                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
-////                            int code = Integer.valueOf(responseJson.get("code").toString());
-////                            JSONArray responseJsonData = responseJson.getJSONArray("data");
-////
-////                            Log.e(TAG, "onResponse CODE OUT");
-////                            Log.e(TAG, "onResponse CODE is" + code);
-////
-////                            switch (code) {
-////                                case 0: //在数据库中更新用户数据出错；
-////                                    ArrayList<TeamInfo> mTeam = new ArrayList();
-////                                    for (Object m : responseJsonData) {
-////                                        mTeam.add(JSONObject.parseObject(JSONObject.toJSONString(m), TeamInfo.class));
-////                                    }
-////                                    if (teamFragmentAdapter == null) {
-////                                        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
-////                                    }
-////                                    teamFragmentAdapter.updateResults(mTeam);
-////                                    teamFragmentAdapter.notifyDataSetChanged();
-////                                    Log.e(TAG, "onResponse");
-////                                    break;
-////                            }
-////                        } catch (Exception e) {
-////                        }
-////                    }
-////
-////                    @Override
-////                    public void onError(Throwable e) {
-////                        Log.e(TAG, "onError:");
-////                    }
-////
-////                    @Override
-////                    public void onComplete() {
-////                        Log.e(TAG, "onComplete:");
-////                    }
-////                });
-//
-//    }
+
 
 

@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 
 public interface MessageApiService {
 
-    @GET("message/getteam")
+    @GET("message/get")
     Observable<ResponseEntity> GetMessageInfo(
             @Query("userId") String userId,
             @Query("ownerId") String ownerId,
@@ -29,7 +29,7 @@ public interface MessageApiService {
     @POST("message/add")
     Observable<ResponseEntity> AddMessageInfo(
             @Query("userId") String userId,
-            @Query("messageClass") String messageClass,
+            @Query("token") String token,
             @Body AndroidMessageContent androidMessageContent);
 
 }

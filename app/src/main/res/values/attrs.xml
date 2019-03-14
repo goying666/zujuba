@@ -38,6 +38,7 @@
         <attr name="colorSwitchThumbNormal" format="color"/>
 
     </declare-styleable>
+
     <declare-styleable name="RoundImageView">
         <attr name="circle" format="boolean" />
         <attr name="radius" format="dimension" />

@@ -1,9 +1,12 @@
-package renchaigao.com.zujuba.Activity.Adapter;
+package renchaigao.com.zujuba.Activity.Message;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 
+import renchaigao.com.zujuba.Activity.Adapter.CommonRecycleAdapter;
+import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
+import renchaigao.com.zujuba.Activity.Adapter.MultiTypeSupport;
 import renchaigao.com.zujuba.Bean.AndroidMessageContent;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.PropertiesConfig;
@@ -12,12 +15,12 @@ import renchaigao.com.zujuba.util.PropertiesConfig;
  * Created by Administrator on 2018/11/27/027.
  */
 
-public class MessageInfoAdapter extends CommonRecycleAdapter<AndroidMessageContent> implements MultiTypeSupport<AndroidMessageContent> {
+public class FriendMessageInfoAdapter extends CommonRecycleAdapter<AndroidMessageContent> implements MultiTypeSupport<AndroidMessageContent> {
 
     private Context mContext;
     private CommonViewHolder.onItemCommonClickListener commonClickListener;
 
-    public MessageInfoAdapter(Context context, ArrayList<AndroidMessageContent> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
+    public FriendMessageInfoAdapter(Context context, ArrayList<AndroidMessageContent> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
         super(context, dataList, R.layout.card_left_message_info);
         this.mContext = context;
         this.commonClickListener = commonClickListener;

@@ -29,7 +29,8 @@ public class ClubFragmentAdapter extends CommonRecycleAdapter<CardClubFragmentTi
         super(context, dataList, layoutId);
     }
 
-    public ClubFragmentAdapter(Context context, ArrayList<CardClubFragmentTipBean> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
+    public ClubFragmentAdapter(Context context, ArrayList<CardClubFragmentTipBean> dataList,
+                               CommonViewHolder.onItemCommonClickListener commonClickListener) {
         super(context, dataList, R.layout.card_club_tip);
         this.commonClickListener = commonClickListener;
         this.mContext = context;
@@ -43,7 +44,8 @@ public class ClubFragmentAdapter extends CommonRecycleAdapter<CardClubFragmentTi
                 .setText(R.id.card_club_peopleNum,data.getAllPeopleNum())
                 .setText(R.id.textView119,data.getActivitiesNum())
 //                .setText(R.id.textView120,data.get())
-                .setText(R.id.textView121,data.getWhoAmI());
+                .setText(R.id.textView121,data.getWhoAmI())
+                .setCommonClickListener(commonClickListener);
 
     }
 

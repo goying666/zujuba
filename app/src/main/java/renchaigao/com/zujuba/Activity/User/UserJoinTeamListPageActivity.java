@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity.Club;
+package renchaigao.com.zujuba.Activity.User;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
 
-public class ClubInfoActivity extends BaseActivity {
+public class UserJoinTeamListPageActivity extends BaseActivity {
 
 
     @Override
@@ -26,9 +26,6 @@ public class ClubInfoActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_club_info;
+        return R.layout.activity_user_create_team_list_page;
     }
-
-
-
 }

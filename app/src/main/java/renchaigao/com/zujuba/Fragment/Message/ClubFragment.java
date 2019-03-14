@@ -26,8 +26,9 @@ import java.util.TimerTask;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
+import renchaigao.com.zujuba.Activity.Club.ClubInfoActivity;
 import renchaigao.com.zujuba.Activity.Club.CreateClubActivity;
-import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity;
 import renchaigao.com.zujuba.Fragment.BaseFragment;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.ClubApiService;
@@ -140,7 +141,7 @@ public class ClubFragment extends BaseFragment implements CommonViewHolder.onIte
 
     @Override
     public void onItemClickListener(int position) {
-        Intent intent = new Intent(mContext, MessageInfoActivity.class);
+        Intent intent = new Intent(mContext, ClubInfoActivity.class);
         intent.putExtra("clubId", displayTipCardBeanList.get(position).getClubId());
         startActivity(intent);
     }

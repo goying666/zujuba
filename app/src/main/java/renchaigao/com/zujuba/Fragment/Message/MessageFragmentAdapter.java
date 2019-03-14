@@ -15,6 +15,11 @@ import renchaigao.com.zujuba.Activity.Adapter.MultiTypeSupport;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.CLUB_SEND_MESSAGE;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.FRIEND_SEND_MESSAGE;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.SYSTEM_SEND_MESSAGE;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
+
 /**
  * Created by Administrator on 2018/11/28/028.
  */
@@ -28,7 +33,8 @@ public class MessageFragmentAdapter extends CommonRecycleAdapter<CardMessageFrag
         super(context, dataList, layoutId);
     }
 
-    public MessageFragmentAdapter(Context context, ArrayList<CardMessageFragmentTipBean> dataList, CommonViewHolder.onItemCommonClickListener commonClickListener) {
+    public MessageFragmentAdapter(Context context, ArrayList<CardMessageFragmentTipBean> dataList,
+                                  CommonViewHolder.onItemCommonClickListener commonClickListener) {
         super(context, dataList, R.layout.card_message_tip);
         this.commonClickListener = commonClickListener;
         this.mContext = context;
@@ -40,7 +46,20 @@ public class MessageFragmentAdapter extends CommonRecycleAdapter<CardMessageFrag
         holder.setText(R.id.card_message_name, data.getName())
                 .setText(R.id.card_message_current_content, data.getContent())
                 .setCommonClickListener(commonClickListener);
-        holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext);
+        switch (data.getMClass()){
+            case TEAM_SEND_MESSAGE:
+                holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext);
+                break;
+            case SYSTEM_SEND_MESSAGE:
+                holder.setImageResource(R.id.card_message_image,R.drawable.logo);
+                break;
+            case CLUB_SEND_MESSAGE:
+                holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext);
+                break;
+            case FRIEND_SEND_MESSAGE:
+                holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext);
+                break;
+        }
         int minuteTime = (int) ((dateUse.getNowTimeLong() - data.getLastTime()) / 60000);
         Calendar lastTimeCalendar = Calendar.getInstance();
         lastTimeCalendar.setTimeInMillis(data.getLastTime());

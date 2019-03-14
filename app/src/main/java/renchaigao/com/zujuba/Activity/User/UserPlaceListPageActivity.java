@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity.Place;
+package renchaigao.com.zujuba.Activity.User;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,6 +24,8 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.UserPlaceListPageAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
+import renchaigao.com.zujuba.Activity.Place.CreateStoreActivity;
+import renchaigao.com.zujuba.Activity.Place.UserPlaceManagerActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -86,7 +88,7 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_user_store_list_page;
+        return R.layout.activity_user_place_list_page;
     }
 
 

@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.PageBean.CardMessageFragmentTipBean;
 import com.renchaigao.zujuba.PageBean.MessageFragmentCardBean;
@@ -23,7 +22,6 @@ import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import org.litepal.LitePal;
 
-import java.security.AccessControlContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,7 +31,10 @@ import java.util.TimerTask;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
-import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Message.ClubMessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Message.FriendMessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Message.SystemMessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity;
 import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
 import renchaigao.com.zujuba.Bean.AndroidMessageContent;
 import renchaigao.com.zujuba.Fragment.BaseFragment;
@@ -42,6 +43,11 @@ import renchaigao.com.zujuba.util.Api.MessageApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
+
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.CLUB_SEND_MESSAGE;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.FRIEND_SEND_MESSAGE;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.SYSTEM_SEND_MESSAGE;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
 
 public class MessageListFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
 
@@ -204,9 +210,25 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
 
     @Override
     public void onItemClickListener(int position) {
-        Intent intent = new Intent(mContext, MessageInfoActivity.class);
-        intent.putExtra("messageClass", displayTipCardBeanList.get(position).getMClass());
-        intent.putExtra("ownerId", displayTipCardBeanList.get(position).getOwnerId());
+        Intent intent = new Intent();
+        switch (displayTipCardBeanList.get(position).getMClass()){
+            case TEAM_SEND_MESSAGE:
+                intent = new Intent(mContext, TeamMessageInfoActivity.class);
+                intent.putExtra("teamId", displayTipCardBeanList.get(position).getOwnerId());
+                break;
+            case CLUB_SEND_MESSAGE:
+                intent = new Intent(mContext, ClubMessageInfoActivity.class);
+                intent.putExtra("clubId", displayTipCardBeanList.get(position).getOwnerId());
+                break;
+            case SYSTEM_SEND_MESSAGE:
+                intent = new Intent(mContext, SystemMessageInfoActivity.class);
+                intent.putExtra("systeamId", displayTipCardBeanList.get(position).getOwnerId());
+                break;
+            case FRIEND_SEND_MESSAGE:
+                intent = new Intent(mContext, FriendMessageInfoActivity.class);
+                intent.putExtra("friendId", displayTipCardBeanList.get(position).getOwnerId());
+                break;
+        }
         intent.putExtra("title", displayTipCardBeanList.get(position).getName());
         startActivity(intent);
     }
@@ -272,6 +294,7 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
     @Override
     public void onResume() {
         super.onResume();
+        UpdateMessageTipBeanInfo();
         //相当于Fragment的onResume
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -298,7 +321,7 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             Message msg = new Message();
                             switch (code) {
-                                case RespCodeNumber.SUCCESS: //在数据库中更新用户数据出错；
+                                case RespCodeNumber.MESSAGE_USER_GET_ALL_SUCCESS: //在数据库中更新用户数据出错；
                                     msg.arg1 = RespCodeNumber.SUCCESS;
                                     messageFragmentBean = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")), MessageFragmentCardBean.class);
                                     newTipCardBeanList = messageFragmentBean.getAllMessageTips();

@@ -31,7 +31,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Activity.Adapter.CardPlayerAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
-import renchaigao.com.zujuba.Activity.Message.MessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.TeamApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -66,17 +66,17 @@ public class TeamActivity extends BaseActivity {
             ti_evaluationScreening_result_info, ti_careerScreening, ti_careerScreening_result_info, ti_marriage,
             ti_marriage_result_info, ti_note_info;
     private TextView ti_player_number_all;
-    private Button ti_join_button,ti_edit_button;
+    private Button ti_join_button, ti_edit_button;
     private UserInfo userInfo = new UserInfo();
-    private String userId, teamId;
+    private String userId, teamId, token;
     private TeamActivityBean teamActivityBean = new TeamActivityBean();
     private final static String RELOAD_FLAGE_VALUE_RELOAD = "RELOAD";
     private final static String RELOAD_FLAGE_VALUE_STOP = "STOP";
     private String reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
-    private Integer reloadNUM = 0,reloadViewNUM = 0;
+    private Integer reloadNUM = 0, reloadViewNUM = 0;
     private String whereCome;
     private int COME_FROM;
-    private ImageView ti_store_image,ti_people_image_more;
+    private ImageView ti_store_image, ti_people_image_more;
 
     private CardPlayerAdapter cardPlayerAdapter;
     private RecyclerView recyclerView;
@@ -93,6 +93,7 @@ public class TeamActivity extends BaseActivity {
             }
         }
     };
+
     private void UpdateViewAndData(TeamActivityBean teamActivityBean) {
 //        浏览者类型
         ti_user_position.setText(teamActivityBean.getUserClass());
@@ -143,10 +144,10 @@ public class TeamActivity extends BaseActivity {
         ti_player_number_all.setText("/" + teamActivityBean.getMinPlayer() + "~" + teamActivityBean.getMaxPlayer());
 
 //        加入按键
-        if(teamActivityBean.getUserClass().equals("游客")){
+        if (teamActivityBean.getUserClass().equals("游客")) {
             ti_join_button.setText("加入组局");
             ti_edit_button.setVisibility(View.GONE);
-        }else {
+        } else {
             ti_join_button.setText("进入聊天室");
             ti_edit_button.setVisibility(View.VISIBLE);
         }
@@ -214,6 +215,9 @@ public class TeamActivity extends BaseActivity {
         teamActivityBean.setTeamId(getIntent().getStringExtra("teamId"));
         whereCome = getIntent().getStringExtra("whereCome");
         userInfo = DataUtil.GetUserInfoData(this);
+        userId = userInfo.getId();
+        teamId = getIntent().getStringExtra("teamId");
+        token = userInfo.getToken();
     }
 
     @Override
@@ -274,17 +278,9 @@ public class TeamActivity extends BaseActivity {
         };
     }
 
-    public void SendMessage() {
-        RequestBody multiBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("json", "")
-                .build();
+    public void SendJoinMessage() {
         addSubscribe(RetrofitServiceManager.getInstance().creat(TeamApiService.class)
-                .FourParameterBodyPost("join",
-                        userInfo.getId(),
-                        teamActivityBean.getTeamId(),
-                        "null",
-                        multiBody)
+                .JoinTeam(userId, teamId, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(TeamActivity.this) {
@@ -382,26 +378,25 @@ public class TeamActivity extends BaseActivity {
 
     public void JoinTeamButton(View view) {
 
-        Intent intent = new Intent(TeamActivity.this, MessageInfoActivity.class);
-
-        intent.putExtra("messageClass",TEAM_SEND_MESSAGE);
-        intent.putExtra("ownerId",teamActivityBean.getTeamId());
-        intent.putExtra("teamName",teamActivityBean.getTeamName());
-        startActivity(intent);
-        finish();
-
-//        if(teamActivityBean.getUserClass().equals("游客")){
-//
-//        }else {
-//        }
+        if (teamActivityBean.getUserClass().equals("游客")) {
+//            发送加入申请，等待系统判断资格；
+            SendJoinMessage();
 //                判断资格
 //                资格不通过，提示错误信息
 //                资格通过，进入聊天界面；
 //               判断加入用户是否满足team的约束条件，若不满足则提示错误；
 //                请求服务器，获取team最新信息；
-//        SendMessage();
 //                修改“加入”按键文字；
 //                显示申请加入的提示，直到返回正确的加入信息后，否则提示失败。
+        } else {
+            Intent intent = new Intent(TeamActivity.this, TeamMessageInfoActivity.class);
+            intent.putExtra("messageClass", TEAM_SEND_MESSAGE);
+            intent.putExtra("ownerId", teamActivityBean.getTeamId());
+            intent.putExtra("teamId", teamActivityBean.getTeamId());
+            intent.putExtra("title", teamActivityBean.getTeamName());
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void GoBack(View view) {

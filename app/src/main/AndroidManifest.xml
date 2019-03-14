@@ -2,55 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="renchaigao.com.zujuba">
-
     <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 用于提高GPS定位速度 -->
-    <!--<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于提高GPS定位速度 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> -->
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-
-    <!-- //地图包、搜索包需要的基础权限 -->
+    <uses-permission
+        android:name="android.permission.CHANGE_CONFIGURATION"
+        tools:ignore="ProtectedPermissions" /> <!-- //地图包、搜索包需要的基础权限 -->
     <!-- 用于进行网络定位 -->
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
     <!-- 用于访问GPS定位 -->
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />-->
+    <!-- <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> -->
     <!-- 用于访问网络，网络定位需要上网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 用于申请调用A-GPS模块 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <!-- 二维码 -->
-    <!--<uses-permission android:name="android.permission.INTERNET" /> &lt;!&ndash; 网络权限 &ndash;&gt;-->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 二维码 -->
+    <!-- <uses-permission android:name="android.permission.INTERNET" /> &lt;!&ndash; 网络权限 &ndash;&gt; -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 摄像头权限 -->
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <!-- <uses-feature android:name="android.permission.READ_PHONE_STATE" /> -->
-    <!-- 自动聚焦权限 -->
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -61,6 +46,18 @@
         android:roundIcon="@mipmap/zujuba_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activity.Message.FriendMessageInfoActivity"></activity>
+        <activity android:name=".Activity.Message.SystemMessageInfoActivity" />
+        <activity android:name=".Activity.Message.ClubMessageInfoActivity" />
+        <activity android:name=".Activity.Message.TeamMessageInfoActivity" />
+        <activity android:name=".Activity.User.UserJoinTeamListPageActivity" />
+        <activity android:name=".Activity.User.UserCreateTeamListPageActivity" />
+        <activity android:name=".Activity.User.UserPlayGameListPageActivity" />
+        <activity android:name=".Activity.User.UserOwnGameListPageActivity" />
+        <activity android:name=".Activity.User.UserWantGameListPageActivity" />
+        <activity android:name=".Activity.User.UserPlaceListPageActivity" />
+        <activity android:name=".Activity.User.UserPlayPlaceListPageActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.cameraalbumtest.fileprovider"
@@ -182,11 +179,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".Activity.Message.MessageInfoActivity"
-            android:label="@string/title_activity_message_info"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".GamePart.DeepForest.DeepForestGmaeSetUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -194,8 +186,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.Game.GameReadyActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!-- <activity android:name=".util.Google.zxing.activity.CaptureActivity" -->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- <activity android:name=".util.Google.zxing.activity.CaptureActivity" -->
         <!-- tools:ignore="InnerclassSeparator"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -217,9 +208,6 @@
         </activity>
         <activity
             android:name=".Activity.User.UserTeamActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activity.Place.UserPlaceListPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.Normal.StartActivity"
@@ -261,7 +249,7 @@
         <activity
             android:name=".Activity.Club.CreateClubActivity"
             android:label="@string/title_activity_create_club"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
