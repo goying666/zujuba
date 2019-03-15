@@ -26,6 +26,8 @@ import com.renchaigao.zujuba.dao.User;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 
+import org.litepal.LitePal;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.BaseActivity;
@@ -78,6 +80,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void InitView() {
+        LitePal.initialize(this);
         login_join_app = findViewById(R.id.login_join_app);
         login_yzm_text = findViewById(R.id.login_yzm_text);
         login_repwd_text = findViewById(R.id.login_repwd_text);

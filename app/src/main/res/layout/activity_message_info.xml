@@ -8,18 +8,15 @@
     android:background="@color/colorPrimary"
     tools:context="renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity">
 
-    <android.support.v7.widget.Toolbar
+
+    <include layout="@layout/widget_toolbar_normal"
         android:id="@+id/message_info_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:titleTextColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </android.support.v7.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/message_info_SwipeRefreshLayout"
@@ -46,45 +43,15 @@
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.constraint.ConstraintLayout
+
+    <include layout="@layout/widget_message_input_part"
         android:id="@+id/message_info_inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/message_input_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/message_info_inputEdit"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginBottom="@dimen/margin_8dp"
-            android:background="#ffffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/message_info_sendButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/message_info_sendButton"
-            android:layout_width="64dp"
-            android:layout_height="36dp"
-            android:layout_marginBottom="@dimen/margin_8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:background="@color/button_background_deep"
-            android:text="发送"
-            android:textColor="@color/button_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 

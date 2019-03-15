@@ -109,10 +109,10 @@ public class DataUtil {
         }
     }
 
-    public static Boolean saveUserData(Activity activity, User userData) {
-        userData.setUpTime(dateUse.DateToString(new Date()));
-        return saveUserData(activity, JSONObject.toJSONString(userData));
-    }
+//    public static Boolean saveUserData(Activity activity, User userData) {
+//        userData.setUpTime(dateUse.DateToString(new Date()));
+//        return saveUserData(activity, JSONObject.toJSONString(userData));
+//    }
 
     public static Boolean saveUserData(Activity activity, String userData) {
         try {

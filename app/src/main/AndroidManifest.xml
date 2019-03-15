@@ -46,7 +46,8 @@
         android:roundIcon="@mipmap/zujuba_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Message.FriendMessageInfoActivity"></activity>
+        <activity android:name=".Activity.Message.MessagesInfoActivity"></activity>
+        <activity android:name=".Activity.Message.FriendMessageInfoActivity" />
         <activity android:name=".Activity.Message.SystemMessageInfoActivity" />
         <activity android:name=".Activity.Message.ClubMessageInfoActivity" />
         <activity android:name=".Activity.Message.TeamMessageInfoActivity" />

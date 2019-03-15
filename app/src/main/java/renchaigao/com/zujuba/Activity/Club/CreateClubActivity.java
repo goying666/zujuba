@@ -188,8 +188,17 @@ public class CreateClubActivity extends BaseActivity {
                             JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             switch (code) {
-                                case RespCodeNumber.SUCCESS:
+                                case RespCodeNumber.CLUB_CREATE_SUCCESS:
                                     finish();
+                                    break;
+                                case RespCodeNumber.CLUB_HAD_BEEN_CREATE:
+                                    finish();
+                                    break;
+                                case RespCodeNumber.CLUB_CREATE_FAIL:
+//                                    finish();
+                                    break;
+                                case RespCodeNumber.CLUB_CREATE_LIMIT:
+//                                    finish();
                                     break;
                             }
                         } catch (Exception e) {

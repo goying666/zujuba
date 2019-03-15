@@ -24,6 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'http://47.106.149.105:8081/repository/maven-releases/' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url "https://jitpack.io" }
     }

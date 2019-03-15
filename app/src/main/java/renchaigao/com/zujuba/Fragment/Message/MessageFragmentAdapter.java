@@ -49,15 +49,19 @@ public class MessageFragmentAdapter extends CommonRecycleAdapter<CardMessageFrag
         switch (data.getMClass()){
             case TEAM_SEND_MESSAGE:
                 holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext);
+                holder.setText(R.id.textView145,"组局");
                 break;
             case SYSTEM_SEND_MESSAGE:
                 holder.setImageResource(R.id.card_message_image,R.drawable.logo);
+                holder.setText(R.id.textView145,"系统");
                 break;
             case CLUB_SEND_MESSAGE:
                 holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext);
+                holder.setText(R.id.textView145,"俱乐部");
                 break;
             case FRIEND_SEND_MESSAGE:
                 holder.setGlideImageResource(R.id.card_message_image, PropertiesConfig.photoUrl + data.getImageUrl(), mContext);
+                holder.setText(R.id.textView145,"好友");
                 break;
         }
         int minuteTime = (int) ((dateUse.getNowTimeLong() - data.getLastTime()) / 60000);

@@ -1,8 +1,10 @@
 package renchaigao.com.zujuba.Activity.Message;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -33,6 +37,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.BaseActivity;
+import renchaigao.com.zujuba.Activity.Club.ClubInfoActivity;
+import renchaigao.com.zujuba.Activity.TeamPart.TeamActivity;
 import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
 import renchaigao.com.zujuba.Bean.AndroidMessageContent;
 import renchaigao.com.zujuba.R;
@@ -45,7 +51,9 @@ import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEN
 
 public class TeamMessageInfoActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
     final static String TAG = "TeamMessageInfoActivity";
-    private Toolbar toolbar;
+    private ConstraintLayout toolbar;
+    private TextView titleTextView, secondTitleTextView;
+    private ImageView goback;
     private TeamMessageInfoAdapter teamMessageInfoAdapter;
     private String userId,token, ownerId, teamId,messageClass, inputString = "";
     private UserInfo userInfo;
@@ -101,6 +109,9 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
     @Override
     protected void InitView() {
         toolbar = findViewById(R.id.message_info_toolbar);
+        titleTextView = toolbar.findViewById(R.id.textView146);
+        secondTitleTextView = toolbar.findViewById(R.id.textView147);
+        goback = toolbar.findViewById(R.id.imageView33);
         contentSwipeRefreshLayout = findViewById(R.id.message_info_SwipeRefreshLayout);
         message_info_inputEdit = findViewById(R.id.message_info_inputEdit);
         message_info_sendButton = findViewById(R.id.message_info_sendButton);
@@ -115,7 +126,8 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
         token = userInfo.getToken();
         ownerId = getIntent().getStringExtra("teamId");
         teamId = getIntent().getStringExtra("teamId");
-        toolbar.setTitle(getIntent().getStringExtra("title"));
+        titleTextView.setText(getIntent().getStringExtra("title"));
+        secondTitleTextView.setText("局信息");
         initMessages();
         if (allMessages.size() > 0) {
             String text = JSONObject.toJSONString(allMessages);
@@ -147,6 +159,16 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
     @Override
     protected void InitOther() {
         InitSwipeLayout();
+        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(TeamMessageInfoActivity.this, TeamActivity.class);
+                intent.putExtra("teamId", teamId);
+                startActivity(intent);
+                finish();
+            }
+        });
 //        message_info_more.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -183,8 +205,7 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
                 inputString = s.toString();
             }
         });
-        toolbar.setNavigationIcon(R.drawable.toolbar_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

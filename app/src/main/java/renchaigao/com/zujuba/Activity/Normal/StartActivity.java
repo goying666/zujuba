@@ -88,7 +88,6 @@ public class StartActivity extends BaseActivity {
 
     @Override
     protected void InitOther() {
-        LitePal.initialize(this);
         // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Boolean allCheckResult = true;//当所有授权均通过时，才为true；

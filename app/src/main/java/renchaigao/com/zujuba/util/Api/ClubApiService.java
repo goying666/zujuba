@@ -15,11 +15,11 @@ import retrofit2.http.Query;
 
 public interface ClubApiService {
 
-    @GET("club/get")
+    @GET("club/getone")
     Observable<ResponseEntity> GetClubInfo(
             @Query("userId") String userId,
-            @Query("clubId") String clubId,
-            @Query("token") String token);
+            @Query("token") String token,
+            @Query("clubId") String clubId);
 
     @GET("club/getall")
     Observable<ResponseEntity> GetMyAllClub(

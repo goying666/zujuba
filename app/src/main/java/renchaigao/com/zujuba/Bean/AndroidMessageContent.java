@@ -32,6 +32,7 @@ public class AndroidMessageContent extends LitePalSupport {
     private String friendId;//好友id
     private String messageClass;
     private String userId;
+    private String clubId;
 
 //    public Long getSendTime() {
 //        return sendTime;

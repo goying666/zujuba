@@ -32,7 +32,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Message.ClubMessageInfoActivity;
-import renchaigao.com.zujuba.Activity.Message.FriendMessageInfoActivity;
 import renchaigao.com.zujuba.Activity.Message.SystemMessageInfoActivity;
 import renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity;
 import renchaigao.com.zujuba.Bean.AndroidCardMessageFragmentTipBean;
@@ -222,11 +221,10 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
                 break;
             case SYSTEM_SEND_MESSAGE:
                 intent = new Intent(mContext, SystemMessageInfoActivity.class);
-                intent.putExtra("systeamId", displayTipCardBeanList.get(position).getOwnerId());
                 break;
             case FRIEND_SEND_MESSAGE:
-                intent = new Intent(mContext, FriendMessageInfoActivity.class);
-                intent.putExtra("friendId", displayTipCardBeanList.get(position).getOwnerId());
+//                intent = new Intent(mContext, FriendMessageInfoActivity.class);
+//                intent.putExtra("friendId", displayTipCardBeanList.get(position).getOwnerId());
                 break;
         }
         intent.putExtra("title", displayTipCardBeanList.get(position).getName());

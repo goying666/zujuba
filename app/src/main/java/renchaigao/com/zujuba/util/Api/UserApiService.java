@@ -45,4 +45,13 @@ public interface UserApiService {
             @Path("thirdStr") String thirdStr,
             @Path("fourthStr") String fourthStr);
 
+
+    @POST("user/update")
+    Observable<ResponseEntity> UpdateUserInfo(
+            @Query("updateStyle") String updateStyle,
+            @Query("userId") String userId,
+            @Query("token") String token,
+            @Body JSONObject jsonObject);
+
+
 }
