@@ -137,7 +137,7 @@ public class GaoDeMapActivity extends AppCompatActivity implements LocationSourc
 
     private void init(Bundle savedInstanceState) {
         Log.e(TAG, "init");
-        mMapView = findViewById(R.id.map_business);
+        mMapView = (MapView) findViewById(R.id.map_business);
         mMapView.onCreate(savedInstanceState);// 此方法必须重写
         if (aMap == null) {
             aMap = mMapView.getMap();
@@ -228,8 +228,8 @@ public class GaoDeMapActivity extends AppCompatActivity implements LocationSourc
             actionBar.hide();
         }
         Log.e(TAG, "initView");
-        button = findViewById(R.id.map_business_button);
-        textView = findViewById(R.id.map_business_text);
+        button = (Button) findViewById(R.id.map_business_button);
+        textView = (TextView) findViewById(R.id.map_business_text);
 //        textView.setBackgroundColor(Color.argb(255, 0, 255, 0));
         geocoderSearch = new GeocodeSearch(this);
         geocoderSearch.setOnGeocodeSearchListener(this);

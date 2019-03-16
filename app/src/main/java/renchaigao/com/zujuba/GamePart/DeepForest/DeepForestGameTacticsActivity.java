@@ -42,12 +42,12 @@ public class DeepForestGameTacticsActivity extends AppCompatActivity {
     private TextView dfg_tactics_time;
 
     private void initView() {
-        dfg_tactics_time = findViewById(R.id.dfg_tactics_time);
-        dfg_tactics_attact_button = findViewById(R.id.dfg_tactics_attact_button);
-        dfg_tactics_defence_button = findViewById(R.id.dfg_tactics_defence_button);
-        dfg_tactics_explore_button = findViewById(R.id.dfg_tactics_attact_button);
-        dfg_tactics_move_button = findViewById(R.id.dfg_tactics_move_button);
-        dfg_tactics_technology_button = findViewById(R.id.dfg_tactics_technology_button);
+        dfg_tactics_time = (TextView) findViewById(R.id.dfg_tactics_time);
+        dfg_tactics_attact_button = (Button) findViewById(R.id.dfg_tactics_attact_button);
+        dfg_tactics_defence_button = (Button) findViewById(R.id.dfg_tactics_defence_button);
+        dfg_tactics_explore_button = (Button) findViewById(R.id.dfg_tactics_attact_button);
+        dfg_tactics_move_button = (Button) findViewById(R.id.dfg_tactics_move_button);
+        dfg_tactics_technology_button = (Button) findViewById(R.id.dfg_tactics_technology_button);
     }
 
     private void setButton() {

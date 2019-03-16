@@ -93,7 +93,7 @@ public class AdvertisingActivity extends BaseActivity implements OnBannerListene
     }
 
     private void setBanner() {
-        banner = findViewById(R.id.adver_banner);
+        banner = (Banner) findViewById(R.id.adver_banner);
         //放图片地址的集合
         list_path = new ArrayList<>();
         //放标题的集合

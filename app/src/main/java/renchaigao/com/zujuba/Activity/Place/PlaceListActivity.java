@@ -32,8 +32,6 @@ import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
-import static renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity.CREATE_TEAM_ADDRESS_STORE;
-
 /******     该活动用于创建Team时选择地点，展示地点list使用。    ******/
 public class PlaceListActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
 
@@ -67,7 +65,7 @@ public class PlaceListActivity extends BaseActivity implements CommonViewHolder.
 //        void onItemClick(View view, int position);
 //    }
     private void setSwipeRefresh() {
-        swipeRefreshLayout = findViewById(R.id.place_list_SwipeRefreshLayout); //设置没有item动画
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.place_list_SwipeRefreshLayout); //设置没有item动画
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -96,7 +94,7 @@ public class PlaceListActivity extends BaseActivity implements CommonViewHolder.
     private PlaceCardAdapter placeListAdapter;
 
     private void setRecyclerView() {
-        recyclerView = findViewById(R.id.place_list_recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.place_list_recyclerview);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 //        hallFragmentAdapter = new HallFragmentAdapter(this);

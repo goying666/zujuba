@@ -49,10 +49,10 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
 
     @Override
     protected void InitView() {
-        place_name = findViewById(R.id.textView60);
-        goBack = findViewById(R.id.imageView12);
-        setting = findViewById(R.id.imageView13);
-        tabLayout1 = findViewById(R.id.tabLayout1);
+        place_name = (TextView) findViewById(R.id.textView60);
+        goBack = (ImageView) findViewById(R.id.imageView12);
+        setting = (ImageView) findViewById(R.id.imageView13);
+        tabLayout1 = (TabLayout) findViewById(R.id.tableLayout1);
     }
 
     JSONObject jsonObjectIntent = new JSONObject();
@@ -74,7 +74,7 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
 
     private void setViewPager() {
         String[] title = {"基础", "组局", "运营", "评论"};
-        customViewPager = findViewById(R.id.CustomViewPager1);
+        customViewPager = (CustomViewPager) findViewById(R.id.CustomViewPager1);
         final UserPlaceManagerBasicPartFragment userPlaceManagerBasicPartFragment = new UserPlaceManagerBasicPartFragment();
         final UserPlaceManagerTeamPartFragment userPlaceManagerTeamPartFragment = new UserPlaceManagerTeamPartFragment();
         final UserPlaceManagerOperationPartFragment userPlaceManagerOperationPartFragment = new UserPlaceManagerOperationPartFragment();

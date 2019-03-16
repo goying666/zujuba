@@ -27,7 +27,7 @@ public class GameInfoActivity extends AppCompatActivity {
     }
 
     private void initButton(){
-        back_to_world = findViewById(R.id.back_to_world);
+        back_to_world = (Button) findViewById(R.id.back_to_world);
         back_to_world.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

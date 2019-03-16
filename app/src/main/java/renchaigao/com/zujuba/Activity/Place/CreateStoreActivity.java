@@ -166,8 +166,8 @@ public class CreateStoreActivity extends BaseActivity {
         userInfo = DataUtil.GetUserInfoData(CreateStoreActivity.this);
         user = DataUtil.GetUserData(CreateStoreActivity.this);
         builder = new AlertDialog.Builder(this);
-        business_join_introduce_button_next = findViewById(R.id.business_join_introduce_button_next);
-        business_join_NestedScrollView = findViewById(R.id.business_join_NestedScrollView);
+        business_join_introduce_button_next = (Button) findViewById(R.id.business_join_introduce_button_next);
+        business_join_NestedScrollView = (ScrollView) findViewById(R.id.business_join_NestedScrollView);
 
         business_join_introduce_button_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,33 +175,33 @@ public class CreateStoreActivity extends BaseActivity {
                 setLinearLayoutVisibile(2);
             }
         });
-        linearLayout_part1 = findViewById(R.id.business_join_introduce_part1);
+        linearLayout_part1 = (LinearLayout) findViewById(R.id.business_join_introduce_part1);
 
     }
 
     //        基础信息部分
     private void initBasicPart() {
-        business_join_introduce_time_textView_number = findViewById(R.id.business_join_introduce_time_textView_number);
-        business_join_basic_button_next = findViewById(R.id.business_join_basic_button_next);
-        linearLayout_part2 = findViewById(R.id.business_join_introduce_part2);
-        business_join_name = findViewById(R.id.business_join_name);
-        business_join_class = findViewById(R.id.business_join_class);
-        business_join_introduce_addres_image = findViewById(R.id.business_join_introduce_addres_image);
-        business_join_introduce_addres_name = findViewById(R.id.business_join_introduce_addres_name);
-        business_join_introduce_addres_addinfo = findViewById(R.id.business_join_introduce_addres_addinfo);
-        business_join_introduce_content_TextInputLayout_person = findViewById(R.id.business_join_introduce_content_TextInputLayout_person);
-        business_join_introduce_content_TextInputLayout_person2 = findViewById(R.id.business_join_introduce_content_TextInputLayout_person2);
-        business_join_introduce_content_TextInputLayout_name = findViewById(R.id.business_join_introduce_content_TextInputLayout_name);
-        business_telephone1 = findViewById(R.id.business_telephone1);
-        business_telephone2 = findViewById(R.id.business_telephone2);
-        business_telephone_name = findViewById(R.id.business_telephone_name);
-        business_join_name_layout = findViewById(R.id.business_join_name_layout);
-        business_join_introduce_time_textView_title_note = findViewById(R.id.business_join_introduce_time_textView_title_note);
+        business_join_introduce_time_textView_number = (TextView) findViewById(R.id.business_join_introduce_time_textView_number);
+        business_join_basic_button_next = (Button) findViewById(R.id.business_join_basic_button_next);
+        linearLayout_part2 = (LinearLayout) findViewById(R.id.business_join_introduce_part2);
+        business_join_name = (TextInputEditText) findViewById(R.id.business_join_name);
+        business_join_class = (AppCompatSpinner) findViewById(R.id.business_join_class);
+        business_join_introduce_addres_image = (ImageView) findViewById(R.id.business_join_introduce_addres_image);
+        business_join_introduce_addres_name = (TextView) findViewById(R.id.business_join_introduce_addres_name);
+        business_join_introduce_addres_addinfo = (TextInputEditText) findViewById(R.id.business_join_introduce_addres_addinfo);
+        business_join_introduce_content_TextInputLayout_person = (TextInputLayout) findViewById(R.id.business_join_introduce_content_TextInputLayout_person);
+        business_join_introduce_content_TextInputLayout_person2 = (TextInputLayout) findViewById(R.id.business_join_introduce_content_TextInputLayout_person2);
+        business_join_introduce_content_TextInputLayout_name = (TextInputLayout) findViewById(R.id.business_join_introduce_content_TextInputLayout_name);
+        business_telephone1 = (TextInputEditText) findViewById(R.id.business_telephone1);
+        business_telephone2 = (TextInputEditText) findViewById(R.id.business_telephone2);
+        business_telephone_name = (TextInputEditText) findViewById(R.id.business_telephone_name);
+        business_join_name_layout = (TextInputLayout) findViewById(R.id.business_join_name_layout);
+        business_join_introduce_time_textView_title_note = (TextView) findViewById(R.id.business_join_introduce_time_textView_title_note);
         business_join_introduce_time_textView_title_note.setVisibility(View.VISIBLE);
-        business_join_introduce_time_checkBox1 = findViewById(R.id.business_join_introduce_time_checkBox1);
-        business_join_introduce_time_checkBox2 = findViewById(R.id.business_join_introduce_time_checkBox2);
-        business_join_introduce_time_checkBox3 = findViewById(R.id.business_join_introduce_time_checkBox3);
-        business_join_introduce_time_checkBox4 = findViewById(R.id.business_join_introduce_time_checkBox4);
+        business_join_introduce_time_checkBox1 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox1);
+        business_join_introduce_time_checkBox2 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox2);
+        business_join_introduce_time_checkBox3 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox3);
+        business_join_introduce_time_checkBox4 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox4);
         business_join_class.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -432,19 +432,19 @@ public class CreateStoreActivity extends BaseActivity {
 
     //          附加信息部分
     private void initExtraPart() {
-        business_join_detail_button_back = findViewById(R.id.business_join_detail_button_back);
-        business_join_detail_button_next = findViewById(R.id.business_join_detail_button_next);
-        linearLayout_part3 = findViewById(R.id.business_join_introduce_part3);
-        business_join_desk_layout = findViewById(R.id.business_join_desk_layout);
-        business_join_maxpeople_layout = findViewById(R.id.business_join_maxpeople_layout);
-        business_join_desk_num = findViewById(R.id.business_join_desk_num);
-        business_join_maxpeople_num = findViewById(R.id.business_join_maxpeople_num);
-        business_join_other_equipment_air = findViewById(R.id.business_join_other_equipment_air);
-        business_join_other_equipment_wifi = findViewById(R.id.business_join_other_equipment_wifi);
-        business_join_other_equipment_hot = findViewById(R.id.business_join_other_equipment_hot);
-        business_join_other_equipment_wc = findViewById(R.id.business_join_other_equipment_wc);
-        business_join_extra_storeinfo_TextInputLayout = findViewById(R.id.business_join_extra_storeinfo_TextInputLayout);
-        business_join_extra_storeinfo = findViewById(R.id.business_join_extra_storeinfo);
+        business_join_detail_button_back = (Button) findViewById(R.id.business_join_detail_button_back);
+        business_join_detail_button_next = (Button) findViewById(R.id.business_join_detail_button_next);
+        linearLayout_part3 = (LinearLayout) findViewById(R.id.business_join_introduce_part3);
+        business_join_desk_layout = (TextInputLayout) findViewById(R.id.business_join_desk_layout);
+        business_join_maxpeople_layout = (TextInputLayout) findViewById(R.id.business_join_maxpeople_layout);
+        business_join_desk_num = (TextInputEditText) findViewById(R.id.business_join_desk_num);
+        business_join_maxpeople_num = (TextInputEditText) findViewById(R.id.business_join_maxpeople_num);
+        business_join_other_equipment_air = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_air);
+        business_join_other_equipment_wifi = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_wifi);
+        business_join_other_equipment_hot = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_hot);
+        business_join_other_equipment_wc = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_wc);
+        business_join_extra_storeinfo_TextInputLayout = (TextInputLayout) findViewById(R.id.business_join_extra_storeinfo_TextInputLayout);
+        business_join_extra_storeinfo = (TextInputEditText) findViewById(R.id.business_join_extra_storeinfo);
 
 //        绑定监听
         business_join_desk_num.addTextChangedListener(new TextWatcher() {
@@ -565,18 +565,18 @@ public class CreateStoreActivity extends BaseActivity {
 
     //          图片信息部分
     private void initPhotoPart() {
-        business_join_map_end_back = findViewById(R.id.business_join_map_end_back);
-        business_join_map_end_next = findViewById(R.id.business_join_map_end_next);
-        linearLayout_part4 = findViewById(R.id.business_join_introduce_part4);
-        business_join_map_image_store_1 = findViewById(R.id.business_join_map_image_store_1);
-        business_join_map_image_store_2 = findViewById(R.id.business_join_map_image_store_2);
-        business_join_map_image_store_3 = findViewById(R.id.business_join_map_image_store_3);
-        business_join_map_image_store_4 = findViewById(R.id.business_join_map_image_store_4);
-        business_join_map_image_license_1 = findViewById(R.id.business_join_map_image_license_1);
-        business_join_map_image_license_2 = findViewById(R.id.business_join_map_image_license_2);
-        business_join_map_image_license_3 = findViewById(R.id.business_join_map_image_license_3);
-        business_join_map_image_back = findViewById(R.id.business_join_map_image_back);
-        business_join_map_image_next = findViewById(R.id.business_join_map_image_next);
+        business_join_map_end_back = (Button) findViewById(R.id.business_join_map_end_back);
+        business_join_map_end_next = (Button) findViewById(R.id.business_join_map_end_next);
+        linearLayout_part4 = (LinearLayout) findViewById(R.id.business_join_introduce_part4);
+        business_join_map_image_store_1 = (ImageView) findViewById(R.id.business_join_map_image_store_1);
+        business_join_map_image_store_2 = (ImageView) findViewById(R.id.business_join_map_image_store_2);
+        business_join_map_image_store_3 = (ImageView) findViewById(R.id.business_join_map_image_store_3);
+        business_join_map_image_store_4 = (ImageView) findViewById(R.id.business_join_map_image_store_4);
+        business_join_map_image_license_1 = (ImageView) findViewById(R.id.business_join_map_image_license_1);
+        business_join_map_image_license_2 = (ImageView) findViewById(R.id.business_join_map_image_license_2);
+        business_join_map_image_license_3 = (ImageView) findViewById(R.id.business_join_map_image_license_3);
+        business_join_map_image_back = (Button) findViewById(R.id.business_join_map_image_back);
+        business_join_map_image_next = (Button) findViewById(R.id.business_join_map_image_next);
         imageFinish1 = false;
         imageFinish2 = false;
         imageFinish3 = false;
@@ -686,7 +686,7 @@ public class CreateStoreActivity extends BaseActivity {
                 Toast.makeText(CreateStoreActivity.this, "你点击了确定发送", Toast.LENGTH_LONG).show();
             }
         });
-        business_join_introduce_part5 = findViewById(R.id.business_join_introduce_part5);
+        business_join_introduce_part5 = (LinearLayout) findViewById(R.id.business_join_introduce_part5);
         business_join_map_end_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

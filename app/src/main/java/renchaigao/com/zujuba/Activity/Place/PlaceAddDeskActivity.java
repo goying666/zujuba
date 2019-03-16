@@ -36,11 +36,11 @@ public class PlaceAddDeskActivity extends BaseActivity {
 
     @Override
     protected void InitView() {
-        deskImage = findViewById(R.id.imageView25);
-        maxPeopleNum = findViewById(R.id.textView111);
-        minPeopleNum = findViewById(R.id.textView114);
-        cancleButton = findViewById(R.id.button5);
-        submitButton = findViewById(R.id.button5);
+        deskImage = (ImageView) findViewById(R.id.imageView25);
+        maxPeopleNum = (TextView) findViewById(R.id.textView111);
+        minPeopleNum = (TextView) findViewById(R.id.textView114);
+        cancleButton = (Button) findViewById(R.id.button5);
+        submitButton = (Button) findViewById(R.id.button5);
         builderPhoto = new AlertDialog.Builder(this);
         builderPhoto.setTitle("图片来源");
         builderPhoto.setMessage("选择图片获取方式");

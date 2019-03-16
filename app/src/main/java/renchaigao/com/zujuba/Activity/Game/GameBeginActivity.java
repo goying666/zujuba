@@ -15,8 +15,8 @@ public class GameBeginActivity extends AppCompatActivity {
     private Button game_begin_button1, game_begin_button2;
 
     private void setButton(){
-        game_begin_button1 = this.findViewById(R.id.game_begin_button1);
-        game_begin_button2 = this.findViewById(R.id.game_begin_button2);
+        game_begin_button1 = (Button) this.findViewById(R.id.game_begin_button1);
+        game_begin_button2 = (Button) this.findViewById(R.id.game_begin_button2);
         game_begin_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

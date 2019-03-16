@@ -51,19 +51,19 @@ public class CreateClubActivity extends BaseActivity {
     @Override
     protected void InitView() {
         setToolBar();
-        stepText = findViewById(R.id.create_club_step_textView);
-        partOne = findViewById(R.id.create_club_part1);
-        partTwo = findViewById(R.id.create_club_part2);
-        cancle = findViewById(R.id.button13);
-        next = findViewById(R.id.button14);
-        placeName = findViewById(R.id.textView124);
-        inputEditText = findViewById(R.id.textInputEdite);
+        stepText = (TextView) findViewById(R.id.create_club_step_textView);
+        partOne = (ConstraintLayout) findViewById(R.id.create_club_part1);
+        partTwo = (ConstraintLayout) findViewById(R.id.create_club_part2);
+        cancle = (Button) findViewById(R.id.button13);
+        next = (Button) findViewById(R.id.button14);
+        placeName = (TextView) findViewById(R.id.textView124);
+        inputEditText = (TextInputEditText) findViewById(R.id.textInputEdite);
         partOne.setVisibility(View.VISIBLE);
         partTwo.setVisibility(View.GONE);
     }
 
     private void setToolBar() {
-        toolbar = findViewById(R.id.crate_club_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.crate_club_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,9 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Getter
 @Setter
 public class RetrofitServiceManager {
-    private static final int DEFAULT_TIME_OUT = 3000;//超时时间
-    private static final int DEFAULT_READ_TIME_OUT = 3000;//读取时间
-    private static final int DEFAULT_WRITE_TIME_OUT = 3000;//读取时间
+    private static final int DEFAULT_TIME_OUT = 600;//超时时间
+    private static final int DEFAULT_READ_TIME_OUT = 600;//读取时间
+    private static final int DEFAULT_WRITE_TIME_OUT = 600;//读取时间
     private static RetrofitServiceManager mRetrofitServiceManager;
     public Retrofit mRetrofit;
     private RetrofitDownloadListener retrofitDownloadListener;

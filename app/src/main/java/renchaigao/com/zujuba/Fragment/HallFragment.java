@@ -97,7 +97,7 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
     }
 
     private void setSwipeRefresh(View view) {
-        swipeRefreshLayout = view.findViewById(R.id.hall_SwipeRefreshLayout); //设置没有item动画
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.hall_SwipeRefreshLayout); //设置没有item动画
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -107,7 +107,7 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
     }
 
     private void setRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.hall_recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.hall_recyclerView);
         layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         hallFragmentAdapter = new HallFragmentAdapter(mContext);

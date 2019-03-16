@@ -6,37 +6,37 @@
 
     <ImageView
         android:id="@+id/widget_user_content_imageview"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:src="@drawable/record_create"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/widget_user_content_TextView_info"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/widget_user_content_TextView_name" />
 
     <TextView
         android:id="@+id/widget_user_content_TextView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:text="我拥有的游戏"
         android:textColor="@color/word_title_black"
         app:layout_constraintStart_toEndOf="@+id/widget_user_content_imageview"
-        app:layout_constraintTop_toTopOf="@+id/widget_user_content_imageview" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/widget_user_content_TextView_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="我拥有的游戏"
         android:textColor="@color/word_note"
-        app:layout_constraintBottom_toBottomOf="@+id/widget_user_content_imageview"
-        app:layout_constraintStart_toEndOf="@+id/widget_user_content_imageview" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/widget_user_content_imageview"
+        app:layout_constraintTop_toBottomOf="@+id/widget_user_content_TextView_name" />
 
     <TextView
         android:id="@+id/widget_user_content_TextView_underline"

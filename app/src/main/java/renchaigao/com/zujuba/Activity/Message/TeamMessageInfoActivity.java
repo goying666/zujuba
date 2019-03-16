@@ -55,7 +55,7 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
     private TextView titleTextView, secondTitleTextView;
     private ImageView goback;
     private TeamMessageInfoAdapter teamMessageInfoAdapter;
-    private String userId,token, ownerId, teamId,messageClass, inputString = "";
+    private String userId, token, ownerId, teamId, messageClass, inputString = "";
     private UserInfo userInfo;
     private Button message_info_sendButton;
     private TextInputEditText message_info_inputEdit;
@@ -88,6 +88,11 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
     private void UpdateMessageDate() {
         //  查询本地消息，从本地数据库读取当前群组的消息记录，并更新至界面；
         for (AndroidMessageContent o : newMessages) {
+            if (o.getSenderId().equals(userId)) {
+                o.setIsMe(true);
+            } else {
+                o.setIsMe(false);
+            }
             o.setIsReceived(true);
             o.save();
             allMessages.add(o);
@@ -108,13 +113,13 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
 
     @Override
     protected void InitView() {
-        toolbar = findViewById(R.id.message_info_toolbar);
-        titleTextView = toolbar.findViewById(R.id.textView146);
-        secondTitleTextView = toolbar.findViewById(R.id.textView147);
-        goback = toolbar.findViewById(R.id.imageView33);
-        contentSwipeRefreshLayout = findViewById(R.id.message_info_SwipeRefreshLayout);
-        message_info_inputEdit = findViewById(R.id.message_info_inputEdit);
-        message_info_sendButton = findViewById(R.id.message_info_sendButton);
+        toolbar = (ConstraintLayout) findViewById(R.id.message_info_toolbar);
+        titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
+        goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        contentSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.message_info_SwipeRefreshLayout);
+        message_info_inputEdit = (TextInputEditText) findViewById(R.id.message_info_inputEdit);
+        message_info_sendButton = (Button) findViewById(R.id.message_info_sendButton);
         InitRecyclerView();
     }
 
@@ -136,9 +141,16 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
         }
     }
 
-    private void initMessages(){
+    private void initMessages() {
 
         allMessages = new ArrayList<>(LitePal.where("teamId = ?", teamId).find(AndroidMessageContent.class));
+        for (AndroidMessageContent a : allMessages) {
+            if (a.getSenderId().equals(userId)) {
+                a.setIsMe(true);
+            } else {
+                a.setIsMe(false);
+            }
+        }
         Collections.sort(allMessages, new Comparator<AndroidMessageContent>() {
             @Override
             public int compare(AndroidMessageContent o1, AndroidMessageContent o2) {
@@ -146,6 +158,7 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
             }
         });
     }
+
     /**
      * Take care of popping the fragment back stack or finishing the activity
      * as appropriate.
@@ -178,6 +191,7 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
 ////                finish();
 //            }
 //        });
+
         message_info_inputEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -188,7 +202,9 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
 //                    // 失去焦点
 //                    recyclerView.scrollToPosition(0);
 //                }
+
                 recyclerView.scrollToPosition(0);
+
             }
         });
         message_info_inputEdit.addTextChangedListener(new TextWatcher() {
@@ -258,7 +274,7 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
     }
 
     private void InitRecyclerView() {
-        recyclerView = findViewById(R.id.message_info_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.message_info_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
@@ -388,11 +404,13 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
                     public void onError(Throwable e) {
                         super.onError(e);
                         contentSwipeRefreshLayout.setRefreshing(false);
+                        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
                     }
 
                     @Override
                     public void onComplete() {
                         contentSwipeRefreshLayout.setRefreshing(false);
+                        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
                     }
                 }));
     }

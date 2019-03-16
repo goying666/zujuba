@@ -21,15 +21,15 @@ public class UserPlaceManagerTeamPartFragment extends BaseFragment {
     @Override
     protected void InitView(View rootView) {
 
-        todayTeamNum = rootView.findViewById(R.id.textView85);
-        weekTeamNum = rootView.findViewById(R.id.textView90);
-        allTeamNum = rootView.findViewById(R.id.textView86);
-        todayTeamMore = rootView.findViewById(R.id.textView92);
-        weekTeamMore = rootView.findViewById(R.id.textView98);
-        allTeamMore = rootView.findViewById(R.id.textView97);
-        todayTeamMore0 = rootView.findViewById(R.id.textView87);
-        weekTeamMore0 = rootView.findViewById(R.id.textView91);
-        allTeamMore0 = rootView.findViewById(R.id.textView101);
+        todayTeamNum = (TextView) rootView.findViewById(R.id.textView85);
+        weekTeamNum = (TextView) rootView.findViewById(R.id.textView90);
+        allTeamNum = (TextView) rootView.findViewById(R.id.textView86);
+        todayTeamMore = (TextView) rootView.findViewById(R.id.textView92);
+        weekTeamMore = (TextView) rootView.findViewById(R.id.textView98);
+        allTeamMore = (TextView) rootView.findViewById(R.id.textView97);
+        todayTeamMore0 = (TextView) rootView.findViewById(R.id.textView87);
+        weekTeamMore0 = (TextView) rootView.findViewById(R.id.textView91);
+        allTeamMore0 = (TextView) rootView.findViewById(R.id.textView101);
 
     }
 

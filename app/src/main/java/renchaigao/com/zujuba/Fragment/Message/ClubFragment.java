@@ -52,8 +52,8 @@ public class ClubFragment extends BaseFragment implements CommonViewHolder.onIte
     @Override
     protected void InitView(View rootView) {
         this.rootView = rootView;
-        createNewClub = rootView.findViewById(R.id.fragement_message_create_club_club);
-        joinClub = rootView.findViewById(R.id.fragement_message_jion_club_club);
+        createNewClub = (Button) rootView.findViewById(R.id.fragement_message_create_club_club);
+        joinClub = (Button) rootView.findViewById(R.id.fragement_message_jion_club_club);
         setRecyclerView(rootView);
     }
 
@@ -120,7 +120,7 @@ public class ClubFragment extends BaseFragment implements CommonViewHolder.onIte
                     reloadFlag = RELOAD_FLAGE_VALUE_STOP;
                 }
             }
-        }, 0, 5000);
+        }, 0, 10000);
     }
 
     private View rootView;
@@ -131,7 +131,7 @@ public class ClubFragment extends BaseFragment implements CommonViewHolder.onIte
     }
 
     private void setRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.fragement_message_club_RecyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragement_message_club_RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         clubFragmentAdapter = new ClubFragmentAdapter(mContext, displayTipCardBeanList, this);

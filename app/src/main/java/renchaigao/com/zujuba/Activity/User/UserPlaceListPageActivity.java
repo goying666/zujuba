@@ -65,12 +65,12 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
 
     @Override
     protected void InitView() {
-        state_open = findViewById(R.id.textView54);
-        state_create = findViewById(R.id.textView55);
-        state_close = findViewById(R.id.textView56);
+        state_open = (TextView) findViewById(R.id.textView54);
+        state_create = (TextView) findViewById(R.id.textView55);
+        state_close = (TextView) findViewById(R.id.textView56);
 
-        button = findViewById(R.id.button);
-        recyclerView = findViewById(R.id.a_user_store_list_page_recyclerview);
+        button = (Button) findViewById(R.id.button);
+        recyclerView = (RecyclerView) findViewById(R.id.a_user_store_list_page_recyclerview);
     }
 
 

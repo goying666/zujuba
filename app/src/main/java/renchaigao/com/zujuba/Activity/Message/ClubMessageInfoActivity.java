@@ -109,18 +109,19 @@ public class ClubMessageInfoActivity extends BaseActivity implements CommonViewH
 
     @Override
     protected void InitView() {
-        toolbar = findViewById(R.id.message_info_toolbar);
-        titleTextView = toolbar.findViewById(R.id.textView146);
-        secondTitleTextView = toolbar.findViewById(R.id.textView147);
-        goback = toolbar.findViewById(R.id.imageView33);
-        contentSwipeRefreshLayout = findViewById(R.id.message_info_SwipeRefreshLayout);
-        message_info_inputEdit = findViewById(R.id.message_info_inputEdit);
-        message_info_sendButton = findViewById(R.id.message_info_sendButton);
+        toolbar = (ConstraintLayout) findViewById(R.id.message_info_toolbar);
+        titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
+
+        goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        contentSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.message_info_SwipeRefreshLayout);
+        message_info_inputEdit = (TextInputEditText) findViewById(R.id.message_info_inputEdit);
+        message_info_sendButton = (Button) findViewById(R.id.message_info_sendButton);
         InitRecyclerView();
     }
 
     private void InitRecyclerView() {
-        recyclerView = findViewById(R.id.message_info_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.message_info_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
@@ -333,11 +334,13 @@ public class ClubMessageInfoActivity extends BaseActivity implements CommonViewH
                     public void onError(Throwable e) {
                         super.onError(e);
                         contentSwipeRefreshLayout.setRefreshing(false);
+                        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
                     }
 
                     @Override
                     public void onComplete() {
                         contentSwipeRefreshLayout.setRefreshing(false);
+                        reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
                     }
                 }));
     }

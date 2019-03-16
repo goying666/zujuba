@@ -36,6 +36,8 @@
     <color name="word_background">#f2f2f2</color>
     <color name="word_white">#ffffff</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorNoSelect">#ededed</color>
+
 
 
 

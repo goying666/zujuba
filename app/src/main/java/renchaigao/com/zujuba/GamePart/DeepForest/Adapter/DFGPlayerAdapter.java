@@ -70,11 +70,11 @@ public class DFGPlayerAdapter extends RecyclerView.Adapter<DFGPlayerAdapter.View
             super(itemView);
             this.thisView = itemView;
             this.cardView = (CardView) itemView;
-            this.dfg_card_main_player_image = itemView.findViewById(R.id.dfg_card_main_player_image);
-            this.dfg_card_main_player_active = itemView.findViewById(R.id.dfg_card_main_player_active);
-            this.dfg_card_main_player_name = itemView.findViewById(R.id.dfg_card_main_player_name);
-            this.dfg_card_main_player_number = itemView.findViewById(R.id.dfg_card_main_player_number);
-            this.dfg_card_main_player_signature = itemView.findViewById(R.id.dfg_card_main_player_signature);
+            this.dfg_card_main_player_image = (ImageView) itemView.findViewById(R.id.dfg_card_main_player_image);
+            this.dfg_card_main_player_active = (TextView) itemView.findViewById(R.id.dfg_card_main_player_active);
+            this.dfg_card_main_player_name = (TextView) itemView.findViewById(R.id.dfg_card_main_player_name);
+            this.dfg_card_main_player_number = (TextView) itemView.findViewById(R.id.dfg_card_main_player_number);
+            this.dfg_card_main_player_signature = (TextView) itemView.findViewById(R.id.dfg_card_main_player_signature);
         }
     }
 }

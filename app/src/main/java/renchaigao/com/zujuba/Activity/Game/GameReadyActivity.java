@@ -14,7 +14,7 @@ public class GameReadyActivity extends AppCompatActivity {
     private Button game_ready_button;
 
     private void setButton() {
-        game_ready_button = this.findViewById(R.id.game_ready_button);
+        game_ready_button = (Button) this.findViewById(R.id.game_ready_button);
         game_ready_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -69,7 +69,7 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
     protected void InitView(View rootView) {
 
         this.rootView = rootView;
-        fragement_message_note = rootView.findViewById(R.id.fragement_message_message_note);
+        fragement_message_note = (TextView) rootView.findViewById(R.id.fragement_message_message_note);
         setRecyclerView(rootView);
     }
 
@@ -199,7 +199,7 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
     }
 
     private void setRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.fragement_message_message_RecyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragement_message_message_RecyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         messageFragmentAdapter = new MessageFragmentAdapter(mContext, displayTipCardBeanList, this);
@@ -210,7 +210,7 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
     @Override
     public void onItemClickListener(int position) {
         Intent intent = new Intent();
-        switch (displayTipCardBeanList.get(position).getMClass()){
+        switch (displayTipCardBeanList.get(position).getMClass()) {
             case TEAM_SEND_MESSAGE:
                 intent = new Intent(mContext, TeamMessageInfoActivity.class);
                 intent.putExtra("teamId", displayTipCardBeanList.get(position).getOwnerId());
@@ -311,14 +311,17 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
                 .GetMessageFragmentBean(userInfo.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<ResponseEntity>(getActivity()) {
+                .subscribeWith(new BaseObserver<ResponseEntity>(mContext) {
                     @Override
                     public void onNext(ResponseEntity value) {
+                        int i = 0;
                         try {
                             JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
                             int code = Integer.valueOf(responseJson.get("code").toString());
                             Message msg = new Message();
                             switch (code) {
+                                case RespCodeNumber.MESSAGE_USER_GET_ALL_ZERO:
+                                    break;
                                 case RespCodeNumber.MESSAGE_USER_GET_ALL_SUCCESS: //在数据库中更新用户数据出错；
                                     msg.arg1 = RespCodeNumber.SUCCESS;
                                     messageFragmentBean = JSONObject.parseObject(JSONObject.toJSONString(responseJson.get("data")), MessageFragmentCardBean.class);
@@ -332,17 +335,17 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
                                     displayTipCardBeanList = UpdateNewCardTipBeanDate(oldTipCardBeanList, newTipCardBeanList);
                                     if (displayTipCardBeanList.size() > 0)
                                         handler.sendMessage(msg);
-                                    for (MessageContent p: messageFragmentBean.getClubMessagesArrayList()){
-                                        JSONObject.parseObject(JSONObject.toJSONString(p),AndroidMessageContent.class).save();
+                                    for (MessageContent p : messageFragmentBean.getClubMessagesArrayList()) {
+                                        JSONObject.parseObject(JSONObject.toJSONString(p), AndroidMessageContent.class).save();
                                     }
-                                    for (MessageContent p: messageFragmentBean.getFriendMessagesArrayList()){
-                                        JSONObject.parseObject(JSONObject.toJSONString(p),AndroidMessageContent.class).save();
+                                    for (MessageContent p : messageFragmentBean.getFriendMessagesArrayList()) {
+                                        JSONObject.parseObject(JSONObject.toJSONString(p), AndroidMessageContent.class).save();
                                     }
-                                    for (MessageContent p: messageFragmentBean.getSystemMessagesArrayList()){
-                                        JSONObject.parseObject(JSONObject.toJSONString(p),AndroidMessageContent.class).save();
+                                    for (MessageContent p : messageFragmentBean.getSystemMessagesArrayList()) {
+                                        JSONObject.parseObject(JSONObject.toJSONString(p), AndroidMessageContent.class).save();
                                     }
-                                    for (MessageContent p: messageFragmentBean.getTeamMessagesArrayList()){
-                                        JSONObject.parseObject(JSONObject.toJSONString(p),AndroidMessageContent.class).save();
+                                    for (MessageContent p : messageFragmentBean.getTeamMessagesArrayList()) {
+                                        JSONObject.parseObject(JSONObject.toJSONString(p), AndroidMessageContent.class).save();
                                     }
                                     break;
                             }
@@ -354,6 +357,8 @@ public class MessageListFragment extends BaseFragment implements CommonViewHolde
 
                     @Override
                     protected void onSuccess(ResponseEntity responseEntity) {
+                        ResponseEntity a = responseEntity;
+                        a = null;
                     }
 
                     @Override

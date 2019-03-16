@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabItem;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,28 +63,28 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
     private DFGPlayerAdapter dfgPlayerAdapter;
 
     private void initView() {
-        dfg_main_button = findViewById(R.id.dfg_main_button);
-        dfg_main_mine_informationValue_button = findViewById(R.id.dfg_main_mine_informationValue_button);
-        dfg_main_mine_star_info_button = findViewById(R.id.dfg_main_mine_star_info_button);
-        dfg_main_note_part_textRcyclerView = findViewById(R.id.dfg_main_note_part_textRcyclerView);
-        dfg_main_other_info_recyclerView = findViewById(R.id.dfg_main_other_info_recyclerView);
-        dfg_main_note_part_text1 = findViewById(R.id.dfg_main_note_part_text1);
-        dfg_main_note_part_text2 = findViewById(R.id.dfg_main_note_part_text2);
-        dfg_main_gameInfo_current_countDown = findViewById(R.id.dfg_main_gameInfo_current_countDown);
-        dfg_main_gameInfo_currentMoment = findViewById(R.id.dfg_main_gameInfo_currentMoment);
-        dfg_main_gameInfo_currentMoment_info = findViewById(R.id.dfg_main_gameInfo_currentMoment_info);
-        dfg_main_gameInfo_playerNum = findViewById(R.id.dfg_main_gameInfo_playerNum);
-        dfg_main_gameInfo_roundNum = findViewById(R.id.dfg_main_gameInfo_roundNum);
-        dfg_main_gameInfo_starNum = findViewById(R.id.dfg_main_gameInfo_starNum);
-        dfg_main_gameInfo_worldTime = findViewById(R.id.dfg_main_gameInfo_worldTime);
-        dfg_main_mine_active = findViewById(R.id.dfg_main_mine_active);
-        dfg_main_mine_defenceValue = findViewById(R.id.dfg_main_mine_defenceValue);
-        dfg_main_mine_informationValue = findViewById(R.id.dfg_main_mine_informationValue);
-        dfg_main_mine_playerNum = findViewById(R.id.dfg_main_mine_playerNum);
-        dfg_main_mine_star_info = findViewById(R.id.dfg_main_mine_star_info);
-        dfg_main_mine_technologyValue = findViewById(R.id.dfg_main_mine_technologyValue);
-        dfg_main_other_activeSum = findViewById(R.id.dfg_main_other_activeSum);
-        dfg_main_other_ggSum = findViewById(R.id.dfg_main_other_ggSum);
+        dfg_main_button = (Button) findViewById(R.id.dfg_main_button);
+        dfg_main_mine_informationValue_button = (Button) findViewById(R.id.dfg_main_mine_informationValue_button);
+        dfg_main_mine_star_info_button = (Button) findViewById(R.id.dfg_main_mine_star_info_button);
+        dfg_main_note_part_textRcyclerView = (RecyclerView) findViewById(R.id.dfg_main_note_part_textRcyclerView);
+        dfg_main_other_info_recyclerView = (RecyclerView) findViewById(R.id.dfg_main_other_info_recyclerView);
+        dfg_main_note_part_text1 = (TabItem) findViewById(R.id.dfg_main_note_part_text1);
+        dfg_main_note_part_text2 = (TabItem) findViewById(R.id.dfg_main_note_part_text2);
+        dfg_main_gameInfo_current_countDown = (TextView) findViewById(R.id.dfg_main_gameInfo_current_countDown);
+        dfg_main_gameInfo_currentMoment = (TextView) findViewById(R.id.dfg_main_gameInfo_currentMoment);
+        dfg_main_gameInfo_currentMoment_info = (TextView) findViewById(R.id.dfg_main_gameInfo_currentMoment_info);
+        dfg_main_gameInfo_playerNum = (TextView) findViewById(R.id.dfg_main_gameInfo_playerNum);
+        dfg_main_gameInfo_roundNum = (TextView) findViewById(R.id.dfg_main_gameInfo_roundNum);
+        dfg_main_gameInfo_starNum = (TextView) findViewById(R.id.dfg_main_gameInfo_starNum);
+        dfg_main_gameInfo_worldTime = (TextView) findViewById(R.id.dfg_main_gameInfo_worldTime);
+        dfg_main_mine_active = (TextView) findViewById(R.id.dfg_main_mine_active);
+        dfg_main_mine_defenceValue = (TextView) findViewById(R.id.dfg_main_mine_defenceValue);
+        dfg_main_mine_informationValue = (TextView) findViewById(R.id.dfg_main_mine_informationValue);
+        dfg_main_mine_playerNum = (TextView) findViewById(R.id.dfg_main_mine_playerNum);
+        dfg_main_mine_star_info = (TextView) findViewById(R.id.dfg_main_mine_star_info);
+        dfg_main_mine_technologyValue = (TextView) findViewById(R.id.dfg_main_mine_technologyValue);
+        dfg_main_other_activeSum = (TextView) findViewById(R.id.dfg_main_other_activeSum);
+        dfg_main_other_ggSum = (TextView) findViewById(R.id.dfg_main_other_ggSum);
     }
 
     private void initDate() {

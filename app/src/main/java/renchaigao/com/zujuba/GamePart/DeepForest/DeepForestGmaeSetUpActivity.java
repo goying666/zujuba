@@ -30,15 +30,15 @@ public class DeepForestGmaeSetUpActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        deep_forest_game_set_up_my_number = findViewById(R.id.deep_forest_game_set_up_my_number);
-        deep_forest_game_set_up_my_name = findViewById(R.id.deep_forest_game_set_up_my_name);
-        deep_forest_game_set_up_button = findViewById(R.id.deep_forest_game_set_up_button);
+        deep_forest_game_set_up_my_number = (TextView) findViewById(R.id.deep_forest_game_set_up_my_number);
+        deep_forest_game_set_up_my_name = (TextView) findViewById(R.id.deep_forest_game_set_up_my_name);
+        deep_forest_game_set_up_button = (Button) findViewById(R.id.deep_forest_game_set_up_button);
         deep_forest_game_set_up_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
         });
-        deep_forest_game_set_up_TextInputEditText = findViewById(R.id.deep_forest_game_set_up_TextInputEditText);
+        deep_forest_game_set_up_TextInputEditText = (TextInputEditText) findViewById(R.id.deep_forest_game_set_up_TextInputEditText);
         deep_forest_game_set_up_TextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -53,7 +53,7 @@ public class DeepForestGmaeSetUpActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-        deep_forest_game_set_up_TextInputLayout = findViewById(R.id.deep_forest_game_set_up_TextInputLayout);
+        deep_forest_game_set_up_TextInputLayout = (TextInputLayout) findViewById(R.id.deep_forest_game_set_up_TextInputLayout);
     }
 
     @Override

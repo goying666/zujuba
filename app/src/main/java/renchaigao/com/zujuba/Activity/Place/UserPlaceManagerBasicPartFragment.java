@@ -108,34 +108,34 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
 
     @Override
     protected void InitView(View rootView) {
-        addressNote = rootView.findViewById(R.id.TextInputEditText1);
-        allPeopleNum = rootView.findViewById(R.id.TextInputEditText2);
+        addressNote = (TextInputEditText) rootView.findViewById(R.id.TextInputEditText1);
+        allPeopleNum = (TextInputEditText) rootView.findViewById(R.id.TextInputEditText2);
         allPeopleNum.setInputType(InputType.TYPE_CLASS_NUMBER);
-        allDeskNum = rootView.findViewById(R.id.TextInputEditText3);
+        allDeskNum = (TextInputEditText) rootView.findViewById(R.id.TextInputEditText3);
         allDeskNum.setInputType(InputType.TYPE_CLASS_NUMBER);
-        place_state = rootView.findViewById(R.id.textView62);
-        time1 = rootView.findViewById(R.id.textView66);
-        time2 = rootView.findViewById(R.id.textView68);
-        time3 = rootView.findViewById(R.id.textView69);
-        time4 = rootView.findViewById(R.id.textView70);
-        time1Cancle = rootView.findViewById(R.id.imageView14);
-        time2Cancle = rootView.findViewById(R.id.imageView21);
-        time3Cancle = rootView.findViewById(R.id.imageView19);
-        time4Cancle = rootView.findViewById(R.id.imageView16);
-        time1Add = rootView.findViewById(R.id.imageView15);
-        time2Add = rootView.findViewById(R.id.imageView20);
-        time3Add = rootView.findViewById(R.id.imageView17);
-        mapDetail = rootView.findViewById(R.id.textView73);
-        placeInfoMore = rootView.findViewById(R.id.textView80);
-        addDesk = rootView.findViewById(R.id.button4);
-        cancleEdit = rootView.findViewById(R.id.Button1);
-        submitEdit = rootView.findViewById(R.id.Button2);
-        reloadMapInfo = rootView.findViewById(R.id.button3);
-        placeInfoMoreCancle = rootView.findViewById(R.id.imageView22);
-        placeStateSwitch = rootView.findViewById(R.id.switch1);
+        place_state = (TextView) rootView.findViewById(R.id.textView62);
+        time1 = (TextView) rootView.findViewById(R.id.textView66);
+        time2 = (TextView) rootView.findViewById(R.id.textView68);
+        time3 = (TextView) rootView.findViewById(R.id.textView69);
+        time4 = (TextView) rootView.findViewById(R.id.textView70);
+        time1Cancle = (ImageView) rootView.findViewById(R.id.imageView14);
+        time2Cancle = (ImageView) rootView.findViewById(R.id.imageView21);
+        time3Cancle = (ImageView) rootView.findViewById(R.id.imageView19);
+        time4Cancle = (ImageView) rootView.findViewById(R.id.imageView16);
+        time1Add = (ImageView) rootView.findViewById(R.id.imageView15);
+        time2Add = (ImageView) rootView.findViewById(R.id.imageView20);
+        time3Add = (ImageView) rootView.findViewById(R.id.imageView17);
+        mapDetail = (TextView) rootView.findViewById(R.id.textView73);
+        placeInfoMore = (TextView) rootView.findViewById(R.id.textView80);
+        addDesk = (Button) rootView.findViewById(R.id.button4);
+        cancleEdit = (Button) rootView.findViewById(R.id.Button1);
+        submitEdit = (Button) rootView.findViewById(R.id.Button2);
+        reloadMapInfo = (Button) rootView.findViewById(R.id.button3);
+        placeInfoMoreCancle = (ImageView) rootView.findViewById(R.id.imageView22);
+        placeStateSwitch = (Switch) rootView.findViewById(R.id.switch1);
         editeView(false);
 
-        recyclerView = rootView.findViewById(R.id.RecyclerView1);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerView1);
         timePickerDialog = new TimePickerDialog(
                 mContext,
                 new TimePickerDialog.OnTimeSetListener() {

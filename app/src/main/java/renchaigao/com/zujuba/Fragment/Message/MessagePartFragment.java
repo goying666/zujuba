@@ -40,14 +40,14 @@ public class MessagePartFragment extends BaseFragment {
 
     @Override
     protected void InitView(View rootView) {
-        tabLayout = rootView.findViewById(R.id.f_message_tabLayout);
+        tabLayout = (TabLayout) rootView.findViewById(R.id.f_message_tabLayout);
         tabLayout.getTabAt(0).select();
         setViewPager(rootView);
-        setTableLayoutView();
     }
 
 
     private UserInfo userInfo;
+
     @Override
     protected void InitData(View rootView) {
 //        userInfo = DataUtil.GetUserInfoData(mContext);
@@ -63,38 +63,9 @@ public class MessagePartFragment extends BaseFragment {
         return R.layout.fragment_message;
     }
 
-
-    private void setTableLayoutView() {
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tabSelecte = tab.getPosition();
-                switch (tabSelecte) {
-                    case 0:
-                        customViewPager.setCurrentItem(0);
-                        break;
-                    case 1:
-                        customViewPager.setCurrentItem(1);
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
-
-    private ViewPager customViewPager;
-
     private void setViewPager(View view) {
 
-        customViewPager = view.findViewById(R.id.fragment_message_customView);
+        ViewPager customViewPager = (ViewPager) view.findViewById(R.id.fragment_message_customView);
         final ClubFragment clubFragment = new ClubFragment();
         final MessageListFragment messageListFragment = new MessageListFragment();
         CustomViewPagerAdapter customViewPagerAdapter = new CustomViewPagerAdapter(getChildFragmentManager());
@@ -105,26 +76,19 @@ public class MessagePartFragment extends BaseFragment {
         customViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
             public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        tabLayout.getTabAt(0).select();
-                        break;
-                    case 1:
-                        tabLayout.getTabAt(1).select();
-                        break;
-                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
+        tabLayout.setupWithViewPager(customViewPager);
+        tabLayout.getTabAt(0).setText("消息");
+        tabLayout.getTabAt(1).setText("俱乐部");
 
     }
 

@@ -89,18 +89,18 @@ public class DFGStarCardAdapter extends RecyclerView.Adapter<DFGStarCardAdapter.
             super(itemView);
             this.thisView = itemView;
             this.cardView = (CardView) itemView;
-            this.card_game_deep_forest_star_image = itemView.findViewById(R.id.card_game_deep_forest_star_image);
-            this.card_game_deep_forest_star_select_Image = itemView.findViewById(R.id.card_game_deep_forest_star_select_Image);
-            this.card_game_deep_forest_star_message = itemView.findViewById(R.id.card_game_deep_forest_star_message);
-            this.card_game_deep_forest_star_name = itemView.findViewById(R.id.card_game_deep_forest_star_name);
-            this.card_game_deep_forest_star_timeValue = itemView.findViewById(R.id.card_game_deep_forest_star_timeValue);
-            this.card_game_deep_forest_star_technologyValue = itemView.findViewById(R.id.card_game_deep_forest_star_technologyValue);
-            this.card_game_deep_forest_star_defenceValue = itemView.findViewById(R.id.card_game_deep_forest_star_defenceValue);
-            this.card_game_deep_forest_star_number = itemView.findViewById(R.id.card_game_deep_forest_star_number);
-            this.card_game_deep_forest_star_levelValue = itemView.findViewById(R.id.card_game_deep_forest_star_levelValue);
-            this.card_game_deep_forest_star_ownerName = itemView.findViewById(R.id.card_game_deep_forest_star_ownerName);
-            this.card_game_deep_forest_star_message_infoPart = itemView.findViewById(R.id.card_game_deep_forest_star_message_infoPart);
-            this.card_game_deep_forest_star_messagePart = itemView.findViewById(R.id.card_game_deep_forest_star_messagePart);
+            this.card_game_deep_forest_star_image = (ImageView) itemView.findViewById(R.id.card_game_deep_forest_star_image);
+            this.card_game_deep_forest_star_select_Image = (ImageView) itemView.findViewById(R.id.card_game_deep_forest_star_select_Image);
+            this.card_game_deep_forest_star_message = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_message);
+            this.card_game_deep_forest_star_name = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_name);
+            this.card_game_deep_forest_star_timeValue = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_timeValue);
+            this.card_game_deep_forest_star_technologyValue = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_technologyValue);
+            this.card_game_deep_forest_star_defenceValue = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_defenceValue);
+            this.card_game_deep_forest_star_number = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_number);
+            this.card_game_deep_forest_star_levelValue = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_levelValue);
+            this.card_game_deep_forest_star_ownerName = (TextView) itemView.findViewById(R.id.card_game_deep_forest_star_ownerName);
+            this.card_game_deep_forest_star_message_infoPart = (ConstraintLayout) itemView.findViewById(R.id.card_game_deep_forest_star_message_infoPart);
+            this.card_game_deep_forest_star_messagePart = (ConstraintLayout) itemView.findViewById(R.id.card_game_deep_forest_star_messagePart);
         }
     }
 }

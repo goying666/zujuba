@@ -43,11 +43,10 @@
         android:icon="@mipmap/zujuba_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/zujuba_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Message.MessagesInfoActivity"></activity>
-        <activity android:name=".Activity.Message.FriendMessageInfoActivity" />
+        <!--<activity android:name=".Activity.Message.MessagesInfoActivity"></activity>-->
+        <!--<activity android:name=".Activity.Message.FriendMessageInfoActivity" />-->
         <activity android:name=".Activity.Message.SystemMessageInfoActivity" />
         <activity android:name=".Activity.Message.ClubMessageInfoActivity" />
         <activity android:name=".Activity.Message.TeamMessageInfoActivity" />

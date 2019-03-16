@@ -66,24 +66,24 @@ public class StoreActivity extends BaseActivity {
 
     @Override
     protected void InitView() {
-        banner = findViewById(R.id.a_place_page_banner);
-        store_page_ratingbar = findViewById(R.id.store_page_ratingbar);
-        store_phone_image = findViewById(R.id.store_page_phone_imge);
-        store_name = findViewById(R.id.store_name_text);
-        store_socre = findViewById(R.id.store_page_score);
-        store_allpeoplenum = findViewById(R.id.store_page_evaluation_people_number);
-        store_spend = findViewById(R.id.store_page_spend);
-        store_stars = findViewById(R.id.store_page_ratingbar_text);
-        store_time1 = findViewById(R.id.store_page_time_1);
-        store_time2 = findViewById(R.id.store_page_time_2);
-        store_time3 = findViewById(R.id.store_page_time_3);
-        store_time4 = findViewById(R.id.store_page_time_4);
-        store_address = findViewById(R.id.store_page_address_info);
-        store_environment = findViewById(R.id.a_store_info_environment);
-        store_note = findViewById(R.id.a_store_info_note);
-        store_desk = findViewById(R.id.store_page_null7);
-        store_nowpeople = findViewById(R.id.store_page_null9);
-        a_store_info_team_note = findViewById(R.id.a_store_info_team_note);
+        banner = (Banner) findViewById(R.id.a_place_page_banner);
+        store_page_ratingbar = (RatingBar) findViewById(R.id.store_page_ratingbar);
+        store_phone_image = (ImageView) findViewById(R.id.store_page_phone_imge);
+        store_name = (TextView) findViewById(R.id.store_name_text);
+        store_socre = (TextView) findViewById(R.id.store_page_score);
+        store_allpeoplenum = (TextView) findViewById(R.id.store_page_evaluation_people_number);
+        store_spend = (TextView) findViewById(R.id.store_page_spend);
+        store_stars = (TextView) findViewById(R.id.store_page_ratingbar_text);
+        store_time1 = (TextView) findViewById(R.id.store_page_time_1);
+        store_time2 = (TextView) findViewById(R.id.store_page_time_2);
+        store_time3 = (TextView) findViewById(R.id.store_page_time_3);
+        store_time4 = (TextView) findViewById(R.id.store_page_time_4);
+        store_address = (TextView) findViewById(R.id.store_page_address_info);
+        store_environment = (TextView) findViewById(R.id.a_store_info_environment);
+        store_note = (TextView) findViewById(R.id.a_store_info_note);
+        store_desk = (TextView) findViewById(R.id.store_page_null7);
+        store_nowpeople = (TextView) findViewById(R.id.store_page_null9);
+        a_store_info_team_note = (TextView) findViewById(R.id.a_store_info_team_note);
         ;
     }
 

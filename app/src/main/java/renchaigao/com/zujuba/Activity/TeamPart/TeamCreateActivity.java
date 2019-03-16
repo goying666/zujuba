@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -152,7 +151,7 @@ public class TeamCreateActivity extends BaseActivity {
 
     @Override
     protected void InitView() {
-        nestedScrollView = findViewById(R.id.ct_nestedScrollView);
+        nestedScrollView = (NestedScrollView) findViewById(R.id.ct_nestedScrollView);
 
         initData();
         initDateView();
@@ -236,13 +235,13 @@ public class TeamCreateActivity extends BaseActivity {
     //    初始化日期相关默认选项
     private void initDateView() {
 
-        create_team_date_title = findViewById(R.id.create_team_date_title);
-        id_activity_create_team_datetime_con = findViewById(R.id.id_activity_create_team_datetime_con);
-        id_activity_create_team_datetime_image_more = findViewById(R.id.id_activity_create_team_datetime_image_more);
-        id_activity_create_team_datetime_selectinfo = findViewById(R.id.id_activity_create_team_datetime_selectinfo);
+        create_team_date_title = (TextView) findViewById(R.id.create_team_date_title);
+        id_activity_create_team_datetime_con = (ConstraintLayout) findViewById(R.id.id_activity_create_team_datetime_con);
+        id_activity_create_team_datetime_image_more = (ImageView) findViewById(R.id.id_activity_create_team_datetime_image_more);
+        id_activity_create_team_datetime_selectinfo = (LinearLayout) findViewById(R.id.id_activity_create_team_datetime_selectinfo);
         id_activity_create_team_datetime_selectinfo.setVisibility(View.GONE);
 //      默认设置今日日期
-        textview_creat_team_date = findViewById(R.id.textview_creat_team_date);
+        textview_creat_team_date = (TextView) findViewById(R.id.textview_creat_team_date);
 
 //        实例化各选项
         today_widgetDateAndWeekSelect = new WidgetDateAndWeekSelect();
@@ -367,16 +366,16 @@ public class TeamCreateActivity extends BaseActivity {
 
     //    初始化时间段
     private void initTime() {
-        id_activity_create_team_datetime = findViewById(R.id.id_activity_create_team_datetime);
+        id_activity_create_team_datetime = (LinearLayout) findViewById(R.id.id_activity_create_team_datetime);
         id_activity_create_team_datetime.setVisibility(View.VISIBLE);
-        id_activity_create_team_time_con = findViewById(R.id.id_activity_create_team_time_con);
-        id_activity_create_team_time_selectinfo_morning = findViewById(R.id.id_activity_create_team_time_selectinfo_morning);
-        id_activity_create_team_time_selectinfo_afternoon = findViewById(R.id.id_activity_create_team_time_selectinfo_afternoon);
-        id_activity_create_team_time_selectinfo_evening = findViewById(R.id.id_activity_create_team_time_selectinfo_evening);
-        id_activity_create_team_time_selectinfo_night = findViewById(R.id.id_activity_create_team_time_selectinfo_night);
-        id_activity_create_team_time_selectinfo = findViewById(R.id.id_activity_create_team_time_selectinfo);
-        id_activity_create_team_time_image_more = findViewById(R.id.id_activity_create_team_time_image_more);
-        id_activity_create_team_time_value = findViewById(R.id.id_activity_create_team_time_value);
+        id_activity_create_team_time_con = (ConstraintLayout) findViewById(R.id.id_activity_create_team_time_con);
+        id_activity_create_team_time_selectinfo_morning = (ConstraintLayout) findViewById(R.id.id_activity_create_team_time_selectinfo_morning);
+        id_activity_create_team_time_selectinfo_afternoon = (ConstraintLayout) findViewById(R.id.id_activity_create_team_time_selectinfo_afternoon);
+        id_activity_create_team_time_selectinfo_evening = (ConstraintLayout) findViewById(R.id.id_activity_create_team_time_selectinfo_evening);
+        id_activity_create_team_time_selectinfo_night = (ConstraintLayout) findViewById(R.id.id_activity_create_team_time_selectinfo_night);
+        id_activity_create_team_time_selectinfo = (LinearLayout) findViewById(R.id.id_activity_create_team_time_selectinfo);
+        id_activity_create_team_time_image_more = (ImageView) findViewById(R.id.id_activity_create_team_time_image_more);
+        id_activity_create_team_time_value = (TextView) findViewById(R.id.id_activity_create_team_time_value);
         id_activity_create_team_time_selectinfo.setVisibility(View.GONE);
         id_activity_create_team_time_value.setText("点击选择");
         id_activity_create_team_time_image_more.setImageResource(R.drawable.more_down);
@@ -384,18 +383,18 @@ public class TeamCreateActivity extends BaseActivity {
 
     //    初始化地点选项
     private void initAddress() {
-        create_team_address_constraintlayout = findViewById(R.id.create_team_address_constraintlayout);
-        team_create_address_info_layout = findViewById(R.id.team_create_address_info_layout);
-        create_team_address_more_image = findViewById(R.id.create_team_address_more_image);
-        create_team_open_place_button = findViewById(R.id.create_team_open_place_button);
-        create_team_store_button = findViewById(R.id.create_team_store_button);
-        create_team_address_name = findViewById(R.id.create_team_address_name);
-        create_team_place_pic1 = findViewById(R.id.create_team_place_pic1);
-        ct_addres_info_layout = findViewById(R.id.ct_addres_info_layout);
+        create_team_address_constraintlayout = (ConstraintLayout) findViewById(R.id.create_team_address_constraintlayout);
+        team_create_address_info_layout = (LinearLayout) findViewById(R.id.team_create_address_info_layout);
+        create_team_address_more_image = (ImageView) findViewById(R.id.create_team_address_more_image);
+        create_team_open_place_button = (Button) findViewById(R.id.create_team_open_place_button);
+        create_team_store_button = (Button) findViewById(R.id.create_team_store_button);
+        create_team_address_name = (TextView) findViewById(R.id.create_team_address_name);
+        create_team_place_pic1 = (ImageView) findViewById(R.id.create_team_place_pic1);
+        ct_addres_info_layout = (LinearLayout) findViewById(R.id.ct_addres_info_layout);
 //        create_team_place_pic2 = findViewById(R.id.create_team_place_pic2);
 //        create_team_place_pic3 = findViewById(R.id.create_team_place_pic3);
-        create_team_address_button_cons1 = findViewById(R.id.create_team_address_button_cons1);
-        create_team_address_button_cons2 = findViewById(R.id.create_team_address_button_cons2);
+        create_team_address_button_cons1 = (ConstraintLayout) findViewById(R.id.create_team_address_button_cons1);
+        create_team_address_button_cons2 = (ConstraintLayout) findViewById(R.id.create_team_address_button_cons2);
         create_team_address_constraintlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -436,16 +435,16 @@ public class TeamCreateActivity extends BaseActivity {
 
     //    游戏部分设置
     private void setGame() {
-        create_team_game_more = findViewById(R.id.create_team_game_more);
+        create_team_game_more = (ImageView) findViewById(R.id.create_team_game_more);
 
-        create_team_game_title = findViewById(R.id.create_team_game_title);
-        create_team_game_lrs = findViewById(R.id.create_team_game_lrs);
-        create_team_game_thqby = findViewById(R.id.create_team_game_thqby);
-        create_team_game_number_lrs = findViewById(R.id.create_team_game_number_lrs);
-        create_team_game_number_thqby = findViewById(R.id.create_team_game_number_thqby);
-        id_activity_create_team_game = findViewById(R.id.id_activity_create_team_game);
-        create_team_game_CheckBox_lrs = findViewById(R.id.create_team_game_CheckBox_lrs);
-        create_team_game_CheckBox_thqby = findViewById(R.id.create_team_game_CheckBox_thqby);
+        create_team_game_title = (TextView) findViewById(R.id.create_team_game_title);
+        create_team_game_lrs = (ConstraintLayout) findViewById(R.id.create_team_game_lrs);
+        create_team_game_thqby = (ConstraintLayout) findViewById(R.id.create_team_game_thqby);
+        create_team_game_number_lrs = (TextView) findViewById(R.id.create_team_game_number_lrs);
+        create_team_game_number_thqby = (TextView) findViewById(R.id.create_team_game_number_thqby);
+        id_activity_create_team_game = (ConstraintLayout) findViewById(R.id.id_activity_create_team_game);
+        create_team_game_CheckBox_lrs = (AppCompatCheckBox) findViewById(R.id.create_team_game_CheckBox_lrs);
+        create_team_game_CheckBox_thqby = (AppCompatCheckBox) findViewById(R.id.create_team_game_CheckBox_thqby);
         create_team_game_number_thqby.setVisibility(View.GONE);
         create_team_game_number_lrs.setVisibility(View.GONE);
         id_activity_create_team_game.setOnClickListener(new View.OnClickListener() {
@@ -516,16 +515,13 @@ public class TeamCreateActivity extends BaseActivity {
     }
 
     private void initPeople() {
-        ct_people_selectinfo_textview_value_min = findViewById(R.id.ct_people_selectinfo_textview_value_min);
-        ct_people_selectinfo_textview_value_max = findViewById(R.id.ct_people_selectinfo_textview_value_max);
-        people_min_textview = findViewById(R.id.ct_people_selectinfo_textview_min_value);
-        people_max_textview = findViewById(R.id.ct_people_selectinfo_textview_max_value);
-        people_min_select = findViewById(R.id.ct_people_selectinfo_seekbar_min);
-        people_max_select = findViewById(R.id.ct_people_selectinfo_seekbar_max);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            people_min_select.setMin(4);
-            people_max_select.setMin(4);
-        }
+        ct_people_selectinfo_textview_value_min = (TextView) findViewById(R.id.ct_people_selectinfo_textview_value_min);
+        ct_people_selectinfo_textview_value_max = (TextView) findViewById(R.id.ct_people_selectinfo_textview_value_max);
+        people_min_textview = (TextView) findViewById(R.id.ct_people_selectinfo_textview_min_value);
+        people_max_textview = (TextView) findViewById(R.id.ct_people_selectinfo_textview_max_value);
+        people_min_select = (SeekBar) findViewById(R.id.ct_people_selectinfo_seekbar_min);
+        people_max_select = (SeekBar) findViewById(R.id.ct_people_selectinfo_seekbar_max);
+
         people_min_select.setMax(19);
         people_max_select.setMax(19);
 
@@ -769,22 +765,22 @@ public class TeamCreateActivity extends BaseActivity {
         filter5 = null;
         filter6 = null;
         filterClickFlag = true;
-        filter_all_ConstrainLayout = findViewById(R.id.filter_all_ConstrainLayout);
-        filter_all_layout = findViewById(R.id.filter_all_layout);
-        ct_filter_image_more = findViewById(R.id.ct_filter_image_more);
-        ct_filter_title_text = findViewById(R.id.ct_filter_title_text);
-        switch_join_team_1 = findViewById(R.id.switch_join_team_1);
-        switch_join_team_2 = findViewById(R.id.switch_join_team_2);
-        switch_join_team_3 = findViewById(R.id.switch_join_team_3);
-        switch_join_team_4 = findViewById(R.id.switch_join_team_4);
-        switch_join_team_5 = findViewById(R.id.switch_join_team_5);
-        switch_join_team_6 = findViewById(R.id.switch_join_team_6);
-        switch_join_team_spinner_1 = findViewById(R.id.switch_join_team_spinner_1);
-        switch_join_team_spinner_2 = findViewById(R.id.switch_join_team_spinner_2);
-        switch_join_team_spinner_3 = findViewById(R.id.switch_join_team_spinner_3);
-        switch_join_team_spinner_4 = findViewById(R.id.switch_join_team_spinner_4);
-        switch_join_team_spinner_5 = findViewById(R.id.switch_join_team_spinner_5);
-        switch_join_team_spinner_6 = findViewById(R.id.switch_join_team_spinner_6);
+        filter_all_ConstrainLayout = (ConstraintLayout) findViewById(R.id.filter_all_ConstrainLayout);
+        filter_all_layout = (LinearLayout) findViewById(R.id.filter_all_layout);
+        ct_filter_image_more = (ImageView) findViewById(R.id.ct_filter_image_more);
+        ct_filter_title_text = (TextView) findViewById(R.id.ct_filter_title_text);
+        switch_join_team_1 = (Switch) findViewById(R.id.switch_join_team_1);
+        switch_join_team_2 = (Switch) findViewById(R.id.switch_join_team_2);
+        switch_join_team_3 = (Switch) findViewById(R.id.switch_join_team_3);
+        switch_join_team_4 = (Switch) findViewById(R.id.switch_join_team_4);
+        switch_join_team_5 = (Switch) findViewById(R.id.switch_join_team_5);
+        switch_join_team_6 = (Switch) findViewById(R.id.switch_join_team_6);
+        switch_join_team_spinner_1 = (AppCompatSpinner) findViewById(R.id.switch_join_team_spinner_1);
+        switch_join_team_spinner_2 = (AppCompatSpinner) findViewById(R.id.switch_join_team_spinner_2);
+        switch_join_team_spinner_3 = (AppCompatSpinner) findViewById(R.id.switch_join_team_spinner_3);
+        switch_join_team_spinner_4 = (AppCompatSpinner) findViewById(R.id.switch_join_team_spinner_4);
+        switch_join_team_spinner_5 = (AppCompatSpinner) findViewById(R.id.switch_join_team_spinner_5);
+        switch_join_team_spinner_6 = (AppCompatSpinner) findViewById(R.id.switch_join_team_spinner_6);
 
         filter_all_ConstrainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -972,7 +968,7 @@ public class TeamCreateActivity extends BaseActivity {
             }
         });
 
-        spinner_ct_spend = findViewById(R.id.spinner_ct_spend);
+        spinner_ct_spend = (AppCompatSpinner) findViewById(R.id.spinner_ct_spend);
         spinner_ct_spend.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -990,11 +986,11 @@ public class TeamCreateActivity extends BaseActivity {
     private void setSecretPart() {
 //        加密部分
         pwdFlag = false;
-        ct_pwd_title = findViewById(R.id.ct_pwd_title);
-        create_team_pwd_switch = findViewById(R.id.create_team_pwd_switch);
-        create_team_pwd_ConstraintLayout = findViewById(R.id.create_team_pwd_ConstraintLayout);
-        create_team_pwd_TextInputLayout = findViewById(R.id.create_team_pwd_TextInputLayout);
-        create_team_pwd_TextInputEditText = findViewById(R.id.create_team_pwd_TextInputEditText);
+        ct_pwd_title = (TextView) findViewById(R.id.ct_pwd_title);
+        create_team_pwd_switch = (Switch) findViewById(R.id.create_team_pwd_switch);
+        create_team_pwd_ConstraintLayout = (ConstraintLayout) findViewById(R.id.create_team_pwd_ConstraintLayout);
+        create_team_pwd_TextInputLayout = (TextInputLayout) findViewById(R.id.create_team_pwd_TextInputLayout);
+        create_team_pwd_TextInputEditText = (TextInputEditText) findViewById(R.id.create_team_pwd_TextInputEditText);
         create_team_pwd_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -1043,8 +1039,8 @@ public class TeamCreateActivity extends BaseActivity {
     private void setButton() {
         builder = new AlertDialog.Builder(TeamCreateActivity.this);
         progDialog = new ProgressDialog(TeamCreateActivity.this);
-        button_create_team_cancle = findViewById(R.id.button_create_team_cancle);
-        button_create_team_next = findViewById(R.id.button_create_team_next);
+        button_create_team_cancle = (Button) findViewById(R.id.button_create_team_cancle);
+        button_create_team_next = (Button) findViewById(R.id.button_create_team_next);
         button_create_team_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

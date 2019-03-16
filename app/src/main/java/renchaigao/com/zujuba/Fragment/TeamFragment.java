@@ -20,8 +20,6 @@ import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -164,7 +162,7 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
 
 
     private void setButton(View view) {
-        button_creatTeam = view.findViewById(R.id.button_creatTeam);
+        button_creatTeam = (Button) view.findViewById(R.id.button_creatTeam);
 
         button_creatTeam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,13 +175,13 @@ public class TeamFragment extends BaseFragment implements CommonViewHolder.onIte
 
     @Override
     protected void InitView(View rootView) {
-        tableLayout = rootView.findViewById(R.id.tabLayout);
-        swipeRefreshLayout = rootView.findViewById(R.id.team_swipe_refresh); //设置没有item动画
-        recyclerView = rootView.findViewById(R.id.team_page_recycler_view);
-        item1 = rootView.findViewById(R.id.tabItem1);
-        item2 = rootView.findViewById(R.id.tabItem2);
-        item3 = rootView.findViewById(R.id.tabItem3);
-        item4 = rootView.findViewById(R.id.tabItem4);
+        tableLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.team_swipe_refresh); //设置没有item动画
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.team_page_recycler_view);
+        item1 = (TabItem) rootView.findViewById(R.id.tabItem1);
+        item2 = (TabItem) rootView.findViewById(R.id.tabItem2);
+        item3 = (TabItem) rootView.findViewById(R.id.tabItem3);
+        item4 = (TabItem) rootView.findViewById(R.id.tabItem4);
     }
 
     @Override

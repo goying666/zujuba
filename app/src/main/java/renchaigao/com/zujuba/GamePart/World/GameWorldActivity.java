@@ -23,7 +23,7 @@ public class GameWorldActivity extends AppCompatActivity {
     }
 
     private void initToolbar(){
-        game_info_user_icon = findViewById(R.id.game_info_user_icon);
+        game_info_user_icon = (ImageView) findViewById(R.id.game_info_user_icon);
         game_info_user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +34,7 @@ public class GameWorldActivity extends AppCompatActivity {
     }
 
     private void initButton(){
-        back_to_mine = findViewById(R.id.back_to_mine);
+        back_to_mine = (Button) findViewById(R.id.back_to_mine);
         back_to_mine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

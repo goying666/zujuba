@@ -10,10 +10,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,11 +22,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,48 +43,43 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
-import renchaigao.com.zujuba.Fragment.GameFragment;
+import renchaigao.com.zujuba.Fragment.Game.GameFragment;
 import renchaigao.com.zujuba.Fragment.HallFragment;
 import renchaigao.com.zujuba.Fragment.Message.MessagePartFragment;
 import renchaigao.com.zujuba.Fragment.MineFragment;
 import renchaigao.com.zujuba.Fragment.TeamFragment;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
-import renchaigao.com.zujuba.util.BottomNavigationViewHelper;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.CustomViewPager;
 
+import static com.renchaigao.zujuba.PropertiesConfig.UserConstant.USER_UPDATE_INFO_CLASS_ADDRESS;
+import static com.renchaigao.zujuba.PropertiesConfig.UserConstant.USER_UPDATE_INFO_CLASS_BASIC;
+
 public class MainActivity extends BaseActivity {
     protected static String TAG = "MainActivity";
-    private NavigationView navigationView;
-    private BottomNavigationView bottomNavigationView;
     private DrawerLayout drawerLayout;
     private CustomViewPager customViewPager;
     private AlertDialog.Builder builder;
     private User user;
     private UserInfo userInfo;
-    private String userPlace;
-    private ConstraintLayout header_layout, a_main_toolbar_constraintlayout;
-    private ImageView a_main_toolbar_usericon;
-    private TextView a_main_toolbar_location_text;
+    private String userPlace, userId, token;
     private Toolbar toolbar;
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-////        SharedPreferences pref = getSharedPreferences("userData", MODE_PRIVATE);
-////        initData();
-////        Log.e(TAG, pref.getString("token", "fail find"));
-////        drawerLayout = findViewById(R.id.main_drawerLayout);
-////        setNavigationView();
-////        setLocationPart();
-//
-////        getLocation();
-//    }
+    private TabLayout bottom_tableLayout;
+    TabItem tab1;
 
     // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
+    @Override
+    protected void InitView() {
+        customViewPager = (CustomViewPager) findViewById(R.id.main_customView);
+        bottom_tableLayout = (TabLayout) findViewById(R.id.bottom_tableLayout);
+//        tab1 = findViewById(R.id.)
+        setToolBar();
+
+    }
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
 
@@ -99,7 +92,7 @@ public class MainActivity extends BaseActivity {
     };
 
     private void setToolBar() {
-        toolbar = findViewById(R.id.a_main_Toolbar);
+        toolbar = (Toolbar) findViewById(R.id.a_main_Toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("组局吧");
         toolbar.inflateMenu(R.menu.main_toolbar_hall);
@@ -121,49 +114,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void InitView() {
-        setToolBar();
-//        a_main_toolbar_location_text = findViewById(R.id.a_main_toolbar_location_text);
-//        a_main_toolbar_usericon = findViewById(R.id.a_main_toolbar_usericon);
-        customViewPager = findViewById(R.id.main_customView);
-//        a_main_toolbar_constraintlayout = findViewById(R.id.a_main_toolbar_constraintlayout);
-        bottomNavigationView = findViewById(R.id.main_bootomNavigationView);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_message:
-//                        item.setIcon(R.drawable.message_select);
-                        customViewPager.setCurrentItem(0);
-                        return true;
-                    case R.id.navigation_team:
-                        item.setIcon(R.drawable.team_select);
-                        customViewPager.setCurrentItem(1);
-                        return true;
-                    case R.id.navigation_dating:
-                        item.setIcon(R.drawable.home_select);
-                        customViewPager.setCurrentItem(2);
-                        return true;
-                    case R.id.navigation_game:
-                        item.setIcon(R.drawable.game_select);
-                        customViewPager.setCurrentItem(3);
-                        return true;
-                    case R.id.navigation_mine:
-                        item.setIcon(R.drawable.message_select);
-                        customViewPager.setCurrentItem(4);
-                        return true;
-                }
-                return false;
-            }
-        });
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-    }
-
-    @Override
     protected void InitData() {
         userInfo = DataUtil.GetUserInfoData(MainActivity.this);
         user = DataUtil.GetUserData(MainActivity.this);
+        userId = userInfo.getId();
+        token = userInfo.getToken();
     }
 
     @Override
@@ -223,11 +178,8 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private LocationManager locationManager;
-    private String locationProvider;
-
     private void getLocation() {
-        locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);//低精度，如果设置为高精度，依然获取不了location。
         criteria.setAltitudeRequired(false);//不要求海拔
@@ -235,7 +187,7 @@ public class MainActivity extends BaseActivity {
         criteria.setCostAllowed(true);//允许有花费
         criteria.setPowerRequirement(Criteria.POWER_LOW);//低功耗
         //从可用的位置提供器中，匹配以上标准的最佳提供器
-        locationProvider = locationManager.getBestProvider(criteria, true);
+        String locationProvider = locationManager.getBestProvider(criteria, true);
         if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getApplicationContext(),
@@ -262,34 +214,8 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private LinearLayout nva_1;
-
-//    private void setNavigationView() {
-////        navigationView = findViewById(R.id.main_navigationView);
-//
-//        View headview = navigationView.inflateHeaderView(R.layout.left_page_layout);
-////        Menu  menu =navigationView.getMenu();
-////        MenuItem menuItem = menu.findItem(R.id.nav_person);
-////        View actionView = menuItem.getActionView();
-////        nva_1 = (LinearLayout)actionView;
-//        nva_1 = (LinearLayout) navigationView.getMenu().findItem(R.id.nav_person).getActionView();
-//        TextView textView = (TextView) nva_1.findViewById(R.id.menu_use_text);
-//        textView.setText("1");
-//
-//        header_layout = headview.findViewById(R.id.navigation_header_layout);
-//        header_layout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-
-
     private void setViewPager() {
 
-        final CustomViewPager customViewPager = findViewById(R.id.main_customView);
         final HallFragment hallFragment = new HallFragment();
         final GameFragment gameFragment = new GameFragment();
         final MessagePartFragment messagePartFragment = new MessagePartFragment();
@@ -307,24 +233,9 @@ public class MainActivity extends BaseActivity {
 
         customViewPager.setAdapter(customViewPagerAdapter);
         customViewPager.setCurrentItem(2);
-
-        bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.navigation_message:
-//                        //在这里替换图标
-//                        item.setIcon(R.mipmap.ic_home_selected);
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
         customViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -334,11 +245,9 @@ public class MainActivity extends BaseActivity {
                 switch (position) {
                     case 0:
                         toolbar.setVisibility(View.GONE);
-                        bottomNavigationView.setSelectedItemId(R.id.navigation_message);
                         break;
                     case 1:
                         toolbar.setVisibility(View.VISIBLE);
-                        bottomNavigationView.setSelectedItemId(R.id.navigation_team);
                         break;
                     case 2:
                         toolbar.setVisibility(View.VISIBLE);
@@ -358,11 +267,9 @@ public class MainActivity extends BaseActivity {
                                 return false;
                             }
                         });
-                        bottomNavigationView.setSelectedItemId(R.id.navigation_dating);
                         break;
                     case 3:
                         toolbar.setVisibility(View.VISIBLE);
-                        bottomNavigationView.setSelectedItemId(R.id.navigation_game);
                         break;
                     case 4:
                         toolbar.setVisibility(View.VISIBLE);
@@ -375,9 +282,6 @@ public class MainActivity extends BaseActivity {
                                 return false;
                             }
                         });
-//                        a_main_toolbar_constraintlayout.setVisibility(View.VISIBLE);
-//                        a_main_toolbar_constraintlayout.setVisibility(View.GONE);
-                        bottomNavigationView.setSelectedItemId(R.id.navigation_mine);
                         break;
                 }
             }
@@ -388,41 +292,30 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-//        navigationView.setFocusable(true);
+        bottom_tableLayout.setupWithViewPager(customViewPager);
+        View tab1 = LayoutInflater.from(this).inflate(R.layout.widget_bottom_item, null);
 
-//        initUserImageView();
+        bottom_tableLayout.getTabAt(0).setCustomView(tab_icon("聊天", R.drawable.bottom_item_message_select));
+        bottom_tableLayout.getTabAt(1).setCustomView(tab_icon("组局", R.drawable.bottom_item_team_select));
+        bottom_tableLayout.getTabAt(2).setCustomView(tab_icon("大厅", R.drawable.bottom_item_home_select));
+        bottom_tableLayout.getTabAt(3).setCustomView(tab_icon("游戏", R.drawable.bottom_item_game_select));
+        bottom_tableLayout.getTabAt(4).setCustomView(tab_icon("我的", R.drawable.bottom_item_mine_select));
+//        bottom_tableLayout.getTabAt(0).setText("消息").setIcon(R.drawable.bottom_item_message_select);
+//        bottom_tableLayout.getTabAt(1).setText("组局").setIcon(R.drawable.bottom_item_team_select);
+//        bottom_tableLayout.getTabAt(2).setText("大厅").setIcon(R.drawable.bottom_item_home_select);
+//        bottom_tableLayout.getTabAt(3).setText("游戏").setIcon(R.drawable.bottom_item_game_select);
+//        bottom_tableLayout.getTabAt(4).setText("我的").setIcon(R.drawable.bottom_item_mine_select);
 
-//        hallFragment.reloadAdapter();
     }
 
-//    private void initBottomNavigationView(final CustomViewPager customViewPager) {
-//        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-//                = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.navigation_message:
-//                        customViewPager.setCurrentItem(0);
-//                        return true;
-//                    case R.id.navigation_team:
-//                        customViewPager.setCurrentItem(1);
-//                        return true;
-//                    case R.id.navigation_dating:
-//                        customViewPager.setCurrentItem(2);
-//                        return true;
-//                    case R.id.navigation_game:
-//                        customViewPager.setCurrentItem(3);
-//                        return true;
-//                    case R.id.navigation_mine:
-//                        customViewPager.setCurrentItem(4);
-//                        return true;
-//                }
-//                return true;
-//            }
-//        };
-//        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//    }
+    private View tab_icon(String name, int iconID) {
+        View newtab = LayoutInflater.from(this).inflate(R.layout.widget_bottom_item, null);
+        TextView tv = (TextView) newtab.findViewById(R.id.widget_bottom_item_title);
+        tv.setText(name);
+        ImageView im = (ImageView) newtab.findViewById(R.id.widget_bottom_item_image);
+        im.setImageResource(iconID);
+        return newtab;
+    }
 
     static class CustomViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
@@ -447,16 +340,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-//    private void initUserImageView(){
-//        main__user_icon = findViewById(R.id.main__user_icon);
-//        main__user_icon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigationView.setClickable(true);
-//            }
-//        });
-//    }
-
     /**
      * 双击返回桌面
      */
@@ -480,73 +363,14 @@ public class MainActivity extends BaseActivity {
 
     }
 
-//     private void sendAddressToService1() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                String path = PropertiesConfig.userServerUrl + "info/update/address";
-//                OkHttpClient.Builder builder = new OkHttpClient.Builder()
-//                        .connectTimeout(15, TimeUnit.SECONDS)
-//                        .readTimeout(15, TimeUnit.SECONDS)
-//                        .writeTimeout(15, TimeUnit.SECONDS)
-//                        .retryOnConnectionFailure(true);
-//                builder.sslSocketFactory(OkhttpFunc.createSSLSocketFactory());
-//                builder.hostnameVerifier(new HostnameVerifier() {
-//                    @Override
-//                    public boolean verify(String hostname, SSLSession session) {
-//                        return true;
-//                    }
-//                });
-//                String str = JSONObject.toJSONString(userInfo);
-//                final RequestBody body = RequestBody.create(FinalDefine.MEDIA_TYPE_JSON, JSONObject.toJSONString(userInfo));
-//                final Request request = new Request.Builder()
-//                        .url(path)
-//                        .header("Content-Type", "application/json")
-//                        .post(body)
-//                        .build();
-//                builder.build().newCall(request).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                        Log.e(TAG, call.request().body().toString());
-//                        Message msg = new Message();
-//                        msg.obj = "发送失败，e";
-//                        // 把消息发送到主线程，在主线程里现实Toast
-//                        handler.sendMessage(msg);
-//                    }
-//
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        try {
-//                            JSONObject responseJson = JSONObject.parseObject(response.body().string());
-//                            int code = Integer.valueOf(responseJson.get("code").toString());
-//                            JSONObject responseJsonData = (JSONObject) responseJson.getJSONObject("data");
-//                            switch (code) {
-//                                case 0:
-//                                    DataUtil.SaveUserInfoData(MainActivity.this, JSONObject.toJSONString(responseJsonData));
-////                                    UserInfo userTestINFO = DataUtil.GetUserInfoData(MainActivity.this);
-//
-//                                    Message msg = new Message();
-//                                    msg.obj = "地址更新成功";
-//                                    // 把消息发送到主线程，在主线程里现实Toast
-//                                    handler.sendMessage(msg);
-//                                    break;
-//                            }
-//                        } catch (Exception e) {
-//                            Log.e(TAG, e.toString());
-//                        }
-//                    }
-//                });
-//
-//            }
-//        }).start();
-//    }
-
 
     private void sendAddressToService() {
-        addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
-                .FourParameterJsonPost(
-                        "update", "addressInfo", userInfo.getId(), "null",
-                        JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo()), JSONObject.class))
+        addSubscribe(
+                RetrofitServiceManager.getInstance().creat(UserApiService.class)
+                .UpdateUserInfo(USER_UPDATE_INFO_CLASS_ADDRESS
+                        , userId
+                        , token
+                        , JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo())))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(this) {

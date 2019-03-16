@@ -62,7 +62,7 @@ public class UserTeamActivity extends AppCompatActivity implements CommonViewHol
     }
 
     private void setRecyclerView() {
-        recyclerView = findViewById(R.id.a_u_createTeam_RecyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.a_u_createTeam_RecyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         teamFragmentAdapter = new TeamFragmentAdapter(this,teamList,this);

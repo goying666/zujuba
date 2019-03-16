@@ -29,7 +29,7 @@ public class UserActivity extends AppCompatActivity {
             activity_user_other_changdi_title_own_2, activity_user_other_changdi_title_play_2;
 
     private void initButton() {
-        activity_user_other_toolbar_edit = findViewById(R.id.activity_user_other_toolbar_edit);
+        activity_user_other_toolbar_edit = (Button) findViewById(R.id.activity_user_other_toolbar_edit);
         activity_user_other_toolbar_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,12 +42,12 @@ public class UserActivity extends AppCompatActivity {
     @SuppressLint("CutPasteId")
     private void InitView() {
 
-        activity_user_other_textview_zuju_title = findViewById(R.id.activity_user_other_textview_zuju_title);
-        activity_user_other_textview_title_dianzan = findViewById(R.id.activity_user_other_textview_title_dianzan);
-        activity_user_other_textview_youxi_title = findViewById(R.id.activity_user_other_textview_youxi_title);
-        activity_user_other_textview_youxi_title_wanguo = findViewById(R.id.activity_user_other_textview_youxi_title_wanguo);
-        activity_user_other_changdi_title = findViewById(R.id.activity_user_other_changdi_title);
-        activity_user_other_changdi_title_playTimes = findViewById(R.id.activity_user_other_changdi_title_playTimes);
+        activity_user_other_textview_zuju_title = (TextView) findViewById(R.id.activity_user_other_textview_zuju_title);
+        activity_user_other_textview_title_dianzan = (TextView) findViewById(R.id.activity_user_other_textview_title_dianzan);
+        activity_user_other_textview_youxi_title = (TextView) findViewById(R.id.activity_user_other_textview_youxi_title);
+        activity_user_other_textview_youxi_title_wanguo = (TextView) findViewById(R.id.activity_user_other_textview_youxi_title_wanguo);
+        activity_user_other_changdi_title = (TextView) findViewById(R.id.activity_user_other_changdi_title);
+        activity_user_other_changdi_title_playTimes = (TextView) findViewById(R.id.activity_user_other_changdi_title_playTimes);
         activity_user_other_textview_zuju_title.setText("组局（1）");
         activity_user_other_textview_title_dianzan.setText("点赞：5");
         activity_user_other_textview_youxi_title.setText("游戏（5）");
@@ -55,20 +55,20 @@ public class UserActivity extends AppCompatActivity {
         activity_user_other_changdi_title.setText("场地（1）");
         activity_user_other_changdi_title_playTimes.setText("去过：5次");
 
-        activity_user_other_textview_zuju_create_1 = findViewById(R.id.activity_user_other_textview_zuju_create).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_other_textview_zuju_join_1 = findViewById(R.id.activity_user_other_textview_zuju_join).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_other_textview_youxi_own_1 = findViewById(R.id.activity_user_other_textview_youxi_own).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_other_textview_youxi_play_1 = findViewById(R.id.activity_user_other_textview_youxi_play).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_other_textview_youxi_want_1 = findViewById(R.id.activity_user_other_textview_youxi_want).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_other_changdi_title_own_1 = findViewById(R.id.activity_user_other_textview_changdi_own).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_other_changdi_title_play_1 = findViewById(R.id.activity_user_other_textview_changdi_play).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_other_textview_zuju_create_2 = findViewById(R.id.activity_user_other_textview_zuju_create).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_other_textview_zuju_join_2 = findViewById(R.id.activity_user_other_textview_zuju_join).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_other_textview_youxi_own_2 = findViewById(R.id.activity_user_other_textview_youxi_own).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_other_textview_youxi_play_2 = findViewById(R.id.activity_user_other_textview_youxi_play).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_other_textview_youxi_want_2 = findViewById(R.id.activity_user_other_textview_youxi_want).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_other_changdi_title_own_2 = findViewById(R.id.activity_user_other_textview_changdi_own).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_other_changdi_title_play_2 = findViewById(R.id.activity_user_other_textview_changdi_play).findViewById(R.id.widget_user_content_TextView_info);
+        activity_user_other_textview_zuju_create_1 = (TextView) findViewById(R.id.activity_user_other_textview_zuju_create).findViewById(R.id.widget_user_content_TextView_name);
+        activity_user_other_textview_zuju_join_1 = (TextView) findViewById(R.id.activity_user_other_textview_zuju_join).findViewById(R.id.widget_user_content_TextView_name);
+        activity_user_other_textview_youxi_own_1 = (TextView) findViewById(R.id.activity_user_other_textview_youxi_own).findViewById(R.id.widget_user_content_TextView_name);
+        activity_user_other_textview_youxi_play_1 = (TextView) findViewById(R.id.activity_user_other_textview_youxi_play).findViewById(R.id.widget_user_content_TextView_name);
+        activity_user_other_textview_youxi_want_1 = (TextView) findViewById(R.id.activity_user_other_textview_youxi_want).findViewById(R.id.widget_user_content_TextView_name);
+        activity_user_other_changdi_title_own_1 = (TextView) findViewById(R.id.activity_user_other_textview_changdi_own).findViewById(R.id.widget_user_content_TextView_name);
+        activity_user_other_changdi_title_play_1 = (TextView) findViewById(R.id.activity_user_other_textview_changdi_play).findViewById(R.id.widget_user_content_TextView_name);
+        activity_user_other_textview_zuju_create_2 = (TextView) findViewById(R.id.activity_user_other_textview_zuju_create).findViewById(R.id.widget_user_content_TextView_info);
+        activity_user_other_textview_zuju_join_2 = (TextView) findViewById(R.id.activity_user_other_textview_zuju_join).findViewById(R.id.widget_user_content_TextView_info);
+        activity_user_other_textview_youxi_own_2 = (TextView) findViewById(R.id.activity_user_other_textview_youxi_own).findViewById(R.id.widget_user_content_TextView_info);
+        activity_user_other_textview_youxi_play_2 = (TextView) findViewById(R.id.activity_user_other_textview_youxi_play).findViewById(R.id.widget_user_content_TextView_info);
+        activity_user_other_textview_youxi_want_2 = (TextView) findViewById(R.id.activity_user_other_textview_youxi_want).findViewById(R.id.widget_user_content_TextView_info);
+        activity_user_other_changdi_title_own_2 = (TextView) findViewById(R.id.activity_user_other_textview_changdi_own).findViewById(R.id.widget_user_content_TextView_info);
+        activity_user_other_changdi_title_play_2 = (TextView) findViewById(R.id.activity_user_other_textview_changdi_play).findViewById(R.id.widget_user_content_TextView_info);
 
         activity_user_other_textview_zuju_create_1.setText("创建的组局");
         activity_user_other_textview_zuju_join_1.setText("加入的组局");

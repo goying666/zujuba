@@ -97,26 +97,26 @@ public class UserSettingActivity extends BaseActivity {
 
     @Override
     protected void InitView() {
-        acivity_user_setting_ConstraintLayout_nickNamePart = findViewById(R.id.acivity_user_setting_ConstraintLayout_nickNamePart);
-        acivity_user_setting_ConstraintLayout_imagePart = findViewById(R.id.acivity_user_setting_ConstraintLayout_imagePart);
-        acivity_user_setting_ConstraintLayout_genderPart = findViewById(R.id.acivity_user_setting_ConstraintLayout_genderPart);
-        acivity_user_setting_ConstraintLayout_agePart = findViewById(R.id.acivity_user_setting_ConstraintLayout_agePart);
-        acivity_user_setting_ConstraintLayout_telephoneNumberPart = findViewById(R.id.acivity_user_setting_ConstraintLayout_telephoneNumberPart);
-        acivity_user_setting_ConstraintLayout_realNamePart = findViewById(R.id.acivity_user_setting_ConstraintLayout_realNamePart);
-        acivity_user_setting_ConstraintLayout_cardNumberPart = findViewById(R.id.acivity_user_setting_ConstraintLayout_cardNumberPart);
-        acivity_user_setting_ConstraintLayout_systemPart1 = findViewById(R.id.acivity_user_setting_ConstraintLayout_systemPart1);
-        acivity_user_setting_ConstraintLayout_systemPart2 = findViewById(R.id.acivity_user_setting_ConstraintLayout_systemPart2);
-        acivity_user_setting_ConstraintLayout_systemPart3 = findViewById(R.id.acivity_user_setting_ConstraintLayout_systemPart3);
-        acivity_user_setting_ConstraintLayout_nickName = findViewById(R.id.acivity_user_setting_ConstraintLayout_nickName);
-        activity_user_setting_gender_textView = findViewById(R.id.activity_user_setting_gender_textView);
-        acivity_user_setting_ConstraintLayout_age = findViewById(R.id.acivity_user_setting_ConstraintLayout_age);
-        activity_user_setting_phoneNumber_textView = findViewById(R.id.activity_user_setting_phoneNumber_textView);
-        activity_user_setting_realName_textView = findViewById(R.id.activity_user_setting_realName_textView);
-        activity_user_setting_cardNumber_textView = findViewById(R.id.activity_user_setting_cardNumber_textView);
-        activity_user_setting_softwareNumber_textView = findViewById(R.id.activity_user_setting_softwareNumber_textView);
-        acivity_user_setting_ConstraintLayout_image = findViewById(R.id.acivity_user_setting_ConstraintLayout_image);
-        activity_user_setting_save = findViewById(R.id.activity_user_setting_save);
-        activity_user_setting_toolbar_back = findViewById(R.id.activity_user_setting_toolbar_back);
+        acivity_user_setting_ConstraintLayout_nickNamePart = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_nickNamePart);
+        acivity_user_setting_ConstraintLayout_imagePart = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_imagePart);
+        acivity_user_setting_ConstraintLayout_genderPart = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_genderPart);
+        acivity_user_setting_ConstraintLayout_agePart = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_agePart);
+        acivity_user_setting_ConstraintLayout_telephoneNumberPart = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_telephoneNumberPart);
+        acivity_user_setting_ConstraintLayout_realNamePart = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_realNamePart);
+        acivity_user_setting_ConstraintLayout_cardNumberPart = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_cardNumberPart);
+        acivity_user_setting_ConstraintLayout_systemPart1 = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_systemPart1);
+        acivity_user_setting_ConstraintLayout_systemPart2 = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_systemPart2);
+        acivity_user_setting_ConstraintLayout_systemPart3 = (ConstraintLayout) findViewById(R.id.acivity_user_setting_ConstraintLayout_systemPart3);
+        acivity_user_setting_ConstraintLayout_nickName = (TextView) findViewById(R.id.acivity_user_setting_ConstraintLayout_nickName);
+        activity_user_setting_gender_textView = (TextView) findViewById(R.id.activity_user_setting_gender_textView);
+        acivity_user_setting_ConstraintLayout_age = (TextView) findViewById(R.id.acivity_user_setting_ConstraintLayout_age);
+        activity_user_setting_phoneNumber_textView = (TextView) findViewById(R.id.activity_user_setting_phoneNumber_textView);
+        activity_user_setting_realName_textView = (TextView) findViewById(R.id.activity_user_setting_realName_textView);
+        activity_user_setting_cardNumber_textView = (TextView) findViewById(R.id.activity_user_setting_cardNumber_textView);
+        activity_user_setting_softwareNumber_textView = (TextView) findViewById(R.id.activity_user_setting_softwareNumber_textView);
+        acivity_user_setting_ConstraintLayout_image = (CircleImageView) findViewById(R.id.acivity_user_setting_ConstraintLayout_image);
+        activity_user_setting_save = (TextView) findViewById(R.id.activity_user_setting_save);
+        activity_user_setting_toolbar_back = (ImageView) findViewById(R.id.activity_user_setting_toolbar_back);
         activity_user_setting_save.setVisibility(View.GONE);
     }
 

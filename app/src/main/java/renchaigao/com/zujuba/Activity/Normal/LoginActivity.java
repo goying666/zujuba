@@ -81,20 +81,20 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void InitView() {
         LitePal.initialize(this);
-        login_join_app = findViewById(R.id.login_join_app);
-        login_yzm_text = findViewById(R.id.login_yzm_text);
-        login_repwd_text = findViewById(R.id.login_repwd_text);
-        login_recode_text = findViewById(R.id.login_recode_text);
-        login_enter_button = findViewById(R.id.login_enter_button);
-        login_telephone_TextInputLayout = findViewById(R.id.login_telephone_TextInputLayout);
-        login_pwd_TextInputLayout = findViewById(R.id.login_pwd_TextInputLayout);
-        login_telephone_TextInputEditText = findViewById(R.id.login_telephone_TextInputEditText);
-        login_pwd_TextInputEditText = findViewById(R.id.login_pwd_TextInputEditText);
-        login_yzm_TextInputLayout = findViewById(R.id.login_yzm_TextInputLayout);
-        login_yzm_TextInputEditText = findViewById(R.id.login_yzm_TextInputEditText);
+        login_join_app = (TextView) findViewById(R.id.login_join_app);
+        login_yzm_text = (TextView) findViewById(R.id.login_yzm_text);
+        login_repwd_text = (TextView) findViewById(R.id.login_repwd_text);
+        login_recode_text = (TextView) findViewById(R.id.login_recode_text);
+        login_enter_button = (Button) findViewById(R.id.login_enter_button);
+        login_telephone_TextInputLayout = (TextInputLayout) findViewById(R.id.login_telephone_TextInputLayout);
+        login_pwd_TextInputLayout = (TextInputLayout) findViewById(R.id.login_pwd_TextInputLayout);
+        login_telephone_TextInputEditText = (TextInputEditText) findViewById(R.id.login_telephone_TextInputEditText);
+        login_pwd_TextInputEditText = (TextInputEditText) findViewById(R.id.login_pwd_TextInputEditText);
+        login_yzm_TextInputLayout = (TextInputLayout) findViewById(R.id.login_yzm_TextInputLayout);
+        login_yzm_TextInputEditText = (TextInputEditText) findViewById(R.id.login_yzm_TextInputEditText);
         login_yzm_TextInputLayout.setVisibility(View.GONE);
         login_recode_text.setVisibility(View.GONE);
-        login_delete_telephone = findViewById(R.id.login_delete_telephone);
+        login_delete_telephone = (ImageView) findViewById(R.id.login_delete_telephone);
     }
 
     @SuppressLint({"HardwareIds", "MissingPermission"})

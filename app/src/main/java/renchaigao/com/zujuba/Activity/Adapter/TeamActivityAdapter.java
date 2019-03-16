@@ -70,14 +70,14 @@ public class TeamActivityAdapter extends RecyclerView.Adapter<TeamActivityAdapte
             super(view);
             this.thisView = view;
             this.cardView = (CardView) view;
-            this.card_player_name = view.findViewById(R.id.card_player_name);
-            this.card_player_zu_number = view.findViewById(R.id.card_player_zu_number);
-            this.card_player_you_number = view.findViewById(R.id.card_player_you_number);
-            this.card_player_state = view.findViewById(R.id.card_player_state);
-            this.card_player_rank = view.findViewById(R.id.card_player_rank);
-            this.card_player_image = view.findViewById(R.id.card_player_image);
-            this.card_player_sex = view.findViewById(R.id.card_player_sex);
-            this.card_player_age = view.findViewById(R.id.card_player_age);
+            this.card_player_name = (TextView) view.findViewById(R.id.card_player_name);
+            this.card_player_zu_number = (TextView) view.findViewById(R.id.card_player_zu_number);
+            this.card_player_you_number = (TextView) view.findViewById(R.id.card_player_you_number);
+            this.card_player_state = (TextView) view.findViewById(R.id.card_player_state);
+            this.card_player_rank = (TextView) view.findViewById(R.id.card_player_rank);
+            this.card_player_image = (CircleImageView) view.findViewById(R.id.card_player_image);
+            this.card_player_sex = (ImageView) view.findViewById(R.id.card_player_sex);
+            this.card_player_age = (ImageView) view.findViewById(R.id.card_player_age);
         }
     }
 }
