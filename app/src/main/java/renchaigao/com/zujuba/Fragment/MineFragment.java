@@ -156,11 +156,11 @@ public class MineFragment extends BaseFragment {
     protected void InitData(View rootView) {
         UserInfo userInfo = DataUtil.GetUserInfoData(mContext);
         activity_user_textview_zuju_title.setText("组局（1）");
-        activity_user_textview_title_dianzan.setText("点赞：5");
+        activity_user_textview_title_dianzan.setText("");
         activity_user_textview_youxi_title.setText("游戏（5）");
-        activity_user_textview_youxi_title_wanguo.setText("玩过：15盘");
+        activity_user_textview_youxi_title_wanguo.setText("");
         activity_user_changdi_title.setText("场地（1）");
-        activity_user_changdi_title_playTimes.setText("去过：5次");
+        activity_user_changdi_title_playTimes.setText("");
         activity_user_textview_zuju_create_1.setText("创建的组局");
         activity_user_textview_zuju_join_1.setText("加入的组局");
         activity_user_textview_youxi_own_1.setText("拥有的游戏");
@@ -168,13 +168,13 @@ public class MineFragment extends BaseFragment {
         activity_user_textview_youxi_want_1.setText("想要的游戏");
         activity_user_changdi_title_own_1.setText("拥有的场地");
         activity_user_changdi_title_play_1.setText("玩过的场地");
-        activity_user_textview_zuju_create_2.setText("0次，累计0人参与");
-        activity_user_textview_zuju_join_2.setText("1次，5人点赞");
-        activity_user_textview_youxi_own_2.setText("1款，和12位朋友玩过");
-        activity_user_textview_youxi_play_2.setText("2款，和19位朋友玩过");
-        activity_user_textview_youxi_want_2.setText("2款，和11位朋友玩过");
-        activity_user_changdi_title_own_2.setText("0个，0人玩过");
-        activity_user_changdi_title_play_2.setText("1个，1900人玩过");
+        activity_user_textview_zuju_create_2.setText("0次");
+        activity_user_textview_zuju_join_2.setText("1次");
+        activity_user_textview_youxi_own_2.setText("1款");
+        activity_user_textview_youxi_play_2.setText("2款");
+        activity_user_textview_youxi_want_2.setText("2款");
+        activity_user_changdi_title_own_2.setText("0个");
+        activity_user_changdi_title_play_2.setText("1个");
         GlideUrl glideUrl = new GlideUrl(PropertiesConfig.photoUrl + "showimage" + userInfo.getPicPath()
                 , new LazyHeaders.Builder()
                 .addHeader("Content-Type", "image/jpeg")

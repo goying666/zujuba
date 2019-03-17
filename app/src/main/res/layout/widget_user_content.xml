@@ -38,6 +38,18 @@
         app:layout_constraintStart_toEndOf="@+id/widget_user_content_imageview"
         app:layout_constraintTop_toBottomOf="@+id/widget_user_content_TextView_name" />
 
+    <ImageView
+        android:id="@+id/imageView_more"
+        android:layout_width="@dimen/margin_32dp"
+        android:layout_height="@dimen/margin_32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/more_hui"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/widget_user_content_TextView_underline"
         android:layout_width="0dp"

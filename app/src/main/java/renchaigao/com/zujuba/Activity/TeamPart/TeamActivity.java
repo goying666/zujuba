@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -77,11 +78,9 @@ public class TeamActivity extends BaseActivity {
     private String whereCome;
     private int COME_FROM;
     private ImageView ti_store_image, ti_people_image_more;
-
     private CardPlayerAdapter cardPlayerAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
-
     private Timer timer = new Timer();
     private TimerTask task;
     @SuppressLint("HandlerLeak")
@@ -100,13 +99,25 @@ public class TeamActivity extends BaseActivity {
 //        队伍状态
         ti_user_state.setText(teamActivityBean.getTeamState());
 //        地点图片url + 游戏图片
-        Glide.with(this)
-                .load(PropertiesConfig.photoUrl + teamActivityBean.getTeamPhotoUrlList().get(0))
-                .dontAnimate()
-                .skipMemoryCache(false)
-                .placeholder(R.drawable.image_loading)
-                .error(R.drawable.image_load_fail)
-                .into(ti_store_image);
+//        图片更具主要游戏选择一个图片
+        switch (teamActivityBean.getMainGame()){
+            case "LRS":
+                ti_store_image.setImageResource(R.drawable.lrs);
+                break;
+            case "THQBY":
+                ti_store_image.setImageResource(R.drawable.thqby);
+                break;
+            case "MXTSJ":
+                ti_store_image.setImageResource(R.drawable.hasl);
+                break;
+        }
+//        Glide.with(this)
+//                .load(PropertiesConfig.photoUrl + teamActivityBean.getTeamPhotoUrlList().get(0))
+//                .dontAnimate()
+//                .skipMemoryCache(false)
+//                .placeholder(R.drawable.image_loading)
+//                .error(R.drawable.image_load_fail)
+//                .into(ti_store_image);
 //        地点名称
         ti_text_null1.setText(teamActivityBean.getPlaceName());
 
@@ -157,6 +168,8 @@ public class TeamActivity extends BaseActivity {
 //        玩家card的bean信息列表
         cardPlayerAdapter.updateResults(teamActivityBean.getPlayerList());
         cardPlayerAdapter.notifyDataSetChanged();
+        titleTextView.setText(teamActivityBean.getTeamName());
+        secondTitleTextView.setText("成员");
         reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
     }
 
@@ -218,10 +231,29 @@ public class TeamActivity extends BaseActivity {
         userId = userInfo.getId();
         teamId = getIntent().getStringExtra("teamId");
         token = userInfo.getToken();
+
+
+    }
+
+    private TextView titleTextView,secondTitleTextView;
+    private void initToolbar(){
+        ConstraintLayout toolbar = (ConstraintLayout) findViewById(R.id.team_info_toolbar);
+         titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
+         secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        titleTextView.setText(teamActivityBean.getTeamName());
+        secondTitleTextView.setText("成员");
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
     protected void InitOther() {
+        initToolbar();
     }
 
     @Override
@@ -325,7 +357,6 @@ public class TeamActivity extends BaseActivity {
     private static final int TEAM_PLAYER_INFO_LOAD = 1;
 
     public void reloadAdapter() {
-        Map<String, RequestBody> map = new HashMap<>();
         RequestBody multiBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("json", "")
