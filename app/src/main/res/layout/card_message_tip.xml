@@ -1,90 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/message_tips_click_backgroud_color">
 
-        <renchaigao.com.zujuba.widgets.CustomRoundImageView
-            android:id="@+id/card_message_image"
-            android:layout_width="@dimen/user_image_size"
-            android:layout_height="@dimen/user_image_size"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/baqianliu"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <renchaigao.com.zujuba.widgets.CustomRoundImageView
+        android:id="@+id/card_message_image"
+        android:layout_width="@dimen/user_image_size"
+        android:layout_height="@dimen/user_image_size"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baqianliu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/card_message_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:maxLines="1"
-            android:maxWidth="166dp"
-            android:textSize="@dimen/text_size_title"
-            android:textColor="@color/word_title_black"
-            android:text="系统根据局生成的聊天群名fdsafdsaffdsafdsafdsafds"
-            app:layout_constraintStart_toEndOf="@+id/card_message_image"
-            app:layout_constraintTop_toTopOf="@+id/card_message_image"
-            tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/card_message_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:maxWidth="166dp"
+        android:maxLines="1"
+        android:text="系统根据局生成的聊天群名fdsafdsaffdsafdsafdsafds"
+        android:textColor="@color/word_title_black"
+        android:textSize="@dimen/text_size_title"
+        app:layout_constraintStart_toEndOf="@+id/card_message_image"
+        app:layout_constraintTop_toTopOf="@+id/card_message_image"
+        tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/card_message_current_content"
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="8dp"
-            android:maxLines="1"
-            android:maxWidth="166dp"
-            android:text="121"
-            android:textSize="@dimen/text_size_content"
-            android:textColor="@color/word_note"
-            app:layout_constraintBottom_toBottomOf="@+id/card_message_image"
-            app:layout_constraintStart_toStartOf="@+id/card_message_name"
-            app:layout_constraintTop_toBottomOf="@+id/card_message_name" />
+    <TextView
+        android:id="@+id/card_message_current_content"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:maxWidth="166dp"
+        android:maxLines="1"
+        android:text="121"
+        android:textColor="@color/word_note"
+        android:textSize="@dimen/text_size_content"
+        app:layout_constraintBottom_toBottomOf="@+id/card_message_image"
+        app:layout_constraintStart_toStartOf="@+id/card_message_name"
+        app:layout_constraintTop_toBottomOf="@+id/card_message_name" />
 
-        <TextView
-            android:id="@+id/card_message_state"
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:layout_marginEnd="16dp"
-            android:maxWidth="66dp"
-            android:gravity="right"
-            android:text="最后一条消息的时间"
-            android:textSize="@dimen/text_size_introduce"
-            android:textColor="@color/word_note"
-            app:layout_constraintBottom_toBottomOf="@+id/card_message_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/card_message_name" />
+    <TextView
+        android:id="@+id/card_message_state"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="right"
+        android:maxWidth="66dp"
+        android:text="最后一条消息的时间"
+        android:textColor="@color/word_note"
+        android:textSize="@dimen/text_size_introduce"
+        app:layout_constraintBottom_toBottomOf="@+id/card_message_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card_message_name" />
 
-        <TextView
-            android:id="@+id/TextView119"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="#e0e0e0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/card_message_name" />
+    <TextView
+        android:id="@+id/TextView119"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#e0e0e0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/card_message_name" />
 
-        <TextView
-            android:id="@+id/textView145"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="俱乐部"
-            app:layout_constraintBottom_toBottomOf="@+id/card_message_current_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/card_message_current_content" />
-    </android.support.constraint.ConstraintLayout>
-
-
-</android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/textView145"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="俱乐部"
+        app:layout_constraintBottom_toBottomOf="@+id/card_message_current_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card_message_current_content" />
+</android.support.constraint.ConstraintLayout>

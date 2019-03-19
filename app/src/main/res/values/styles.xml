@@ -66,5 +66,8 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="main_menu_left">
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
 
 </resources>

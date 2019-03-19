@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/store_page_null6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="组局情况"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/store_page_null7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="3/9"
+            app:layout_constraintBottom_toBottomOf="@+id/store_page_null6"
+            app:layout_constraintStart_toEndOf="@+id/store_page_null6" />
+
+        <TextView
+            android:id="@+id/store_page_null8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="桌"
+            app:layout_constraintBottom_toBottomOf="@+id/store_page_null7"
+            app:layout_constraintStart_toEndOf="@+id/store_page_null7"
+            app:layout_constraintTop_toTopOf="@+id/store_page_null7" />
+
+        <TextView
+            android:id="@+id/store_page_null9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="18/90"
+            app:layout_constraintBottom_toBottomOf="@+id/store_page_null8"
+            app:layout_constraintStart_toEndOf="@+id/store_page_null8"
+            app:layout_constraintTop_toTopOf="@+id/store_page_null8" />
+
+        <TextView
+            android:id="@+id/store_page_null10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="人"
+            app:layout_constraintBottom_toBottomOf="@+id/store_page_null9"
+            app:layout_constraintStart_toEndOf="@+id/store_page_null9"
+            app:layout_constraintTop_toTopOf="@+id/store_page_null9" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/store_team_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/store_page_tabitem_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今日" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/store_page_tabitem_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="明日" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/store_page_tabitem_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本周末" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/store_page_tabitem_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史" />
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/store_team_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/store_team_tablayout"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.Activity.Place;
+package renchaigao.com.zujuba.Activity.Store;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -930,20 +930,18 @@ public class CreateStoreActivity extends BaseActivity {
                 .addFormDataPart("photo", photo6.getName(), fileBodyPhoto6)
                 .addFormDataPart("photo", photo7.getName(), fileBodyPhoto7)
                 .build();
-
-//        MultipartBody.Part.createFormData("json","aaa");
         map.put("plateNo", multiBody);
-
-        addSubscribe(RetrofitServiceManager.getInstance().creat(PlaceApiService.class)
-                .FourParameterBodyPost("store",
-                        "join",
-                        user.getId(),
+//        MultipartBody.Part.createFormData("json","aaa");
+//        addSubscribe(RetrofitServiceManager.getInstance().creat(PlaceApiService.class)
+//                .FourParameterBodyPost("store",
+//                        "join",
+//                        user.getId(),
+//                        storeInfo.getId(),
+//                        multiBody)
+        addSubscribe(RetrofitServiceManager.getInstance().creat(StoreApiService.class)
+                .AddStore(user.getId(),
                         storeInfo.getId(),
-//                        new MultipartBody.Builder()
-//                                .setType(MultipartBody.MIXED)
-//                                .addFormDataPart("json", "")
-//                                .build())
-//                        (MultipartBody) multiBody)
+                        user.getToken(),
                         multiBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

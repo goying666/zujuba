@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import renchaigao.com.zujuba.Activity.Place.StoreActivity;
+import renchaigao.com.zujuba.Activity.Store.StoreActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 

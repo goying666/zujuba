@@ -29,14 +29,14 @@ public class UserActivity extends AppCompatActivity {
             activity_user_other_changdi_title_own_2, activity_user_other_changdi_title_play_2;
 
     private void initButton() {
-        activity_user_other_toolbar_edit = (Button) findViewById(R.id.activity_user_other_toolbar_edit);
-        activity_user_other_toolbar_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserActivity.this, UserSettingActivity.class);
-                startActivity(intent);
-            }
-        });
+//        activity_user_other_toolbar_edit = (Button) findViewById(R.id.activity_user_other_toolbar_edit);
+//        activity_user_other_toolbar_edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(UserActivity.this, UserSettingActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @SuppressLint("CutPasteId")

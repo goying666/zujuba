@@ -51,7 +51,6 @@ public class MineFragment extends BaseFragment {
 
     @SuppressLint("CutPasteId")
     @Override
-
     protected void InitView(View rootView) {
 
         genderImage = (ImageView) rootView.findViewById(R.id.imageView8);

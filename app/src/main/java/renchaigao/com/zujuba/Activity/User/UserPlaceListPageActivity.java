@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.Activity.Adapter.CommonViewHolder;
 import renchaigao.com.zujuba.Activity.Adapter.UserPlaceListPageAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
-import renchaigao.com.zujuba.Activity.Place.CreateStoreActivity;
+import renchaigao.com.zujuba.Activity.Store.CreateStoreActivity;
 import renchaigao.com.zujuba.Activity.Place.UserPlaceManagerActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
@@ -33,13 +33,13 @@ import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
-public class UserPlaceListPageActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener{
+public class UserPlaceListPageActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
 
     private static String TAG = "UserPlaceListPageActivity";
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
-//    private UserPlaceListPageActivityAdapter userPlaceListPageActivityAdapter;
+    //    private UserPlaceListPageActivityAdapter userPlaceListPageActivityAdapter;
     private UserPlaceListPageAdapter userPlaceListPageAdapter;
 
     private TextView state_open, state_create, state_close;
@@ -74,7 +74,6 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
     }
 
 
-
     @Override
     protected void InitData() {
         userInfo = DataUtil.GetUserInfoData(this);
@@ -96,7 +95,7 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
         layoutManager = new LinearLayoutManager(UserPlaceListPageActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 //        userPlaceListPageActivityAdapter = new UserPlaceListPageActivityAdapter(UserPlaceListPageActivity.this);
-        userPlaceListPageAdapter = new UserPlaceListPageAdapter(this,jsonObjectArrayList,this,R.layout.card_place_list_page);
+        userPlaceListPageAdapter = new UserPlaceListPageAdapter(this, jsonObjectArrayList, this, R.layout.card_place_list_page);
 
         recyclerView.setAdapter(userPlaceListPageAdapter);
 //        recyclerView.setAdapter(userPlaceListPageActivityAdapter);
@@ -104,16 +103,11 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
         recyclerView.addItemDecoration(new DividerItemDecoration(UserPlaceListPageActivity.this, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
+
     private void reloadAdapter() {
-//        RequestBody multiBody = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("json", "")
-//                .build();
         addSubscribe(RetrofitServiceManager.getInstance().creat(UserApiService.class)
-                .PlaceServiceGet("user",
-                        "allcreate",
-                        userInfo.getId(),
-                        "null")
+                .GetUserPlaceList(
+                        userInfo.getId(), userInfo.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(UserPlaceListPageActivity.this) {

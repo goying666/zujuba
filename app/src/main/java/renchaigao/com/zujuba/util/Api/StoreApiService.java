@@ -18,30 +18,27 @@ import retrofit2.http.Query;
 public interface StoreApiService {
 
 
-    @POST("store/{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
-    Observable<ResponseEntity> FourParameterJsonPost(
+    @POST("store/add")
+    Observable<ResponseEntity> AddStore(
+            @Query("userId") String userId,
+            @Query("storeId") String storeId,
+            @Query("token") String token,
+            @Body RequestBody requestBody);
+
+
+
+    @GET("store/getnear")
+    Observable<ResponseEntity> GetNearlyStoreInfo(
+            @Query("userId") String userId,
+            @Query("token") String token);
+
+
+    @GET("store/getone/{firstStr}")
+    Observable<ResponseEntity> GetOneStoreInfo(
             @Path("firstStr") String firstStr,
-            @Path("secondStr") String secondStr,
-            @Path("thirdStr") String thirdStr,
-            @Path("fourthStr") String fourthStr,
-            @Body JSONObject requestBody);
-
-
-    @POST("store/{firstStr}/{secondStr}/{thirdStr}/{fourthStr}")
-    Observable<ResponseEntity> FourParameterBodyPost(
-            @Path("firstStr") String firstStr,
-            @Path("secondStr") String secondStr,
-            @Path("thirdStr") String thirdStr,
-            @Path("fourthStr") String fourthStr,
-            @Body RequestBody requestBody
-    );
-
-    @GET("store/getone")
-    Observable<ResponseEntity> GetStoreInfo(
             @Query("userId") String userId,
             @Query("storeId") String storeId,
             @Query("token") String token,
             @Query("lastTime") long lastTime);
-
 
 }

@@ -4,9 +4,14 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import renchaigao.com.zujuba.R;
 
 /**
  * Created by Administrator on 2018/3/25.
@@ -65,4 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             compositeDisposable.clear();
         }
     }
+
+
 }

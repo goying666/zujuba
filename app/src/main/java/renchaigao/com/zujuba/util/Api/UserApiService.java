@@ -53,5 +53,14 @@ public interface UserApiService {
             @Query("token") String token,
             @Body JSONObject jsonObject);
 
+    @GET("user/placeallcreate")
+    Observable<ResponseEntity> GetUserPlaceList(
+            @Query("userId") String userId,
+            @Query("token") String token);
+    @GET("user/oneplace")
+    Observable<ResponseEntity> GetUserOnePlaceInfo(
+            @Query("userId") String userId,
+            @Query("placeId") String placeId,
+            @Query("token") String token);
 
 }

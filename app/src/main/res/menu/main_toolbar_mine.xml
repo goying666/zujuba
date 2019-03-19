@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <item android:id="@+id/item_mine_setting"
-        android:orderInCategory="80"
+    <item
+        android:id="@+id/item_mine_setting"
         android:icon="@drawable/user_setting"
-        app:showAsAction="ifRoom"
-        android:title="设置" />
+        android:orderInCategory="80"
+        android:title="设置"
+        app:showAsAction="ifRoom">
+    </item>
 
 </menu>

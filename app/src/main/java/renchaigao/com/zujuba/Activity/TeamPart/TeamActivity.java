@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,7 +31,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity;
-import renchaigao.com.zujuba.Activity.Place.StoreActivity;
+import renchaigao.com.zujuba.Activity.Store.StoreActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.TeamApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;

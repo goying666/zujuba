@@ -35,6 +35,7 @@ import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Fragment.Adapter.HallFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.PlaceApiService;
+import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
@@ -63,7 +64,7 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
 
-//    @Override
+    //    @Override
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 //        View rootView = inflater.inflate(
 //                R.layout.fragment_hall, container, false);
@@ -210,27 +211,9 @@ public class HallFragment extends BaseFragment implements OnBannerListener {
 //        return requestBody;
 //    }
     private void reloadAdapter() {
-        Map<String, RequestBody> map = new HashMap<>();
-        RequestBody multiBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("json", "")
-                .build();
-//        MultipartBody.Part.createFormData("json", "aaa");
-//        map.put("plateNo", multiBody);
-
-        addSubscribe(RetrofitServiceManager.getInstance().creat(PlaceApiService.class)
-                .FourParameterBodyPost("store",
-                        "getnear",
-                        userInfo.getId(),
-                        "null",
-                        multiBody)
-//                        (MultipartBody) multiBody)
-//                        new MultipartBody.Builder()
-//                                .setType(MultipartBody.MIXED)
-//                                .addFormDataPart("json", "")
-//                                .build())
-
-//                        MultipartBody.Part.createFormData("json","aaa"))
+        addSubscribe(RetrofitServiceManager.getInstance().creat(StoreApiService.class)
+                .GetNearlyStoreInfo(userInfo.getId()
+                        , userInfo.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(mContext) {
