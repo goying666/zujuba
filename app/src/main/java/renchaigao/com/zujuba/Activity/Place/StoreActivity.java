@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
+import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -28,6 +29,7 @@ import okhttp3.RequestBody;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
+import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
@@ -49,18 +51,17 @@ public class StoreActivity extends BaseActivity {
     private void UpdateView(JSONObject jsonObject) {
         //放图片地址的集合
         list_path = new ArrayList<>();
-        list_path.add(PropertiesConfig.photoUrl + "showimage/"+ jsonObject.getString("userid")+"/"+ jsonObject.getString("placeid") +"/photo1.jpg");
-        list_path.add(PropertiesConfig.photoUrl + "showimage/"+ jsonObject.getString("userid")+"/"+ jsonObject.getString("placeid") +"/photo2.jpg");
-        list_path.add(PropertiesConfig.photoUrl + "showimage/"+ jsonObject.getString("userid")+"/"+ jsonObject.getString("placeid") +"/photo3.jpg");
-        list_path.add(PropertiesConfig.photoUrl + "showimage/"+ jsonObject.getString("userid")+"/"+ jsonObject.getString("placeid") +"/photo4.jpg");
-
+        list_path.add(PropertiesConfig.photoUrl + "showimage/" + jsonObject.getString("userid") + "/" + jsonObject.getString("placeid") + "/photo1.jpg");
+        list_path.add(PropertiesConfig.photoUrl + "showimage/" + jsonObject.getString("userid") + "/" + jsonObject.getString("placeid") + "/photo2.jpg");
+        list_path.add(PropertiesConfig.photoUrl + "showimage/" + jsonObject.getString("userid") + "/" + jsonObject.getString("placeid") + "/photo3.jpg");
+        list_path.add(PropertiesConfig.photoUrl + "showimage/" + jsonObject.getString("userid") + "/" + jsonObject.getString("placeid") + "/photo4.jpg");
 
         setBanner();
     }
 
     private TextView store_name, store_socre, store_allpeoplenum, store_spend, store_stars,
             store_time1, store_time2, store_time3, store_time4, store_address, store_environment,
-            store_note, store_desk, store_nowpeople,a_store_info_team_note;
+            store_note, store_desk, store_nowpeople, a_store_info_team_note;
     private ImageView store_phone_image;
     private RatingBar store_page_ratingbar;
 
@@ -89,9 +90,15 @@ public class StoreActivity extends BaseActivity {
 
     JSONObject jsonObjectUP;
 
+    private String userId, token, storeId;
+
     @Override
     protected void InitData() {
-        jsonObjectUP = JSONObject.parseObject(getIntent().getStringExtra("storeinfo"));
+        UserInfo userInfo = DataUtil.GetUserInfoData(this);
+        userId = userInfo.getId();
+        token = userInfo.getToken();
+        storeId = getIntent().getStringExtra("placeId");
+//        jsonObjectUP = JSONObject.parseObject(getIntent().getStringExtra("storeinfo"));
     }
 
     @Override
@@ -147,18 +154,11 @@ public class StoreActivity extends BaseActivity {
         }
     }
 
+    private int lastTime = 0;
+
     private void reloadAdapter() {
-        String storeInfoString = getIntent().getStringExtra("storeinfo");
-        RequestBody multiBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("json", storeInfoString)
-                .build();
         addSubscribe(RetrofitServiceManager.getInstance().creat(StoreApiService.class)
-                .FourParameterBodyPost("store",
-                        "getone",
-                        jsonObjectUP.get("placeid").toString(),
-                        jsonObjectUP.get("placeid").toString(),
-                        multiBody)
+                .GetStoreInfo(userId, storeId, token, lastTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new BaseObserver<ResponseEntity>(StoreActivity.this) {
@@ -182,8 +182,7 @@ public class StoreActivity extends BaseActivity {
                     }
 
                     @Override
-                    protected void onSuccess(ResponseEntity responseEntity) {
-                    }
+                    protected void onSuccess(ResponseEntity responseEntity) {                    }
 
                     @Override
                     public void onError(Throwable e) {

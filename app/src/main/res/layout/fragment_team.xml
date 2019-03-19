@@ -87,6 +87,7 @@
         android:layout_marginStart="32dp"
         android:background="@color/button_background"
         android:text="创建队伍"
+        android:visibility="gone"
         android:textColor="@color/button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

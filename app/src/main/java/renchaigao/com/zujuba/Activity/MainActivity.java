@@ -42,6 +42,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import renchaigao.com.zujuba.Activity.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.Activity.User.UserSettingActivity;
 import renchaigao.com.zujuba.Fragment.Game.GameFragment;
 import renchaigao.com.zujuba.Fragment.HallFragment;
@@ -248,6 +249,15 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 1:
                         toolbar.setVisibility(View.VISIBLE);
+                        toolbar.inflateMenu(R.menu.main_toolbar_team);
+                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                final Intent intent = new Intent(MainActivity.this, TeamCreateActivity.class);
+                                startActivity(intent);
+                                return false;
+                            }
+                        });
                         break;
                     case 2:
                         toolbar.setVisibility(View.VISIBLE);
@@ -367,50 +377,50 @@ public class MainActivity extends BaseActivity {
     private void sendAddressToService() {
         addSubscribe(
                 RetrofitServiceManager.getInstance().creat(UserApiService.class)
-                .UpdateUserInfo(USER_UPDATE_INFO_CLASS_ADDRESS
-                        , userId
-                        , token
-                        , JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo())))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<ResponseEntity>(this) {
+                        .UpdateUserInfo(USER_UPDATE_INFO_CLASS_ADDRESS
+                                , userId
+                                , token
+                                , JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo())))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new BaseObserver<ResponseEntity>(this) {
 
-                    @Override
-                    protected void onSuccess(ResponseEntity responseEntity) {
+                            @Override
+                            protected void onSuccess(ResponseEntity responseEntity) {
 
-                    }
-
-                    @Override
-                    public void onNext(ResponseEntity value) {
-                        try {
-                            JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
-                            int code = Integer.valueOf(responseJson.get("code").toString());
-                            JSONObject responseJsonData;
-                            switch (code) {
-                                case RespCodeNumber.SUCCESS://
-                                    responseJsonData = responseJson.getJSONObject("data");
-                                    String userInfoString = JSONObject.toJSONString(responseJsonData);
-                                    DataUtil.SaveUserInfoData(MainActivity.this, userInfoString);
-                                    Message msg = new Message();
-                                    msg.obj = "地址更新成功";
-                                    // 把消息发送到主线程，在主线程里现实Toast
-                                    handler.sendMessage(msg);
-                                    break;
                             }
-                        } catch (Exception e) {
-                            Log.e(TAG, e.toString());
-                        }
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                    }
+                            @Override
+                            public void onNext(ResponseEntity value) {
+                                try {
+                                    JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
+                                    int code = Integer.valueOf(responseJson.get("code").toString());
+                                    JSONObject responseJsonData;
+                                    switch (code) {
+                                        case RespCodeNumber.SUCCESS://
+                                            responseJsonData = responseJson.getJSONObject("data");
+                                            String userInfoString = JSONObject.toJSONString(responseJsonData);
+                                            DataUtil.SaveUserInfoData(MainActivity.this, userInfoString);
+                                            Message msg = new Message();
+                                            msg.obj = "地址更新成功";
+                                            // 把消息发送到主线程，在主线程里现实Toast
+                                            handler.sendMessage(msg);
+                                            break;
+                                    }
+                                } catch (Exception e) {
+                                    Log.e(TAG, e.toString());
+                                }
+                            }
 
-                    @Override
-                    public void onComplete() {
-                        Log.e(TAG, "onComplete:");
-                    }
-                }));
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                Log.e(TAG, "onComplete:");
+                            }
+                        }));
     }
 
 }

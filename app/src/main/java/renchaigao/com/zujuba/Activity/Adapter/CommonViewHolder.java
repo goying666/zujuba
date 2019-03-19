@@ -2,6 +2,7 @@ package renchaigao.com.zujuba.Activity.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,7 +39,7 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
      * @return 将结果强转为 View 或 View 的子类型
      */
     public <T extends View> T getView(int viewId) {
-        // 先从缓存中找，找打的话则直接返回
+        // 先从缓存中找，找到的话则直接返回
         // 如果找不到则 findViewById ，再把结果存入缓存中
         View view = viewSparseArray.get(viewId);
         if (view == null) {
@@ -51,6 +52,11 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
     public CommonViewHolder setText(int viewId, CharSequence text) {
         TextView tv = getView(viewId);
         tv.setText(text);
+        return this;
+    }
+    public CommonViewHolder setBackcolor(int viewId, int color) {
+        View tl = itemView.findViewById(viewId);
+        tl.setBackgroundColor(color);
         return this;
     }
     public CommonViewHolder setRatingBar(int viewId, float rating) {
@@ -72,7 +78,6 @@ public class CommonViewHolder extends RecyclerView.ViewHolder implements View.On
     public CommonViewHolder setImagelucency(int viewId) {
         ImageView imageView = getView(viewId);
         imageView.setBackgroundColor(0x00000000);
-
         return this;
     }
 

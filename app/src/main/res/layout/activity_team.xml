@@ -103,7 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/lrs"/>
+                android:src="@drawable/lrs"
+                android:visibility="visible" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -118,6 +119,8 @@
 
             <!--address-->
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/team_info_addressConstraintLayout"
+                android:background="@drawable/layout_click_backgroud_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -276,6 +279,7 @@
                     android:id="@+id/textView150"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/layout_click_backgroud_color"
                     android:layout_marginEnd="1dp"
                     android:text="查看详情"
                     android:textColor="@color/word_note"
@@ -1122,6 +1126,53 @@
                     android:layout_marginEnd="@dimen/margin_16dp" />
 
             </android.support.v4.widget.NestedScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_spacing_normal"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="#e0e0e0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/team_info_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="组局消息:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/team_note_NestedScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/team_info_notes"
+                    app:layout_constraintTop_toBottomOf="@+id/team_info_notes">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/team_info_notes_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </android.support.v4.widget.NestedScrollView>
+
+            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 android:layout_width="match_parent"

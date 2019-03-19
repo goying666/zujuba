@@ -5,24 +5,24 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bumptech.glide.Glide;
+import com.renchaigao.zujuba.PageBean.CardTeamNotesBean;
 import com.renchaigao.zujuba.PageBean.TeamActivityBean;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,17 +30,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import renchaigao.com.zujuba.Activity.Adapter.CardPlayerAdapter;
 import renchaigao.com.zujuba.Activity.BaseActivity;
 import renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity;
+import renchaigao.com.zujuba.Activity.Place.StoreActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.TeamApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
-import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_OPEN;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_STORE;
+import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_USER;
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.TEAM_SEND_MESSAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.ACTIVITY_MESSAGE_PAGE;
 import static renchaigao.com.zujuba.util.PropertiesConfig.FRAGMENT_TEAM_PAGE;
@@ -58,7 +59,7 @@ public class TeamActivity extends BaseActivity {
             ti_text_rank,
             ti_start_data,
             ti_start_time,
-            ti_time_left,
+            timeLeft,
             ti_player_number_now,
             boyNum,
             girlNum, ti_spend_way,
@@ -66,7 +67,7 @@ public class TeamActivity extends BaseActivity {
             ti_sexRatio, ti_sexRatio_result_info, ti_ageScreening, ti_ageScreening_result_info, ti_evaluationScreening,
             ti_evaluationScreening_result_info, ti_careerScreening, ti_careerScreening_result_info, ti_marriage,
             ti_marriage_result_info, ti_note_info;
-    private TextView ti_player_number_all;
+    private TextView ti_player_number_all, playerMore;
     private Button ti_join_button, ti_edit_button;
     private UserInfo userInfo = new UserInfo();
     private String userId, teamId, token;
@@ -77,12 +78,14 @@ public class TeamActivity extends BaseActivity {
     private Integer reloadNUM = 0, reloadViewNUM = 0;
     private String whereCome;
     private int COME_FROM;
-    private ImageView ti_store_image, ti_people_image_more;
+    private ImageView ti_store_image, playerMoreImage;
     private CardPlayerAdapter cardPlayerAdapter;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
+    private CardTeamNoteAdapter cardTeamNoteAdapter;
+    private RecyclerView recyclerView, notesRecyclerView;
     private Timer timer = new Timer();
     private TimerTask task;
+    private NestedScrollView nesteScrollViewPeople;
+    private ConstraintLayout addressCon;
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
@@ -100,7 +103,7 @@ public class TeamActivity extends BaseActivity {
         ti_user_state.setText(teamActivityBean.getTeamState());
 //        地点图片url + 游戏图片
 //        图片更具主要游戏选择一个图片
-        switch (teamActivityBean.getMainGame()){
+        switch (teamActivityBean.getMainGame()) {
             case "LRS":
                 ti_store_image.setImageResource(R.drawable.lrs);
                 break;
@@ -140,7 +143,7 @@ public class TeamActivity extends BaseActivity {
 //        ti_user_state.setText(teamActivityBean.getTeamState());
 
 //        组局倒计时
-        ti_time_left.setText(teamActivityBean.getTimeLeft());
+        timeLeft.setText(teamActivityBean.getTimeLeft());
 
 //        已入局的玩家人数
         ti_player_number_now.setText(teamActivityBean.getAllPlayerNum());
@@ -168,28 +171,63 @@ public class TeamActivity extends BaseActivity {
 //        玩家card的bean信息列表
         cardPlayerAdapter.updateResults(teamActivityBean.getPlayerList());
         cardPlayerAdapter.notifyDataSetChanged();
+        cardTeamNoteAdapter.updateResults(teamActivityBean.getCardTeamNotesBeans());
+        cardTeamNoteAdapter.notifyDataSetChanged();
         titleTextView.setText(teamActivityBean.getTeamName());
-        secondTitleTextView.setText("成员");
+        secondTitleTextView.setText(teamActivityBean.getUserClass());
         reloadFlag = RELOAD_FLAGE_VALUE_RELOAD;
     }
 
+    private ArrayList<CardTeamNotesBean> cardTeamNotesBeanArrayList = new ArrayList<>();
+
     private void setRecyclerView() {
-        layoutManager = new LinearLayoutManager(TeamActivity.this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.ti_RecyclerView_People);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(TeamActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         cardPlayerAdapter = new CardPlayerAdapter(this, teamActivityBean.getPlayerList());
         recyclerView.setAdapter(cardPlayerAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(TeamActivity.this, DividerItemDecoration.VERTICAL_LIST));
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+
+        notesRecyclerView = (RecyclerView) findViewById(R.id.team_info_notes_recyclerView);
+        LinearLayoutManager noteslayoutManager = new LinearLayoutManager(TeamActivity.this);
+        notesRecyclerView.setLayoutManager(noteslayoutManager);
+        cardTeamNoteAdapter = new CardTeamNoteAdapter(this, cardTeamNotesBeanArrayList);
+        notesRecyclerView.setAdapter(cardTeamNoteAdapter);
+        notesRecyclerView.setHasFixedSize(true);
+//        recyclerView.addItemDecoration(new DividerItemDecoration(TeamActivity.this, DividerItemDecoration.VERTICAL_LIST));
+//        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+    }
+
+    Boolean playerVisibale = true;
+
+    private void setPlayerMorePart() {
+        playerMore = (TextView) findViewById(R.id.ti_people_null1);
+        playerMoreImage = (ImageView) findViewById(R.id.ti_people_image_more);
+        nesteScrollViewPeople = (NestedScrollView) findViewById(R.id.ti_nesteScrollView_People);
+        playerMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (playerVisibale) {
+                    playerMoreImage.setImageResource(R.drawable.more_down);
+                    nesteScrollViewPeople.setVisibility(View.GONE);
+                    playerVisibale = false;
+                } else {
+                    playerMoreImage.setImageResource(R.drawable.more_up);
+                    nesteScrollViewPeople.setVisibility(View.VISIBLE);
+                    playerVisibale = true;
+                }
+            }
+        });
     }
 
     @Override
     protected void InitView() {
-        recyclerView = (RecyclerView) findViewById(R.id.ti_RecyclerView_People);
+        addressCon = (ConstraintLayout) findViewById(R.id.team_info_addressConstraintLayout);
         boyNum = (TextView) findViewById(R.id.textView78);
         girlNum = (TextView) findViewById(R.id.textView79);
         ti_player_number_now = (TextView) findViewById(R.id.ti_player_number_now);
-        ti_time_left = (TextView) findViewById(R.id.ti_time_left);
+        timeLeft = (TextView) findViewById(R.id.ti_time_left);
         ti_store_image = (ImageView) findViewById(R.id.ti_store_image);
         ti_user_position = (TextView) findViewById(R.id.ti_user_position);
         ti_user_state = (TextView) findViewById(R.id.ti_user_state);
@@ -232,14 +270,14 @@ public class TeamActivity extends BaseActivity {
         teamId = getIntent().getStringExtra("teamId");
         token = userInfo.getToken();
 
-
     }
 
-    private TextView titleTextView,secondTitleTextView;
-    private void initToolbar(){
+    private TextView titleTextView, secondTitleTextView;
+
+    private void initToolbar() {
         ConstraintLayout toolbar = (ConstraintLayout) findViewById(R.id.team_info_toolbar);
-         titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
-         secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
+        titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
         ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
         titleTextView.setText(teamActivityBean.getTeamName());
         secondTitleTextView.setText("成员");
@@ -254,6 +292,24 @@ public class TeamActivity extends BaseActivity {
     @Override
     protected void InitOther() {
         initToolbar();
+        setPlayerMorePart();
+        addressCon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                switch (teamActivityBean.getPlaceClass()) {
+                    case ADDRESS_CLASS_STORE:
+                        intent = new Intent(TeamActivity.this, StoreActivity.class);
+                        break;
+                    case ADDRESS_CLASS_OPEN:
+                        break;
+                    case ADDRESS_CLASS_USER:
+                        break;
+                }
+                intent.putExtra("placeId",teamActivityBean.getPlaceId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

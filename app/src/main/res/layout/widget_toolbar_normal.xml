@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/appBar_create"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
 
@@ -23,8 +24,9 @@
     <ImageView
         android:id="@+id/imageView33"
         android:layout_width="28dp"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:background="@drawable/layout_click_backgroud_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="副标题"
+        android:background="@drawable/layout_click_backgroud_color"
         android:textSize="@dimen/text_size_title"
         android:textColor="@color/word_title_black"
         app:layout_constraintBottom_toBottomOf="parent"

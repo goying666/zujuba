@@ -70,10 +70,10 @@ public class TeamActivityAdapter extends RecyclerView.Adapter<TeamActivityAdapte
             super(view);
             this.thisView = view;
             this.cardView = (CardView) view;
-            this.card_player_name = (TextView) view.findViewById(R.id.card_player_name);
+            this.card_player_name = (TextView) view.findViewById(R.id.card_time);
             this.card_player_zu_number = (TextView) view.findViewById(R.id.card_player_zu_number);
             this.card_player_you_number = (TextView) view.findViewById(R.id.card_player_you_number);
-            this.card_player_state = (TextView) view.findViewById(R.id.card_player_state);
+            this.card_player_state = (TextView) view.findViewById(R.id.team_note_conten);
             this.card_player_rank = (TextView) view.findViewById(R.id.card_player_rank);
             this.card_player_image = (CircleImageView) view.findViewById(R.id.card_player_image);
             this.card_player_sex = (ImageView) view.findViewById(R.id.card_player_sex);

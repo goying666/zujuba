@@ -92,7 +92,7 @@ public class HallFragmentAdapter extends RecyclerView.Adapter<HallFragmentAdapte
             public void onClick(View v) {
                 JSONObject storeJson = mJsonObject.get(position);
                 Intent intent = new Intent(mContext, StoreActivity.class);
-                intent.putExtra("storeinfo", JSONObject.toJSONString(storeJson));
+                intent.putExtra("placeId",storeJson.getString("placeId"));
                 mContext.startActivity(intent);
             }
         });
