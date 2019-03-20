@@ -11,7 +11,7 @@ import java.io.IOException;
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import renchaigao.com.zujuba.Activity.BaseActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import retrofit2.HttpException;
 
 /**

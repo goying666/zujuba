@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="renchaigao.com.zujuba.Activity.Message.TeamMessageInfoActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Message.TeamMessageInfoActivity">
 
 
     <include layout="@layout/widget_toolbar_normal"

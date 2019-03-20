@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="renchaigao.com.zujuba.Activity.User.UserActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.UserActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/activity_user_other_collapsing_create"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
+            android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -32,10 +23,10 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/activity_user_other_image"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/mogu_1"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -47,10 +38,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
                     android:text="Goying"
-                    app:layout_constraintStart_toStartOf="@+id/activity_user_other_image"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_user_other_image" />
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                    app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
                 <TextView
                     android:id="@+id/textView34"
@@ -65,13 +56,13 @@
                     android:id="@+id/textView35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginTop="40dp"
                     android:maxLines="3"
                     android:text="一米阳光，换取半分忧伤。"
-                    app:layout_constraintEnd_toStartOf="@+id/textView38"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/activity_user_other_name"
+                    app:layout_constraintEnd_toStartOf="@+id/textView41"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/imageView8"
                     app:layout_constraintTop_toBottomOf="@+id/activity_user_other_name" />
 
                 <TextView
@@ -118,9 +109,9 @@
                     android:id="@+id/textView40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:text="00后"
-                    app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    app:layout_constraintStart_toEndOf="@+id/activity_user_other_name"
                     app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
                 <TextView
@@ -149,12 +140,9 @@
                     android:id="@+id/imageView8"
                     android:layout_width="22dp"
                     android:layout_height="19dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/activity_user_other_name"
-                    app:layout_constraintStart_toEndOf="@+id/activity_user_other_name"
-                    app:layout_constraintTop_toTopOf="@+id/activity_user_other_name"
-                    app:layout_constraintVertical_bias="0.0"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/activity_user_other_image"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_user_other_image"
                     app:srcCompat="@drawable/boy" />
 
                 <TextView
@@ -175,85 +163,6 @@
                     app:layout_constraintTop_toTopOf="@+id/textView41"
                     app:srcCompat="@drawable/wh_w" />
             </android.support.constraint.ConstraintLayout>
-            <!--<ImageView-->
-            <!--android:id="@+id/user_background_image"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:src="@drawable/left_background_image" />-->
-
-            <!--app:layout_collapseMode="parallax"-->
-            <!--app:layout_collapseParallaxMultiplier="0.7"-->
-
-
-            <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/activity_toolbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--app:layout_collapseMode="pin">-->
-
-                <!--<android.support.constraint.ConstraintLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/activity_user_other_toolbar_back"-->
-                        <!--android:layout_width="45dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:src="@drawable/back_all"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--app:layout_constraintStart_toStartOf="parent"-->
-                        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/activity_user_other_toolbar_name"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginBottom="8dp"-->
-                        <!--android:layout_marginStart="8dp"-->
-                        <!--android:layout_marginTop="8dp"-->
-                        <!--android:text="Goying"-->
-                        <!--android:textSize="11pt"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--app:layout_constraintStart_toEndOf="@+id/activity_user_other_toolbar_back"-->
-                        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-                    <!--<Button-->
-                        <!--android:id="@+id/activity_user_other_toolbar_edit"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginBottom="8dp"-->
-                        <!--android:layout_marginEnd="8dp"-->
-                        <!--android:layout_marginTop="8dp"-->
-                        <!--android:text="编辑"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--app:layout_constraintEnd_toEndOf="parent"-->
-                        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-                <!--</android.support.constraint.ConstraintLayout>-->
-            <!--</android.support.v7.widget.Toolbar>-->
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-        <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
-
-    </android.support.design.widget.AppBarLayout>
-
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <android.support.design.widget.TabLayout
                 android:layout_width="match_parent"
@@ -274,7 +183,6 @@
                     android:layout_height="wrap_content"
                     android:text="评价" />
             </android.support.design.widget.TabLayout>
-
 
             <LinearLayout
                 android:id="@+id/a_u_linearLayout_part1"
@@ -417,47 +325,6 @@
                     android:layout_marginBottom="100dp" />
             </LinearLayout>
 
-
-            <!--<LinearLayout-->
-            <!--android:id="@+id/a_u_linearLayout_part2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical"-->
-            <!--android:visibility="visible">-->
-
-            <!--<android.support.constraint.ConstraintLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="24dp"-->
-            <!--android:background="@color/word_background">-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/activity_user_other_textview_zuju_title"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:text="组局（1）"-->
-            <!--android:textColor="@color/word_note"-->
-            <!--android:textSize="9pt"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/activity_user_other_textview_title_dianzan"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:text="点赞：5"-->
-            <!--android:textColor="@color/word_note"-->
-            <!--android:textSize="7pt"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
-            <!--</android.support.constraint.ConstraintLayout>-->
-            <!--</LinearLayout>-->
-
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-</android.support.design.widget.CoordinatorLayout>

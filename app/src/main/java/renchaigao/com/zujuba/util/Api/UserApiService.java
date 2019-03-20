@@ -57,10 +57,16 @@ public interface UserApiService {
     Observable<ResponseEntity> GetUserPlaceList(
             @Query("userId") String userId,
             @Query("token") String token);
+
     @GET("user/oneplace")
     Observable<ResponseEntity> GetUserOnePlaceInfo(
             @Query("userId") String userId,
             @Query("placeId") String placeId,
+            @Query("token") String token);
+
+    @GET("user/getminefrag")
+    Observable<ResponseEntity> GetMineFragmentInfo(
+            @Query("userId") String userId,
             @Query("token") String token);
 
 }

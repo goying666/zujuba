@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="renchaigao.com.zujuba.Activity.User.UserSettingActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.UserSettingActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/a_u_s_appbarlayout"

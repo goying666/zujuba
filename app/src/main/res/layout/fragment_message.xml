@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="renchaigao.com.zujuba.Fragment.Message.MessagePartFragment">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Main.MainChatFragment">
 
 
         <android.support.design.widget.TabLayout

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="renchaigao.com.zujuba.Activity.GaoDeMapActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Function.GaoDeMapActivity">
 
     <TextView
         android:id="@+id/map_business_text"

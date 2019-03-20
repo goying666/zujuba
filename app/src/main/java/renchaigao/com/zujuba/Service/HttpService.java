@@ -1,41 +1,13 @@
 package renchaigao.com.zujuba.Service;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.Message;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.idst.nls.internal.protocol.Content;
-import com.renchaigao.zujuba.domain.response.RespCodeNumber;
-import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import renchaigao.com.zujuba.Activity.Normal.AdvertisingActivity;
-import renchaigao.com.zujuba.Activity.Normal.LoginActivity;
-import renchaigao.com.zujuba.Activity.Normal.StartActivity;
-import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.FinalDefine;
 import renchaigao.com.zujuba.util.HttpClientTask;
-import renchaigao.com.zujuba.util.OkhttpFunc;
-import renchaigao.com.zujuba.util.PropertiesConfig;
 
 public class HttpService extends Service {
     public HttpService() {

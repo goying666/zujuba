@@ -10,7 +10,7 @@
         android:id="@+id/team_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:context="renchaigao.com.zujuba.Fragment.TeamFragment">
+        tools:context="renchaigao.com.zujuba.ActivityAndFragment.Main.MainTeamFragment">
 
         <LinearLayout
             android:id="@+id/LinearLayout1"

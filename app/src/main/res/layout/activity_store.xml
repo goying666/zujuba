@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="renchaigao.com.zujuba.Activity.Store.StoreActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Store.StoreActivity">
 
     <include
         android:id="@+id/store_info_toolbar"
@@ -104,6 +104,29 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/ti_text_spend" />
 
+                <TextView
+                    android:id="@+id/store_info_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="1名字名名字名字名字名字名字名字名字名字字名字名字名字名字名字名字名字名字名字"
+                    android:textSize="@dimen/text_size_toolbar"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:maxWidth="280dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/store_info_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="审核中"
+                    app:layout_constraintBottom_toBottomOf="@+id/store_info_name"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
                 <ImageView
                     android:id="@+id/imageView34"
                     android:layout_width="@dimen/icon_size_width"
@@ -111,7 +134,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/store_info_name"
                     app:srcCompat="@drawable/mine_team_play" />
 
                 <TextView
@@ -591,23 +614,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="俱乐部" />
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="评价" />
+                <!--<android.support.design.widget.TabItem-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="评价" />-->
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="游戏" />
             </android.support.design.widget.TabLayout>
 
             <renchaigao.com.zujuba.widgets.CustomViewPager
                 android:id="@+id/store_customView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
+                android:layout_height="580dp" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

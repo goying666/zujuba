@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import renchaigao.com.zujuba.Fragment.Adapter.TeamFragmentAdapter;
+import renchaigao.com.zujuba.ActivityAndFragment.Main.Adapter.MainTeamFragmentAdapter;
 import renchaigao.com.zujuba.R;
 
 public class GameInfoActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class GameInfoActivity extends AppCompatActivity {
         });
     }
 
-    private TeamFragmentAdapter teamFragmentAdapter;
+    private MainTeamFragmentAdapter mainTeamFragmentAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
 
@@ -45,8 +45,8 @@ public class GameInfoActivity extends AppCompatActivity {
 //        recyclerView = findViewById(R.id.team_page_recycler_view);
 //        layoutManager = new LinearLayoutManager(GameInfoActivity.this);
 //        recyclerView.setLayoutManager(layoutManager);
-//        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
-//        recyclerView.setAdapter(teamFragmentAdapter);
+//        mainTeamFragmentAdapter = new MainTeamFragmentAdapter(mContext);
+//        recyclerView.setAdapter(mainTeamFragmentAdapter);
 //        recyclerView.setHasFixedSize(true);
 //        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 //        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);

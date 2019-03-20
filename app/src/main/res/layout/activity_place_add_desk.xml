@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="renchaigao.com.zujuba.Activity.Place.PlaceAddDeskActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Place.PlaceAddDeskActivity">
 
     <TextView
         android:id="@+id/textView107"

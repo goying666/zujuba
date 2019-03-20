@@ -278,7 +278,7 @@ public class DeepForestGameMainActivity extends AppCompatActivity {
 //                                    }
 ////                                    Log.e("responseJsonData",responseJsonData.toJSONString());
 //                                    if (teamFragmentAdapter == null) {
-//                                        teamFragmentAdapter = new TeamFragmentAdapter(mContext);
+//                                        teamFragmentAdapter = new MainTeamFragmentAdapter(mContext);
 //                                    }
 //                                    teamFragmentAdapter.updateResults(mTeam);
 //

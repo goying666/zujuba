@@ -1,13 +1,5 @@
 package renchaigao.com.zujuba.util;
 
-import android.content.Context;
-import android.provider.Telephony;
-import android.telephony.TelephonyManager;
-
-import com.alibaba.idst.nls.internal.protocol.Content;
-
-import renchaigao.com.zujuba.Activity.Normal.LoginActivity;
-
 /**
  * Created by Administrator on 2018/7/25/025.
  */

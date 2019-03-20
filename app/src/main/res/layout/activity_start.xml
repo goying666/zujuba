@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context="renchaigao.com.zujuba.Activity.Normal.LoginActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.BasicPart.LoginActivity">
 
     <ImageView
         android:id="@+id/start_page_image"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="renchaigao.com.zujuba.Activity.User.UserCreateTeamListPageActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.UserCreateTeamListPageActivity">
 
 
     <Button

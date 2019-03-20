@@ -1,16 +1,9 @@
 package renchaigao.com.zujuba.util;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Message;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.idst.nls.internal.protocol.Content;
-import com.renchaigao.zujuba.domain.response.RespCodeNumber;
-import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -24,9 +17,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import renchaigao.com.zujuba.Activity.Normal.AdvertisingActivity;
-import renchaigao.com.zujuba.Activity.Normal.LoginActivity;
-import renchaigao.com.zujuba.Activity.Normal.StartActivity;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 
 /**

@@ -45,18 +45,19 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<activity android:name=".Activity.Message.MessagesInfoActivity"></activity>-->
-        <!--<activity android:name=".Activity.Message.FriendMessageInfoActivity" />-->
-        <activity android:name=".Activity.Message.SystemMessageInfoActivity" />
-        <activity android:name=".Activity.Message.ClubMessageInfoActivity" />
-        <activity android:name=".Activity.Message.TeamMessageInfoActivity" />
-        <activity android:name=".Activity.User.UserJoinTeamListPageActivity" />
-        <activity android:name=".Activity.User.UserCreateTeamListPageActivity" />
-        <activity android:name=".Activity.User.UserPlayGameListPageActivity" />
-        <activity android:name=".Activity.User.UserOwnGameListPageActivity" />
-        <activity android:name=".Activity.User.UserWantGameListPageActivity" />
-        <activity android:name=".Activity.User.UserPlaceListPageActivity" />
-        <activity android:name=".Activity.User.UserPlayPlaceListPageActivity" />
+        <activity android:name=".ActivityAndFragment.Function.InputActivity"></activity>
+        <!-- <activity android:name=".Activity.Message.MessagesInfoActivity"></activity> -->
+        <!-- <activity android:name=".Activity.Message.FriendMessageInfoActivity" /> -->
+        <activity android:name=".ActivityAndFragment.Message.SystemMessageInfoActivity" />
+        <activity android:name=".ActivityAndFragment.Message.ClubMessageInfoActivity" />
+        <activity android:name=".ActivityAndFragment.Message.TeamMessageInfoActivity" />
+        <activity android:name=".ActivityAndFragment.User.UserJoinTeamListPageActivity" />
+        <activity android:name=".ActivityAndFragment.User.UserCreateTeamListPageActivity" />
+        <activity android:name=".ActivityAndFragment.User.UserPlayGameListPageActivity" />
+        <activity android:name=".ActivityAndFragment.User.UserOwnGameListPageActivity" />
+        <activity android:name=".ActivityAndFragment.User.UserWantGameListPageActivity" />
+        <activity android:name=".ActivityAndFragment.User.UserPlaceListPageActivity" />
+        <activity android:name=".ActivityAndFragment.User.UserPlayPlaceListPageActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -69,7 +70,7 @@
         </provider>
 
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".ActivityAndFragment.Main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
@@ -80,10 +81,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".Activity.Center.JoinUsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activity.Store.CreateStoreActivity"
+            android:name=".ActivityAndFragment.Store.CreateStoreActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -94,32 +92,29 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity
-            android:name=".Activity.GaoDeMapActivity"
+            android:name=".ActivityAndFragment.Function.GaoDeMapActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Normal.LoginActivity"
+            android:name=".ActivityAndFragment.BasicPart.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Store.StoreActivity"
+            android:name=".ActivityAndFragment.Store.StoreActivity"
             android:label="@string/title_activity_store"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.TeamPart.TeamCreateActivity"
+            android:name=".ActivityAndFragment.TeamPart.TeamCreateActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.MyTeamActivity"
+            android:name=".ActivityAndFragment.Place.PlaceListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Place.PlaceListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activity.TeamPart.TeamActivity"
+            android:name=".ActivityAndFragment.TeamPart.TeamActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Normal.AdvertisingActivity"
+            android:name=".ActivityAndFragment.BasicPart.AdvertisingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GamePart.World.GameInfoActivity"
@@ -182,10 +177,10 @@
             android:name=".GamePart.DeepForest.DeepForestGmaeSetUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Game.GameBeginActivity"
+            android:name=".ActivityAndFragment.Game.GameBeginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Game.GameReadyActivity"
+            android:name=".ActivityAndFragment.Game.GameReadyActivity"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- <activity android:name=".util.Google.zxing.activity.CaptureActivity" -->
         <!-- tools:ignore="InnerclassSeparator"> -->
         <!-- <intent-filter> -->
@@ -194,11 +189,11 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name=".Activity.User.UserActivity"
+            android:name=".ActivityAndFragment.User.UserActivity"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.User.UserSettingActivity"
+            android:name=".ActivityAndFragment.User.UserSettingActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <!-- <intent-filter> -->
@@ -207,10 +202,10 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".Activity.User.UserTeamActivity"
+            android:name=".ActivityAndFragment.User.UserTeamActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.Normal.StartActivity"
+            android:name=".ActivityAndFragment.BasicPart.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -229,7 +224,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".Activity.Place.UserPlaceManagerActivity"
+            android:name=".ActivityAndFragment.Place.UserPlaceManagerActivity"
             android:label="@string/title_activity_place_manager"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -240,14 +235,14 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".Activity.Place.PlaceAddDeskActivity" />
+        <activity android:name=".ActivityAndFragment.Place.PlaceAddDeskActivity" />
         <activity
-            android:name=".Activity.Message.SystemMessageActivity"
+            android:name=".ActivityAndFragment.Message.SystemMessageActivity"
             android:label="@string/title_activity_system_message"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.Club.ClubInfoActivity" />
+        <activity android:name=".ActivityAndFragment.Club.ClubInfoActivity" />
         <activity
-            android:name=".Activity.Club.CreateClubActivity"
+            android:name=".ActivityAndFragment.Club.CreateClubActivity"
             android:label="@string/title_activity_create_club"
             android:theme="@style/AppTheme" />
     </application>
