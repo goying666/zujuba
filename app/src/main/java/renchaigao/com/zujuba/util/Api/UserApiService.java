@@ -65,8 +65,14 @@ public interface UserApiService {
             @Query("token") String token);
 
     @GET("user/getminefrag")
-    Observable<ResponseEntity> GetMineFragmentInfo(
+    Observable<ResponseEntity> GetMyFragmentInfo(
             @Query("userId") String userId,
             @Query("token") String token);
+
+    @GET("user/getteam")
+    Observable<ResponseEntity> GetMyTeamInfo(
+            @Query("userId") String userId,
+            @Query("token") String token);
+
 
 }

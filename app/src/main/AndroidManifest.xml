@@ -40,23 +40,22 @@
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@mipmap/zujuba_logo"
+        android:icon="@mipmap/logo_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAndFragment.Function.InputActivity"></activity>
-        <!-- <activity android:name=".Activity.Message.MessagesInfoActivity"></activity> -->
+        <activity android:name=".ActivityAndFragment.Function.CallUsActivity"></activity>
+        <activity android:name=".ActivityAndFragment.User.MyGameActivity" />
+        <activity android:name=".ActivityAndFragment.Function.InputActivity" /> <!-- <activity android:name=".Activity.Message.MessagesInfoActivity"></activity> -->
         <!-- <activity android:name=".Activity.Message.FriendMessageInfoActivity" /> -->
         <activity android:name=".ActivityAndFragment.Message.SystemMessageInfoActivity" />
         <activity android:name=".ActivityAndFragment.Message.ClubMessageInfoActivity" />
         <activity android:name=".ActivityAndFragment.Message.TeamMessageInfoActivity" />
-        <activity android:name=".ActivityAndFragment.User.UserJoinTeamListPageActivity" />
-        <activity android:name=".ActivityAndFragment.User.UserCreateTeamListPageActivity" />
         <activity android:name=".ActivityAndFragment.User.UserPlayGameListPageActivity" />
         <activity android:name=".ActivityAndFragment.User.UserOwnGameListPageActivity" />
         <activity android:name=".ActivityAndFragment.User.UserWantGameListPageActivity" />
-        <activity android:name=".ActivityAndFragment.User.UserPlaceListPageActivity" />
+        <activity android:name=".ActivityAndFragment.User.MyPlaceActivity" />
         <activity android:name=".ActivityAndFragment.User.UserPlayPlaceListPageActivity" />
 
         <provider
@@ -202,7 +201,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".ActivityAndFragment.User.UserTeamActivity"
+            android:name=".ActivityAndFragment.User.MyTeamActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActivityAndFragment.BasicPart.StartActivity"

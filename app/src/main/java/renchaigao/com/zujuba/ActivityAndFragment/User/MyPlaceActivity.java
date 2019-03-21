@@ -33,9 +33,9 @@ import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.DividerItemDecoration;
 
-public class UserPlaceListPageActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
+public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.onItemCommonClickListener {
 
-    private static String TAG = "UserPlaceListPageActivity";
+    private static String TAG = "MyPlaceActivity";
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -65,7 +65,7 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
 
     @Override
     protected void InitView() {
-        state_open = (TextView) findViewById(R.id.textView54);
+        state_open = (TextView) findViewById(R.id.doing);
         state_create = (TextView) findViewById(R.id.textView55);
         state_close = (TextView) findViewById(R.id.textView56);
 
@@ -92,15 +92,15 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
 
 
     private void setRecyclerView() {
-        layoutManager = new LinearLayoutManager(UserPlaceListPageActivity.this);
+        layoutManager = new LinearLayoutManager(MyPlaceActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-//        userPlaceListPageActivityAdapter = new UserPlaceListPageActivityAdapter(UserPlaceListPageActivity.this);
+//        userPlaceListPageActivityAdapter = new UserPlaceListPageActivityAdapter(MyPlaceActivity.this);
         userPlaceListPageAdapter = new UserPlaceListPageAdapter(this, jsonObjectArrayList, this, R.layout.card_place_list_page);
 
         recyclerView.setAdapter(userPlaceListPageAdapter);
 //        recyclerView.setAdapter(userPlaceListPageActivityAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(UserPlaceListPageActivity.this, DividerItemDecoration.VERTICAL_LIST));
+        recyclerView.addItemDecoration(new DividerItemDecoration(MyPlaceActivity.this, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
@@ -110,7 +110,7 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
                         userInfo.getId(), userInfo.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<ResponseEntity>(UserPlaceListPageActivity.this) {
+                .subscribeWith(new BaseObserver<ResponseEntity>(MyPlaceActivity.this) {
                     @Override
                     public void onNext(ResponseEntity value) {
                         try {
@@ -153,13 +153,13 @@ public class UserPlaceListPageActivity extends BaseActivity implements CommonVie
 
 
     public void AddNewPlace(View view) {
-        Intent intent = new Intent(UserPlaceListPageActivity.this, CreateStoreActivity.class);
+        Intent intent = new Intent(MyPlaceActivity.this, CreateStoreActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void onItemClickListener(int position) {
-        Intent intent = new Intent(UserPlaceListPageActivity.this, UserPlaceManagerActivity.class);
+        Intent intent = new Intent(MyPlaceActivity.this, UserPlaceManagerActivity.class);
         intent.putExtra("storeinfo", JSONObject.toJSONString(jsonObjectArrayList.get(position)));
         startActivity(intent);
     }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.UserJoinTeamListPageActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.MyJoinTeamActivity">
 
 
     <Button
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView52" />
 
     <TextView
-        android:id="@+id/textView54"
+        android:id="@+id/doing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

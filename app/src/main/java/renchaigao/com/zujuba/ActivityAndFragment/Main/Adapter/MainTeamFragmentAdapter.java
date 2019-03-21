@@ -37,18 +37,18 @@ public class MainTeamFragmentAdapter extends CommonRecycleAdapter<JSONObject> im
     public void bindData(CommonViewHolder holder, JSONObject data) {
 //        holder.setImageResource(R.id.team_image, R.drawable.thqby)
         holder.setGlideImageResource(R.id.team_image, PropertiesConfig.photoUrl + data.getString("imageurl"), mContext)
-                .setText(R.id.team_cardview_name, data.getString("name"))
-                .setText(R.id.team_cardview_state, data.getString("state"))
-                .setText(R.id.team_cardview_place, data.getString("place"))
+                .setText(R.id.teamName, data.getString("name"))
+                .setText(R.id.teamState, data.getString("state"))
+                .setText(R.id.teamPlaceName, data.getString("place"))
                 .setRatingBar(R.id.place_star_num, data.getFloatValue("rating"))
                 .setText(R.id.team_shop_info, data.getString("placeNote"))
-                .setText(R.id.team_place_howlong, data.getString("distance"))
-                .setText(R.id.team_boy_number, data.getString("boynum") + "人")
+                .setText(R.id.distance, data.getString("distance"))
+                .setText(R.id.mainGame, data.getString("boynum") + "人")
                 .setText(R.id.team_girl_number, data.getString("girlnum") + "人")
-                .setText(R.id.my_team_cardview_people_number, data.getString("currentPlayer"))
-                .setText(R.id.team_start_date, data.getString("date"))
-                .setText(R.id.team_start_time, data.getString("time"))
-                .setText(R.id.team_lave_time, data.getString("lave"))
+                .setText(R.id.playerNumber, data.getString("currentPlayer"))
+                .setText(R.id.startDay, data.getString("date"))
+                .setText(R.id.startTime, data.getString("time"))
+                .setText(R.id.laveTime, data.getString("lave"))
                 .setCommonClickListener(commonClickListener);
     }
 

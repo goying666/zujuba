@@ -4,221 +4,148 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.LazyHeaders;
-import com.renchaigao.zujuba.domain.response.RespCodeNumber;
-import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import renchaigao.com.zujuba.ActivityAndFragment.User.UserCreateTeamListPageActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.UserJoinTeamListPageActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.UserOwnGameListPageActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.UserPlaceListPageActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.UserPlayGameListPageActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.UserPlayPlaceListPageActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.UserWantGameListPageActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.Function.CallUsActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.User.MyPlaceActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.User.MyTeamActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
+import renchaigao.com.zujuba.ActivityAndFragment.User.UserSettingActivity;
 import renchaigao.com.zujuba.R;
-import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
-import renchaigao.com.zujuba.util.PropertiesConfig;
-import renchaigao.com.zujuba.util.http.BaseObserver;
-import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
-
-import static com.renchaigao.zujuba.PropertiesConfig.UserConstant.GENDER_BOY;
-import static com.renchaigao.zujuba.PropertiesConfig.UserConstant.USER_UPDATE_INFO_CLASS_ADDRESS;
 
 public class MainMineFragment extends BaseFragment {
 
-    private ImageView f_mine_usersetting_image;
-    private TextView activity_user_textview_zuju_title, activity_user_textview_title_dianzan,
-            activity_user_textview_youxi_title, activity_user_textview_youxi_title_wanguo,
-            activity_user_changdi_title, activity_user_changdi_title_playTimes,
-            activity_user_textview_zuju_create, activity_user_textview_zuju_join,
-            activity_user_textview_youxi_own, activity_user_textview_youxi_play, activity_user_textview_youxi_want,
-            activity_user_changdi_title_own, activity_user_changdi_title_play;
-    private TextView
-            activity_user_textview_zuju_create_1, activity_user_textview_zuju_join_1,
-            activity_user_textview_youxi_own_1, activity_user_textview_youxi_play_1, activity_user_textview_youxi_want_1,
-            activity_user_changdi_title_own_1, activity_user_changdi_title_play_1,
-            activity_user_textview_zuju_create_2, activity_user_textview_zuju_join_2,
-            activity_user_textview_youxi_own_2, activity_user_textview_youxi_play_2, activity_user_textview_youxi_want_2,
-            activity_user_changdi_title_own_2, activity_user_changdi_title_play_2;
-    private TextView userName, userAgeLevel, userCheck, meilizhi, userScore, userSignature;
-    private ImageView genderImage, createTeamImage, joinTeamImage, ownGameImage, playGameImage, wantGameImage, createPlaceImage, playPlaceImage;
-
-    private CircleImageView activity_user_image;
-
+    private ImageView userGender;
+    private TextView userNickName, userAgeLivel, userScore, userCheck, userSignature;
+    private CircleImageView userPhoto;
+    private ConstraintLayout teamPart;
+    private ConstraintLayout gamePart;
+    private ConstraintLayout placePart;
+    private ConstraintLayout fightPart;
+    private ConstraintLayout toolsPart;
+    private ConstraintLayout setting;
+    private ConstraintLayout callus;
 
     @SuppressLint("CutPasteId")
     @Override
     protected void InitView(View rootView) {
 
-        genderImage = (ImageView) rootView.findViewById(R.id.imageView8);
-        userName = (TextView) rootView.findViewById(R.id.activity_user_name);
-        userAgeLevel = (TextView) rootView.findViewById(R.id.textView40);
-        userCheck = (TextView) rootView.findViewById(R.id.textView42);
-        meilizhi = (TextView) rootView.findViewById(R.id.textView34);
+        userNickName = (TextView) rootView.findViewById(R.id.userNickName);
+        userAgeLivel = (TextView) rootView.findViewById(R.id.textView40);
         userScore = (TextView) rootView.findViewById(R.id.textView41);
         userSignature = (TextView) rootView.findViewById(R.id.textView35);
-        userSignature.setVisibility(View.GONE);
-        activity_user_image = (CircleImageView) rootView.findViewById(R.id.activity_user_image);
+        userCheck = (TextView) rootView.findViewById(R.id.textView42);
+        userGender = (ImageView) rootView.findViewById(R.id.imageView8);
+        userPhoto = (CircleImageView) rootView.findViewById(R.id.activity_user_image);
+        /*  team part*/
+        teamPart = (ConstraintLayout) rootView.findViewById(R.id.part1);
+        ((ImageView) teamPart.findViewById(R.id.image)).setImageResource(R.drawable.mine_team_create);
+        ((ImageView) teamPart.findViewById(R.id.icon1)).setImageResource(R.drawable.club_huodong);
+        ((ImageView) teamPart.findViewById(R.id.icon2)).setImageResource(R.drawable.club_huodong);
+        ((TextView) teamPart.findViewById(R.id.title)).setText("我的组局");
+        ((TextView) teamPart.findViewById(R.id.content1)).setText("");
+        ((TextView) teamPart.findViewById(R.id.content2)).setText("");
+        /*  game part*/
+        gamePart = (ConstraintLayout) rootView.findViewById(R.id.part2);
+        ((ImageView) gamePart.findViewById(R.id.image)).setImageResource(R.drawable.mine_game_own);
+        ((ImageView) gamePart.findViewById(R.id.icon1)).setImageResource(R.drawable.club_huodong);
+        ((ImageView) gamePart.findViewById(R.id.icon2)).setImageResource(R.drawable.club_huodong);
+        ((TextView) gamePart.findViewById(R.id.title)).setText("我的游戏");
+        ((TextView) gamePart.findViewById(R.id.content1)).setText("");
+        ((TextView) gamePart.findViewById(R.id.content2)).setText("");
+        /*  place part*/
+        placePart = (ConstraintLayout) rootView.findViewById(R.id.part3);
+        ((ImageView) placePart.findViewById(R.id.image)).setImageResource(R.drawable.mine_place_play);
+        ((ImageView) placePart.findViewById(R.id.icon1)).setImageResource(R.drawable.club_huodong);
+        ((ImageView) placePart.findViewById(R.id.icon2)).setImageResource(R.drawable.club_huodong);
+        ((TextView) placePart.findViewById(R.id.title)).setText("我的场地");
+        ((TextView) placePart.findViewById(R.id.content1)).setText("");
+        ((TextView) placePart.findViewById(R.id.content2)).setText("");
+        /*  fight part*/
+        fightPart = (ConstraintLayout) rootView.findViewById(R.id.part4);
+        ((ImageView) fightPart.findViewById(R.id.image)).setImageResource(R.drawable.mine_game_play);
+        ((ImageView) fightPart.findViewById(R.id.icon1)).setImageResource(R.drawable.club_huodong);
+        ((ImageView) fightPart.findViewById(R.id.icon2)).setImageResource(R.drawable.club_huodong);
+        ((TextView) fightPart.findViewById(R.id.title)).setText("我的战斗");
+        ((TextView) fightPart.findViewById(R.id.content1)).setText("");
+        ((TextView) fightPart.findViewById(R.id.content2)).setText("");
+        /*  tools part*/
+        toolsPart = (ConstraintLayout) rootView.findViewById(R.id.part5);
+        ((ImageView) toolsPart.findViewById(R.id.image)).setImageResource(R.drawable.tools);
+        ((ImageView) toolsPart.findViewById(R.id.icon1)).setImageResource(R.drawable.club_huodong);
+        ((ImageView) toolsPart.findViewById(R.id.icon2)).setImageResource(R.drawable.club_huodong);
+        ((TextView) toolsPart.findViewById(R.id.title)).setText("我的道具");
+        ((TextView) toolsPart.findViewById(R.id.content1)).setText("");
+        ((TextView) toolsPart.findViewById(R.id.content2)).setText("");
 
-        activity_user_textview_zuju_title = (TextView) rootView.findViewById(R.id.activity_user_textview_zuju_title);
-        activity_user_textview_title_dianzan = (TextView) rootView.findViewById(R.id.activity_user_textview_title_dianzan);
-        activity_user_textview_youxi_title = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_title);
-        activity_user_textview_youxi_title_wanguo = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_title_wanguo);
-        activity_user_changdi_title = (TextView) rootView.findViewById(R.id.activity_user_changdi_title);
-        activity_user_changdi_title_playTimes = (TextView) rootView.findViewById(R.id.activity_user_changdi_title_playTimes);
-
-        activity_user_textview_zuju_create_1 = (TextView) rootView.findViewById(R.id.activity_user_textview_zuju_create).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_textview_zuju_join_1 = (TextView) rootView.findViewById(R.id.activity_user_textview_zuju_join).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_textview_youxi_own_1 = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_own).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_textview_youxi_play_1 = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_play).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_textview_youxi_want_1 = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_want).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_changdi_title_own_1 = (TextView) rootView.findViewById(R.id.activity_user_textview_changdi_own).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_changdi_title_play_1 = (TextView) rootView.findViewById(R.id.activity_user_textview_changdi_play).findViewById(R.id.widget_user_content_TextView_name);
-        activity_user_textview_zuju_create_2 = (TextView) rootView.findViewById(R.id.activity_user_textview_zuju_create).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_textview_zuju_join_2 = (TextView) rootView.findViewById(R.id.activity_user_textview_zuju_join).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_textview_youxi_own_2 = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_own).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_textview_youxi_play_2 = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_play).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_textview_youxi_want_2 = (TextView) rootView.findViewById(R.id.activity_user_textview_youxi_want).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_changdi_title_own_2 = (TextView) rootView.findViewById(R.id.activity_user_textview_changdi_own).findViewById(R.id.widget_user_content_TextView_info);
-        activity_user_changdi_title_play_2 = (TextView) rootView.findViewById(R.id.activity_user_textview_changdi_play).findViewById(R.id.widget_user_content_TextView_info);
-        createTeamImage = (ImageView) rootView.findViewById(R.id.activity_user_textview_zuju_create).findViewById(R.id.widget_user_content_imageview);
-        joinTeamImage = (ImageView) rootView.findViewById(R.id.activity_user_textview_zuju_join).findViewById(R.id.widget_user_content_imageview);
-        ownGameImage = (ImageView) rootView.findViewById(R.id.activity_user_textview_youxi_own).findViewById(R.id.widget_user_content_imageview);
-        playGameImage = (ImageView) rootView.findViewById(R.id.activity_user_textview_youxi_play).findViewById(R.id.widget_user_content_imageview);
-        wantGameImage = (ImageView) rootView.findViewById(R.id.activity_user_textview_youxi_want).findViewById(R.id.widget_user_content_imageview);
-        createPlaceImage = (ImageView) rootView.findViewById(R.id.activity_user_textview_changdi_own).findViewById(R.id.widget_user_content_imageview);
-        playPlaceImage = (ImageView) rootView.findViewById(R.id.activity_user_textview_changdi_play).findViewById(R.id.widget_user_content_imageview);
-        createTeamImage.setImageResource(R.drawable.mine_team_create);
-        joinTeamImage.setImageResource(R.drawable.mine_team_play);
-        ownGameImage.setImageResource(R.drawable.mine_game_own);
-        playGameImage.setImageResource(R.drawable.mine_game_play);
-        wantGameImage.setImageResource(R.drawable.mine_game_want);
-        createPlaceImage.setImageResource(R.drawable.mine_place_create);
-        playPlaceImage.setImageResource(R.drawable.mine_place_play);
-
-        rootView.findViewById(R.id.activity_user_textview_zuju_create).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserCreateTeamListPageActivity.class);
-                startActivity(intent);
-            }
-        });
-        rootView.findViewById(R.id.activity_user_textview_zuju_join).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserJoinTeamListPageActivity.class);
-                startActivity(intent);
-            }
-        });
-        rootView.findViewById(R.id.activity_user_textview_youxi_own).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserOwnGameListPageActivity.class);
-                startActivity(intent);
-            }
-        });
-        rootView.findViewById(R.id.activity_user_textview_youxi_play).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserPlayGameListPageActivity.class);
-                startActivity(intent);
-            }
-        });
-        rootView.findViewById(R.id.activity_user_textview_youxi_want).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserWantGameListPageActivity.class);
-                startActivity(intent);
-            }
-        });
-        rootView.findViewById(R.id.activity_user_textview_changdi_own).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserPlaceListPageActivity.class);
-                startActivity(intent);
-            }
-        });
-        rootView.findViewById(R.id.activity_user_textview_changdi_play).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), UserPlayPlaceListPageActivity.class);
-                startActivity(intent);
-            }
-        });
+        setting = (ConstraintLayout) rootView.findViewById(R.id.fragment_mine_setting);
+        callus =  (ConstraintLayout) rootView.findViewById(R.id.fragment_mine_callus);
 
     }
 
     @Override
     protected void InitData(View rootView) {
         UserInfo userInfo = DataUtil.GetUserInfoData(mContext);
-        activity_user_textview_zuju_title.setText("组局（1）");
-        activity_user_textview_title_dianzan.setText("");
-        activity_user_textview_youxi_title.setText("游戏（5）");
-        activity_user_textview_youxi_title_wanguo.setText("");
-        activity_user_changdi_title.setText("场地（1）");
-        activity_user_changdi_title_playTimes.setText("");
-        activity_user_textview_zuju_create_1.setText("创建的组局");
-        activity_user_textview_zuju_join_1.setText("加入的组局");
-        activity_user_textview_youxi_own_1.setText("拥有的游戏");
-        activity_user_textview_youxi_play_1.setText("玩过的游戏");
-        activity_user_textview_youxi_want_1.setText("想要的游戏");
-        activity_user_changdi_title_own_1.setText("拥有的场地");
-        activity_user_changdi_title_play_1.setText("玩过的场地");
-        activity_user_textview_zuju_create_2.setText("0次");
-        activity_user_textview_zuju_join_2.setText("1次");
-        activity_user_textview_youxi_own_2.setText("1款");
-        activity_user_textview_youxi_play_2.setText("2款");
-        activity_user_textview_youxi_want_2.setText("2款");
-        activity_user_changdi_title_own_2.setText("0个");
-        activity_user_changdi_title_play_2.setText("1个");
-//        GlideUrl glideUrl = new GlideUrl(PropertiesConfig.photoUrl + "showimage" + userInfo.getPicPath()
-//                , new LazyHeaders.Builder()
-//                .addHeader("Content-Type", "image/jpeg")
-//                .build());
-//        Glide.with(mContext)
-//                .load(glideUrl)
-//                .dontAnimate().diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .skipMemoryCache(false)
-//                .into(activity_user_image);
-        genderImage.setImageResource(userInfo.getGender().equals(GENDER_BOY) ? R.drawable.boy : R.drawable.girl);
-        userName.setText(userInfo.getNickName());
-        userAgeLevel.setText(userInfo.getAgeLevel());
-        userCheck.setVisibility(View.GONE);
-        meilizhi.setText("10");
-        userScore.setText("10");
-//        userSignature.setText(userInfo.get);
     }
 
     @Override
     protected void InitOther(View rootView) {
-
-////        GlideUrl glideUrl = new GlideUrl("http://127.0.0.1:7811/show1image/6188dd9cffc64e2f9b76698be9a51d97/0a46957811ea42c3bfa67f1cfeda663f/photo9.jpg"
-//        GlideUrl glideUrl = new GlideUrl(PropertiesConfig.photoUrl + "showimage/6188dd9cffc64e2f9b76698be9a51d97/0a46957811ea42c3bfa67f1cfeda663f/photo9.jpg"
-//                , new LazyHeaders.Builder()
-//                .addHeader("Content-Type", "image/jpeg")
-//                .build());
-//        Glide.with(mContext)
-//                .load(glideUrl)
-////                .load("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg")
-//                .dontAnimate().diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .skipMemoryCache(false)
-//                .into(activity_user_image);
+        teamPart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyTeamActivity.class);
+                startActivity(intent);
+            }
+        });
+        gamePart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyTeamActivity.class);
+                startActivity(intent);
+            }
+        });
+        placePart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyPlaceActivity.class);
+                startActivity(intent);
+            }
+        });
+        fightPart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyTeamActivity.class);
+                startActivity(intent);
+            }
+        });
+        toolsPart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyTeamActivity.class);
+                startActivity(intent);
+            }
+        });
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserSettingActivity.class);
+                startActivity(intent);
+            }
+        });
+        callus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CallUsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -233,52 +160,4 @@ public class MainMineFragment extends BaseFragment {
 
         }
     };
-//    private void sendAddressToService() {
-//        addSubscribe(
-//                RetrofitServiceManager.getInstance().creat(UserApiService.class)
-//                        .UpdateUserInfo(USER_UPDATE_INFO_CLASS_ADDRESS
-//                                , userId
-//                                , token
-//                                , JSONObject.parseObject(JSONObject.toJSONString(userInfo.getAddressInfo())))
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribeWith(new BaseObserver<ResponseEntity>(this) {
-//
-//                            @Override
-//                            protected void onSuccess(ResponseEntity responseEntity) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(ResponseEntity value) {
-//                                try {
-//                                    JSONObject responseJson = JSONObject.parseObject(JSONObject.toJSONString(value));
-//                                    int code = Integer.valueOf(responseJson.get("code").toString());
-//                                    JSONObject responseJsonData;
-//                                    switch (code) {
-//                                        case RespCodeNumber.SUCCESS://
-//                                            responseJsonData = responseJson.getJSONObject("data");
-//                                            String userInfoString = JSONObject.toJSONString(responseJsonData);
-//                                            DataUtil.SaveUserInfoData(MainActivity.this, userInfoString);
-//                                            Message msg = new Message();
-//                                            msg.obj = "地址更新成功";
-//                                            // 把消息发送到主线程，在主线程里现实Toast
-//                                            handler.sendMessage(msg);
-//                                            break;
-//                                    }
-//                                } catch (Exception e) {
-//                                    Log.e(TAG, e.toString());
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//                                Log.e(TAG, "onComplete:");
-//                            }
-//                        }));
-//    }
 }

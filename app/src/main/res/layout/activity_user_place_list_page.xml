@@ -6,8 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.UserPlaceListPageActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.MyPlaceActivity">
 
+
+    <include
+        android:id="@+id/my_place_toolbar"
+        layout="@layout/widget_toolbar_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
@@ -24,26 +31,14 @@
         tools:ignore="OnClick" />
 
     <TextView
-        android:id="@+id/textView50"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:textSize="@dimen/margin_40dp"
-        android:textStyle="bold"
-        android:text="我的场地"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView51"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="营业中"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView50" />
+        app:layout_constraintTop_toBottomOf="@+id/my_place_toolbar" />
 
     <TextView
         android:id="@+id/textView52"
@@ -67,7 +62,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView52" />
 
     <TextView
-        android:id="@+id/textView54"
+        android:id="@+id/doing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -121,6 +121,7 @@
     <string name="ct_filter_4">选择参加组局的年龄限制</string>
     <string name="ct_filter_5">对参加组局的人的评价筛选</string>
     <string name="ct_filter_6">对玩家的婚配情况进行筛选</string>
+    <string name="call_us_class">选择一个反馈类型</string>
 
     <string name="ct_end_note">一次组局，一些人，一段回忆。</string>
     <string name="ct_end_note_author">——Goying</string>
@@ -183,5 +184,13 @@
 
     <!--Deep Forest Game Use Part-->
     <!--<string name=""-->
+
+
+    <string-array name="call_us_array">　　　        　　　　　　
+        <item>游戏bug</item>
+        <item>合作交流</item>
+        <item>举报反馈</item>
+        <item>建议感想</item>
+    </string-array>
 
 </resources>
