@@ -23,6 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.Club.ClubInfoActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.Adapter.StoreClubFragmentAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -94,10 +95,13 @@ public class StoreClubFragment extends BaseFragment implements CommonViewHolder.
     protected void InitOther(View rootView) {
         reloadAdapter();
     }
+
     @Override
-    public void onResume() {
-        super.onResume();
-        reloadAdapter();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if(isVisibleToUser && mIsViewCreated){
+            reloadAdapter();
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override

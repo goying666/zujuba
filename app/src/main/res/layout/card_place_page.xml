@@ -11,7 +11,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/message_tips_click_backgroud_color">
+        android:layout_marginStart="@dimen/margin_8dp"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:background="@drawable/click_yellow_color_backgroud">
 
         <ImageView
             android:id="@+id/store_boy_icon"

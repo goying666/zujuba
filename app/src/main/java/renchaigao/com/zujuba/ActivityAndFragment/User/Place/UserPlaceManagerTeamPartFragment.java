@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Place;
+package renchaigao.com.zujuba.ActivityAndFragment.User.Place;
 
 import android.app.Activity;
 import android.view.View;

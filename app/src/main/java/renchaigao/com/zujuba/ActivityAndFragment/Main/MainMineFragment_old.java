@@ -15,7 +15,7 @@
 //import renchaigao.com.zujuba.ActivityAndFragment.User.MyTeamListActivity;
 //import renchaigao.com.zujuba.ActivityAndFragment.User.MyJoinTeamActivity;
 //import renchaigao.com.zujuba.ActivityAndFragment.User.UserOwnGameListPageActivity;
-//import renchaigao.com.zujuba.ActivityAndFragment.User.MyPlaceActivity;
+//import renchaigao.com.zujuba.ActivityAndFragment.User.Place.MyPlaceActivity;
 //import renchaigao.com.zujuba.ActivityAndFragment.User.UserPlayGameListPageActivity;
 //import renchaigao.com.zujuba.ActivityAndFragment.User.UserPlayPlaceListPageActivity;
 //import renchaigao.com.zujuba.ActivityAndFragment.User.UserWantGameListPageActivity;

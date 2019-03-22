@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Place;
+package renchaigao.com.zujuba.ActivityAndFragment.User.Place;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -40,7 +40,6 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
-import renchaigao.com.zujuba.ActivityAndFragment.User.Adapter.UserPlaceManagerPageActivityAdapter;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;

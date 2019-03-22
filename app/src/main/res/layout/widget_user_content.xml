@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/click_yellow_color_backgroud"
+    android:background="@drawable/click_yellow_color_no_corners_backgroud"
     android:layout_marginTop="@dimen/margin_16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

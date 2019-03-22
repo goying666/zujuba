@@ -131,7 +131,7 @@ public class MainTeamFragment extends BaseFragment implements CommonViewHolder.o
     }
 
     private void setTableLayoutView(View view) {
-        tableLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tableLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tabSelecte = tab.getPosition();

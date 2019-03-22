@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.User.Adapter;
+package renchaigao.com.zujuba.ActivityAndFragment.User.Team;
 
 import android.content.Context;
 

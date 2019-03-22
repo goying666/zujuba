@@ -4,16 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/layout_click_backgroud_color">
+    android:layout_marginTop="4dp"
+    android:layout_marginStart="@dimen/margin_8dp"
+    android:layout_marginEnd="@dimen/margin_8dp"
+    android:background="@drawable/click_yellow_color_backgroud">
 
 
     <!--<renchaigao.com.zujuba.widgets.CustomRoundImageView-->
-    <ImageView
+
+    <renchaigao.com.zujuba.widgets.CustomRoundImageView
         android:id="@+id/team_image"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8dp"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:maxHeight="136dp"
         android:src="@drawable/thqby"
         app:layout_constraintEnd_toEndOf="parent"

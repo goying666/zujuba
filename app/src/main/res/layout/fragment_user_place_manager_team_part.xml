@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Place.UserPlaceManagerTeamPartFragment">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.Place.UserPlaceManagerTeamPartFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

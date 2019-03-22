@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.User;
+package renchaigao.com.zujuba.ActivityAndFragment.User.Team;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,7 +29,6 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.Adapter.MyTeamActivityAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -276,7 +275,7 @@ public class MyTeamActivity extends BaseActivity implements CommonViewHolder.onI
     private int positon = 4;
 
     private void setTab() {
-        tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {

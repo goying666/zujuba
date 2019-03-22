@@ -46,7 +46,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ActivityAndFragment.Function.CallUsActivity"></activity>
-        <activity android:name=".ActivityAndFragment.User.MyGameActivity" />
+        <activity android:name=".ActivityAndFragment.User.Game.MyGameActivity" />
         <activity android:name=".ActivityAndFragment.Function.InputActivity" /> <!-- <activity android:name=".Activity.Message.MessagesInfoActivity"></activity> -->
         <!-- <activity android:name=".Activity.Message.FriendMessageInfoActivity" /> -->
         <activity android:name=".ActivityAndFragment.Message.SystemMessageInfoActivity" />
@@ -55,7 +55,7 @@
         <activity android:name=".ActivityAndFragment.User.UserPlayGameListPageActivity" />
         <activity android:name=".ActivityAndFragment.User.UserOwnGameListPageActivity" />
         <activity android:name=".ActivityAndFragment.User.UserWantGameListPageActivity" />
-        <activity android:name=".ActivityAndFragment.User.MyPlaceActivity" />
+        <activity android:name=".ActivityAndFragment.User.Place.MyPlaceActivity" />
         <activity android:name=".ActivityAndFragment.User.UserPlayPlaceListPageActivity" />
 
         <provider
@@ -201,7 +201,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".ActivityAndFragment.User.MyTeamActivity"
+            android:name=".ActivityAndFragment.User.Team.MyTeamActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActivityAndFragment.BasicPart.StartActivity"
@@ -223,7 +223,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".ActivityAndFragment.Place.UserPlaceManagerActivity"
+            android:name=".ActivityAndFragment.User.Place.UserPlaceManagerActivity"
             android:label="@string/title_activity_place_manager"
             android:theme="@style/AppTheme.NoActionBar">
 

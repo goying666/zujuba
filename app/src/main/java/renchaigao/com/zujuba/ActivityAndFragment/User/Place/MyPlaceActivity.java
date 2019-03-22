@@ -1,15 +1,17 @@
-package renchaigao.com.zujuba.ActivityAndFragment.User;
+package renchaigao.com.zujuba.ActivityAndFragment.User.Place;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -22,10 +24,11 @@ import java.util.ArrayList;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
-import renchaigao.com.zujuba.ActivityAndFragment.User.Adapter.UserPlaceListPageAdapter;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Store.CreateStoreActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Place.UserPlaceManagerActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.StoreActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.User.Team.MyTeamActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -39,11 +42,9 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
-    //    private UserPlaceListPageActivityAdapter userPlaceListPageActivityAdapter;
     private UserPlaceListPageAdapter userPlaceListPageAdapter;
 
     private TextView state_open, state_create, state_close;
-    private Button button;
     UserInfo userInfo = new UserInfo();
     ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
 
@@ -57,6 +58,10 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
     };
 
     private void UpdateView(JSONObject jsonObject) {
+
+        secondTitleTextView.setText(String.format("%s/5", jsonObjectArrayList.size()));
+        userPlaceListPageAdapter.updateResults(jsonObjectArrayList);
+        userPlaceListPageAdapter.notifyDataSetChanged();
         state_open.setText(jsonObject.getString("state_open"));
         state_create.setText(String.valueOf(Integer.valueOf(jsonObject.getString("state_create")) + Integer.valueOf(jsonObject.getString("state_wait"))));
         state_close.setText(jsonObject.getString("state_close"));
@@ -65,14 +70,12 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
 
     @Override
     protected void InitView() {
+        initToolbar();
         state_open = (TextView) findViewById(R.id.doing);
         state_create = (TextView) findViewById(R.id.textView55);
         state_close = (TextView) findViewById(R.id.textView56);
-
-        button = (Button) findViewById(R.id.button);
         recyclerView = (RecyclerView) findViewById(R.id.a_user_store_list_page_recyclerview);
     }
-
 
     @Override
     protected void InitData() {
@@ -90,15 +93,29 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
         return R.layout.activity_user_place_list_page;
     }
 
+    private TextView secondTitleTextView;
+    private ConstraintLayout toolbar;
+
+    private void initToolbar() {
+        toolbar = (ConstraintLayout) findViewById(R.id.my_place_toolbar);
+        ((TextView) toolbar.findViewById(R.id.textView146)).setText("我的场地");
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     private void setRecyclerView() {
         layoutManager = new LinearLayoutManager(MyPlaceActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-//        userPlaceListPageActivityAdapter = new UserPlaceListPageActivityAdapter(MyPlaceActivity.this);
-        userPlaceListPageAdapter = new UserPlaceListPageAdapter(this, jsonObjectArrayList, this, R.layout.card_place_list_page);
+        userPlaceListPageAdapter = new UserPlaceListPageAdapter(this, jsonObjectArrayList,
+                this, R.layout.card_place_list_page);
 
         recyclerView.setAdapter(userPlaceListPageAdapter);
-//        recyclerView.setAdapter(userPlaceListPageActivityAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(MyPlaceActivity.this, DividerItemDecoration.VERTICAL_LIST));
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
@@ -121,10 +138,9 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
                             switch (code) {
                                 case RespCodeNumber.SUCCESS:
                                     msg.obj = responseJsonData;
-                                    handler.sendMessage(msg);
                                     jsonObjectArrayList = new ArrayList<>(responseJsonData.getJSONArray("array").toJavaList(JSONObject.class));
-                                    userPlaceListPageAdapter.updateResults(jsonObjectArrayList);
-                                    userPlaceListPageAdapter.notifyDataSetChanged();
+
+                                    handler.sendMessage(msg);
 //                                    userPlaceListPageActivityAdapter.updateResults(jsonObjectArrayList);
 //                                    userPlaceListPageActivityAdapter.notifyDataSetChanged();
                                     break;
@@ -159,8 +175,24 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
 
     @Override
     public void onItemClickListener(int position) {
-        Intent intent = new Intent(MyPlaceActivity.this, UserPlaceManagerActivity.class);
-        intent.putExtra("storeinfo", JSONObject.toJSONString(jsonObjectArrayList.get(position)));
+        Intent intent = new Intent();
+        switch (jsonObjectArrayList.get(position).getString("state")) {
+//            case "创建中":
+//                intent = new Intent(MyPlaceActivity.this, UserPlaceManagerActivity.class);
+//                intent.putExtra("storeinfo", JSONObject.toJSONString(jsonObjectArrayList.get(position)));
+//                break;
+            case "审核中":
+                intent = new Intent(MyPlaceActivity.this, UserPlaceManagerActivity.class);
+                intent.putExtra("placeId", jsonObjectArrayList.get(position).getString("placeid"));
+                break;
+            case "营业中":
+                intent = new Intent(MyPlaceActivity.this, StoreActivity.class);
+                intent.putExtra("placeId", jsonObjectArrayList.get(position).getString("placeid"));
+                break;
+            case "停业中":
+//                intent = new Intent(MyPlaceActivity.this, UserPlaceManagerActivity.class);
+                break;
+        }
         startActivity(intent);
     }
 

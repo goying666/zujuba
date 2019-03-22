@@ -20,6 +20,7 @@ public abstract class BaseFragment extends Fragment {
     protected BaseFragment baseFragment;
     public CompositeDisposable compositeDisposable;
     public Context mContext;
+    protected Boolean mIsViewCreated = false;
     //    public Context mContext;
 //    /**
 //     * Fragment当前状态是否可见
@@ -43,7 +44,7 @@ public abstract class BaseFragment extends Fragment {
         InitView(rootView);
         InitData(rootView);
         InitOther(rootView);
-//        mIsViewCreated = true;
+        mIsViewCreated = true;
         return rootView;
     }
 

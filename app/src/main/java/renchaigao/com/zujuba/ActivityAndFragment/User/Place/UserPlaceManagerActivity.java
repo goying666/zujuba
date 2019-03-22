@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Place;
+package renchaigao.com.zujuba.ActivityAndFragment.User.Place;
 
 
 import android.support.design.widget.TabLayout;
@@ -59,10 +59,11 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
     JSONObject jsonToFragment = new JSONObject();
 
     UserInfo userInfo = new UserInfo();
-
+    String placeId;
     @Override
     protected void InitData() {
         userInfo = DataUtil.GetUserInfoData(this);
+        placeId = getIntent().getStringExtra("placeId");
         jsonToFragment = JSONObject.parseObject(getIntent().getStringExtra("storeinfo"));
     }
 
@@ -94,7 +95,7 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
             TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tab_text);
             textView.setText(title[i]);//设置tab上的文字
         }
-        tabLayout1.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout1.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tab.getCustomView().findViewById(R.id.tab_text).setSelected(true);
@@ -139,7 +140,6 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
 //
 //            }
 //        });
-
     }
 
 
@@ -177,7 +177,7 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
                 .FourParameterBodyPost("user",
                         "one",
                         userInfo.getId(),
-                        jsonObjectIntent.getString("placeid"),
+                        placeId,
                         multiBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

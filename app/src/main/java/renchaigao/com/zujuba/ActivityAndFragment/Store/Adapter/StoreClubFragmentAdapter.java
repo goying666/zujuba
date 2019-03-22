@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Store;
+package renchaigao.com.zujuba.ActivityAndFragment.Store.Adapter;
 
 import android.content.Context;
 

@@ -13,8 +13,8 @@ import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import renchaigao.com.zujuba.ActivityAndFragment.Function.CallUsActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.MyPlaceActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.MyTeamActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.User.Place.MyPlaceActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.User.Team.MyTeamActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
 import renchaigao.com.zujuba.ActivityAndFragment.User.UserSettingActivity;
 import renchaigao.com.zujuba.R;

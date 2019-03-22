@@ -23,12 +23,7 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_joinTeam">
+                android:background="@color/colorPrimary">
 
                 <!--app:tabIndicatorColor下划线的颜色-->
                 <!--app:tabIndicatorHeight：下划线的高度-->

@@ -13,6 +13,7 @@ import android.view.View;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.PageBean.CardStoreTeamFragmentBean;
+import com.renchaigao.zujuba.PageBean.CardUserTeamBean;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
@@ -22,10 +23,12 @@ import java.util.ArrayList;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.Adapter.StoreTeamFragmentAdapter;
 import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
+import renchaigao.com.zujuba.util.DataFunctions.DataSort;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
@@ -35,44 +38,98 @@ public class StoreTeamsFragment extends BaseFragment implements CommonViewHolder
 
     private String userId, token, storeId;
     private int lastTime = 0;
-
-    private TabLayout store_team_tablayout;
+    private TabLayout tabLayout;
     private RecyclerView recyclerView;
     private StoreTeamFragmentAdapter storeTeamFragmentAdapter;
-    ArrayList<CardStoreTeamFragmentBean> cardStoreTeamFragmentBeanArrayList = new ArrayList();
+    private ArrayList<CardStoreTeamFragmentBean> cardStoreTeamFragmentBeanArrayList = new ArrayList();
+    private ArrayList<CardStoreTeamFragmentBean> displayList = new ArrayList();
+    private int tabPosition = 0;
 
     @Override
     protected void InitView(View rootView) {
-        store_team_tablayout = (TabLayout) rootView.findViewById(R.id.store_team_tablayout);
+        tabLayout = (TabLayout) rootView.findViewById(R.id.store_team_tablayout);
     }
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            storeTeamFragmentAdapter.updateResults(cardStoreTeamFragmentBeanArrayList);
-            storeTeamFragmentAdapter.notifyDataSetChanged();
+            UpdateRecyclerView();
         }
     };
+
+    private void UpdateRecyclerView() {
+        UpdateDateForView();
+        storeTeamFragmentAdapter.updateResults(displayList);
+        storeTeamFragmentAdapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void InitOther(View rootView) {
         setRecyclerView(rootView);
         reloadAdapter();
+        initTablayout();
+    }
+
+
+    private void initTablayout() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabPosition = tab.getPosition();
+                UpdateDateForView();
+                handler.sendMessage(new Message());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void UpdateDateForView() {
+        displayList.clear();
+        for (CardStoreTeamFragmentBean c : cardStoreTeamFragmentBeanArrayList) {
+            switch (tabPosition) {
+                case 0:
+                    if (c.getIsToday())
+                        displayList.add(c);
+                    break;
+                case 2:
+                    if (c.getIsTomorrow())
+                        displayList.add(c);
+                    break;
+                case 1:
+                    if (c.getIsWeekend())
+                        displayList.add(c);
+                    break;
+            }
+        }
+        displayList = new DataSort<CardStoreTeamFragmentBean>().InvertedSort(displayList, "startTimeLong");
     }
 
     @Override
     public void onItemClickListener(int position) {
-        Intent intent  = new Intent(mContext,TeamActivity.class);
+        Intent intent = new Intent(mContext, TeamActivity.class);
         intent.putExtra("teamId", cardStoreTeamFragmentBeanArrayList.get(position).getTeamId());
         intent.putExtra("whereCome", "StoreActivity");
         startActivity(intent);
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
-        reloadAdapter();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser && mIsViewCreated) {
+            reloadAdapter();
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
+
 
     @Override
     public void onItemLongClickListener(int position) {
@@ -124,8 +181,9 @@ public class StoreTeamsFragment extends BaseFragment implements CommonViewHolder
                                         cardStoreTeamFragmentBeanArrayList.add(
                                                 JSONObject.parseObject(JSONObject.toJSONString(m), CardStoreTeamFragmentBean.class));
                                     }
-                                    if (cardStoreTeamFragmentBeanArrayList.size() > 0)
+                                    if (cardStoreTeamFragmentBeanArrayList.size() > 0) {
                                         handler.sendMessage(msg);
+                                    }
                                     break;
                                 case RespCodeNumber.STORE_INFO_GET_FAIL:
                                     break;
@@ -152,5 +210,39 @@ public class StoreTeamsFragment extends BaseFragment implements CommonViewHolder
                         Log.e(TAG, "onComplete");
                     }
                 }));
+    }
+
+    @SuppressLint("ValidFragment")
+    private class storeOwnerTeamFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener{
+
+        @Override
+        public void onItemClickListener(int position) {
+
+        }
+
+        @Override
+        public void onItemLongClickListener(int position) {
+
+        }
+
+        @Override
+        protected void InitView(View rootView) {
+
+        }
+
+        @Override
+        protected void InitData(View rootView) {
+
+        }
+
+        @Override
+        protected void InitOther(View rootView) {
+
+        }
+
+        @Override
+        protected int getLayoutId() {
+            return 0;
+        }
     }
 }

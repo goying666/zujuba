@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.User;
+package renchaigao.com.zujuba.ActivityAndFragment.User.Game;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

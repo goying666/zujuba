@@ -39,6 +39,8 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Club.CreateClubActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.User.Place.MyPlaceActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.User.Place.UserPlaceManagerActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -58,7 +60,7 @@ public class StoreActivity extends BaseActivity {
     private CustomViewPager customViewPager;
     private StoreActivityBean storeActivityBean = new StoreActivityBean();
 
-    private TextView allPlayNum, storeStarsText, storeTeamNum, distance, storeClubNum, store_class,store_name,store_state,
+    private TextView allPlayNum, storeStarsText, storeTeamNum, distance, storeClubNum, store_class, store_name, store_state,
             store_socre, storeEvaluateAllPeopleNum, storeSpendPerUser, store_address, store_address_note, store_note;
     private ImageView store_phone_image;
     private RatingBar storeStars;
@@ -105,7 +107,13 @@ public class StoreActivity extends BaseActivity {
         storeClubNum.setText(storeActivityBean.getClubNum());
         storeTeamNum.setText(storeActivityBean.getSumOfTeams());
         titleTextView.setText("组局吧");
-        secondTitleTextView.setText("");
+        if (storeActivityBean.getIsCreater()) {
+            secondTitleTextView.setVisibility(View.VISIBLE);
+            secondTitleTextView.setText("管理本店");
+            secondTitleTextView.setTextColor(Color.rgb(0xe9, 0x00, 0x06));
+        } else {
+            secondTitleTextView.setVisibility(View.GONE);
+        }
 
         storeStarsText.setText(String.valueOf(storeActivityBean.getStar()) + "星店");
         storeStars.setNumStars(storeActivityBean.getStar());
@@ -144,6 +152,18 @@ public class StoreActivity extends BaseActivity {
         setBanner();
         initAddressPhonePart();
         setViewPager();
+        setClick();
+    }
+
+    private void setClick() {
+        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StoreActivity.this, UserPlaceManagerActivity.class);
+                intent.putExtra("placeId", storeActivityBean.getStoreId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void initAddressPhonePart() {
@@ -246,7 +266,7 @@ public class StoreActivity extends BaseActivity {
                             switch (code) {
                                 case RespCodeNumber.STORE_INFO_GET_SUCCESS:
                                     storeActivityBean = JSONObject.parseObject(responseJson.getJSONObject("data").toJSONString()
-                                            ,StoreActivityBean.class);
+                                            , StoreActivityBean.class);
                                     handler.sendMessage(msg);
                                     break;
                                 case RespCodeNumber.STORE_INFO_GET_FAIL:
@@ -306,16 +326,16 @@ public class StoreActivity extends BaseActivity {
     }
 
     public void createNewTeam(View view) {
-        Intent intent = new Intent(StoreActivity.this,TeamCreateActivity.class);
-        intent.putExtra("placeId",storeId);
-        intent.putExtra("placeClass",ADDRESS_CLASS_STORE);
+        Intent intent = new Intent(StoreActivity.this, TeamCreateActivity.class);
+        intent.putExtra("placeId", storeId);
+        intent.putExtra("placeClass", ADDRESS_CLASS_STORE);
         startActivity(intent);
     }
 
     public void createNewClub(View view) {
         Intent intent = new Intent(StoreActivity.this, CreateClubActivity.class);
-        intent.putExtra("placeId",storeId);
-        intent.putExtra("placeClass",ADDRESS_CLASS_STORE);
+        intent.putExtra("placeId", storeId);
+        intent.putExtra("placeClass", ADDRESS_CLASS_STORE);
         startActivity(intent);
     }
 

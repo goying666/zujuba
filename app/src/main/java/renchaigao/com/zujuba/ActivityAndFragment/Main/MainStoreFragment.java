@@ -94,8 +94,8 @@ public class MainStoreFragment extends BaseFragment implements OnBannerListener,
         mainStoreFragmentAdapter = new MainStoreFragmentAdapter(mContext,updateJsonList,this);
         recyclerView.setAdapter(mainStoreFragmentAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+//        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
+//        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
 
