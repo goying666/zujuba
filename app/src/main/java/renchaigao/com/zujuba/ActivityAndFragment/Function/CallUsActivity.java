@@ -22,8 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
-import com.renchaigao.zujuba.dao.Address;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.io.File;
@@ -33,12 +31,9 @@ import java.util.ArrayList;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonRecycleAdapter;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Store.CreateStoreActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.ImgUtil;
-
-import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_STORE;
 
 public class CallUsActivity extends BaseActivity {
 
@@ -53,9 +48,9 @@ public class CallUsActivity extends BaseActivity {
 
     private void initToolbar() {
         ConstraintLayout toolbar = (ConstraintLayout) findViewById(R.id.callus_toolbar);
-        ((TextView) toolbar.findViewById(R.id.textView146)).setText("信息反馈");
-        ((TextView) toolbar.findViewById(R.id.textView147)).setText("");
-        ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        ((TextView) toolbar.findViewById(R.id.toolbarTitle)).setText("信息反馈");
+        ((TextView) toolbar.findViewById(R.id.toolbarSecondTitle)).setText("");
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.toolbarBack);
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

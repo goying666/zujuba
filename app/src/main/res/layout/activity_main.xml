@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context="renchaigao.com.zujuba.ActivityAndFragment.Main.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/a_main_Toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+
+    <include
+        android:id="@+id/main_toolbar"
+        layout="@layout/widget_toolbar_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/a_main_Toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/bottom_tableLayout"

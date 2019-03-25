@@ -2,29 +2,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="renchaigao.com.zujuba.ActivityAndFragment.User.Place.UserPlaceManagerBasicPartFragment">
+    android:layout_height="match_parent">
 
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/NestedScrollView2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/store_manager_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_manager_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:orientation="vertical">
             <!--店铺名字-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView"
@@ -79,7 +79,8 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView61"
@@ -132,7 +133,8 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -269,7 +271,8 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView177"
@@ -310,8 +313,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="深圳市宝安区新安地铁站B口"
                     android:maxLines="3"
+                    android:text="深圳市宝安区新安地铁站B口"
                     app:layout_constraintEnd_toStartOf="@+id/updateAddress"
                     app:layout_constraintStart_toEndOf="@+id/textView177"
                     app:layout_constraintTop_toTopOf="@+id/textView177" />
@@ -350,7 +353,8 @@
             <!--店铺硬件-->
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp">
 
                 <TextView
                     android:id="@+id/textView182"
@@ -479,373 +483,6 @@
 
             <!--店铺游戏-->
 
-            <!--店铺位置-->
-            <!--店铺位置-->
-            <!--店铺位置-->
-            <!--店铺位置-->
-            <!--店铺位置-->
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/ConstraintLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="58dp">
-
-                <TextView
-                    android:id="@+id/textView63"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="营业时段"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView14"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="32dp"
-                    app:layout_constraintStart_toEndOf="@+id/textView66"
-                    app:layout_constraintTop_toTopOf="@+id/textView66"
-                    app:srcCompat="@drawable/delete_red" />
-
-                <ImageView
-                    android:id="@+id/imageView15"
-                    android:layout_width="24dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView14"
-                    app:layout_constraintTop_toTopOf="@+id/imageView14"
-                    app:srcCompat="@drawable/add_green" />
-
-                <ImageView
-                    android:id="@+id/imageView16"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView19"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/imageView19"
-                    app:layout_constraintTop_toTopOf="@+id/textView70"
-                    app:srcCompat="@drawable/delete_red" />
-
-                <ImageView
-                    android:id="@+id/imageView17"
-                    android:layout_width="24dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView19"
-                    app:layout_constraintTop_toTopOf="@+id/imageView19"
-                    app:srcCompat="@drawable/add_green" />
-
-                <TextView
-                    android:id="@+id/textView66"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:text="13:00~16:00"
-                    app:layout_constraintStart_toEndOf="@+id/textView63"
-                    app:layout_constraintTop_toBottomOf="@+id/textView63" />
-
-                <ImageView
-                    android:id="@+id/imageView19"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView21"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/imageView21"
-                    app:layout_constraintTop_toTopOf="@+id/textView69"
-                    app:srcCompat="@drawable/delete_red" />
-
-                <ImageView
-                    android:id="@+id/imageView20"
-                    android:layout_width="24dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView21"
-                    app:layout_constraintTop_toTopOf="@+id/imageView21"
-                    app:srcCompat="@drawable/add_green" />
-
-                <ImageView
-                    android:id="@+id/imageView21"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView14"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/imageView14"
-                    app:layout_constraintTop_toTopOf="@+id/textView68"
-                    app:srcCompat="@drawable/delete_red" />
-
-                <TextView
-                    android:id="@+id/textView68"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:text="18:00~23:30"
-                    app:layout_constraintStart_toStartOf="@+id/textView66"
-                    app:layout_constraintTop_toBottomOf="@+id/textView66" />
-
-                <TextView
-                    android:id="@+id/textView69"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:text="18:00~23:30"
-                    app:layout_constraintStart_toStartOf="@+id/textView68"
-                    app:layout_constraintTop_toBottomOf="@+id/textView68" />
-
-                <TextView
-                    android:id="@+id/textView70"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:text="18:00~23:30"
-                    app:layout_constraintStart_toStartOf="@+id/textView69"
-                    app:layout_constraintTop_toBottomOf="@+id/textView69" />
-
-                <TextView
-                    android:id="@+id/textView71"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="16dp"
-                    android:background="#e0e0e0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView70" />
-
-                <TextView
-                    android:id="@+id/textView741"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/margin_8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="@dimen/margin_8dp"
-                    android:background="#e0e0e0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/storeState" />
-
-                <TextView
-                    android:id="@+id/textView67"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:text="位置信息"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView71" />
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="52dp"
-                    android:layout_marginEnd="32dp"
-                    android:text="重新定位"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView67"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView67" />
-
-                <ImageView
-                    android:id="@+id/imageView18"
-                    android:layout_width="351dp"
-                    android:layout_height="220dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.52"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView67"
-                    app:srcCompat="@drawable/map" />
-
-                <TextView
-                    android:id="@+id/textView73"
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:maxLines="3"
-                    android:text="这部分是地图生成的相关坐标信息（市县区等）"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView18"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView81"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView18" />
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/TextInputEditText1"
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:maxLines="3"
-                    android:text="用户根据实际情况对位置进行补充说明，方便用户找寻。（小于100字）"
-                    android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView18"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView82"
-                    app:layout_constraintTop_toBottomOf="@+id/textView73" />
-
-
-                <ImageView
-                    android:id="@+id/imageView22"
-                    android:layout_width="18dp"
-                    android:layout_height="17dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/TextInputEditText1"
-                    app:layout_constraintTop_toTopOf="@+id/TextInputEditText1"
-                    app:srcCompat="@drawable/delete_red" />
-
-
-                <TextView
-                    android:id="@+id/textView72"
-                    android:layout_width="match_parent"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="58dp"
-                    android:background="#e0e0e0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView82" />
-
-                <TextView
-                    android:id="@+id/textView75"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="场地信息"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView72" />
-
-                <TextView
-                    android:id="@+id/textView76"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-                    android:text="总容纳人数"
-                    app:layout_constraintStart_toStartOf="@+id/textView75"
-                    app:layout_constraintTop_toBottomOf="@+id/textView75" />
-
-                <TextView
-                    android:id="@+id/textView77"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="总桌数"
-                    app:layout_constraintBottom_toBottomOf="@+id/TextInputEditText3"
-                    app:layout_constraintStart_toStartOf="@+id/textView76"
-                    app:layout_constraintTop_toTopOf="@+id/TextInputEditText3" />
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/TextInputEditText2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="42"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView76"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.492"
-                    app:layout_constraintStart_toEndOf="@+id/textView76"
-                    app:layout_constraintTop_toTopOf="@+id/textView76" />
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/TextInputEditText3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="3"
-                    app:layout_constraintEnd_toEndOf="@+id/TextInputEditText2"
-                    app:layout_constraintHorizontal_bias="0.525"
-                    app:layout_constraintStart_toStartOf="@+id/TextInputEditText2"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputEditText2" />
-
-                <TextView
-                    android:id="@+id/textView80"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="收起"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/TextInputEditText3" />
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/RecyclerView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="168dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputEditText3" />
-
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="64dp"
-                    android:text="添加桌子"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/RecyclerView1" />
-
-                <TextView
-                    android:id="@+id/textView81"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="地图描述："
-                    app:layout_constraintBottom_toBottomOf="@+id/textView73"
-                    app:layout_constraintStart_toStartOf="@+id/imageView18"
-                    app:layout_constraintTop_toTopOf="@+id/textView73" />
-
-                <TextView
-                    android:id="@+id/textView82"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="补充说明："
-                    app:layout_constraintBottom_toBottomOf="@+id/TextInputEditText1"
-                    app:layout_constraintStart_toStartOf="@+id/textView81"
-                    app:layout_constraintTop_toTopOf="@+id/TextInputEditText1" />
-
-
-                <TextView
-                    android:id="@+id/textView117"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="168dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="#e0e0e0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TextInputEditText3" />
-            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

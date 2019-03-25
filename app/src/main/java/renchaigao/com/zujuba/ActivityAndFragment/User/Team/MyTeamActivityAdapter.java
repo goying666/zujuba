@@ -2,7 +2,6 @@ package renchaigao.com.zujuba.ActivityAndFragment.User.Team;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.PageBean.CardUserTeamBean;
 
 import java.util.ArrayList;
@@ -11,9 +10,6 @@ import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonRecycleAdapt
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.MultiTypeSupport;
 import renchaigao.com.zujuba.R;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 /**
  * Created by Administrator on 2019/2/17/017.
@@ -34,15 +30,15 @@ public class MyTeamActivityAdapter extends CommonRecycleAdapter<CardUserTeamBean
     @Override
     public void bindData(CommonViewHolder holder, CardUserTeamBean data) {
         holder
-                .setText(R.id.teamName,data.getTeamName())
-                .setText(R.id.teamState,data.getTeamState())
-                .setText(R.id.teamPlaceName,data.getPlaceName())
-                .setText(R.id.mainGame,data.getMainGame())
-                .setText(R.id.distance,data.getDistance())
-                .setText(R.id.playerNumber,data.getPlayerNumber())
-                .setText(R.id.startDay,data.getStartDay())
-                .setText(R.id.startTime,data.getStartTime())
-                .setText(R.id.laveTime,data.getLaveTime())
+                .setText(R.id.TextView_teamNameTextView,data.getTeamName())
+                .setText(R.id.TextView_teamStateTextView,data.getTeamState())
+                .setText(R.id.TextView_teamPlaceNameTextView,data.getPlaceName())
+                .setText(R.id.TextView_manTextView,data.getMainGame())
+                .setText(R.id.TextView_distanceTextView,data.getDistance())
+                .setText(R.id.TextView_playerNumberTextView,data.getPlayerNumber())
+                .setText(R.id.TextView_startDayTextView,data.getStartDay())
+                .setText(R.id.TextView_startTimeTextView,data.getStartTime())
+                .setText(R.id.TextView_laveTimeTextView,data.getLaveTime())
                 .setCommonClickListener(commonClickListener);
     }
 

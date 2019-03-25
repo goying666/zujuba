@@ -40,8 +40,13 @@
 
     <color name="colorRed">#ff002d</color>
     <color name="colorYellow">#ffd110</color>
+    <color name="colorGreen">#05c161</color>
+    <color name="colorNoteYellow">#ffd110</color>
     <color name="colorYellowLittle">#fff76a</color>
-    <color name="colorCornerDeep">#999999</color>
+    <color name="colorCornerDeep">#aaaaaa</color>
+
+    <color name="storeManagerItemBackGround">#f5f5f5</color>
+    <color name="storeCreateItemBackGround">#f1f1f1</color>
 
 
 

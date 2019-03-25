@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -32,6 +33,7 @@ import renchaigao.com.zujuba.util.DataFunctions.DataSort;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
+import renchaigao.com.zujuba.widgets.CustomViewPager;
 
 
 public class StoreTeamsFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
@@ -43,11 +45,15 @@ public class StoreTeamsFragment extends BaseFragment implements CommonViewHolder
     private StoreTeamFragmentAdapter storeTeamFragmentAdapter;
     private ArrayList<CardStoreTeamFragmentBean> cardStoreTeamFragmentBeanArrayList = new ArrayList();
     private ArrayList<CardStoreTeamFragmentBean> displayList = new ArrayList();
+    //    private CustomViewPager store_team_fragment_view;
     private int tabPosition = 0;
+    private TextView teamNote;
 
     @Override
     protected void InitView(View rootView) {
         tabLayout = (TabLayout) rootView.findViewById(R.id.store_team_tablayout);
+        teamNote = (TextView) rootView.findViewById(R.id.note_of_this_page);
+//        store_team_fragment_view = (CustomViewPager) rootView.findViewById(R.id.store_team_fragment_view);
     }
 
     @SuppressLint("HandlerLeak")
@@ -59,6 +65,32 @@ public class StoreTeamsFragment extends BaseFragment implements CommonViewHolder
 
     private void UpdateRecyclerView() {
         UpdateDateForView();
+        switch (tabPosition) {
+            case 0:
+                if (displayList.size() == 0){
+                    teamNote.setText("今日暂无组局信息");
+                    teamNote.setVisibility(View.VISIBLE);
+                }else{
+                    teamNote.setVisibility(View.GONE);
+                }
+                break;
+            case 1:
+                if (displayList.size() == 0){
+                    teamNote.setText("明日暂无组局信息");
+                    teamNote.setVisibility(View.VISIBLE);
+                }else{
+                    teamNote.setVisibility(View.GONE);
+                }
+                break;
+            case 2:
+                if (displayList.size() == 0){
+                    teamNote.setText("本周末暂无组局信息");
+                    teamNote.setVisibility(View.VISIBLE);
+                }else{
+                    teamNote.setVisibility(View.GONE);
+                }
+                break;
+        }
         storeTeamFragmentAdapter.updateResults(displayList);
         storeTeamFragmentAdapter.notifyDataSetChanged();
     }
@@ -212,37 +244,37 @@ public class StoreTeamsFragment extends BaseFragment implements CommonViewHolder
                 }));
     }
 
-    @SuppressLint("ValidFragment")
-    private class storeOwnerTeamFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener{
-
-        @Override
-        public void onItemClickListener(int position) {
-
-        }
-
-        @Override
-        public void onItemLongClickListener(int position) {
-
-        }
-
-        @Override
-        protected void InitView(View rootView) {
-
-        }
-
-        @Override
-        protected void InitData(View rootView) {
-
-        }
-
-        @Override
-        protected void InitOther(View rootView) {
-
-        }
-
-        @Override
-        protected int getLayoutId() {
-            return 0;
-        }
-    }
+//    @SuppressLint("ValidFragment")
+//    private class storeOwnerTeamFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener{
+//
+//        @Override
+//        public void onItemClickListener(int position) {
+//
+//        }
+//
+//        @Override
+//        public void onItemLongClickListener(int position) {
+//
+//        }
+//
+//        @Override
+//        protected void InitView(View rootView) {
+//
+//        }
+//
+//        @Override
+//        protected void InitData(View rootView) {
+//
+//        }
+//
+//        @Override
+//        protected void InitOther(View rootView) {
+//
+//        }
+//
+//        @Override
+//        protected int getLayoutId() {
+//            return 0;
+//        }
+//    }
 }

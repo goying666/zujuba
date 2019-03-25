@@ -45,7 +45,8 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAndFragment.Function.CallUsActivity"></activity>
+        <activity android:name=".ActivityAndFragment.Store.StoreManagerActivity"></activity>
+        <activity android:name=".ActivityAndFragment.Function.CallUsActivity" />
         <activity android:name=".ActivityAndFragment.User.Game.MyGameActivity" />
         <activity android:name=".ActivityAndFragment.Function.InputActivity" /> <!-- <activity android:name=".Activity.Message.MessagesInfoActivity"></activity> -->
         <!-- <activity android:name=".Activity.Message.FriendMessageInfoActivity" /> -->
@@ -80,7 +81,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".ActivityAndFragment.Store.CreateStoreActivity"
+            android:name=".ActivityAndFragment.Store.Create.CreateStoreActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 

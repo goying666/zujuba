@@ -41,4 +41,11 @@ public interface StoreApiService {
             @Query("token") String token,
             @Query("lastTime") long lastTime);
 
+    @GET("store/manager/get/{firstStr}")
+    Observable<ResponseEntity> ManagerGetOneStoreInfo(
+            @Path("firstStr") String firstStr,
+            @Query("userId") String userId,
+            @Query("storeId") String storeId,
+            @Query("token") String token);
+
 }

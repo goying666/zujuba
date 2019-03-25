@@ -22,7 +22,7 @@
 
 
     <TextView
-        android:id="@+id/mainGame"
+        android:id="@+id/TextView_manTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -35,7 +35,7 @@
 
 
     <TextView
-        android:id="@+id/teamName"
+        android:id="@+id/TextView_teamNameTextView"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -49,13 +49,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/teamState"
+        android:id="@+id/TextView_teamStateTextView"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_marginEnd="16dp"
         android:text="进行中"
         android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/teamName"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_teamNameTextView"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
@@ -64,11 +64,11 @@
         android:layout_height="@dimen/md_horizontal_right_icon"
         android:layout_marginTop="16dp"
         android:src="@drawable/location_address"
-        app:layout_constraintStart_toStartOf="@+id/teamName"
-        app:layout_constraintTop_toBottomOf="@+id/teamName" />
+        app:layout_constraintStart_toStartOf="@+id/TextView_teamNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_teamNameTextView" />
 
     <TextView
-        android:id="@+id/teamPlaceName"
+        android:id="@+id/TextView_teamPlaceNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,29 +81,29 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/distance"
+        android:id="@+id/TextView_distanceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="距离：1125m"
         android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/teamPlaceName"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_teamPlaceNameTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/teamPlaceName"
+        app:layout_constraintTop_toTopOf="@+id/TextView_teamPlaceNameTextView"
         app:layout_constraintVertical_bias="0.0" />
 
 
     <TextView
-        android:id="@+id/playerNumber"
+        android:id="@+id/TextView_playerNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginEnd="16dp"
         android:text="人数范围：3/6~16"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/mainGame"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_manTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainGame" />
+        app:layout_constraintTop_toTopOf="@+id/TextView_manTextView" />
 
     <ImageView
         android:id="@+id/team_time_icon"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/team_boy_icon" />
 
     <TextView
-        android:id="@+id/startDay"
+        android:id="@+id/TextView_startDayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -129,27 +129,27 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/startTime"
+        android:id="@+id/TextView_startTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:text="18:00~21:00"
         android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/startDay"
-        app:layout_constraintStart_toEndOf="@+id/startDay"
-        app:layout_constraintTop_toTopOf="@+id/startDay"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_startDayTextView"
+        app:layout_constraintStart_toEndOf="@+id/TextView_startDayTextView"
+        app:layout_constraintTop_toTopOf="@+id/TextView_startDayTextView"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/laveTime"
+        android:id="@+id/TextView_laveTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="倒计时：10h51m"
         android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/startTime"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_startTimeTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/startTime"
+        app:layout_constraintTop_toTopOf="@+id/TextView_startTimeTextView"
         app:layout_constraintVertical_bias="0.0" />
 
 

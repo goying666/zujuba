@@ -277,9 +277,9 @@ public class TeamActivity extends BaseActivity {
 
     private void initToolbar() {
         ConstraintLayout toolbar = (ConstraintLayout) findViewById(R.id.team_info_toolbar);
-        titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
-        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
-        ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        titleTextView = (TextView) toolbar.findViewById(R.id.toolbarTitle);
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.toolbarSecondTitle);
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.toolbarBack);
         titleTextView.setText(teamActivityBean.getTeamName());
         secondTitleTextView.setText("成员");
         goback.setOnClickListener(new View.OnClickListener() {

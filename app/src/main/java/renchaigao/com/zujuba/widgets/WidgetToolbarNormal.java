@@ -14,9 +14,9 @@ public class WidgetToolbarNormal extends ConstraintLayout {
 
     public WidgetToolbarNormal(Context context) {
         super(context);
-        this.titleTextView = (TextView) findViewById(R.id.textView146);
-        this.secondTitleTextView = (TextView) findViewById(R.id.textView147);
-        this.goback = (ImageView) findViewById(R.id.imageView33);
+        this.titleTextView = (TextView) findViewById(R.id.toolbarTitle);
+        this.secondTitleTextView = (TextView) findViewById(R.id.toolbarSecondTitle);
+        this.goback = (ImageView) findViewById(R.id.toolbarBack);
     }
 
 }

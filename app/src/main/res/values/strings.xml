@@ -8,11 +8,27 @@
         <item>餐馆</item>
         <item>桌游吧</item>
         <item>民宿</item>
-        <item>其他</item>
+        <item>学校</item>
+        <item>广场</item>
+        <item>小区空地</item>
     </string-array>
+    <string-array name="open_place_sum_people_arry">　　　　　　
+        <item>20人以内</item>
+        <item>40人以内</item>
+        <item>一百人以内</item>
+        <item>一千人以内</item>
+        <item>一万人以内</item>
+    </string-array>
+    <!--<string-array name="store_env_class_arry">　　　　　　-->
+        <!--<item>大堂</item>-->
+        <!--<item>包间</item>-->
+        <!--<item>阳台</item>-->
+        <!--<item>路边</item>-->
+        <!--<item>楼顶</item>-->
+        <!--<item>草坪</item>-->
+    <!--</string-array>-->
     <string-array name="create_team_game_array">　　　　　　
-        <item>狼人杀</item>
-        　　　　　　
+        <item>狼人杀</item>        　　　　　　
         <item>天黑请闭眼</item>
         <item>捕猫</item>
         <item>其他</item>
@@ -77,6 +93,8 @@
         <item>房主全包</item>
     </string-array>
 
+    <string name="open_place_sum_people_title">请选择场地最大容纳人数</string>
+    <string name="store_env_class_title">请选择提供组局的场地的类型</string>
     <string name="business_class_title">请选择一个适合您店铺的类型</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_store">StoreActivity</string>
@@ -186,7 +204,7 @@
     <!--<string name=""-->
 
 
-    <string-array name="call_us_array">　　　        　　　　　　
+    <string-array name="call_us_array">　　　 　　　　　　
         <item>游戏bug</item>
         <item>合作交流</item>
         <item>举报反馈</item>

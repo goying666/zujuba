@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Store.CreateStoreActivity">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Store.Create.CreateStoreActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             android:orientation="vertical">
             <!--入驻须知-->
             <LinearLayout
-                android:id="@+id/business_join_introduce_part1"
+                android:id="@+id/LinearLayout_agreePartLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
@@ -83,7 +83,7 @@
             </LinearLayout>
             <!--基本信息-->
             <LinearLayout
-                android:id="@+id/business_join_introduce_part2"
+                android:id="@+id/LinearLayout_basicPartLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/margin_16dp"
@@ -111,7 +111,7 @@
                     android:layout_marginTop="@dimen/margin_64dp">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/business_join_name"
+                        android:id="@+id/TextInputEditText_storeNamTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="商铺名称"
@@ -141,7 +141,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/business_join_class"
+                        android:id="@+id/AppCompatSpinner_storeClassAppCompatSpinner"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -189,7 +189,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/business_join_introduce_addres_name"
+                        android:id="@+id/TextView_locationTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -211,13 +211,13 @@
                         android:layout_marginTop="8dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/map"
-                        app:layout_constraintBottom_toTopOf="@+id/business_join_introduce_addres_addinfo"
+                        app:layout_constraintBottom_toTopOf="@+id/TextInputEditText_addressNoteTextInputEditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_introduce_addres_name" />
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_locationTextView" />
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/business_join_introduce_addres_addinfo"
+                        android:id="@+id/TextInputEditText_addressNoteTextInputEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -271,12 +271,12 @@
                         android:textColor="@color/colorAccent"
                         android:textSize="11sp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView"
-                        app:layout_constraintEnd_toStartOf="@+id/business_join_introduce_time_textView_number"
+                        app:layout_constraintEnd_toStartOf="@+id/TextView_sumOfTimeTextView"
                         app:layout_constraintStart_toEndOf="@+id/business_join_introduce_time_textView_title"
                         app:layout_constraintTop_toTopOf="@+id/textView" />
 
                     <TextView
-                        android:id="@+id/business_join_introduce_time_textView_number"
+                        android:id="@+id/TextView_sumOfTimeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="0"
@@ -314,7 +314,7 @@
                             android:text="09:00~12:00" />
 
                         <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/business_join_introduce_time_checkBox1"
+                            android:id="@+id/AppCompatCheckBox_timeOneAppCompatCheckBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16dp" />
@@ -336,7 +336,7 @@
                             android:text="13:00~17:00" />
 
                         <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/business_join_introduce_time_checkBox2"
+                            android:id="@+id/AppCompatCheckBox_timeTwoAppCompatCheckBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16dp" />
@@ -358,7 +358,7 @@
                             android:text="18:00~21:00" />
 
                         <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/business_join_introduce_time_checkBox3"
+                            android:id="@+id/AppCompatCheckBox_timeThreeAppCompatCheckBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16dp" />
@@ -382,7 +382,7 @@
                             android:text="21:00~23:00" />
 
                         <android.support.v7.widget.AppCompatCheckBox
-                            android:id="@+id/business_join_introduce_time_checkBox4"
+                            android:id="@+id/AppCompatCheckBox_timeFourAppCompatCheckBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16dp" />
@@ -492,7 +492,7 @@
                 </android.support.constraint.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/business_join_basic_button_next"
+                    android:id="@+id/Button_basicNextButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/margin_16dp"
@@ -519,7 +519,7 @@
                     android:textStyle="bold" />
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/business_join_desk_layout"
+                    android:id="@+id/TextInputLayout_deskTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_16dp"
@@ -528,7 +528,7 @@
                     android:layout_marginTop="@dimen/margin_64dp">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/business_join_desk_num"
+                        android:id="@+id/TextInputEditText_deskTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="组局桌数（由桌子、包厢决定）"
@@ -536,7 +536,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/business_join_maxpeople_layout"
+                    android:id="@+id/TextInputLayout_maxNumberTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_16dp"
@@ -545,7 +545,7 @@
                     android:layout_marginTop="@dimen/margin_64dp">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/business_join_maxpeople_num"
+                        android:id="@+id/TextInputLayout_maxNumberTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="支持游戏玩家最大数（包场情况下人数）"
@@ -716,14 +716,14 @@
                     android:layout_marginBottom="@dimen/margin_16dp">
 
                     <Button
-                        android:id="@+id/business_join_detail_button_back"
+                        android:id="@+id/Button_backButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="上一步" />
 
                     <Button
-                        android:id="@+id/business_join_detail_button_next"
+                        android:id="@+id/Button_nextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

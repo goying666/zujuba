@@ -111,10 +111,10 @@ public class ClubMessageInfoActivity extends BaseActivity implements CommonViewH
     @Override
     protected void InitView() {
         toolbar = (ConstraintLayout) findViewById(R.id.message_info_toolbar);
-        titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
-        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
+        titleTextView = (TextView) toolbar.findViewById(R.id.toolbarTitle);
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.toolbarSecondTitle);
 
-        goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        goback = (ImageView) toolbar.findViewById(R.id.toolbarBack);
         contentSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.message_info_SwipeRefreshLayout);
         message_info_inputEdit = (TextInputEditText) findViewById(R.id.message_info_inputEdit);
         message_info_sendButton = (Button) findViewById(R.id.message_info_sendButton);

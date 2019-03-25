@@ -129,9 +129,9 @@ public class MyTeamActivity extends BaseActivity implements CommonViewHolder.onI
 
     private void initToolbar() {
         toolbar = (ConstraintLayout) findViewById(R.id.user_team_toolbar);
-        ((TextView) toolbar.findViewById(R.id.textView146)).setText("我的组局");
-        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
-        ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        ((TextView) toolbar.findViewById(R.id.toolbarTitle)).setText("我的组局");
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.toolbarSecondTitle);
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.toolbarBack);
         secondTitleTextView.setText("添加新局");
         secondTitleTextView.setOnClickListener(new View.OnClickListener() {
             @Override

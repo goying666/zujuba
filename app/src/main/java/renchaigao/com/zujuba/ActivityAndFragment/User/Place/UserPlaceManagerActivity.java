@@ -25,6 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.CustomViewPagerAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -218,26 +219,26 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
     }
 
 
-    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
-
-        public CustomViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        public void addFragment(Fragment fragment) {
-            mFragments.add(fragment);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-    }
+//    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
+//        private final List<Fragment> mFragments = new ArrayList<>();
+//
+//        public CustomViewPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        public void addFragment(Fragment fragment) {
+//            mFragments.add(fragment);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            return mFragments.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mFragments.size();
+//        }
+//
+//    }
 }

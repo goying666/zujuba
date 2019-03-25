@@ -10,21 +10,16 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,13 +32,12 @@ import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.AddressInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.CustomViewPagerAdapter;
 import renchaigao.com.zujuba.ActivityAndFragment.Function.GaoDeMapActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.Create.CreateStoreActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.User.UserSettingActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Game.GameFragment;
@@ -64,18 +58,42 @@ public class MainActivity extends BaseActivity {
     private User user;
     private UserInfo userInfo;
     private String userPlace, userId, token;
-    private Toolbar toolbar;
     private TabLayout bottom_tableLayout;
     TabItem tab1;
+
+    private TextView titleTextView, secondTitleTextView;
+    private ConstraintLayout toolbar;
+
+    private void initToolbar() {
+        toolbar = (ConstraintLayout) findViewById(R.id.main_toolbar);
+        titleTextView = (TextView) toolbar.findViewById(R.id.toolbarTitle);
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.toolbarSecondTitle);
+        secondTitleTextView.setText("创建新局");
+        titleTextView.setText("深圳市");
+        titleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
+                intent.putExtra("whereCome", "MainActivity");
+                startActivityForResult(intent, MAIN_ADDRESS);
+            }
+        });
+        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TeamCreateActivity.class);
+                startActivity(intent);
+            }
+        });
+        toolbar.findViewById(R.id.toolbarBack).setVisibility(View.GONE);
+    }
 
     // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
     @Override
     protected void InitView() {
         customViewPager = (CustomViewPager) findViewById(R.id.main_customView);
         bottom_tableLayout = (TabLayout) findViewById(R.id.bottom_tableLayout);
-//        tab1 = findViewById(R.id.)
-        setToolBar();
-
+        initToolbar();
     }
 
     @SuppressLint("HandlerLeak")
@@ -89,27 +107,6 @@ public class MainActivity extends BaseActivity {
 
     };
 
-    private void setToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.a_main_Toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("组局吧");
-        toolbar.inflateMenu(R.menu.main_toolbar_hall);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item_location:
-                        break;
-                    case R.id.item_location_name:
-                        break;
-                }
-                Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
-                intent.putExtra("whereCome", "MainActivity");
-                startActivityForResult(intent, MAIN_ADDRESS);
-                return false;
-            }
-        });
-    }
 
     @Override
     protected void InitData() {
@@ -224,8 +221,8 @@ public class MainActivity extends BaseActivity {
                 new CustomViewPagerAdapter(getSupportFragmentManager());
 
         customViewPagerAdapter.addFragment(mainChatFragment);
-        customViewPagerAdapter.addFragment(mainTeamFragment);
         customViewPagerAdapter.addFragment(mainStoreFragment);
+        customViewPagerAdapter.addFragment(mainTeamFragment);
         customViewPagerAdapter.addFragment(gameFragment);
         customViewPagerAdapter.addFragment(mainMineFragment);
 
@@ -238,55 +235,86 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Menu menu = toolbar.getMenu();
-                menu.clear();
                 switch (position) {
                     case 0:
-                        toolbar.setVisibility(View.GONE);
+                        titleTextView.setText("组局吧");
+                        secondTitleTextView.setText("");
+                        titleTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        });
+                        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        });
                         break;
                     case 1:
-                        toolbar.setVisibility(View.VISIBLE);
-                        toolbar.inflateMenu(R.menu.main_toolbar_team);
-                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                        titleTextView.setText("深圳市");
+                        secondTitleTextView.setText("场地入驻");
+                        titleTextView.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                final Intent intent = new Intent(MainActivity.this, TeamCreateActivity.class);
+                            public void onClick(View v) {
+                                Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
+                                intent.putExtra("whereCome", "MainActivity");
+                                startActivityForResult(intent, MAIN_ADDRESS);
+                            }
+                        });
+                        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(MainActivity.this, CreateStoreActivity.class);
                                 startActivity(intent);
-                                return false;
                             }
                         });
                         break;
                     case 2:
-                        toolbar.setVisibility(View.VISIBLE);
-                        toolbar.inflateMenu(R.menu.main_toolbar_hall);
-                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                        titleTextView.setText("深圳市");
+                        secondTitleTextView.setText("创建新局");
+                        titleTextView.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()) {
-                                    case R.id.item_location:
-                                        break;
-                                    case R.id.item_location_name:
-                                        break;
-                                }
+                            public void onClick(View v) {
                                 Intent intent = new Intent(MainActivity.this, GaoDeMapActivity.class);
                                 intent.putExtra("whereCome", "MainActivity");
                                 startActivityForResult(intent, MAIN_ADDRESS);
-                                return false;
+                            }
+                        });
+                        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(MainActivity.this, TeamCreateActivity.class);
+                                startActivity(intent);
                             }
                         });
                         break;
                     case 3:
-                        toolbar.setVisibility(View.VISIBLE);
+                        titleTextView.setText("游戏");
+                        secondTitleTextView.setText("");
+                        titleTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        });
+                        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        });
                         break;
                     case 4:
-                        toolbar.setVisibility(View.VISIBLE);
-                        toolbar.inflateMenu(R.menu.main_toolbar_mine);
-                        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                        titleTextView.setText("我的");
+                        secondTitleTextView.setText("编辑");
+                        titleTextView.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public boolean onMenuItemClick(MenuItem item) {
+                            public void onClick(View v) {
+                            }
+                        });
+                        secondTitleTextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
                                 Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
                                 startActivity(intent);
-                                return false;
                             }
                         });
                         break;
@@ -303,15 +331,10 @@ public class MainActivity extends BaseActivity {
         View tab1 = LayoutInflater.from(this).inflate(R.layout.widget_bottom_item, null);
 
         bottom_tableLayout.getTabAt(0).setCustomView(tab_icon("聊天", R.drawable.bottom_item_message_select));
-        bottom_tableLayout.getTabAt(1).setCustomView(tab_icon("组局", R.drawable.bottom_item_team_select));
-        bottom_tableLayout.getTabAt(2).setCustomView(tab_icon("大厅", R.drawable.bottom_item_home_select));
+        bottom_tableLayout.getTabAt(1).setCustomView(tab_icon("场地", R.drawable.bottom_item_team_select));
+        bottom_tableLayout.getTabAt(2).setCustomView(tab_icon("组局", R.drawable.bottom_item_home_select));
         bottom_tableLayout.getTabAt(3).setCustomView(tab_icon("游戏", R.drawable.bottom_item_game_select));
         bottom_tableLayout.getTabAt(4).setCustomView(tab_icon("我的", R.drawable.bottom_item_mine_select));
-//        bottom_tableLayout.getTabAt(0).setText("消息").setIcon(R.drawable.bottom_item_message_select);
-//        bottom_tableLayout.getTabAt(1).setText("组局").setIcon(R.drawable.bottom_item_team_select);
-//        bottom_tableLayout.getTabAt(2).setText("大厅").setIcon(R.drawable.bottom_item_home_select);
-//        bottom_tableLayout.getTabAt(3).setText("游戏").setIcon(R.drawable.bottom_item_game_select);
-//        bottom_tableLayout.getTabAt(4).setText("我的").setIcon(R.drawable.bottom_item_mine_select);
 
     }
 
@@ -324,28 +347,6 @@ public class MainActivity extends BaseActivity {
         return newtab;
     }
 
-    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
-
-        public CustomViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        public void addFragment(Fragment fragment) {
-            mFragments.add(fragment);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-    }
 
     /**
      * 双击返回桌面

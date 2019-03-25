@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,10 +24,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Store.CreateStoreActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.Create.CreateStoreActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Store.StoreActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.Team.MyTeamActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.StoreManagerActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -98,9 +96,9 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
 
     private void initToolbar() {
         toolbar = (ConstraintLayout) findViewById(R.id.my_place_toolbar);
-        ((TextView) toolbar.findViewById(R.id.textView146)).setText("我的场地");
-        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
-        ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
+        ((TextView) toolbar.findViewById(R.id.toolbarTitle)).setText("我的场地");
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.toolbarSecondTitle);
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.toolbarBack);
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +180,7 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
 //                intent.putExtra("storeinfo", JSONObject.toJSONString(jsonObjectArrayList.get(position)));
 //                break;
             case "审核中":
-                intent = new Intent(MyPlaceActivity.this, UserPlaceManagerActivity.class);
+                intent = new Intent(MyPlaceActivity.this, StoreManagerActivity.class);
                 intent.putExtra("placeId", jsonObjectArrayList.get(position).getString("placeid"));
                 break;
             case "营业中":

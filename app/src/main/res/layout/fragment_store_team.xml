@@ -99,6 +99,16 @@
             android:text="本周末" />
     </android.support.design.widget.TabLayout>
 
+    <!--<renchaigao.com.zujuba.widgets.CustomViewPager-->
+        <!--android:id="@+id/store_team_fragment_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/store_team_tablayout">-->
+
+    <!--</renchaigao.com.zujuba.widgets.CustomViewPager>-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/store_team_recyclerView"
         android:layout_width="match_parent"

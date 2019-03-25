@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
+import renchaigao.com.zujuba.ActivityAndFragment.CustomViewPagerAdapter;
 import renchaigao.com.zujuba.R;
 
 
@@ -76,28 +77,28 @@ public class MainChatFragment extends BaseFragment {
 
     }
 
-    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
-
-        CustomViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        void addFragment(Fragment fragment) {
-            mFragments.add(fragment);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-    }
+//    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
+//        private final List<Fragment> mFragments = new ArrayList<>();
+//
+//        CustomViewPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        void addFragment(Fragment fragment) {
+//            mFragments.add(fragment);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            return mFragments.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mFragments.size();
+//        }
+//
+//    }
 
 
 }

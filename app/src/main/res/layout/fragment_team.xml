@@ -10,6 +10,7 @@
         android:id="@+id/team_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context="renchaigao.com.zujuba.ActivityAndFragment.Main.MainTeamFragment">
 
         <LinearLayout
@@ -58,8 +59,8 @@
                 android:id="@+id/team_page_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                android:layout_marginStart="@dimen/margin_8dp" />
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp" />
 
             <TextView
                 android:id="@+id/no_more"

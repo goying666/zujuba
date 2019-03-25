@@ -38,9 +38,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Club.CreateClubActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.CustomViewPagerAdapter;
 import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.Place.MyPlaceActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.User.Place.UserPlaceManagerActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -159,7 +158,7 @@ public class StoreActivity extends BaseActivity {
         secondTitleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StoreActivity.this, UserPlaceManagerActivity.class);
+                Intent intent = new Intent(StoreActivity.this, StoreManagerActivity.class);
                 intent.putExtra("placeId", storeActivityBean.getStoreId());
                 startActivity(intent);
             }
@@ -192,11 +191,9 @@ public class StoreActivity extends BaseActivity {
 
     private void initToolbar() {
         toolbar = (ConstraintLayout) findViewById(R.id.store_info_toolbar);
-        titleTextView = (TextView) toolbar.findViewById(R.id.textView146);
-        secondTitleTextView = (TextView) toolbar.findViewById(R.id.textView147);
-        ImageView goback = (ImageView) toolbar.findViewById(R.id.imageView33);
-//        titleTextView.setText(storeActivityBean.getStoreName());
-//        secondTitleTextView.setText(storeActivityBean.getState());
+        titleTextView = (TextView) toolbar.findViewById(R.id.toolbarTitle);
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.toolbarSecondTitle);
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.toolbarBack);
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -347,26 +344,26 @@ public class StoreActivity extends BaseActivity {
         }
     }
 
-    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
-
-        public CustomViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        public void addFragment(Fragment fragment) {
-            mFragments.add(fragment);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-
-    }
+//    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
+//        private final List<Fragment> mFragments = new ArrayList<>();
+//
+//        public CustomViewPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        public void addFragment(Fragment fragment) {
+//            mFragments.add(fragment);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            return mFragments.get(position);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mFragments.size();
+//        }
+//
+//    }
 }

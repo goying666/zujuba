@@ -4,25 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="8dp"
     android:layout_marginStart="@dimen/margin_8dp"
     android:layout_marginEnd="@dimen/margin_8dp"
     android:background="@drawable/click_yellow_color_backgroud">
 
 
-    <!--<renchaigao.com.zujuba.widgets.CustomRoundImageView-->
-
-    <renchaigao.com.zujuba.widgets.CustomRoundImageView
-        android:id="@+id/team_image"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:maxHeight="136dp"
-        android:src="@drawable/thqby"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
@@ -32,74 +19,73 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/boy"
         app:layout_constraintStart_toStartOf="@+id/team_cardview_place_icon"
-        app:layout_constraintTop_toBottomOf="@+id/place_star_num" />
+        app:layout_constraintTop_toBottomOf="@+id/team_time_icon" />
 
 
     <TextView
-        android:id="@+id/mainGame"
+        android:id="@+id/TextView_manTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginStart="8dp"
         android:text="3人"
         android:textSize="@dimen/md_text_size_caption"
         app:layout_constraintBottom_toBottomOf="@+id/team_boy_icon"
         app:layout_constraintStart_toEndOf="@+id/team_boy_icon"
         app:layout_constraintTop_toTopOf="@+id/team_boy_icon"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/team_girl_icon"
         android:layout_width="@dimen/icon_size_width"
         android:layout_height="15dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginStart="16dp"
         android:src="@drawable/girl"
         app:layout_constraintBottom_toBottomOf="@+id/team_boy_icon"
-        app:layout_constraintStart_toEndOf="@+id/mainGame"
+        app:layout_constraintStart_toEndOf="@+id/TextView_manTextView"
         app:layout_constraintTop_toTopOf="@+id/team_boy_icon"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/team_girl_number"
+        android:id="@+id/TextView_girlTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginStart="8dp"
         android:text="0人"
         android:textSize="@dimen/md_text_size_caption"
         app:layout_constraintBottom_toBottomOf="@+id/team_girl_icon"
         app:layout_constraintStart_toEndOf="@+id/team_girl_icon"
         app:layout_constraintTop_toTopOf="@+id/team_girl_icon"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintVertical_bias="1.0" />
 
 
     <TextView
-        android:id="@+id/teamName"
+        android:id="@+id/TextView_teamNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:maxWidth="160dp"
         android:maxLines="2"
         android:text="6月29日生日派对聚会6月29日生日派对聚会6月29日生日派对聚会"
         android:textColor="#222222"
+        android:textStyle="bold"
         android:textSize="@dimen/md_text_size_body"
-        app:layout_constraintEnd_toStartOf="@+id/teamState"
+        app:layout_constraintEnd_toStartOf="@+id/TextView_teamStateTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/team_image" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/teamState"
+        android:id="@+id/TextView_teamStateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="进行中"
-        android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/teamName"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="组局中"
+        android:textStyle="italic"
+        android:textSize="@dimen/text_size_introduce"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_teamNameTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/TextView_teamNameTextView" />
 
     <ImageView
         android:id="@+id/team_cardview_place_icon"
@@ -107,65 +93,62 @@
         android:layout_height="@dimen/md_horizontal_right_icon"
         android:layout_marginTop="16dp"
         android:src="@drawable/location_address"
-        app:layout_constraintStart_toStartOf="@+id/teamName"
-        app:layout_constraintTop_toBottomOf="@+id/teamName" />
+        app:layout_constraintStart_toStartOf="@+id/TextView_teamNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/TextView_teamNameTextView" />
 
     <TextView
-        android:id="@+id/teamPlaceName"
+        android:id="@+id/TextView_teamPlaceNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="地址、商店名称"
+        android:maxLines="1"
         android:textSize="@dimen/md_text_size_caption"
         app:layout_constraintBottom_toBottomOf="@+id/team_cardview_place_icon"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/TextView_teamNameTextView"
         app:layout_constraintStart_toEndOf="@+id/team_cardview_place_icon"
         app:layout_constraintTop_toTopOf="@+id/team_cardview_place_icon"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/distance"
+        android:id="@+id/TextView_distanceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:text="1125m"
         android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/team_shop_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/team_shop_info" />
+        app:layout_constraintStart_toEndOf="@+id/imageView48"
+        app:layout_constraintTop_toTopOf="@+id/TextView_teamPlaceNameTextView" />
 
 
     <TextView
-        android:id="@+id/playerNumber"
+        android:id="@+id/TextView_playerNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:text="3/6~16"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/team_girl_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/team_girl_number" />
+        android:textSize="@dimen/md_text_size_caption"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView50"
+        app:layout_constraintStart_toEndOf="@+id/imageView50"
+        app:layout_constraintTop_toTopOf="@+id/imageView50"/>
 
     <ImageView
         android:id="@+id/team_time_icon"
         android:layout_width="@dimen/icon_size_width"
         android:layout_height="@dimen/icon_size_height"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/card_hall_store_time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/team_boy_icon"
-        app:layout_constraintTop_toBottomOf="@+id/team_boy_icon" />
+        app:layout_constraintStart_toStartOf="@+id/team_cardview_place_icon"
+        app:layout_constraintTop_toBottomOf="@+id/team_cardview_place_icon" />
 
     <TextView
-        android:id="@+id/startDay"
+        android:id="@+id/TextView_startDayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="8dp"
         android:text="明日"
         android:textSize="@dimen/md_text_size_caption"
         app:layout_constraintBottom_toBottomOf="@+id/team_time_icon"
@@ -174,51 +157,77 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/startTime"
+        android:id="@+id/TextView_startTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:text="18:00~21:00"
         android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/startDay"
-        app:layout_constraintStart_toEndOf="@+id/startDay"
-        app:layout_constraintTop_toTopOf="@+id/startDay"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_startDayTextView"
+        app:layout_constraintStart_toEndOf="@+id/TextView_startDayTextView"
+        app:layout_constraintTop_toTopOf="@+id/TextView_startDayTextView"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/laveTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="16dp"
-        android:text="10h51m"
-        android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/startTime"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/startTime" />
-
-
-    <RatingBar
-        android:id="@+id/place_star_num"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:isIndicator="true"
-        android:rating="5"
-        app:layout_constraintStart_toStartOf="@+id/team_cardview_place_icon"
-        app:layout_constraintTop_toBottomOf="@+id/teamPlaceName" />
-
-    <TextView
-        android:id="@+id/team_shop_info"
+        android:id="@+id/TextView_laveTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="全市12名"
+        android:text="10h51m"
         android:textSize="@dimen/md_text_size_caption"
-        app:layout_constraintBottom_toBottomOf="@+id/place_star_num"
-        app:layout_constraintStart_toEndOf="@+id/place_star_num"
-        app:layout_constraintTop_toTopOf="@+id/place_star_num" />
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_startTimeTextView"
+        app:layout_constraintStart_toEndOf="@+id/imageView49"
+        app:layout_constraintTop_toTopOf="@+id/TextView_startTimeTextView" />
+
+    <ImageView
+        android:id="@+id/imageView48"
+        android:layout_width="15dp"
+        android:layout_height="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_distanceTextView"
+        app:layout_constraintStart_toEndOf="@+id/TextView_teamNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/TextView_distanceTextView"
+        app:srcCompat="@drawable/juli" />
+
+    <ImageView
+        android:id="@+id/imageView49"
+        android:layout_width="14dp"
+        android:layout_height="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/TextView_laveTimeTextView"
+        app:layout_constraintStart_toStartOf="@+id/imageView48"
+        app:layout_constraintTop_toTopOf="@+id/TextView_laveTimeTextView"
+        app:srcCompat="@drawable/lavetime" />
+
+    <ImageView
+        android:id="@+id/imageView50"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView49"
+        app:layout_constraintTop_toBottomOf="@+id/imageView49"
+        app:srcCompat="@drawable/mine_team_play" />
+
+    <ImageView
+        android:id="@+id/imageView51"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/team_boy_icon"
+        app:layout_constraintTop_toBottomOf="@+id/team_boy_icon"
+        app:srcCompat="@drawable/game" />
+
+    <TextView
+        android:id="@+id/TextView_mainGameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="狼人杀"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView51"
+        app:layout_constraintStart_toEndOf="@+id/imageView51"
+        app:layout_constraintTop_toTopOf="@+id/imageView51" />
+
 
 </android.support.constraint.ConstraintLayout>
 

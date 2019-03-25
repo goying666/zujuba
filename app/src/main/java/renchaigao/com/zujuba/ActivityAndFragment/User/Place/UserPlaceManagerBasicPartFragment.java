@@ -57,22 +57,14 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
     private Button addDesk, cancleEdit, submitEdit, reloadMapInfo;
     private ImageView time1Cancle, time2Cancle, time3Cancle, time4Cancle, time1Add, time2Add, time3Add, placeInfoMoreCancle;
     private Switch placeStateSwitch;
-
-    private JSONObject pageJson = new JSONObject();
-
     private Boolean isEditStyle = false;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private UserPlaceManagerPageActivityAdapter userPlaceManagerPageActivityAdapter;
-
     private ArrayList<BusinessTimeInfo> businessTimeInfoArrayList = new ArrayList<>();
     private ArrayList<BusinessTimeInfo> businessTimeInfoArrayListEdit = new ArrayList<>();
-
-
     private TimePickerDialog timePickerDialog;
-
     private AlertDialog.Builder builder;
-
     private NumberPicker numberPicker;
 
     UserInfo userInfo = new UserInfo();
@@ -112,7 +104,7 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
         allPeopleNum.setInputType(InputType.TYPE_CLASS_NUMBER);
         allDeskNum = (TextInputEditText) rootView.findViewById(R.id.TextInputEditText3);
         allDeskNum.setInputType(InputType.TYPE_CLASS_NUMBER);
-        place_state = (TextView) rootView.findViewById(R.id.textView62);
+        place_state = (TextView) rootView.findViewById(R.id.storeState);
         time1 = (TextView) rootView.findViewById(R.id.textView66);
         time2 = (TextView) rootView.findViewById(R.id.textView68);
         time3 = (TextView) rootView.findViewById(R.id.textView69);
@@ -127,11 +119,10 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
         mapDetail = (TextView) rootView.findViewById(R.id.textView73);
         placeInfoMore = (TextView) rootView.findViewById(R.id.textView80);
         addDesk = (Button) rootView.findViewById(R.id.button4);
-        cancleEdit = (Button) rootView.findViewById(R.id.Button1);
-        submitEdit = (Button) rootView.findViewById(R.id.Button2);
+        submitEdit = (Button) rootView.findViewById(R.id.store_manager_submit);
         reloadMapInfo = (Button) rootView.findViewById(R.id.button3);
         placeInfoMoreCancle = (ImageView) rootView.findViewById(R.id.imageView22);
-        placeStateSwitch = (Switch) rootView.findViewById(R.id.switch1);
+        placeStateSwitch = (Switch) rootView.findViewById(R.id.updateStoreState);
         editeView(false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerView1);
@@ -147,13 +138,6 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
         timePickerDialog.setTitle("请选择一个时段的开始时间");
         builder = new AlertDialog.Builder(mContext);
         builder.setTitle("配置信息有误，请修改");
-
-
-//        numberPicker = new NumberPicker(mContext);
-//        numberPicker.setMaxValue(1000);
-//        numberPicker.setMinValue(4);
-//        numberPicker.displ
-
     }
 
     private void editeView(Boolean isEditStyle) {

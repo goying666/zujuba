@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Store;
+package renchaigao.com.zujuba.ActivityAndFragment.Store.Create;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -11,10 +11,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatSpinner;
@@ -23,25 +23,21 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.dao.Address;
-import com.renchaigao.zujuba.dao.User;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.BusinessTimeInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.StoreBusinessInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
-import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,10 +52,8 @@ import normal.UUIDUtil;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Function.GaoDeMapActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
-import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.FinalDefine;
 import renchaigao.com.zujuba.util.ImgUtil;
 import renchaigao.com.zujuba.util.PatternUtil;
@@ -70,68 +64,73 @@ import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_STORE;
 
-public class CreateStoreActivity extends BaseActivity {
+public class CreateStorePartTwoActivity extends BaseActivity {
 
-    private String TAG = "This is CreateStoreActivity ";
-    private TextView business_join_introduce_addres_name, business_join_introduce_time_textView_number, business_join_introduce_time_textView_title_note;
-    private LinearLayout linearLayout_part1, linearLayout_part2, linearLayout_part3, linearLayout_part4, business_join_introduce_part5;
-    private Button business_join_introduce_button_next, business_join_basic_button_next, business_join_detail_button_back,
-            business_join_detail_button_next, business_join_map_image_back, business_join_map_image_next, business_join_map_end_back, business_join_map_end_next;
-    private ScrollView business_join_NestedScrollView;
-    private CheckBox business_join_introduce_time_checkBox1, business_join_introduce_time_checkBox2, business_join_introduce_time_checkBox3, business_join_introduce_time_checkBox4;
-    private Integer checkBoxNum = 0;
-    private ImageView business_join_map_image_store_1, business_join_map_image_store_2, business_join_map_image_store_3, business_join_map_image_store_4,
-            business_join_map_image_license_1, business_join_map_image_license_2, business_join_map_image_license_3, business_join_introduce_addres_image;
-    private TextInputLayout business_join_name_layout, business_join_introduce_content_TextInputLayout_person,
-            business_join_introduce_content_TextInputLayout_person2, business_join_introduce_content_TextInputLayout_name,
-            business_join_desk_layout, business_join_maxpeople_layout, business_join_extra_storeinfo_TextInputLayout;
-    private TextInputEditText business_join_name, business_join_introduce_addres_addinfo, business_telephone1, business_telephone2, business_telephone_name,
-            business_join_desk_num, business_join_maxpeople_num, business_join_extra_storeinfo;
-    private AppCompatSpinner business_join_class;
-    private AppCompatCheckBox business_join_other_equipment_air, business_join_other_equipment_wifi,
-            business_join_other_equipment_hot, business_join_other_equipment_wc;
-    private AlertDialog.Builder builder, builderPhoto;
-    private ProgressDialog progDialog;
-    private boolean imageFinish1, imageFinish2, imageFinish3, imageFinish4, imageFinish5, imageFinish6, imageFinish7;
-    private Integer imageFlag = 0;
-    private Bitmap bitmapPhoto;
+    private String TAG = "CreateStorePartTwoActivity";
+    private TextView TextView_rulesTextView;
+    private TextInputLayout TextInputLayout_hardwareTextInputLayout;
+    private TextInputLayout TextInputLayout_maxNumberTextInputLayout;
+    private TextInputLayout TextInputLayout_deskTextInputLayout;
+    private TextInputLayout TextInputLayout_storeNoteTextInputLayout;
+    private TextInputEditText TextInputEditText_hardwareTextInputEditText;
+    private TextInputEditText TextInputEditText_maxNumberTextInputEditText;
+    private TextInputEditText TextInputEditText_deskTextInputEditText;
+    private TextInputEditText TextInputEditText_storeNoteTextInputLayout;
+    private Switch Switch_schoolSwitch;
+    private AppCompatSpinner Spinner_schoolSpinner;
+    private ConstraintLayout ConstraintLayout_toolbar;
+    private ConstraintLayout ConstraintLayout_schoolPartConstraintLayout;
+    private ConstraintLayout ConstraintLayout_homeConstraintLayout;
+    private AppCompatCheckBox CheckBox_wifiCheckBox;
+    private AppCompatCheckBox CheckBox_chargeCheckBox;
+    private AppCompatCheckBox CheckBox_hotCheckBox;
+    private AppCompatCheckBox CheckBox_coldCheckBox;
+    private AppCompatCheckBox CheckBox_wcCheckBox;
 
-    private class photoImage {
-
+    private TextView titleTextView, secondTitleTextView;
+    private ConstraintLayout toolbar;
+    private void initToolbar() {
+        toolbar = (ConstraintLayout) findViewById(R.id.ConstraintLayout_toolbar);
+        titleTextView = (TextView) toolbar.findViewById(R.id.toolbarTitle);
+        titleTextView.setText("创建新场地");
+        secondTitleTextView = (TextView) toolbar.findViewById(R.id.toolbarSecondTitle);
+        secondTitleTextView.setText("步骤：2/4");
+        ImageView goback = (ImageView) toolbar.findViewById(R.id.toolbarBack);
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
-    public static final int PHOTO_1 = 1001;
-    public static final int PHOTO_2 = 1002;
-    public static final int PHOTO_3 = 1003;
-    public static final int PHOTO_4 = 1004;
-    public static final int PHOTO_5 = 1005;
-    public static final int PHOTO_6 = 1006;
-    public static final int PHOTO_7 = 1007;
-
-    public static final int PICK_PHOTO_1 = 1011;
-    public static final int PICK_PHOTO_2 = 1012;
-    public static final int PICK_PHOTO_3 = 1013;
-    public static final int PICK_PHOTO_4 = 1014;
-    public static final int PICK_PHOTO_5 = 1015;
-    public static final int PICK_PHOTO_6 = 1016;
-    public static final int PICK_PHOTO_7 = 1017;
-
-    public static final int TAKE_PHOTO = 1;
-    public static final int CHOOSE_PHOTO = 2;
-    public static final int ADD_ADDRESS = 3;
-
-    private Uri imageUri;
-
+    private AlertDialog.Builder builder;
+    private ProgressDialog progDialog;
     private StoreInfo storeInfo = new StoreInfo();
-    private User user;
-    private UserInfo userInfo;
-
-    private BusinessTimeInfo businessTimeInfo_1, businessTimeInfo_2, businessTimeInfo_3, businessTimeInfo_4;
 
     @Override
     protected void InitView() {
-        setToolBar();
-        initView();
+        initToolbar();
+        TextView_rulesTextView = (TextView) findViewById(R.id.TextView_rulesTextView);
+        TextInputLayout_hardwareTextInputLayout = (TextInputLayout) findViewById(R.id.TextInputLayout_hardwareTextInputLayout);
+        TextInputLayout_maxNumberTextInputLayout = (TextInputLayout) findViewById(R.id.TextInputLayout_maxNumberTextInputLayout);
+        TextInputLayout_deskTextInputLayout = (TextInputLayout) findViewById(R.id.TextInputLayout_deskTextInputLayout);
+        TextInputLayout_storeNoteTextInputLayout = (TextInputLayout) findViewById(R.id.TextInputLayout_storeNoteTextInputLayout);
+        TextInputEditText_hardwareTextInputEditText = (TextInputEditText) findViewById(R.id.TextInputEditText_hardwareTextInputEditText);
+        TextInputEditText_maxNumberTextInputEditText = (TextInputEditText) findViewById(R.id.TextInputEditText_maxNumberTextInputEditText);
+        TextInputEditText_deskTextInputEditText = (TextInputEditText) findViewById(R.id.TextInputEditText_deskTextInputEditText);
+        TextInputEditText_storeNoteTextInputLayout = (TextInputEditText) findViewById(R.id.TextInputEditText_storeNoteTextInputLayout);
+        Switch_schoolSwitch = (Switch) findViewById(R.id.Switch_schoolSwitch);
+        Spinner_schoolSpinner = (AppCompatSpinner) findViewById(R.id.Spinner_schoolSpinner);
+        ConstraintLayout_toolbar = (ConstraintLayout) findViewById(R.id.ConstraintLayout_toolbar);
+        ConstraintLayout_schoolPartConstraintLayout = (ConstraintLayout) findViewById(R.id.ConstraintLayout_schoolPartConstraintLayout);
+        ConstraintLayout_homeConstraintLayout = (ConstraintLayout) findViewById(R.id.ConstraintLayout_homeConstraintLayout);
+        CheckBox_wifiCheckBox = (AppCompatCheckBox) findViewById(R.id.CheckBox_wifiCheckBox);
+        CheckBox_chargeCheckBox = (AppCompatCheckBox) findViewById(R.id.CheckBox_chargeCheckBox);
+        CheckBox_hotCheckBox = (AppCompatCheckBox) findViewById(R.id.CheckBox_hotCheckBox);
+        CheckBox_coldCheckBox = (AppCompatCheckBox) findViewById(R.id.CheckBox_coldCheckBox);
+        CheckBox_wcCheckBox = (AppCompatCheckBox) findViewById(R.id.CheckBox_wcCheckBox);
+
     }
 
     @Override
@@ -141,309 +140,17 @@ public class CreateStoreActivity extends BaseActivity {
 
     @Override
     protected void InitOther() {
-        initBasicPart();
-        initExtraPart();
-        initPhotoPart();
-        initFinishPart();
-        setLinearLayoutVisibile(1);
 
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_business;
+        return R.layout.activity_create_store_part_two;
     }
 
-    private void setToolBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
-
-    private void initView() {
-        userInfo = DataUtil.GetUserInfoData(CreateStoreActivity.this);
-        user = DataUtil.GetUserData(CreateStoreActivity.this);
-        builder = new AlertDialog.Builder(this);
-        business_join_introduce_button_next = (Button) findViewById(R.id.business_join_introduce_button_next);
-        business_join_NestedScrollView = (ScrollView) findViewById(R.id.business_join_NestedScrollView);
-
-        business_join_introduce_button_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setLinearLayoutVisibile(2);
-            }
-        });
-        linearLayout_part1 = (LinearLayout) findViewById(R.id.business_join_introduce_part1);
-
-    }
-
-    //        基础信息部分
-    private void initBasicPart() {
-        business_join_introduce_time_textView_number = (TextView) findViewById(R.id.business_join_introduce_time_textView_number);
-        business_join_basic_button_next = (Button) findViewById(R.id.business_join_basic_button_next);
-        linearLayout_part2 = (LinearLayout) findViewById(R.id.business_join_introduce_part2);
-        business_join_name = (TextInputEditText) findViewById(R.id.business_join_name);
-        business_join_class = (AppCompatSpinner) findViewById(R.id.business_join_class);
-        business_join_introduce_addres_image = (ImageView) findViewById(R.id.business_join_introduce_addres_image);
-        business_join_introduce_addres_name = (TextView) findViewById(R.id.business_join_introduce_addres_name);
-        business_join_introduce_addres_addinfo = (TextInputEditText) findViewById(R.id.business_join_introduce_addres_addinfo);
-        business_join_introduce_content_TextInputLayout_person = (TextInputLayout) findViewById(R.id.business_join_introduce_content_TextInputLayout_person);
-        business_join_introduce_content_TextInputLayout_person2 = (TextInputLayout) findViewById(R.id.business_join_introduce_content_TextInputLayout_person2);
-        business_join_introduce_content_TextInputLayout_name = (TextInputLayout) findViewById(R.id.business_join_introduce_content_TextInputLayout_name);
-        business_telephone1 = (TextInputEditText) findViewById(R.id.business_telephone1);
-        business_telephone2 = (TextInputEditText) findViewById(R.id.business_telephone2);
-        business_telephone_name = (TextInputEditText) findViewById(R.id.business_telephone_name);
-        business_join_name_layout = (TextInputLayout) findViewById(R.id.business_join_name_layout);
-        business_join_introduce_time_textView_title_note = (TextView) findViewById(R.id.business_join_introduce_time_textView_title_note);
-        business_join_introduce_time_textView_title_note.setVisibility(View.VISIBLE);
-        business_join_introduce_time_checkBox1 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox1);
-        business_join_introduce_time_checkBox2 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox2);
-        business_join_introduce_time_checkBox3 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox3);
-        business_join_introduce_time_checkBox4 = (CheckBox) findViewById(R.id.business_join_introduce_time_checkBox4);
-        business_join_class.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                storeInfo.setStoreclass(String.valueOf(position));//getResources().getStringArray(R.array.business_class_array)[position]
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        business_join_name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                business_join_name_layout.setError("请输入店铺的真实名字");
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                business_join_name_layout.setError("请输入店铺的真实名字");
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    storeInfo.setName(s.toString());
-                    business_join_name.setError(null);
-                    business_join_name_layout.setError(null);
-                } else {
-                    business_join_name.setError("请输入正确的商铺名称，方便客户上门。");
-                }
-            }
-        });
-        business_join_introduce_addres_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateStoreActivity.this, GaoDeMapActivity.class);
-                intent.putExtra("whereCome", "CreateStoreActivity");
-                startActivityForResult(intent, ADD_ADDRESS);
-            }
-        });
-        business_join_introduce_addres_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateStoreActivity.this, GaoDeMapActivity.class);
-                intent.putExtra("whereCome", "CreateStoreActivity");
-                startActivityForResult(intent, ADD_ADDRESS);
-            }
-        });
-        business_join_introduce_addres_addinfo.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                storeInfo.setAddressNote(s.toString());
-            }
-        });
-        business_telephone_name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (null != s.toString()) {
-                    if (s.toString().length() < 10)
-                        storeInfo.setContact(s.toString());
-                    else
-                        business_join_introduce_content_TextInputLayout_name.setError("联系人需要小于10个字");
-                } else
-                    business_join_introduce_content_TextInputLayout_name.setError("请输入联系人");
-            }
-        });
-        business_telephone1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                business_join_introduce_content_TextInputLayout_person.setError("请输入11位手机号码");
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (null != s.toString() && PatternUtil.strMatcher(s.toString(), PatternUtil.FUNC_TELEPHONE_NUMBER)) {
-                    storeInfo.setTelephonenum(s.toString());
-                } else
-                    business_join_introduce_content_TextInputLayout_person.setError("请输入正确的11位手机号码");
-            }
-        });
-        business_telephone2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (null != s.toString()) {
-                    storeInfo.setPhonenum(s.toString());
-                }
-            }
-        });
-        business_join_introduce_time_checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked) {
-                    checkBoxNum++;
-                    businessTimeInfo_1 = new BusinessTimeInfo();
-                    businessTimeInfo_1.setTimeFrame("MOR");
-                    businessTimeInfo_1.setStartTime("9:00");
-                    businessTimeInfo_1.setEndTime("12:00");
-                    businessTimeInfo_1.setStartHour(9);
-                    businessTimeInfo_1.setStartMinute(0);
-                    businessTimeInfo_1.setEndHour(12);
-                    businessTimeInfo_1.setEndMinute(0);
-                } else {
-                    businessTimeInfo_1 = null;
-                    checkBoxNum--;
-                }
-                timeNoteCheckView();
-                business_join_introduce_time_textView_number.setText(checkBoxNum.toString());
-            }
-        });
-        business_join_introduce_time_checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked) {
-                    checkBoxNum++;
-                    businessTimeInfo_2 = new BusinessTimeInfo();
-                    businessTimeInfo_2.setTimeFrame("AFT");
-                    businessTimeInfo_2.setStartTime("13:00");
-                    businessTimeInfo_2.setEndTime("17:00");
-                    businessTimeInfo_2.setStartHour(13);
-                    businessTimeInfo_2.setStartMinute(0);
-                    businessTimeInfo_2.setEndHour(16);
-                    businessTimeInfo_2.setEndMinute(0);
-
-                } else {
-                    businessTimeInfo_2 = null;
-                    checkBoxNum--;
-                }
-                timeNoteCheckView();
-                business_join_introduce_time_textView_number.setText(checkBoxNum.toString());
-            }
-        });
-        business_join_introduce_time_checkBox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked) {
-                    checkBoxNum++;
-                    businessTimeInfo_3 = new BusinessTimeInfo();
-                    businessTimeInfo_3.setTimeFrame("NON");
-                    businessTimeInfo_3.setStartTime("18:00");
-                    businessTimeInfo_3.setEndTime("21:00");
-                    businessTimeInfo_3.setStartHour(18);
-                    businessTimeInfo_3.setStartMinute(0);
-                    businessTimeInfo_3.setEndHour(21);
-                    businessTimeInfo_3.setEndMinute(0);
-
-                } else {
-                    businessTimeInfo_3 = null;
-                    checkBoxNum--;
-                }
-                timeNoteCheckView();
-                business_join_introduce_time_textView_number.setText(checkBoxNum.toString());
-            }
-        });
-        business_join_introduce_time_checkBox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked) {
-                    checkBoxNum++;
-                    businessTimeInfo_4 = new BusinessTimeInfo();
-                    businessTimeInfo_4.setTimeFrame("NIG");
-                    businessTimeInfo_4.setStartTime("21:00");
-                    businessTimeInfo_4.setEndTime("23:00");
-                    businessTimeInfo_4.setStartHour(21);
-                    businessTimeInfo_4.setStartMinute(0);
-                    businessTimeInfo_4.setEndHour(24);
-                    businessTimeInfo_4.setEndMinute(0);
-
-                } else {
-                    businessTimeInfo_4 = null;
-                    checkBoxNum--;
-                }
-                timeNoteCheckView();
-                business_join_introduce_time_textView_number.setText(checkBoxNum.toString());
-            }
-        });
-        business_join_basic_button_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkBasicPart())
-                    setLinearLayoutVisibile(3);
-            }
-        });
-    }
 
     //          附加信息部分
     private void initExtraPart() {
-        business_join_detail_button_back = (Button) findViewById(R.id.business_join_detail_button_back);
-        business_join_detail_button_next = (Button) findViewById(R.id.business_join_detail_button_next);
-        linearLayout_part3 = (LinearLayout) findViewById(R.id.business_join_introduce_part3);
-        business_join_desk_layout = (TextInputLayout) findViewById(R.id.business_join_desk_layout);
-        business_join_maxpeople_layout = (TextInputLayout) findViewById(R.id.business_join_maxpeople_layout);
-        business_join_desk_num = (TextInputEditText) findViewById(R.id.business_join_desk_num);
-        business_join_maxpeople_num = (TextInputEditText) findViewById(R.id.business_join_maxpeople_num);
-        business_join_other_equipment_air = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_air);
-        business_join_other_equipment_wifi = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_wifi);
-        business_join_other_equipment_hot = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_hot);
-        business_join_other_equipment_wc = (AppCompatCheckBox) findViewById(R.id.business_join_other_equipment_wc);
-        business_join_extra_storeinfo_TextInputLayout = (TextInputLayout) findViewById(R.id.business_join_extra_storeinfo_TextInputLayout);
-        business_join_extra_storeinfo = (TextInputEditText) findViewById(R.id.business_join_extra_storeinfo);
 
 //        绑定监听
         business_join_desk_num.addTextChangedListener(new TextWatcher() {
@@ -461,10 +168,10 @@ public class CreateStoreActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (PatternUtil.strMatcher(s.toString(), PatternUtil.FUNC_NUMBER_1_99)) {
-                    storeInfo.setMaxDeskSum(Integer.valueOf(s.toString()));
-                    business_join_desk_layout.setError("");
-                } else business_join_desk_layout.setError("请输入1到99的数字");
+//                if (PatternUtil.strMatcher(s.toString(), PatternUtil.FUNC_NUMBER_1_99)) {
+//                    storeInfo.setMaxDeskSum(Integer.valueOf(s.toString()));
+//                    business_join_desk_layout.setError("");
+//                } else business_join_desk_layout.setError("请输入1到99的数字");
             }
         });
         business_join_maxpeople_num.addTextChangedListener(new TextWatcher() {
@@ -482,10 +189,10 @@ public class CreateStoreActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (PatternUtil.strMatcher(s.toString(), PatternUtil.FUNC_NUMBER_1_99)) {
-                    storeInfo.setMaxPeopleSum(Integer.valueOf(s.toString()));
-                    business_join_maxpeople_layout.setError("");
-                } else business_join_maxpeople_layout.setError("请输入1到99的数字");
+//                if (PatternUtil.strMatcher(s.toString(), PatternUtil.FUNC_NUMBER_1_99)) {
+//                    storeInfo.setMaxPeopleSum(Integer.valueOf(s.toString()));
+//                    business_join_maxpeople_layout.setError("");
+//                } else business_join_maxpeople_layout.setError("请输入1到99的数字");
             }
         });
         business_join_extra_storeinfo.addTextChangedListener(new TextWatcher() {
@@ -653,7 +360,7 @@ public class CreateStoreActivity extends BaseActivity {
                 if (checkMapPart())
                     setLinearLayoutVisibile(5);
                 else
-                    Toast.makeText(CreateStoreActivity.this, "请完善所有图片", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateStorePartTwoActivity.this, "请完善所有图片", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -670,7 +377,7 @@ public class CreateStoreActivity extends BaseActivity {
 
     //          所有信息展示部分
     private void initFinishPart() {
-        progDialog = new ProgressDialog(CreateStoreActivity.this);
+        progDialog = new ProgressDialog(CreateStorePartTwoActivity.this);
         progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progDialog.setIndeterminate(false);
         progDialog.setCancelable(true);
@@ -682,7 +389,7 @@ public class CreateStoreActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 reloadAdapter();
-                Toast.makeText(CreateStoreActivity.this, "你点击了确定发送", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateStorePartTwoActivity.this, "你点击了确定发送", Toast.LENGTH_LONG).show();
             }
         });
         business_join_introduce_part5 = (LinearLayout) findViewById(R.id.business_join_introduce_part5);
@@ -774,7 +481,7 @@ public class CreateStoreActivity extends BaseActivity {
 
         public void handleMessage(Message msg) {
             String str = (String) msg.obj;
-            Toast.makeText(CreateStoreActivity.this, str, Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateStorePartTwoActivity.this, str, Toast.LENGTH_SHORT).show();
         }
 
         ;
@@ -915,7 +622,7 @@ public class CreateStoreActivity extends BaseActivity {
         storeInfo.setOwnerId(userInfo.getId());
         storeInfo.setId(UUIDUtil.getUUID());
         storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
-        storeInfo.setMaxDeskSum(1);
+//        storeInfo.setMaxDeskSum(1);
         String storeInfoString = JSONObject.toJSONString(storeInfo);
 //
         RequestBody multiBody = new MultipartBody.Builder()
@@ -944,7 +651,7 @@ public class CreateStoreActivity extends BaseActivity {
                         multiBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new BaseObserver<ResponseEntity>(CreateStoreActivity.this) {
+                .subscribeWith(new BaseObserver<ResponseEntity>(CreateStorePartTwoActivity.this) {
                     @Override
                     public void onNext(ResponseEntity value) {
                         try {
@@ -999,7 +706,7 @@ public class CreateStoreActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT < 24) {
             imageUri = Uri.fromFile(outputImage);
         } else {
-            imageUri = FileProvider.getUriForFile(CreateStoreActivity.this, "com.example.cameraalbumtest.fileprovider", outputImage);
+            imageUri = FileProvider.getUriForFile(CreateStorePartTwoActivity.this, "com.example.cameraalbumtest.fileprovider", outputImage);
         }
         // 启动相机程序
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -1243,5 +950,10 @@ public class CreateStoreActivity extends BaseActivity {
             return super.onKeyDown(keyCode, event);
         }
 
+    }
+
+    public void goBack(View view) {
+    }
+    public void nextButton(View view) {
     }
 }
