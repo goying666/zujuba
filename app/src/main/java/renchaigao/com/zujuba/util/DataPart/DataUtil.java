@@ -101,6 +101,29 @@ public class DataUtil {
         }
     }
 
+    public static Boolean SaveCreatePlaceInfo(Activity activity, String params, String data) {
+        try {
+            SharedPreferences.Editor editor = activity.getSharedPreferences("createPlace", MODE_PRIVATE).edit();
+            editor.putString(params, data);
+            editor.apply();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static String GetCreatePlaceInfo(Activity activity, String params) {
+        try {
+            SharedPreferences pref = activity.getSharedPreferences("createPlace", MODE_PRIVATE);
+            String responseDataStr = pref.getString("params", null);
+            if (null != responseDataStr)
+                return responseDataStr;
+            else return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static User GetUserData(Context context) {
         try {
             return JSONObject.parseObject(JSONObject.toJSONString(GetUserInfoData(context)), User.class);
@@ -176,7 +199,7 @@ public class DataUtil {
         try {
             SharedPreferences pref = activity.getSharedPreferences("httpResponseData", MODE_PRIVATE);
             String responseDataStr = pref.getString("responseData", null);
-            ResponseData responseData = JSONObject.parseObject(responseDataStr,ResponseData.class);
+            ResponseData responseData = JSONObject.parseObject(responseDataStr, ResponseData.class);
             if (null != responseData)
                 return responseData;
             else return null;
