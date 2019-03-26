@@ -1,5 +1,6 @@
 //package renchaigao.com.zujuba.ActivityAndFragment.Store.Create;
 //
+//import android.annotation.SuppressLint;
 //import android.app.ProgressDialog;
 //import android.content.DialogInterface;
 //import android.content.Intent;
@@ -80,6 +81,7 @@
 //    private ScrollView business_join_NestedScrollView;
 //    private CheckBox business_join_introduce_time_checkBox1, business_join_introduce_time_checkBox2, business_join_introduce_time_checkBox3, business_join_introduce_time_checkBox4;
 //    private Integer checkBoxNum = 0;
+//
 //    private ImageView business_join_map_image_store_1, business_join_map_image_store_2, business_join_map_image_store_3, business_join_map_image_store_4,
 //            business_join_map_image_license_1, business_join_map_image_license_2, business_join_map_image_license_3, business_join_introduce_addres_image;
 //    private TextInputLayout business_join_name_layout, business_join_introduce_content_TextInputLayout_person,
@@ -92,8 +94,10 @@
 //            business_join_other_equipment_hot, business_join_other_equipment_wc;
 //    private AlertDialog.Builder builder, builderPhoto;
 //    private ProgressDialog progDialog;
+//
 //    private boolean imageFinish1, imageFinish2, imageFinish3, imageFinish4, imageFinish5, imageFinish6, imageFinish7;
 //    private Integer imageFlag = 0;
+//
 //    private Bitmap bitmapPhoto;
 //
 //    private class photoImage {

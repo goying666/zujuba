@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_16dp"
                         android:background="@color/storeCreateItemBackGround"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <TextView
                             android:id="@+id/textView174"
@@ -207,7 +207,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
-                            android:text="场地名称"
+                            android:text="场地类型"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -410,7 +410,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="16dp"
-                            android:text="09:00~12:00"
+                            android:text="09:00~13:00"
                             app:layout_constraintStart_toEndOf="@+id/textView198"
                             app:layout_constraintTop_toBottomOf="@+id/TextView_workTimeFlagTextView" />
 
@@ -428,7 +428,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="13:00~17:00"
+                            android:text="13:00~18:00"
                             app:layout_constraintStart_toStartOf="@+id/textView202"
                             app:layout_constraintTop_toBottomOf="@+id/textView202" />
 
@@ -1141,7 +1141,8 @@
                     android:layout_marginStart="@dimen/margin_16dp"
                     android:layout_marginTop="@dimen/margin_64dp"
                     android:layout_marginEnd="@dimen/margin_16dp"
-                    android:layout_marginBottom="@dimen/margin_16dp">
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/business_join_map_store_title"
@@ -1149,13 +1150,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="店铺图片"
+                        android:text="场地图片"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_1"
+                        android:id="@+id/TextView_photoTitleTextView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
@@ -1163,35 +1164,36 @@
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title"
                         app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title"
-                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title"
-                        app:layout_constraintVertical_bias="0.666" />
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_style_1"
+                        android:id="@+id/TextView_f1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="待上传"
                         android:textColor="@color/colorAccent"
-                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_1"
-                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_1"
-                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_1" />
+                        app:layout_constraintBottom_toBottomOf="@+id/TextView_photoTitleTextView1"
+                        app:layout_constraintStart_toEndOf="@+id/TextView_photoTitleTextView1"
+                        app:layout_constraintTop_toTopOf="@+id/TextView_photoTitleTextView1" />
 
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_info_1"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/TextView_photoNoteTextView1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:lines="2"
                         android:maxWidth="160dp"
                         android:text="必须能看见完整的牌匾和门框。"
                         android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_1"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_1" />
+                        app:layout_constraintEnd_toStartOf="@+id/TextView_exp1"
+                        app:layout_constraintStart_toStartOf="@+id/TextView_photoTitleTextView1"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoTitleTextView1" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_info_add_1"
+                        android:id="@+id/TextView_exp1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -1201,18 +1203,21 @@
                         android:textSize="13sp"
                         android:textStyle="italic"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_1" />
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoTitleTextView1" />
 
                     <ImageView
-                        android:id="@+id/business_join_map_image_store_1"
+                        android:id="@+id/ImageView_photo1"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="136dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/map_add"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_1"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_1" />
+                        app:layout_constraintStart_toStartOf="@+id/TextView_photoNoteTextView1"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoNoteTextView1" />
 
                     <TextView
                         android:id="@+id/business_join_map_1dp_2"
@@ -1223,43 +1228,43 @@
                         android:layout_marginBottom="8dp"
                         android:background="#e0e0e0"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_1"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_1" />
+                        app:layout_constraintStart_toStartOf="@+id/ImageView_photo1"
+                        app:layout_constraintTop_toBottomOf="@+id/ImageView_photo1" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_2"
+                        android:id="@+id/TextView_photoTitleTextView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="@dimen/margin_32dp"
-                        android:text="上传室内照片"
+                        android:text="上传场地照片"
                         android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title"
                         app:layout_constraintTop_toTopOf="@+id/business_join_map_1dp_2" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_style_2"
+                        android:id="@+id/TextView_f2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="待上传"
                         android:textColor="@color/colorAccent"
-                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_2"
-                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_2"
-                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_2" />
+                        app:layout_constraintBottom_toBottomOf="@+id/TextView_photoTitleTextView2"
+                        app:layout_constraintStart_toEndOf="@+id/TextView_photoTitleTextView2"
+                        app:layout_constraintTop_toTopOf="@+id/TextView_photoTitleTextView2" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_info_2"
+                        android:id="@+id/TextView_photoNoteTextView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="室内整体环境。"
+                        android:text="室内/室外整体环境。"
                         android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_2"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_2" />
+                        app:layout_constraintStart_toStartOf="@+id/TextView_photoTitleTextView2"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoTitleTextView2" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_info_add_2"
+                        android:id="@+id/TextView_exp2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -1269,18 +1274,21 @@
                         android:textSize="13sp"
                         android:textStyle="italic"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_2" />
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoTitleTextView2" />
 
                     <ImageView
-                        android:id="@+id/business_join_map_image_store_2"
+                        android:id="@+id/ImageView_photo2"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="136dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/map_add"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_2"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_2" />
+                        app:layout_constraintStart_toStartOf="@+id/TextView_photoNoteTextView2"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoNoteTextView2" />
 
                     <TextView
                         android:id="@+id/business_join_map_1dp_3"
@@ -1291,12 +1299,12 @@
                         android:layout_marginBottom="8dp"
                         android:background="#e0e0e0"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_2"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_2" />
+                        app:layout_constraintStart_toStartOf="@+id/ImageView_photo2"
+                        app:layout_constraintTop_toBottomOf="@+id/ImageView_photo2" />
 
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_3"
+                        android:id="@+id/TextView_photoTitleTextView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
@@ -1308,30 +1316,32 @@
 
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_style_3"
+                        android:id="@+id/TextView_f3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="待上传"
                         android:textColor="@color/colorAccent"
-                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_3"
-                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_3"
-                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_3" />
+                        app:layout_constraintBottom_toBottomOf="@+id/TextView_photoTitleTextView3"
+                        app:layout_constraintStart_toEndOf="@+id/TextView_photoTitleTextView3"
+                        app:layout_constraintTop_toTopOf="@+id/TextView_photoTitleTextView3" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_info_3"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/TextView_photoNoteTextView3"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:lines="2"
                         android:maxWidth="160dp"
                         android:text="展示提供给客人组局的整个桌面。"
                         android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_3"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_3" />
+                        app:layout_constraintEnd_toStartOf="@+id/TextView_exp3"
+                        app:layout_constraintStart_toStartOf="@+id/TextView_photoTitleTextView3"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoTitleTextView3" />
 
                     <TextView
-                        android:id="@+id/business_join_map_store_title_info_add_3"
+                        android:id="@+id/TextView_exp3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -1341,18 +1351,21 @@
                         android:textSize="13sp"
                         android:textStyle="italic"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_3" />
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoTitleTextView3" />
 
                     <ImageView
-                        android:id="@+id/business_join_map_image_store_3"
+                        android:id="@+id/ImageView_photo3"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="136dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/map_add"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_3"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_3" />
+                        app:layout_constraintStart_toStartOf="@+id/TextView_photoNoteTextView3"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_photoNoteTextView3" />
 
                     <TextView
                         android:id="@+id/business_join_map_1dp_4"
@@ -1363,81 +1376,8 @@
                         android:layout_marginBottom="8dp"
                         android:background="#e0e0e0"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_3"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_3" />
-
-
-                    <TextView
-                        android:id="@+id/business_join_map_store_title_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="@dimen/margin_32dp"
-                        android:text="上传座椅照片"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title"
-                        app:layout_constraintTop_toTopOf="@+id/business_join_map_1dp_4" />
-
-
-                    <TextView
-                        android:id="@+id/business_join_map_store_title_style_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="待上传"
-                        android:textColor="@color/colorAccent"
-                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_4"
-                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_4"
-                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_4" />
-
-                    <TextView
-                        android:id="@+id/business_join_map_store_title_info_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:lines="2"
-                        android:maxWidth="160dp"
-                        android:text="展示提供给客人组局的座椅照片。"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_4"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_4" />
-
-                    <TextView
-                        android:id="@+id/business_join_map_store_title_info_add_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="示例图"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="13sp"
-                        android:textStyle="italic"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_4" />
-
-                    <ImageView
-                        android:id="@+id/business_join_map_image_store_4"
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:src="@drawable/map_add"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_4"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_4" />
-
-                    <TextView
-                        android:id="@+id/business_join_map_1dp_5"
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="@dimen/margin_8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#e0e0e0"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_4"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_4" />
-
+                        app:layout_constraintStart_toStartOf="@+id/ImageView_photo3"
+                        app:layout_constraintTop_toBottomOf="@+id/ImageView_photo3" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -1451,6 +1391,7 @@
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ConstraintLayout_photo_store_part"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16dp"
@@ -1464,7 +1405,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="资质图片"
+                        android:text="图片"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -1483,7 +1424,7 @@
 
 
                     <TextView
-                        android:id="@+id/business_join_map_license_title_style_1"
+                        android:id="@+id/TextView_f4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1495,18 +1436,20 @@
 
                     <TextView
                         android:id="@+id/business_join_map_license_title_info_1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:lines="2"
                         android:maxWidth="160dp"
                         android:text="需文字清晰、边框完整、露出国徽。"
                         android:textSize="13sp"
+                        app:layout_constraintEnd_toStartOf="@+id/TextView_exp4"
                         app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_1"
                         app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_1" />
 
                     <TextView
-                        android:id="@+id/business_join_map_license_title_info_add_1"
+                        android:id="@+id/TextView_exp4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -1519,11 +1462,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_1" />
 
                     <ImageView
-                        android:id="@+id/business_join_map_image_license_1"
+                        android:id="@+id/ImageView_photo4"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="136dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/map_add"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_info_1"
@@ -1538,8 +1484,8 @@
                         android:layout_marginBottom="8dp"
                         android:background="#e0e0e0"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_license_1"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_license_1" />
+                        app:layout_constraintStart_toStartOf="@+id/ImageView_photo4"
+                        app:layout_constraintTop_toBottomOf="@+id/ImageView_photo4" />
 
                     <TextView
                         android:id="@+id/business_join_map_license_title_2"
@@ -1553,7 +1499,7 @@
                         app:layout_constraintTop_toTopOf="@+id/business_join_map_license_1dp_2" />
 
                     <TextView
-                        android:id="@+id/business_join_map_license_title_style_2"
+                        android:id="@+id/TextView_f5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1565,18 +1511,20 @@
 
                     <TextView
                         android:id="@+id/business_join_map_license_title_info_2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:lines="2"
                         android:maxWidth="160dp"
                         android:text="需清晰展示无关和文字信息，不可自拍，不可只拍身份证。"
                         android:textSize="13sp"
+                        app:layout_constraintEnd_toStartOf="@+id/TextView_exp5"
                         app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_2"
                         app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_2" />
 
                     <TextView
-                        android:id="@+id/business_join_map_license_title_info_add_2"
+                        android:id="@+id/TextView_exp5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -1589,11 +1537,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_2" />
 
                     <ImageView
-                        android:id="@+id/business_join_map_image_license_2"
+                        android:id="@+id/ImageView_photo5"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="136dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/map_add"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_info_2"
@@ -1608,8 +1559,8 @@
                         android:layout_marginBottom="8dp"
                         android:background="#e0e0e0"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_license_2"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_license_2" />
+                        app:layout_constraintStart_toStartOf="@+id/ImageView_photo5"
+                        app:layout_constraintTop_toBottomOf="@+id/ImageView_photo5" />
 
 
                     <TextView
@@ -1624,7 +1575,7 @@
                         app:layout_constraintTop_toTopOf="@+id/business_join_map_license_1dp_3" />
 
                     <TextView
-                        android:id="@+id/business_join_map_license_title_style_3"
+                        android:id="@+id/TextView_f6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -1636,18 +1587,20 @@
 
                     <TextView
                         android:id="@+id/business_join_map_license_title_info_3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:lines="2"
                         android:maxWidth="160dp"
                         android:text="需文字清晰、边框完整。可用食品流通许可证代替。"
                         android:textSize="13sp"
+                        app:layout_constraintEnd_toStartOf="@+id/TextView_exp6"
                         app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_3"
                         app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_3" />
 
                     <TextView
-                        android:id="@+id/business_join_map_license_title_info_add_3"
+                        android:id="@+id/TextView_exp6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -1660,11 +1613,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_3" />
 
                     <ImageView
-                        android:id="@+id/business_join_map_image_license_3"
+                        android:id="@+id/ImageView_photo6"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="136dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/map_add"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_info_3"
@@ -1679,8 +1635,8 @@
                         android:layout_marginBottom="8dp"
                         android:background="#e0e0e0"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_license_3"
-                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_license_3" />
+                        app:layout_constraintStart_toStartOf="@+id/ImageView_photo6"
+                        app:layout_constraintTop_toBottomOf="@+id/ImageView_photo6" />
 
                     <TextView
                         android:id="@+id/textView3_license"
