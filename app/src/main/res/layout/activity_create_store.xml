@@ -5,6 +5,7 @@
     android:id="@+id/constraintLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="renchaigao.com.zujuba.ActivityAndFragment.Store.Create.CreateStoreActivity">
 
     <include
@@ -14,749 +15,1689 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/create_store_content"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/NestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toTopOf="@+id/LinearLayout_buttonLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout_toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/ConstraintLayout_partOneConstraintLayout"
+        <LinearLayout
+            android:id="@+id/create_store_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <android.support.v4.widget.NestedScrollView
-                android:id="@+id/NestedScrollView"
+            <!--入驻须知-->
+            <LinearLayout
+                android:id="@+id/LinearLayout_createNotePartLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:text="入驻须知"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:text="@string/business_join_introduce" />
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/CheckBox_agreeCheckBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我同意如上条款" />
+                </LinearLayout>
+
+                <!--<Button-->
+                <!--android:id="@+id/business_join_introduce_button_next"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:background="@color/colorWindowBackground"-->
+                <!--android:text="已读，下一步"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textStyle="bold" />-->
+            </LinearLayout>
+
+            <!--基础部分-->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/ConstraintLayout_partOneConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout_createBasicPartLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <!--入驻须知-->
-                    <LinearLayout
-                        android:id="@+id/LinearLayout_createNotePartLinearLayout"
+                    <!--基础信息-->
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:background="@color/storeCreateItemBackGround"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/TexViewxx12345"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
+                            android:text="基础信息"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/TextView_createPlaceBasicPartRulesTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text="规则说明"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <!--场地名称-->
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:background="@color/storeCreateItemBackGround"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/textView47"
+                            style="@style/text_content_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
+                            android:text="场地名称"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/TextView_placeNameTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="未完成"
+                            android:textColor="@color/colorRed"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView47"
+                            app:layout_constraintStart_toEndOf="@+id/textView47" />
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/TextInputEditText_placeNameTextInputEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_16dp"
+                            android:layout_marginEnd="16dp"
+                            android:hint="输入您的场地名称"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView47"
+                            app:layout_constraintTop_toBottomOf="@+id/TextView_placeNameTextView" />
+
+                        <TextView
+                            android:id="@+id/textView173"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_16dp"
+                            android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
+                            android:text="注：场地名称提交后，若需要修改将重新走审核流程。"
+                            android:textColor="@color/colorYellow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/TextInputEditText_placeNameTextInputEditText"
+                            app:layout_constraintTop_toBottomOf="@+id/TextInputEditText_placeNameTextInputEditText" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <!--场地类型-->
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:background="@color/storeCreateItemBackGround"
                         android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/textView174"
+                            style="@style/text_content_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/margin_16dp"
-                            android:text="入驻须知"
-                            android:textSize="26sp"
-                            android:textStyle="bold" />
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
+                            android:text="场地名称"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:id="@+id/textView175"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_16dp"
-                            android:layout_marginTop="@dimen/margin_8dp"
-                            android:layout_marginEnd="@dimen/margin_16dp"
-                            android:text="@string/business_join_introduce" />
+                            android:layout_marginTop="@dimen/margin_16dp"
+                            android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
+                            android:text="选择您入驻的场地的类型，不同类型需要录入不同信息，请如实填写方便场地的审批。"
+                            android:textColor="@color/colorBlack"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/Spinner_placeClassSpinner"
+                            app:layout_constraintStart_toStartOf="@+id/textView174"
+                            app:layout_constraintTop_toBottomOf="@+id/Spinner_placeClassSpinner" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/Spinner_placeClassSpinner"
+                            android:layout_width="233dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/margin_8dp"
-                            android:orientation="horizontal">
+                            android:layout_marginStart="8dp"
+                            android:entries="@array/business_class_array"
+                            android:prompt="@string/store_env_class_title"
+                            android:spinnerMode="dialog"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView174"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView174"
+                            app:layout_constraintTop_toTopOf="@+id/textView174" />
+                    </android.support.constraint.ConstraintLayout>
 
-                            <CheckBox
-                                android:id="@+id/CheckBox_agreeCheckBox"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="我同意如上条款" />
-                        </LinearLayout>
-
-                        <!--<Button-->
-                        <!--android:id="@+id/business_join_introduce_button_next"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="36dp"-->
-                        <!--android:background="@color/colorWindowBackground"-->
-                        <!--android:text="已读，下一步"-->
-                        <!--android:textColor="@color/colorAccent"-->
-                        <!--android:textStyle="bold" />-->
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/LinearLayout_createBasicPartLinearLayout"
+                    <!--地址信息-->
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:background="@color/storeCreateItemBackGround"
                         android:visibility="visible">
 
-                        <!--基础信息-->
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
+
+                        <TextView
+                            android:id="@+id/textView176"
+                            style="@style/text_content_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
+                            android:text="地址信息"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/TextView_flagAddressTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="未完成"
+                            android:textColor="@color/colorRed"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView176"
+                            app:layout_constraintStart_toEndOf="@+id/textView176" />
+
+                        <TextView
+                            android:id="@+id/TextView_locationTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text="地图定位"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView176"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView193"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="定位信息"
+                            app:layout_constraintEnd_toEndOf="@+id/textView176"
+                            app:layout_constraintTop_toBottomOf="@+id/textView176" />
+
+                        <TextView
+                            android:id="@+id/TextView_addressInfoTextView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:maxLines="1"
+                            android:text="某某地"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView193"
+                            app:layout_constraintEnd_toStartOf="@+id/TextView_locationTextView"
+                            app:layout_constraintStart_toEndOf="@+id/textView176"
+                            app:layout_constraintTop_toTopOf="@+id/textView193"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/textView195"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="点击地图定位，增加场地位置信息。"
+                            android:textColor="@color/colorBlack"
+                            app:layout_constraintStart_toStartOf="@+id/TextView_addressInfoTextView"
+                            app:layout_constraintTop_toBottomOf="@+id/TextView_addressInfoTextView" />
+
+                        <TextView
+                            android:id="@+id/textView196"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="位置描述"
+                            app:layout_constraintStart_toStartOf="@+id/textView193"
+                            app:layout_constraintTop_toTopOf="@+id/TextInputEditText_addressNoteTextInputEditText" />
+
+                        <TextView
+                            android:id="@+id/textView197"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_16dp"
-                            android:background="@color/storeCreateItemBackGround"
-                            android:visibility="visible">
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
+                            android:text="补充对场地的位置描述，让用户能更快、更准确找到目的地。"
+                            android:textColor="@color/colorYellow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/TextView_locationTextView"
+                            app:layout_constraintStart_toStartOf="@+id/textView196"
+                            app:layout_constraintTop_toBottomOf="@+id/TextInputEditText_addressNoteTextInputEditText" />
 
-                            <TextView
-                                android:id="@+id/TexViewxx"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="left"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
-                                android:text="基础信息"
-                                android:textSize="26sp"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                        <ImageView
+                            android:id="@+id/ImageView_locationImageView"
+                            android:layout_width="20dp"
+                            android:layout_height="23dp"
+                            android:layout_marginEnd="4dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/TextView_locationTextView"
+                            app:layout_constraintEnd_toStartOf="@+id/TextView_locationTextView"
+                            app:srcCompat="@drawable/icon_address" />
 
-                            <TextView
-                                android:id="@+id/TextView_createPlaceBasicPartRulesTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="规则说明"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent" />
-
-                        </android.support.constraint.ConstraintLayout>
-
-                        <!--场地名称-->
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/TextInputEditText_addressNoteTextInputEditText"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_16dp"
-                            android:background="@color/storeCreateItemBackGround"
-                            android:visibility="visible">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:hint="请增加对场地位置的描述"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@+id/TextView_addressInfoTextView"
+                            app:layout_constraintStart_toStartOf="@+id/textView195"
+                            app:layout_constraintTop_toBottomOf="@+id/textView195" />
+                    </android.support.constraint.ConstraintLayout>
 
-                            <TextView
-                                android:id="@+id/textView47"
-                                style="@style/text_content_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
-                                android:text="场地名称"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                    <!--营业时间-->
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:background="@color/storeCreateItemBackGround"
+                        android:visibility="visible">
 
-                            <TextView
-                                android:id="@+id/TextView_placeNameTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="未完成"
-                                android:textColor="@color/colorRed"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView47"
-                                app:layout_constraintStart_toEndOf="@+id/textView47" />
+                        <TextView
+                            android:id="@+id/textView198"
+                            style="@style/text_content_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
+                            android:text="营业时段"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/TextView_workTimeFlagTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="未完成"
+                            android:textColor="@color/colorRed"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView198"
+                            app:layout_constraintStart_toEndOf="@+id/textView198" />
+
+                        <TextView
+                            android:id="@+id/TextView_sumOfTimeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/colorGreen"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView201"
+                            app:layout_constraintEnd_toStartOf="@+id/textView201" />
+
+                        <TextView
+                            android:id="@+id/textView201"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text="个时段"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView198"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView202"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:text="09:00~12:00"
+                            app:layout_constraintStart_toEndOf="@+id/textView198"
+                            app:layout_constraintTop_toBottomOf="@+id/TextView_workTimeFlagTextView" />
+
+                        <TextView
+                            android:id="@+id/textView203"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="18:00~21:00"
+                            app:layout_constraintStart_toStartOf="@+id/textView204"
+                            app:layout_constraintTop_toBottomOf="@+id/textView204" />
+
+                        <TextView
+                            android:id="@+id/textView204"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="13:00~17:00"
+                            app:layout_constraintStart_toStartOf="@+id/textView202"
+                            app:layout_constraintTop_toBottomOf="@+id/textView202" />
+
+                        <TextView
+                            android:id="@+id/textView205"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="21:00~23:00"
+                            app:layout_constraintStart_toStartOf="@+id/textView203"
+                            app:layout_constraintTop_toBottomOf="@+id/textView203" />
+
+                        <TextView
+                            android:id="@+id/textView206"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
+                            android:text="@string/create_place_time_note"
+                            android:textColor="@color/colorYellow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView198"
+                            app:layout_constraintTop_toBottomOf="@+id/textView205" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/AppCompatCheckBox_timeOneAppCompatCheckBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView202"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView202"
+                            app:layout_constraintTop_toTopOf="@+id/textView202" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/AppCompatCheckBox_timeTwoAppCompatCheckBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView204"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView204"
+                            app:layout_constraintTop_toTopOf="@+id/textView204" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/AppCompatCheckBox_timeThreeAppCompatCheckBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView203"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView203"
+                            app:layout_constraintTop_toTopOf="@+id/textView203" />
+
+                        <android.support.v7.widget.AppCompatCheckBox
+                            android:id="@+id/AppCompatCheckBox_timeFourAppCompatCheckBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView205"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView205"
+                            app:layout_constraintTop_toTopOf="@+id/textView205" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <!--联系方式-->
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:background="@color/storeCreateItemBackGround"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/textView207"
+                            style="@style/text_content_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
+                            android:text="联系方式"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/TextView_nameFlag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="未完成"
+                            android:textColor="@color/colorRed"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView207"
+                            app:layout_constraintStart_toEndOf="@+id/textView207" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/textInputLayout12"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView207"
+                            app:layout_constraintTop_toBottomOf="@+id/TextView_nameFlag">
 
                             <android.support.design.widget.TextInputEditText
-                                android:id="@+id/TextInputEditText_placeNameTextInputEditText"
-                                android:layout_width="0dp"
+                                android:id="@+id/TextInputEditText_ownerNickNameTextInputEditText"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_16dp"
-                                android:layout_marginEnd="16dp"
-                                android:hint="输入您的场地名称"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/textView47"
-                                app:layout_constraintTop_toBottomOf="@+id/TextView_placeNameTextView" />
+                                android:hint="联系人（例：高先生、安女士）" />
+                        </android.support.design.widget.TextInputLayout>
 
-                            <TextView
-                                android:id="@+id/textView173"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_16dp"
-                                android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
-                                android:text="注：场地名称提交后，若需要修改将重新走审核流程。"
-                                android:textColor="@color/colorYellow"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/TextInputEditText_placeNameTextInputEditText"
-                                app:layout_constraintTop_toBottomOf="@+id/TextInputEditText_placeNameTextInputEditText" />
-
-                        </android.support.constraint.ConstraintLayout>
-
-                        <!--场地类型-->
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/textInputLayout31"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_16dp"
-                            android:background="@color/storeCreateItemBackGround"
-                            android:visibility="gone">
-
-                            <TextView
-                                android:id="@+id/textView174"
-                                style="@style/text_content_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
-                                android:text="场地名称"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/textView175"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_16dp"
-                                android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
-                                android:text="选择您入驻的场地的类型，不同类型需要录入不同信息，请如实填写方便场地的审批。"
-                                android:textColor="@color/colorBlack"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="@+id/Spinner_placeClassSpinner"
-                                app:layout_constraintStart_toStartOf="@+id/textView174"
-                                app:layout_constraintTop_toBottomOf="@+id/Spinner_placeClassSpinner" />
-
-                            <android.support.v7.widget.AppCompatSpinner
-                                android:id="@+id/Spinner_placeClassSpinner"
-                                android:layout_width="233dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:entries="@array/business_class_array"
-                                android:prompt="@string/store_env_class_title"
-                                android:spinnerMode="dialog"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView174"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView174"
-                                app:layout_constraintTop_toTopOf="@+id/textView174" />
-                        </android.support.constraint.ConstraintLayout>
-
-                        <!--地址信息-->
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_16dp"
-                            android:background="@color/storeCreateItemBackGround"
-                            android:visibility="visible">
-
-
-                            <TextView
-                                android:id="@+id/textView176"
-                                style="@style/text_content_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
-                                android:text="地址信息"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/TextView_flagAddressTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="未完成"
-                                android:textColor="@color/colorRed"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView176"
-                                app:layout_constraintStart_toEndOf="@+id/textView176" />
-
-                            <TextView
-                                android:id="@+id/TextView_locationTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="地图定位"
-                                android:textColor="@color/colorBlack"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView176"
-                                app:layout_constraintEnd_toEndOf="parent" />
-
-                            <TextView
-                                android:id="@+id/textView193"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="定位信息"
-                                app:layout_constraintEnd_toEndOf="@+id/textView176"
-                                app:layout_constraintTop_toBottomOf="@+id/textView176" />
-
-                            <TextView
-                                android:id="@+id/TextView_addressInfoTextView"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:maxLines="1"
-                                android:text="某某地"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView193"
-                                app:layout_constraintEnd_toStartOf="@+id/TextView_locationTextView"
-                                app:layout_constraintStart_toEndOf="@+id/textView176"
-                                app:layout_constraintTop_toTopOf="@+id/textView193"
-                                app:layout_constraintVertical_bias="0.0" />
-
-                            <TextView
-                                android:id="@+id/textView195"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="点击地图定位，增加场地位置信息。"
-                                android:textColor="@color/colorBlack"
-                                app:layout_constraintStart_toStartOf="@+id/TextView_addressInfoTextView"
-                                app:layout_constraintTop_toBottomOf="@+id/TextView_addressInfoTextView" />
-
-                            <TextView
-                                android:id="@+id/textView196"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="位置描述"
-                                app:layout_constraintStart_toStartOf="@+id/textView193"
-                                app:layout_constraintTop_toTopOf="@+id/TextInputEditText_addressNoteTextInputEditText" />
-
-                            <TextView
-                                android:id="@+id/textView197"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_16dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
-                                android:text="补充对场地的位置描述，让用户能更快、更准确找到目的地。"
-                                android:textColor="@color/colorYellow"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="@+id/TextView_locationTextView"
-                                app:layout_constraintStart_toStartOf="@+id/textView196"
-                                app:layout_constraintTop_toBottomOf="@+id/TextInputEditText_addressNoteTextInputEditText" />
-
-                            <ImageView
-                                android:id="@+id/ImageView_locationImageView"
-                                android:layout_width="20dp"
-                                android:layout_height="23dp"
-                                android:layout_marginEnd="4dp"
-                                app:layout_constraintBottom_toBottomOf="@+id/TextView_locationTextView"
-                                app:layout_constraintEnd_toStartOf="@+id/TextView_locationTextView"
-                                app:srcCompat="@drawable/icon_address" />
+                            android:layout_marginTop="32dp"
+                            app:layout_constraintEnd_toEndOf="@+id/textInputLayout12"
+                            app:layout_constraintStart_toStartOf="@+id/textInputLayout12"
+                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout12">
 
                             <android.support.design.widget.TextInputEditText
-                                android:id="@+id/TextInputEditText_addressNoteTextInputEditText"
-                                android:layout_width="0dp"
+                                android:id="@+id/TextInputEditText_ownerTelephoneTextInputEditText"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginEnd="8dp"
-                                android:hint="请增加对场地位置的描述"
-                                android:textSize="14sp"
-                                app:layout_constraintEnd_toEndOf="@+id/TextView_addressInfoTextView"
-                                app:layout_constraintStart_toStartOf="@+id/textView195"
-                                app:layout_constraintTop_toBottomOf="@+id/textView195" />
-                        </android.support.constraint.ConstraintLayout>
+                                android:hint="联系方式（手机 或 座机）" />
+                        </android.support.design.widget.TextInputLayout>
 
-                        <!--营业时间-->
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_16dp"
-                            android:background="@color/storeCreateItemBackGround"
-                            android:visibility="visible">
+                            android:layout_marginTop="32dp"
+                            android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/textInputLayout31"
+                            app:layout_constraintStart_toStartOf="@+id/textInputLayout31"
+                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout31">
 
-                            <TextView
-                                android:id="@+id/textView198"
-                                style="@style/text_content_title"
-                                android:layout_width="wrap_content"
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/TextInputEditText_ownerTelephoneTwoTextInputEditText"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
-                                android:text="营业时段"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:hint="备用联系号码（可选）" />
+                        </android.support.design.widget.TextInputLayout>
+                    </android.support.constraint.ConstraintLayout>
 
-                            <TextView
-                                android:id="@+id/TextView_workTimeFlagTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="未完成"
-                                android:textColor="@color/colorRed"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView198"
-                                app:layout_constraintStart_toEndOf="@+id/textView198" />
-
-                            <TextView
-                                android:id="@+id/TextView_sumOfTimeTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textColor="@color/colorGreen"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView201"
-                                app:layout_constraintEnd_toStartOf="@+id/textView201" />
-
-                            <TextView
-                                android:id="@+id/textView201"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="个时段"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView198"
-                                app:layout_constraintEnd_toEndOf="parent" />
-
-                            <TextView
-                                android:id="@+id/textView202"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="16dp"
-                                android:text="09:00~12:00"
-                                app:layout_constraintStart_toEndOf="@+id/textView198"
-                                app:layout_constraintTop_toBottomOf="@+id/TextView_workTimeFlagTextView" />
-
-                            <TextView
-                                android:id="@+id/textView203"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="18:00~21:00"
-                                app:layout_constraintStart_toStartOf="@+id/textView204"
-                                app:layout_constraintTop_toBottomOf="@+id/textView204" />
-
-                            <TextView
-                                android:id="@+id/textView204"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="13:00~17:00"
-                                app:layout_constraintStart_toStartOf="@+id/textView202"
-                                app:layout_constraintTop_toBottomOf="@+id/textView202" />
-
-                            <TextView
-                                android:id="@+id/textView205"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="21:00~23:00"
-                                app:layout_constraintStart_toStartOf="@+id/textView203"
-                                app:layout_constraintTop_toBottomOf="@+id/textView203" />
-
-                            <TextView
-                                android:id="@+id/textView206"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
-                                android:text="@string/create_place_time_note"
-                                android:textColor="@color/colorYellow"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/textView198"
-                                app:layout_constraintTop_toBottomOf="@+id/textView205" />
-
-                            <android.support.v7.widget.AppCompatCheckBox
-                                android:id="@+id/AppCompatCheckBox_timeOneAppCompatCheckBox"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView202"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView202"
-                                app:layout_constraintTop_toTopOf="@+id/textView202" />
-
-                            <android.support.v7.widget.AppCompatCheckBox
-                                android:id="@+id/AppCompatCheckBox_timeTwoAppCompatCheckBox"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView204"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView204"
-                                app:layout_constraintTop_toTopOf="@+id/textView204" />
-
-                            <android.support.v7.widget.AppCompatCheckBox
-                                android:id="@+id/AppCompatCheckBox_timeThreeAppCompatCheckBox"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView203"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView203"
-                                app:layout_constraintTop_toTopOf="@+id/textView203" />
-
-                            <android.support.v7.widget.AppCompatCheckBox
-                                android:id="@+id/AppCompatCheckBox_timeFourAppCompatCheckBox"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView205"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView205"
-                                app:layout_constraintTop_toTopOf="@+id/textView205" />
-                        </android.support.constraint.ConstraintLayout>
-
-                        <!--联系方式-->
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_16dp"
-                            android:background="@color/storeCreateItemBackGround"
-                            android:visibility="visible">
-
-                            <TextView
-                                android:id="@+id/textView207"
-                                style="@style/text_content_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
-                                android:text="联系方式"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/TextView_nameFlag"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="未完成"
-                                android:textColor="@color/colorRed"
-                                app:layout_constraintBottom_toBottomOf="@+id/textView207"
-                                app:layout_constraintStart_toEndOf="@+id/textView207" />
-
-                            <android.support.design.widget.TextInputLayout
-                                android:id="@+id/textInputLayout12"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="32dp"
-                                android:layout_marginEnd="8dp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/textView207"
-                                app:layout_constraintTop_toBottomOf="@+id/TextView_nameFlag">
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/TextInputEditText_ownerNickNameTextInputEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="联系人（例：高先生、安女士）" />
-                            </android.support.design.widget.TextInputLayout>
-
-                            <android.support.design.widget.TextInputLayout
-                                android:id="@+id/textInputLayout31"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="32dp"
-                                app:layout_constraintEnd_toEndOf="@+id/textInputLayout12"
-                                app:layout_constraintStart_toStartOf="@+id/textInputLayout12"
-                                app:layout_constraintTop_toBottomOf="@+id/textInputLayout12">
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/TextInputEditText_ownerTelephoneTextInputEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="联系方式（手机 或 座机）" />
-                            </android.support.design.widget.TextInputLayout>
-
-                            <android.support.design.widget.TextInputLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="32dp"
-                                android:layout_marginBottom="@dimen/store_create_item_margin_top_bottom"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="@+id/textInputLayout31"
-                                app:layout_constraintStart_toStartOf="@+id/textInputLayout31"
-                                app:layout_constraintTop_toBottomOf="@+id/textInputLayout31">
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/TextInputEditText_ownerTelephoneTwoTextInputEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="备用联系号码（可选）" />
-                            </android.support.design.widget.TextInputLayout>
-                        </android.support.constraint.ConstraintLayout>
-
-                        <!--<Button-->
-                        <!--android:id="@+id/Button_createPlaceBasicPartNextButton"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="@color/colorAccent"-->
-                        <!--android:text="下一步"-->
-                        <!--android:textColor="@color/colorBlack" />-->
-                    </LinearLayout>
-
+                    <!--<Button-->
+                    <!--android:id="@+id/Button_createPlaceBasicPartNextButton"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@color/colorAccent"-->
+                    <!--android:text="下一步"-->
+                    <!--android:textColor="@color/colorBlack" />-->
                 </LinearLayout>
 
-            </android.support.v4.widget.NestedScrollView>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/ConstraintLayout_timeLimitConstraintLayout"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="@dimen/_0dp"
-                android:layout_marginStart="38dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="38dp"
-                android:layout_marginBottom="68dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/null_6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:text="限制类型"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView166" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/Spinner_limitSpinner"
-                    android:layout_width="208dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ConstraintLayout_timeLimitConstraintLayout"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_0dp"
+                    android:layout_marginStart="38dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="36dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/null_6"
-                    app:layout_constraintTop_toBottomOf="@+id/null_6" />
-
-                <TextView
-                    android:id="@+id/textView48"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="日期/星期"
-                    app:layout_constraintStart_toStartOf="@+id/null_6"
-                    app:layout_constraintTop_toBottomOf="@+id/Spinner_limitSpinner" />
-
-                <TextView
-                    android:id="@+id/textView146"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="开始时间"
-                    app:layout_constraintStart_toStartOf="@+id/textView48"
-                    app:layout_constraintTop_toBottomOf="@+id/TextView_limitDateTextView" />
-
-                <TextView
-                    android:id="@+id/textView147"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="结束时间"
-                    app:layout_constraintStart_toStartOf="@+id/textView146"
-                    app:layout_constraintTop_toBottomOf="@+id/TextView_limitBeginTextView" />
-
-                <TextView
-                    android:id="@+id/textView160"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="设置预览"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TextView_limitEndTextView" />
-
-                <TextView
-                    android:id="@+id/textView166"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="每条限制条件需要完整的5部分信息"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/ImageView_cancleImageView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/TextView_limitDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="点击设置"
-                    app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
-                    app:layout_constraintStart_toEndOf="@+id/textView48"
-                    app:layout_constraintTop_toBottomOf="@+id/textView48" />
-
-                <TextView
-                    android:id="@+id/TextView_limitBeginTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="点击设置"
-                    app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
-                    app:layout_constraintStart_toEndOf="@+id/textView48"
-                    app:layout_constraintTop_toBottomOf="@+id/textView146" />
-
-                <TextView
-                    android:id="@+id/TextView_limitEndTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="点击设置"
-                    app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
-                    app:layout_constraintStart_toEndOf="@+id/textView48"
-                    app:layout_constraintTop_toBottomOf="@+id/textView147" />
-
-                <TextView
-                    android:id="@+id/TextView_limitNoteTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="周一 18:30至21:00 不营业"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView160"
-                    app:layout_constraintTop_toBottomOf="@+id/textView160" />
-
-                <Button
-                    android:id="@+id/Button_limitAddButton"
-                    android:layout_width="97dp"
-                    android:layout_height="35dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"
-                    android:text="添加"
-                    android:textSize="@dimen/text_size_introduce"
+                    android:layout_marginEnd="38dp"
+                    android:layout_marginBottom="68dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <Button
-                    android:id="@+id/Button_limitCancle"
-                    android:layout_width="97dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"
-                    android:text="取消"
-                    android:textSize="@dimen/text_size_introduce"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <ImageView
-                    android:id="@+id/ImageView_cancleImageView"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/hd_no" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/null_6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:text="限制类型"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView166" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/Spinner_limitSpinner"
+                        android:layout_width="208dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="36dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/null_6"
+                        app:layout_constraintTop_toBottomOf="@+id/null_6" />
+
+                    <TextView
+                        android:id="@+id/textView48"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="日期/星期"
+                        app:layout_constraintStart_toStartOf="@+id/null_6"
+                        app:layout_constraintTop_toBottomOf="@+id/Spinner_limitSpinner" />
+
+                    <TextView
+                        android:id="@+id/textView146"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="开始时间"
+                        app:layout_constraintStart_toStartOf="@+id/textView48"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_limitDateTextView" />
+
+                    <TextView
+                        android:id="@+id/textView147"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="结束时间"
+                        app:layout_constraintStart_toStartOf="@+id/textView146"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_limitBeginTextView" />
+
+                    <TextView
+                        android:id="@+id/textView160"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="设置预览"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/TextView_limitEndTextView" />
+
+                    <TextView
+                        android:id="@+id/textView166"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="每条限制条件需要完整的5部分信息"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/ImageView_cancleImageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TextView_limitDateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="点击设置"
+                        app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
+                        app:layout_constraintStart_toEndOf="@+id/textView48"
+                        app:layout_constraintTop_toBottomOf="@+id/textView48" />
+
+                    <TextView
+                        android:id="@+id/TextView_limitBeginTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="点击设置"
+                        app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
+                        app:layout_constraintStart_toEndOf="@+id/textView48"
+                        app:layout_constraintTop_toBottomOf="@+id/textView146" />
+
+                    <TextView
+                        android:id="@+id/TextView_limitEndTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="点击设置"
+                        app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
+                        app:layout_constraintStart_toEndOf="@+id/textView48"
+                        app:layout_constraintTop_toBottomOf="@+id/textView147" />
+
+                    <TextView
+                        android:id="@+id/TextView_limitNoteTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="周一 18:30至21:00 不营业"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView160"
+                        app:layout_constraintTop_toBottomOf="@+id/textView160" />
+
+                    <Button
+                        android:id="@+id/Button_limitAddButton"
+                        android:layout_width="97dp"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:text="添加"
+                        android:textSize="@dimen/text_size_introduce"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <Button
+                        android:id="@+id/Button_limitCancle"
+                        android:layout_width="97dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:text="取消"
+                        android:textSize="@dimen/text_size_introduce"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ImageView_cancleImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/hd_no" />
+                </android.support.constraint.ConstraintLayout>
+
             </android.support.constraint.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
+            <!--附加部分-->
+            <LinearLayout
+                android:id="@+id/LinearLayout_partTwoLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/storeCreateItemBackGround"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/TexViewxx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="@dimen/store_create_item_margin_top_bottom"
+                        android:text="附加信息"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/TextView_rulesTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="规则说明"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <!--学校环境-->
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ConstraintLayout_schoolPartConstraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:background="@color/storeCreateItemBackGround">
+
+                    <TextView
+                        android:id="@+id/textView184"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="@dimen/store_manager_item_margin_top_bottom"
+                        android:text="环境设置"
+                        android:textSize="@dimen/text_size_title"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TextView_envFlag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="未完成"
+                        android:textColor="@color/colorRed"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView184"
+                        app:layout_constraintStart_toEndOf="@+id/textView184" />
+
+                    <Switch
+                        android:id="@+id/Switch_placeEnvSwitch"
+                        android:layout_width="168dp"
+                        android:layout_height="21dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginEnd="32dp"
+                        android:text="室内"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.377"
+                        app:layout_constraintStart_toEndOf="@+id/textView184"
+                        app:layout_constraintTop_toBottomOf="@+id/textView184" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/Spinner_schoolSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:entries="@array/open_place_sum_people_arry"
+                        android:prompt="@string/open_place_sum_people_title"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/Switch_placeEnvSwitch"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/Switch_placeEnvSwitch"
+                        app:layout_constraintTop_toBottomOf="@+id/Switch_placeEnvSwitch"
+                        app:layout_constraintVertical_bias="1.0" />
+                </android.support.constraint.ConstraintLayout>
+
+                <!--店铺环境-->
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ConstraintLayout_homeConstraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/storeCreateItemBackGround">
+
+                    <TextView
+                        android:id="@+id/textView189"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="室内环境"
+                        android:textSize="@dimen/text_size_title"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/TextView_homeFlag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="未完成"
+                        android:textColor="@color/colorRed"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView189"
+                        app:layout_constraintStart_toEndOf="@+id/textView189" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/TextInputLayout_maxNumberTextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/TextInputLayout_deskTextInputLayout"
+                        app:layout_constraintStart_toStartOf="@+id/TextInputLayout_deskTextInputLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/TextInputLayout_deskTextInputLayout">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/TextInputEditText_maxNumberTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="支持游戏玩家最大数（包场情况下人数）"
+                            android:inputType="number"
+                            android:lines="1" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/TextInputLayout_deskTextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView189"
+                        app:layout_constraintTop_toBottomOf="@+id/textView189">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/TextInputEditText_deskTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="组局桌数（由桌子、包厢决定）"
+                            android:inputType="number"
+                            android:lines="1" />
+                    </android.support.design.widget.TextInputLayout>
+                </android.support.constraint.ConstraintLayout>
+                <!--旅游景点-->
+
+                <!--硬件设施-->
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:background="@color/storeCreateItemBackGround"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/textView182"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="@dimen/store_manager_item_margin_top_bottom"
+                        android:text="硬件设施"
+                        android:textSize="@dimen/text_size_title"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView190"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="根据真实情况选择场所的硬件设施配备。"
+                        android:textColor="@color/colorNoteYellow"
+                        android:textSize="@dimen/text_size_introduce"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView182"
+                        app:layout_constraintTop_toBottomOf="@+id/textView182" />
+
+                    <ImageView
+                        android:id="@+id/imageView52"
+                        android:layout_width="32dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        app:layout_constraintStart_toEndOf="@+id/textView182"
+                        app:layout_constraintTop_toBottomOf="@+id/textView190"
+                        app:srcCompat="@drawable/hd_wifi" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/CheckBox_wifiCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="WiFi"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.51"
+                        app:layout_constraintStart_toEndOf="@+id/imageView52"
+                        app:layout_constraintTop_toTopOf="@+id/imageView52" />
+
+                    <ImageView
+                        android:id="@+id/imageView53"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView52"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView52"
+                        app:srcCompat="@drawable/hd_charge" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/CheckBox_chargeCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="可充电"
+                        app:layout_constraintStart_toStartOf="@+id/CheckBox_wifiCheckBox"
+                        app:layout_constraintTop_toTopOf="@+id/imageView53" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/CheckBox_hotCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="暖气"
+                        app:layout_constraintStart_toStartOf="@+id/CheckBox_chargeCheckBox"
+                        app:layout_constraintTop_toTopOf="@+id/imageView55" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/CheckBox_coldCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="空调"
+                        app:layout_constraintStart_toStartOf="@+id/CheckBox_wcCheckBox"
+                        app:layout_constraintTop_toTopOf="@+id/imageView56" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/CheckBox_wcCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="洗手间"
+                        app:layout_constraintStart_toStartOf="@+id/CheckBox_hotCheckBox"
+                        app:layout_constraintTop_toTopOf="@+id/imageView54" />
+
+                    <ImageView
+                        android:id="@+id/imageView54"
+                        android:layout_width="29dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView55"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView55"
+                        app:srcCompat="@drawable/hd_cesuo" />
+
+                    <ImageView
+                        android:id="@+id/imageView55"
+                        android:layout_width="31dp"
+                        android:layout_height="31dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView53"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView53"
+                        app:srcCompat="@drawable/hd_hot" />
+
+                    <ImageView
+                        android:id="@+id/imageView56"
+                        android:layout_width="33dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="@+id/imageView54"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView54"
+                        app:srcCompat="@drawable/hd_code" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/TextInputLayout_hardwareTextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView182"
+                        app:layout_constraintTop_toBottomOf="@+id/CheckBox_coldCheckBox">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/TextInputEditText_hardwareTextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="设施备注" />
+                    </android.support.design.widget.TextInputLayout>
+                </android.support.constraint.ConstraintLayout>
+                <!--场地信息备注-->
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:background="@color/storeCreateItemBackGround">
+
+                    <TextView
+                        android:id="@+id/textView132"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="场地信息备注"
+                        android:textSize="@dimen/text_size_title"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView199"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="对场地的一些备注信息（非必须）。"
+                        android:textColor="@color/colorNoteYellow"
+                        android:textSize="@dimen/text_size_introduce"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView132"
+                        app:layout_constraintTop_toBottomOf="@+id/textView132" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/TextInputLayout_storeNoteTextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="240dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView132"
+                        app:layout_constraintTop_toBottomOf="@+id/textView199">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/TextInputEditText_storeNoteTextInputLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="备注（300字以内）" />
+                    </android.support.design.widget.TextInputLayout>
+                </android.support.constraint.ConstraintLayout>
+
+            </LinearLayout>
+
+            <!--图片信息-->
+            <LinearLayout
+                android:id="@+id/LinearLayout_partFourLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_64dp"
+                    android:text="图片信息"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_64dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp">
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="店铺图片"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:text="上传正门照片"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title"
+                        app:layout_constraintVertical_bias="0.666" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_style_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="待上传"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_1"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_1"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_1" />
 
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lines="2"
+                        android:maxWidth="160dp"
+                        android:text="必须能看见完整的牌匾和门框。"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_1"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_1" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_add_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="示例图"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_1" />
+
+                    <ImageView
+                        android:id="@+id/business_join_map_image_store_1"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/map_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_1"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_1" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_1dp_2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_1"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_1" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:text="上传室内照片"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_1dp_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_style_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="待上传"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_2"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_2"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="室内整体环境。"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_2"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_add_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="示例图"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_2" />
+
+                    <ImageView
+                        android:id="@+id/business_join_map_image_store_2"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/map_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_2"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_1dp_3"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_2"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_2" />
+
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:text="上传桌子照片"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_1dp_3" />
+
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_style_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="待上传"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_3"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_3"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_3" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lines="2"
+                        android:maxWidth="160dp"
+                        android:text="展示提供给客人组局的整个桌面。"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_3"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_3" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_add_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="示例图"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_3" />
+
+                    <ImageView
+                        android:id="@+id/business_join_map_image_store_3"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/map_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_3"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_3" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_1dp_4"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_3"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_3" />
+
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:text="上传座椅照片"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_1dp_4" />
+
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_style_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="待上传"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_store_title_4"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_store_title_4"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_store_title_4" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lines="2"
+                        android:maxWidth="160dp"
+                        android:text="展示提供给客人组局的座椅照片。"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_4"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_4" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_store_title_info_add_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="示例图"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_4" />
+
+                    <ImageView
+                        android:id="@+id/business_join_map_image_store_4"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/map_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_store_title_info_4"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_store_title_info_4" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_1dp_5"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_store_4"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_store_4" />
+
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp">
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="资质图片"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:text="营业执照"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_license_title"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_license_title"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_license_title"
+                        app:layout_constraintVertical_bias="0.666" />
+
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_style_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="待上传"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_license_title_1"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_license_title_1"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_license_title_1" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_info_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lines="2"
+                        android:maxWidth="160dp"
+                        android:text="需文字清晰、边框完整、露出国徽。"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_1"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_1" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_info_add_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="示例图"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_1" />
+
+                    <ImageView
+                        android:id="@+id/business_join_map_image_license_1"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/map_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_info_1"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_info_1" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_1dp_2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_license_1"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_license_1" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:text="法人手持身份证照片"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_license_title"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_license_1dp_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_style_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="待上传"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_license_title_2"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_license_title_2"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_license_title_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_info_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lines="2"
+                        android:maxWidth="160dp"
+                        android:text="需清晰展示无关和文字信息，不可自拍，不可只拍身份证。"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_2"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_info_add_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="示例图"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_2" />
+
+                    <ImageView
+                        android:id="@+id/business_join_map_image_license_2"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/map_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_info_2"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_info_2" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_1dp_3"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_license_2"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_license_2" />
+
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:text="餐饮服务许可证"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_license_title"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_license_1dp_3" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_style_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="待上传"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintBottom_toBottomOf="@+id/business_join_map_license_title_3"
+                        app:layout_constraintStart_toEndOf="@+id/business_join_map_license_title_3"
+                        app:layout_constraintTop_toTopOf="@+id/business_join_map_license_title_3" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_info_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lines="2"
+                        android:maxWidth="160dp"
+                        android:text="需文字清晰、边框完整。可用食品流通许可证代替。"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_3"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_3" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_title_info_add_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="示例图"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_3" />
+
+                    <ImageView
+                        android:id="@+id/business_join_map_image_license_3"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/map_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_license_title_info_3"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_license_title_info_3" />
+
+                    <TextView
+                        android:id="@+id/business_join_map_license_1dp_4"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/business_join_map_image_license_3"
+                        app:layout_constraintTop_toBottomOf="@+id/business_join_map_image_license_3" />
+
+                    <TextView
+                        android:id="@+id/textView3_license"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#e0e0e0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/LinearLayout_buttonLinearLayout"
@@ -770,6 +1711,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
             android:text="取消" />
 
         <Button
@@ -777,6 +1719,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorAccent"
             android:text="下一步" />
 
 
