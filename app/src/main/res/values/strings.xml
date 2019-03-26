@@ -198,6 +198,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_system_message">SystemMessageActivity</string>
     <string name="title_activity_create_club">创建俱乐部</string>
+    <string name="create_place_time_note">*至少需要选择一个时段作为场地可使用的入驻时段；\n*入驻申请通过后可以在场地信息内配置更为详细的运营时段。</string>
 
 
     <!--Deep Forest Game Use Part-->
