@@ -29,30 +29,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
+            android:orientation="vertical"
+            android:background="#e0e0e0">
             <com.youth.banner.Banner
+                android:visibility="visible"
                 android:id="@+id/a_place_page_banner"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp" />
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_spacing_normal"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="#e0e0e0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
             <!--address-->
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/team_info_addressConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/line_spacing_normal"
                 android:background="@color/colorPrimary">
 
 
@@ -291,19 +282,10 @@
 
             </android.support.constraint.ConstraintLayout>
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_spacing_normal"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="#e0e0e0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
             <android.support.constraint.ConstraintLayout
+                android:layout_marginTop="@dimen/line_spacing_normal"
                 android:layout_width="match_parent"
+                android:visibility="visible"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -339,19 +321,10 @@
                 </android.support.v7.widget.RecyclerView>
             </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_spacing_normal"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="#e0e0e0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_spacing_normal"
                 android:background="@drawable/layout_click_backgroud_color">
 
                 <ImageView
@@ -401,21 +374,20 @@
                     app:layout_constraintEnd_toEndOf="@+id/store_page_address_info"
                     app:layout_constraintStart_toStartOf="@+id/store_page_address_info"
                     app:layout_constraintTop_toBottomOf="@+id/store_page_address_info" />
+
+                <ImageView
+                    android:id="@+id/imageView33"
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/store_page_address_imge"
+                    app:layout_constraintTop_toTopOf="@+id/store_address_note"
+                    app:srcCompat="@android:drawable/ic_menu_edit" />
             </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_spacing_normal"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="#e0e0e0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_spacing_normal">
 
                 <TextView
                     android:id="@+id/a_store_info_environment"
@@ -557,20 +529,11 @@
 
             </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_spacing_normal"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="#e0e0e0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_spacing_normal"
                 android:background="@color/colorPrimary">
 
                 <TextView
@@ -579,7 +542,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="店铺简介"
+                    android:text="场地简介"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -598,19 +561,10 @@
                     app:layout_constraintTop_toTopOf="@+id/store_info_note_title" />
 
             </android.support.constraint.ConstraintLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_spacing_normal"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="#e0e0e0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/store_info_tablayout"
+                android:layout_marginTop="@dimen/line_spacing_normal"
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
 

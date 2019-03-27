@@ -217,7 +217,7 @@ public class StoreActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StoreActivity.this, StoreManagerActivity.class);
-                intent.putExtra("placeId", storeActivityBean.getStoreId());
+                intent.putExtra("placeId", storeId);
                 startActivity(intent);
             }
         });
@@ -274,6 +274,12 @@ public class StoreActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_store;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reloadAdapter();
     }
 
     private void setBanner() {

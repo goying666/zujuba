@@ -1,6 +1,7 @@
 package renchaigao.com.zujuba.util.Api;
 
 import com.alibaba.fastjson.JSONObject;
+import com.renchaigao.zujuba.PageBean.StoreManagerBasicFragmentBean;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 
 import io.reactivex.Observable;
@@ -26,7 +27,6 @@ public interface StoreApiService {
             @Body RequestBody requestBody);
 
 
-
     @GET("store/getnear")
     Observable<ResponseEntity> GetNearlyStoreInfo(
             @Query("userId") String userId,
@@ -47,5 +47,14 @@ public interface StoreApiService {
             @Query("userId") String userId,
             @Query("storeId") String storeId,
             @Query("token") String token);
+
+
+    @POST("store/manager/update/{firstStr}")
+    Observable<ResponseEntity> ManagerUpdateStoreInfo(
+            @Path("firstStr") String firstStr,
+            @Query("userId") String userId,
+            @Query("storeId") String storeId,
+            @Query("token") String token,
+            @Body RequestBody requestBody);
 
 }

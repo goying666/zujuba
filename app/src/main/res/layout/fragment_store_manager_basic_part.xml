@@ -9,8 +9,8 @@
         android:id="@+id/NestedScrollView_editPart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/store_manager_submit"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/Button_submitStoreManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,9 +47,10 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="@dimen/margin_16dp"
+                    android:gravity="center"
                     android:maxLines="2"
-                    android:text="店铺的真实名称店铺的真实名称店铺的真实名称店铺的真实名称店铺的真实名称店铺的真实名称"
-                    android:textSize="@dimen/text_size_title"
+                    android:text="店铺的真实名称"
+                    android:textSize="@dimen/text_size_toolbar"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/storeNameIntroduce"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -57,12 +58,13 @@
                     app:layout_constraintTop_toTopOf="@+id/textView" />
 
                 <TextView
-                    android:id="@+id/TextView_nameEditTextView"
+                    android:id="@+id/TextView_editName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="修改名称"
                     android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/storeNameIntroduce"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/storeNameIntroduce" />
@@ -102,7 +104,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/TextView_stateTextView"
+                    android:id="@+id/TextView_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -119,12 +121,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:checked="true"
                     android:text="营业"
-                    app:layout_constraintBottom_toBottomOf="@+id/TextView_stateTextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/TextView_state"
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/TextView_noteState"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -136,7 +139,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/Switch_stateSwitch"
                     app:layout_constraintStart_toEndOf="@+id/textView61"
-                    app:layout_constraintTop_toBottomOf="@+id/TextView_stateTextView" />
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_state" />
             </android.support.constraint.ConstraintLayout>
             <!--店铺营业时段-->
             <android.support.constraint.ConstraintLayout
@@ -236,12 +239,11 @@
                     android:id="@+id/TextView_editBusinessTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="@dimen/store_manager_item_margin_top_bottom"
                     android:text="添加新条件"
-                    android:textStyle="bold"
                     android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/RecyclerView_businessTimeRecyclerView"
                     app:layout_constraintTop_toTopOf="@+id/textView49" />
@@ -261,8 +263,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="@dimen/store_manager_item_margin_top_bottom"
                     android:text="位置信息"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -329,8 +331,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="修改备注"
-                    android:textStyle="bold"
                     android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/textView172"
                     app:layout_constraintEnd_toEndOf="@+id/TextView_editeAddressInfo" />
             </android.support.constraint.ConstraintLayout>
@@ -339,8 +341,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16dp"
-                android:visibility="visible"
-                android:background="@color/storeManagerItemBackGround">
+                android:background="@color/storeManagerItemBackGround"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView182"
@@ -349,6 +351,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="@dimen/store_manager_item_margin_top_bottom"
                     android:text="硬件设施"
+                    android:textSize="@dimen/text_size_title"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -357,10 +360,8 @@
                     android:id="@+id/textView178"
                     android:layout_width="wrap_content"
                     android:layout_height="18dp"
-                    android:layout_marginTop="@dimen/margin_8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="@dimen/margin_16dp"
                     android:text="设施备注"
-                    app:layout_constraintBottom_toTopOf="@+id/TextView_editHardware"
                     app:layout_constraintStart_toStartOf="@+id/RecyclerView_hardware"
                     app:layout_constraintTop_toBottomOf="@+id/textView190" />
 
@@ -415,13 +416,16 @@
                 <TextView
                     android:id="@+id/TextView_hardwareNote"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="23dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="@dimen/store_manager_item_margin_top_bottom"
                     android:maxLines="4"
                     android:text="对拥有的硬件设备进行额外描述。"
-                    app:layout_constraintEnd_toEndOf="@+id/RecyclerView_hardware"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/TextView_editHardware"
                     app:layout_constraintStart_toEndOf="@+id/textView178"
-                    app:layout_constraintTop_toTopOf="@+id/textView178" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView178" />
 
                 <TextView
                     android:id="@+id/textView190"
@@ -439,12 +443,12 @@
                     android:id="@+id/TextView_editHardware"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/store_manager_item_margin_top_bottom"
+                    android:layout_marginEnd="16dp"
                     android:text="修改设施备注"
-                    android:textStyle="bold"
                     android:textColor="@color/colorBlack"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/TextView_hardwareNote" />
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView178" />
             </android.support.constraint.ConstraintLayout>
             <!--店铺场地信息-->
             <android.support.constraint.ConstraintLayout
@@ -466,13 +470,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Switch
-                    android:id="@+id/Switch_placeEnvSwitch"
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/AppCompatSpinner_placeEnvSwitch"
                     android:layout_width="168dp"
                     android:layout_height="21dp"
                     android:layout_marginTop="28dp"
                     android:layout_marginEnd="32dp"
-                    android:text="室外"
+                    android:entries="@array/open_place_select_side_arry"
+                    android:gravity="center"
+                    android:prompt="@string/open_place_side_select_title"
+                    android:spinnerMode="dialog"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.377"
@@ -480,19 +488,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView184" />
 
                 <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/Spinner_outsideMaxPeople"
+                    android:id="@+id/AppCompatSpinner_outsideMaxPeople"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
                     android:entries="@array/open_place_sum_people_arry"
                     android:prompt="@string/open_place_sum_people_title"
                     android:spinnerMode="dialog"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/Switch_placeEnvSwitch"
+                    app:layout_constraintEnd_toEndOf="@+id/AppCompatSpinner_placeEnvSwitch"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/Switch_placeEnvSwitch"
-                    app:layout_constraintTop_toBottomOf="@+id/Switch_placeEnvSwitch"
+                    app:layout_constraintStart_toStartOf="@+id/AppCompatSpinner_placeEnvSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/AppCompatSpinner_placeEnvSwitch"
                     app:layout_constraintVertical_bias="1.0" />
             </android.support.constraint.ConstraintLayout>
             <!--店铺环境-->
@@ -500,7 +508,8 @@
                 android:id="@+id/ConstraintLayout_homeConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/storeManagerItemBackGround">
+                android:background="@color/storeManagerItemBackGround"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView189"
@@ -599,6 +608,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="@dimen/store_manager_item_margin_top_bottom"
                     android:text="店铺备注"
+                    android:textSize="@dimen/text_size_title"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -632,10 +642,8 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-
-
     <Button
-        android:id="@+id/store_manager_submit"
+        android:id="@+id/Button_submitStoreManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorYellow"
@@ -655,7 +663,7 @@
         android:layout_marginEnd="38dp"
         android:layout_marginBottom="68dp"
         android:background="@color/colorWhite"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -673,7 +681,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView166" />
 
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/Spinner_limitSpinner"
+            android:id="@+id/AppCompatSpinner_limitSpinner"
             android:layout_width="119dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -694,7 +702,7 @@
             android:text="日期/星期"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/null_6"
-            app:layout_constraintTop_toBottomOf="@+id/Spinner_limitSpinner" />
+            app:layout_constraintTop_toBottomOf="@+id/AppCompatSpinner_limitSpinner" />
 
         <TextView
             android:id="@+id/textView146"
@@ -710,11 +718,11 @@
             android:id="@+id/textView147"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="结束时间"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/textView146"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/TextView_limitHowLongTextView" />
 
         <TextView
             android:id="@+id/textView160"
@@ -734,10 +742,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="请完善如下5部分信息"
-            android:textStyle="bold"
-            android:textSize="19sp"
             android:maxLines="2"
+            android:text="请完善如下5部分信息"
+            android:textSize="19sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/ImageView_cancleImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -749,7 +757,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="点击设置"
-            app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
+            app:layout_constraintEnd_toEndOf="@+id/AppCompatSpinner_limitSpinner"
             app:layout_constraintStart_toEndOf="@+id/textView48"
             app:layout_constraintTop_toBottomOf="@+id/textView48" />
 
@@ -760,7 +768,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="点击设置"
-            app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
+            app:layout_constraintEnd_toEndOf="@+id/AppCompatSpinner_limitSpinner"
             app:layout_constraintStart_toEndOf="@+id/textView48"
             app:layout_constraintTop_toBottomOf="@+id/textView146" />
 
@@ -771,7 +779,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="点击设置"
-            app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
+            app:layout_constraintEnd_toEndOf="@+id/AppCompatSpinner_limitSpinner"
             app:layout_constraintStart_toEndOf="@+id/textView48"
             app:layout_constraintTop_toBottomOf="@+id/textView147" />
 
@@ -832,13 +840,13 @@
             app:layout_constraintTop_toBottomOf="@+id/TextView_limitBeginTextView" />
 
         <TextView
-            android:id="@+id/textInputLayout2"
+            android:id="@+id/TextView_limitHowLongTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="点击设置"
-            app:layout_constraintEnd_toEndOf="@+id/Spinner_limitSpinner"
+            app:layout_constraintEnd_toEndOf="@+id/AppCompatSpinner_limitSpinner"
             app:layout_constraintStart_toEndOf="@+id/textView48"
             app:layout_constraintTop_toBottomOf="@+id/textView191" />
 

@@ -247,7 +247,7 @@ public class CreateStoreActivity extends BaseActivity {
         TextInputEditText_storeNoteTextInputLayout = (TextInputEditText) findViewById(R.id.TextInputEditText_storeNoteTextInputLayout);
         Switch_placeEnvSwitch = (Switch) findViewById(R.id.Switch_placeEnvSwitch);
         Spinner_placeClassSpinner = (Spinner) findViewById(R.id.Spinner_placeClassSpinner);
-        Spinner_limitSpinner = (Spinner) findViewById(R.id.Spinner_limitSpinner);
+        Spinner_limitSpinner = (Spinner) findViewById(R.id.AppCompatSpinner_limitSpinner);
         Spinner_schoolSpinner = (Spinner) findViewById(R.id.Spinner_outsideMaxPeople);
         partZeroView = (LinearLayout) findViewById(R.id.LinearLayout_createNotePartLinearLayout);
         LinearLayout_createBasicPartLinearLayout = (LinearLayout) findViewById(R.id.LinearLayout_createBasicPartLinearLayout);
@@ -1346,10 +1346,10 @@ public class CreateStoreActivity extends BaseActivity {
         storeInfo.getStoreRankInfo().setId(UUIDUtil.getUUID());
 //        storeInfo.setMaxDeskSum(1);
         String storeInfoString = JSONObject.toJSONString(storeInfo);
-//
-        RequestBody multiBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("json", storeInfoString)
+    //
+            RequestBody multiBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("json", storeInfoString)
                 .addFormDataPart("photo", photo1.getName(), fileBodyPhoto1)
                 .addFormDataPart("photo", photo2.getName(), fileBodyPhoto2)
                 .addFormDataPart("photo", photo3.getName(), fileBodyPhoto3)
@@ -1385,7 +1385,6 @@ public class CreateStoreActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-
                         mProgressDialog.dismiss();
                     }
 

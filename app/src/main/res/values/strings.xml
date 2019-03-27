@@ -12,6 +12,11 @@
         <item>广场</item>
         <item>小区/社区</item>
     </string-array>
+
+    <string-array name="open_place_select_side_arry">　　　　　　
+        <item>室外</item>
+        <item>室内</item>
+    </string-array>
     <string-array name="open_place_sum_people_arry">　　　　　　
         <item>20人以内</item>
         <item>40人以内</item>
@@ -106,6 +111,7 @@
         <item>单选某天</item>
     </string-array>
 
+    <string name="open_place_side_select_title">请选择场地是室内还是室外环境</string>
     <string name="open_place_sum_people_title">请选择场地最大容纳人数</string>
     <string name="store_env_class_title">请选择提供组局的场地的类型</string>
     <string name="business_class_title">请选择一个适合您店铺的类型</string>
