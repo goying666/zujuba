@@ -37,12 +37,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
-import com.renchaigao.zujuba.PageBean.StoreActivityBean;
 import com.renchaigao.zujuba.dao.Address;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.BusinessTimeInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.OffWorkLimit;
+import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.StoreBusinessInfo;
 import com.renchaigao.zujuba.mongoDB.info.store.HardwarePart.Hardware;
 import com.renchaigao.zujuba.mongoDB.info.store.StoreInfo;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
@@ -50,15 +50,16 @@ import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import normal.UUIDUtil;
+import normal.dateUse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Function.GaoDeMapActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Store.StoreActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -68,7 +69,6 @@ import renchaigao.com.zujuba.util.PictureRAR;
 import renchaigao.com.zujuba.util.http.BaseObserver;
 import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 
-import static android.support.v4.content.res.TypedArrayUtils.getTextArray;
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_STORE;
 import static com.renchaigao.zujuba.mongoDB.info.store.HardwarePart.Hardware.HARDWARE_CHARGE;
 import static com.renchaigao.zujuba.mongoDB.info.store.HardwarePart.Hardware.HARDWARE_COLD;
@@ -119,6 +119,7 @@ public class CreateStoreActivity extends BaseActivity {
     private Spinner Spinner_schoolSpinner;
     private LinearLayout partZeroView;
     private LinearLayout LinearLayout_createBasicPartLinearLayout;
+    private LinearLayout partOneView;
     private LinearLayout partTwoView;
     private LinearLayout partFourView;
     private LinearLayout LinearLayout_buttonLinearLayout;
@@ -171,7 +172,6 @@ public class CreateStoreActivity extends BaseActivity {
     private ImageView ImageView_photo5;
     private ImageView ImageView_photo6;
     private ConstraintLayout ConstraintLayout_photo_store_part;
-    private ConstraintLayout partOneView;
 
     private StoreInfo storeInfo = new StoreInfo();
     private Integer imageFlag = 0;
@@ -248,7 +248,7 @@ public class CreateStoreActivity extends BaseActivity {
         Switch_placeEnvSwitch = (Switch) findViewById(R.id.Switch_placeEnvSwitch);
         Spinner_placeClassSpinner = (Spinner) findViewById(R.id.Spinner_placeClassSpinner);
         Spinner_limitSpinner = (Spinner) findViewById(R.id.Spinner_limitSpinner);
-        Spinner_schoolSpinner = (Spinner) findViewById(R.id.Spinner_schoolSpinner);
+        Spinner_schoolSpinner = (Spinner) findViewById(R.id.Spinner_outsideMaxPeople);
         partZeroView = (LinearLayout) findViewById(R.id.LinearLayout_createNotePartLinearLayout);
         LinearLayout_createBasicPartLinearLayout = (LinearLayout) findViewById(R.id.LinearLayout_createBasicPartLinearLayout);
         partTwoView = (LinearLayout) findViewById(R.id.LinearLayout_partTwoLinearLayout);
@@ -257,7 +257,7 @@ public class CreateStoreActivity extends BaseActivity {
         ImageView_locationImageView = (ImageView) findViewById(R.id.ImageView_locationImageView);
         ImageView_cancleImageView = (ImageView) findViewById(R.id.ImageView_cancleImageView);
         ConstraintLayout_toolbar = (ConstraintLayout) findViewById(R.id.ConstraintLayout_toolbar);
-        partOneView = (ConstraintLayout) findViewById(R.id.ConstraintLayout_partOneConstraintLayout);
+        partOneView = (LinearLayout) findViewById(R.id.LinearLayout_createBasicPartLinearLayout);
         ConstraintLayout_timeLimitConstraintLayout = (ConstraintLayout) findViewById(R.id.ConstraintLayout_timeLimitConstraintLayout);
         ConstraintLayout_schoolPartConstraintLayout = (ConstraintLayout) findViewById(R.id.ConstraintLayout_schoolPartConstraintLayout);
         ConstraintLayout_homeConstraintLayout = (ConstraintLayout) findViewById(R.id.ConstraintLayout_homeConstraintLayout);
@@ -383,6 +383,20 @@ public class CreateStoreActivity extends BaseActivity {
                             mProgressDialog.setTitle("入驻申请已提交");
                             mProgressDialog.setMessage("正在等待服务器处理...");
                             mProgressDialog.show();
+                            StoreBusinessInfo storeBusinessInfo = new StoreBusinessInfo();
+                            ArrayList<BusinessTimeInfo> businessTimeInfos = new ArrayList<>();
+                            if (businessTimeInfo_1 != null)
+                                businessTimeInfos.add(businessTimeInfo_1);
+                            if (businessTimeInfo_2 != null)
+                                businessTimeInfos.add(businessTimeInfo_2);
+                            if (businessTimeInfo_3 != null)
+                                businessTimeInfos.add(businessTimeInfo_3);
+                            if (businessTimeInfo_4 != null)
+                                businessTimeInfos.add(businessTimeInfo_4);
+                            storeBusinessInfo.setBusinessTimeInfos(businessTimeInfos);
+                            storeBusinessInfo.setAllFrameSum(checkBoxNum);
+                            storeBusinessInfo.setUpTime(dateUse.DateToString(new Date()));
+                            storeInfo.setStoreBusinessInfo(storeBusinessInfo);
                             reloadAdapter();
                         }
                         break;
@@ -846,14 +860,14 @@ public class CreateStoreActivity extends BaseActivity {
             hardware.setState(true);
             hardwares.add(hardware);
         }
-        if (CheckBox_hotCheckBox.isChecked()) {
+        if (CheckBox_wcCheckBox.isChecked()) {
             Hardware hardware = new Hardware();
             hardware.setHardwareClass(HARDWARE_WC);
             hardware.setName("WC");
             hardware.setState(true);
             hardwares.add(hardware);
         }
-        if (CheckBox_hotCheckBox.isChecked()) {
+        if (CheckBox_coldCheckBox.isChecked()) {
             Hardware hardware = new Hardware();
             hardware.setHardwareClass(HARDWARE_COLD);
             hardware.setName("冷气");
@@ -1161,7 +1175,7 @@ public class CreateStoreActivity extends BaseActivity {
     }
 
     private Integer checkBoxNum = 0;
-
+    private BusinessTimeInfo businessTimeInfo_1, businessTimeInfo_2, businessTimeInfo_3, businessTimeInfo_4;
     private void SetWorkTime() {
         AppCompatCheckBox_timeOneAppCompatCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -1169,7 +1183,16 @@ public class CreateStoreActivity extends BaseActivity {
                                          boolean isChecked) {
                 if (isChecked) {
                     checkBoxNum++;
+                    businessTimeInfo_1 = new BusinessTimeInfo();
+                    businessTimeInfo_1.setTimeFrame("MOR");
+                    businessTimeInfo_1.setStartTime("9:00");
+                    businessTimeInfo_1.setEndTime("13:00");
+                    businessTimeInfo_1.setStartHour(9);
+                    businessTimeInfo_1.setStartMinute(0);
+                    businessTimeInfo_1.setEndHour(13);
+                    businessTimeInfo_1.setEndMinute(0);
                 } else {
+                    businessTimeInfo_1 = null;
                     checkBoxNum--;
                 }
                 TextView_sumOfTimeTextView.setText(checkBoxNum.toString());
@@ -1181,7 +1204,16 @@ public class CreateStoreActivity extends BaseActivity {
                                          boolean isChecked) {
                 if (isChecked) {
                     checkBoxNum++;
+                    businessTimeInfo_2 = new BusinessTimeInfo();
+                    businessTimeInfo_2.setTimeFrame("AFT");
+                    businessTimeInfo_2.setStartTime("13:00");
+                    businessTimeInfo_2.setEndTime("18:00");
+                    businessTimeInfo_2.setStartHour(13);
+                    businessTimeInfo_2.setStartMinute(0);
+                    businessTimeInfo_2.setEndHour(18);
+                    businessTimeInfo_2.setEndMinute(0);
                 } else {
+                    businessTimeInfo_2 = null;
                     checkBoxNum--;
                 }
                 TextView_sumOfTimeTextView.setText(checkBoxNum.toString());
@@ -1193,7 +1225,16 @@ public class CreateStoreActivity extends BaseActivity {
                                          boolean isChecked) {
                 if (isChecked) {
                     checkBoxNum++;
+                    businessTimeInfo_3 = new BusinessTimeInfo();
+                    businessTimeInfo_3.setTimeFrame("NON");
+                    businessTimeInfo_3.setStartTime("18:00");
+                    businessTimeInfo_3.setEndTime("21:00");
+                    businessTimeInfo_3.setStartHour(18);
+                    businessTimeInfo_3.setStartMinute(0);
+                    businessTimeInfo_3.setEndHour(21);
+                    businessTimeInfo_3.setEndMinute(0);
                 } else {
+                    businessTimeInfo_3 = null;
                     checkBoxNum--;
                 }
                 TextView_sumOfTimeTextView.setText(checkBoxNum.toString());
@@ -1205,7 +1246,16 @@ public class CreateStoreActivity extends BaseActivity {
                                          boolean isChecked) {
                 if (isChecked) {
                     checkBoxNum++;
+                    businessTimeInfo_4 = new BusinessTimeInfo();
+                    businessTimeInfo_4.setTimeFrame("NIG");
+                    businessTimeInfo_4.setStartTime("21:00");
+                    businessTimeInfo_4.setEndTime("23:00");
+                    businessTimeInfo_4.setStartHour(21);
+                    businessTimeInfo_4.setStartMinute(0);
+                    businessTimeInfo_4.setEndHour(23);
+                    businessTimeInfo_4.setEndMinute(0);
                 } else {
+                    businessTimeInfo_4 = null;
                     checkBoxNum--;
                 }
                 TextView_sumOfTimeTextView.setText(checkBoxNum.toString());

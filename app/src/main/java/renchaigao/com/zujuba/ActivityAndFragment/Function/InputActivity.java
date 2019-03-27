@@ -18,7 +18,7 @@ import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Store.StoreManagerBasicFragment;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.Manager.StoreManagerBasicFragment;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;

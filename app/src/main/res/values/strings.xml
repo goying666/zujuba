@@ -92,6 +92,19 @@
         <item>女士AA</item>
         <item>房主全包</item>
     </string-array>
+    <string-array name="manage_place_time_limit_arry">
+        <item>每日</item>
+        <item>每周一</item>
+        <item>每周二</item>
+        <item>每周三</item>
+        <item>每周四</item>
+        <item>每周五</item>
+        <item>每周六</item>
+        <item>每周日</item>
+        <item>周一至周五</item>
+        <item>周六和周日</item>
+        <item>单选某天</item>
+    </string-array>
 
     <string name="open_place_sum_people_title">请选择场地最大容纳人数</string>
     <string name="store_env_class_title">请选择提供组局的场地的类型</string>
@@ -140,6 +153,7 @@
     <string name="ct_filter_5">对参加组局的人的评价筛选</string>
     <string name="ct_filter_6">对玩家的婚配情况进行筛选</string>
     <string name="call_us_class">选择一个反馈类型</string>
+    <string name="manager_place_time_limit">选择一个限制类型</string>
 
     <string name="ct_end_note">一次组局，一些人，一段回忆。</string>
     <string name="ct_end_note_author">——Goying</string>

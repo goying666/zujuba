@@ -40,6 +40,7 @@
     <color name="colorNoSelect">#ededed</color>
 
     <color name="colorRed">#ff002d</color>
+    <color name="colorPurple">#ff00c9</color>
     <color name="colorYellow">#ffd110</color>
     <color name="colorGreen">#05c161</color>
     <color name="colorNoteYellow">#ffd110</color>

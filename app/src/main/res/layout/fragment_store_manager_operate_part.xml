@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/NestedScrollView2"
         android:layout_width="match_parent"
@@ -37,7 +36,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/storeName"
+                    android:id="@+id/TextView_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -53,7 +52,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textView" />
 
                 <TextView
-                    android:id="@+id/updateStoreName"
+                    android:id="@+id/TextView_nameEditTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -72,7 +71,7 @@
                     android:textColor="@color/colorNoteYellow"
                     android:textSize="@dimen/text_size_introduce"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/storeName" />
+                    app:layout_constraintStart_toStartOf="@+id/TextView_name" />
 
             </android.support.constraint.ConstraintLayout>
             <!--店铺营业状态-->
@@ -95,26 +94,26 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/storeState"
+                    android:id="@+id/TextView_stateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
                     android:text="营业"
                     app:layout_constraintBottom_toBottomOf="@+id/textView61"
-                    app:layout_constraintEnd_toStartOf="@+id/updateStoreState"
+                    app:layout_constraintEnd_toStartOf="@+id/Switch_stateSwitch"
                     app:layout_constraintStart_toEndOf="@+id/textView61"
                     app:layout_constraintTop_toTopOf="@+id/textView61" />
 
                 <Switch
-                    android:id="@+id/updateStoreState"
+                    android:id="@+id/Switch_stateSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="营业"
-                    app:layout_constraintBottom_toBottomOf="@+id/storeState"
+                    app:layout_constraintBottom_toBottomOf="@+id/TextView_stateTextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/storeState" />
+                    app:layout_constraintTop_toTopOf="@+id/TextView_stateTextView" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -126,7 +125,7 @@
                     android:textColor="@color/colorNoteYellow"
                     android:textSize="@dimen/text_size_introduce"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/updateStoreState"
+                    app:layout_constraintEnd_toStartOf="@+id/Switch_stateSwitch"
                     app:layout_constraintStart_toEndOf="@+id/textView61" />
             </android.support.constraint.ConstraintLayout>
             <!--店铺营业时段-->
@@ -154,15 +153,15 @@
                     android:text="注：规则优先满足不营业条件"
                     android:textColor="@color/colorNoteYellow"
                     android:textSize="@dimen/text_size_introduce"
-                    app:layout_constraintStart_toStartOf="@+id/workRecyclerView"
-                    app:layout_constraintTop_toBottomOf="@+id/workRecyclerView" />
+                    app:layout_constraintStart_toStartOf="@+id/RecyclerView_businessTimeRecyclerView"
+                    app:layout_constraintTop_toBottomOf="@+id/RecyclerView_businessTimeRecyclerView" />
                 <!--TextView tv=(TextView)findViewById(R.id.tv);-->
                 <!--String str="默认颜色<font color='#FF0000'>红颜色</font>";-->
                 <!--tv.setTextSize(18);-->
                 <!--tv.setText(Html.fromHtml(str));-->
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/workRecyclerView"
+                    android:id="@+id/RecyclerView_businessTimeRecyclerView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -255,7 +254,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textView164" />
 
                 <TextView
-                    android:id="@+id/addNewLimit"
+                    android:id="@+id/TextView_editBusinessTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -264,8 +263,8 @@
                     android:text="添加新规则"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/workRecyclerView"
-                    app:layout_constraintTop_toBottomOf="@+id/workRecyclerView" />
+                    app:layout_constraintEnd_toEndOf="@+id/RecyclerView_businessTimeRecyclerView"
+                    app:layout_constraintTop_toBottomOf="@+id/RecyclerView_businessTimeRecyclerView" />
             </android.support.constraint.ConstraintLayout>
             <!--店铺位置-->
             <android.support.constraint.ConstraintLayout
@@ -294,8 +293,8 @@
                     android:textColor="@color/colorNoteYellow"
                     android:textSize="@dimen/text_size_introduce"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/addressNotes"
-                    app:layout_constraintTop_toBottomOf="@+id/addressNotes"
+                    app:layout_constraintStart_toStartOf="@+id/TextView_addressNote"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_addressNote"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
@@ -305,32 +304,32 @@
                     android:layout_marginTop="20dp"
                     android:text="位置备注"
                     app:layout_constraintStart_toStartOf="@+id/textView177"
-                    app:layout_constraintTop_toBottomOf="@+id/addressInfo" />
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_addressInfo" />
 
                 <TextView
-                    android:id="@+id/addressInfo"
+                    android:id="@+id/TextView_addressInfo"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:maxLines="3"
                     android:text="深圳市宝安区新安地铁站B口"
-                    app:layout_constraintEnd_toStartOf="@+id/updateAddress"
+                    app:layout_constraintEnd_toStartOf="@+id/TextView_editeAddressInfo"
                     app:layout_constraintStart_toEndOf="@+id/textView177"
                     app:layout_constraintTop_toTopOf="@+id/textView177" />
 
                 <TextView
-                    android:id="@+id/addressNotes"
+                    android:id="@+id/TextView_addressNote"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_16dp"
                     android:text="地铁站B出口出来后右手边往里走，看见一个小巷子进去，右手边有一个红色的大门就是我家。进来后上5楼就到了，亲~"
-                    app:layout_constraintEnd_toStartOf="@+id/updateAddressNote"
-                    app:layout_constraintStart_toStartOf="@+id/addressInfo"
+                    app:layout_constraintEnd_toStartOf="@+id/TextView_editeAddressNote"
+                    app:layout_constraintStart_toStartOf="@+id/TextView_addressInfo"
                     app:layout_constraintTop_toTopOf="@+id/textView172" />
 
                 <TextView
-                    android:id="@+id/updateAddress"
+                    android:id="@+id/TextView_editeAddressInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -341,13 +340,13 @@
                     app:layout_constraintTop_toTopOf="@+id/textView177" />
 
                 <TextView
-                    android:id="@+id/updateAddressNote"
+                    android:id="@+id/TextView_editeAddressNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="修改备注"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/textView172"
-                    app:layout_constraintEnd_toEndOf="@+id/updateAddress"
+                    app:layout_constraintEnd_toEndOf="@+id/TextView_editeAddressInfo"
                     app:layout_constraintTop_toTopOf="@+id/textView172" />
             </android.support.constraint.ConstraintLayout>
             <!--店铺硬件-->
@@ -373,8 +372,8 @@
                     android:layout_marginTop="@dimen/margin_8dp"
                     android:layout_marginBottom="8dp"
                     android:text="设施备注"
-                    app:layout_constraintBottom_toTopOf="@+id/updateHardwareNote"
-                    app:layout_constraintStart_toStartOf="@+id/hardwareRecyclerView"
+                    app:layout_constraintBottom_toTopOf="@+id/TextView_editHardware"
+                    app:layout_constraintStart_toStartOf="@+id/RecyclerView_hardware"
                     app:layout_constraintTop_toBottomOf="@+id/textView190" />
 
                 <TextView
@@ -439,7 +438,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textView180" />
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/hardwareRecyclerView"
+                    android:id="@+id/RecyclerView_hardware"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -448,12 +447,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView179" />
 
                 <TextView
-                    android:id="@+id/hardwareNotes"
+                    android:id="@+id/TextView_hardwareNote"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="对拥有的硬件设备进行额外描述。"
-                    app:layout_constraintEnd_toEndOf="@+id/hardwareRecyclerView"
+                    app:layout_constraintEnd_toEndOf="@+id/RecyclerView_hardware"
                     app:layout_constraintStart_toEndOf="@+id/textView178"
                     app:layout_constraintTop_toTopOf="@+id/textView178" />
 
@@ -465,19 +464,19 @@
                     android:text="点击需要修改的硬件设备，可修改该设备状态。"
                     android:textColor="@color/colorNoteYellow"
                     android:textSize="@dimen/text_size_introduce"
-                    app:layout_constraintEnd_toEndOf="@+id/hardwareRecyclerView"
-                    app:layout_constraintStart_toStartOf="@+id/hardwareRecyclerView"
-                    app:layout_constraintTop_toBottomOf="@+id/hardwareRecyclerView" />
+                    app:layout_constraintEnd_toEndOf="@+id/RecyclerView_hardware"
+                    app:layout_constraintStart_toStartOf="@+id/RecyclerView_hardware"
+                    app:layout_constraintTop_toBottomOf="@+id/RecyclerView_hardware" />
 
                 <TextView
-                    android:id="@+id/updateHardwareNote"
+                    android:id="@+id/TextView_editHardware"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="修改设施备注"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/hardwareNotes" />
+                    app:layout_constraintEnd_toEndOf="@+id/TextView_hardwareNote" />
             </android.support.constraint.ConstraintLayout>
             <!--店铺场地信息-->
 

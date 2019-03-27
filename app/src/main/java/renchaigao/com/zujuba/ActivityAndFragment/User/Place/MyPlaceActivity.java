@@ -26,7 +26,7 @@ import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Store.Create.CreateStoreActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Store.StoreActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Store.StoreManagerActivity;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.Manager.StoreManagerActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;

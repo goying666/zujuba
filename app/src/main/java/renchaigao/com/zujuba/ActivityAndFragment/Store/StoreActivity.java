@@ -9,14 +9,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -25,6 +25,8 @@ import com.bumptech.glide.Glide;
 import com.renchaigao.zujuba.PageBean.StoreActivityBean;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
+import com.renchaigao.zujuba.mongoDB.info.store.BusinessPart.BusinessTimeInfo;
+import com.renchaigao.zujuba.mongoDB.info.store.HardwarePart.Hardware;
 import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -32,13 +34,15 @@ import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonRecycleAdapter;
+import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Club.CreateClubActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.CustomViewPagerAdapter;
+import renchaigao.com.zujuba.ActivityAndFragment.Store.Manager.StoreManagerActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
@@ -49,6 +53,8 @@ import renchaigao.com.zujuba.util.http.RetrofitServiceManager;
 import renchaigao.com.zujuba.widgets.CustomViewPager;
 
 import static com.renchaigao.zujuba.PropertiesConfig.ConstantManagement.ADDRESS_CLASS_STORE;
+import static com.renchaigao.zujuba.mongoDB.info.store.HardwarePart.Hardware.*;
+import static com.renchaigao.zujuba.mongoDB.info.store.StoreInfo.*;
 
 public class StoreActivity extends BaseActivity {
 
@@ -57,6 +63,7 @@ public class StoreActivity extends BaseActivity {
     private String userId, token, storeId;
     private int lastTime = 0;
     private CustomViewPager customViewPager;
+    private RecyclerView recyclerView;
     private StoreActivityBean storeActivityBean = new StoreActivityBean();
 
     private TextView allPlayNum, storeStarsText, storeTeamNum, distance, storeClubNum, store_class, store_name, store_state,
@@ -66,6 +73,7 @@ public class StoreActivity extends BaseActivity {
     private TabLayout store_info_tablayout;
     private TextView titleTextView, secondTitleTextView;
     private ConstraintLayout toolbar;
+    private LinearLayout store_hd_cold, store_hd_wifi, store_hd_hot, store_hd_charge, store_hd_wc;
 
     // Handler内部类，它的引用在子线程中被使用，发送mesage，被handlerMesage方法接收
 
@@ -91,22 +99,49 @@ public class StoreActivity extends BaseActivity {
         storeStars = (RatingBar) findViewById(R.id.store_page_ratingbar);
         store_phone_image = (ImageView) findViewById(R.id.store_page_phone_imge);
         store_info_tablayout = (TabLayout) findViewById(R.id.store_info_tablayout);
+        recyclerView = (RecyclerView) findViewById(R.id.store_info_openTimes);
+
+        store_hd_cold = (LinearLayout) findViewById(R.id.store_hd_code);
+        store_hd_wifi = (LinearLayout) findViewById(R.id.store_hd_wifi);
+        store_hd_hot = (LinearLayout) findViewById(R.id.store_hd_hot);
+        store_hd_charge = (LinearLayout) findViewById(R.id.store_hd_charge);
+        store_hd_wc= (LinearLayout) findViewById(R.id.store_hd_wc);
         updateBasicView();
     }
 
     private void updateBasicView() {
         store_name.setText(storeActivityBean.getStoreName());
-        store_state.setText(storeActivityBean.getState());
         store_socre.setText(storeActivityBean.getCommentScore());
         allPlayNum.setText(storeActivityBean.getSumOfPlayer());
         storeSpendPerUser.setText(storeActivityBean.getSpendMoney());
         distance.setText(storeActivityBean.getDistance());
+        switch (storeActivityBean.getStoreClassInt()){
+            case PLACE_CLASS_ZYB:
+                store_phone_image.setVisibility(View.VISIBLE);
+                break;
+            case PLACE_CLASS_RESTAURANT:
+                store_phone_image.setVisibility(View.VISIBLE);
+                break;
+            case PLACE_CLASS_HOMESTAY:
+                store_phone_image.setVisibility(View.VISIBLE);
+                break;
+            case PLACE_CLASS_SCHOOL:
+                store_phone_image.setVisibility(View.GONE);
+                break;
+            case PLACE_CLASS_SQUARE:
+                store_phone_image.setVisibility(View.GONE);
+                break;
+            case PLACE_CLASS_COMMUNITY:
+                store_phone_image.setVisibility(View.GONE);
+                break;
+        }
         store_class.setText(storeActivityBean.getStoreclass());
         store_note.setText(storeActivityBean.getPlaceinfo());
-        storeClubNum.setText(storeActivityBean.getClubNum());
-        storeTeamNum.setText(storeActivityBean.getSumOfTeams());
+        storeClubNum.setText(storeActivityBean.getClubNum() + "个俱乐部");
+        storeTeamNum.setText(storeActivityBean.getSumOfTeams() + "次组局");
         titleTextView.setText("组局吧");
         if (storeActivityBean.getIsCreater()) {
+            store_state.setText(storeActivityBean.getState());
             secondTitleTextView.setVisibility(View.VISIBLE);
             secondTitleTextView.setText("管理本店");
             secondTitleTextView.setTextColor(Color.rgb(0xe9, 0x00, 0x06));
@@ -114,12 +149,32 @@ public class StoreActivity extends BaseActivity {
             secondTitleTextView.setVisibility(View.GONE);
         }
 
-        storeStarsText.setText(String.valueOf(storeActivityBean.getStar()) + "星店");
+        storeStarsText.setText(String.valueOf(storeActivityBean.getStar()) + "星场地");
         storeStars.setNumStars(storeActivityBean.getStar());
 
         storeEvaluateAllPeopleNum.setText(storeActivityBean.getCommentTimes());
         store_address.setText(storeActivityBean.getAddressAbstract());
         store_address_note.setText(storeActivityBean.getAddressNotes());
+        for (Hardware h:storeActivityBean.getHardwareList()){
+            switch (h.getHardwareClass()){
+                case HARDWARE_WIFI:
+                    store_hd_wifi.setVisibility(View.VISIBLE);
+                    break;
+                case HARDWARE_WC:
+                    store_hd_wc.setVisibility(View.VISIBLE);
+                    break;
+                case HARDWARE_COLD:
+                    store_hd_cold.setVisibility(View.VISIBLE);
+                    break;
+                case HARDWARE_HOT:
+                    store_hd_hot.setVisibility(View.VISIBLE);
+                    break;
+                case HARDWARE_CHARGE:
+                    store_hd_charge.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+
     }
 
     @SuppressLint("HandlerLeak")
@@ -132,6 +187,8 @@ public class StoreActivity extends BaseActivity {
     private void UpdateView() {
         updateBasicView();
         updateBanner();
+        timeAdapter.updateResults(storeActivityBean.getBusinessTimeList());
+        timeAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -148,6 +205,7 @@ public class StoreActivity extends BaseActivity {
     @Override
     protected void InitOther() {
         reloadAdapter();
+        setRecyclerView();
         setBanner();
         initAddressPhonePart();
         setViewPager();
@@ -163,6 +221,17 @@ public class StoreActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private LinearLayoutManager layoutManager;
+    private timeAdapter timeAdapter;
+
+    private void setRecyclerView() {
+        layoutManager = new LinearLayoutManager(StoreActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        timeAdapter = new timeAdapter(StoreActivity.this, storeActivityBean.getBusinessTimeList());
+        recyclerView.setAdapter(timeAdapter);
+        recyclerView.setHasFixedSize(true);
     }
 
     private void initAddressPhonePart() {
@@ -344,26 +413,16 @@ public class StoreActivity extends BaseActivity {
         }
     }
 
-//    static class CustomViewPagerAdapter extends FragmentPagerAdapter {
-//        private final List<Fragment> mFragments = new ArrayList<>();
-//
-//        public CustomViewPagerAdapter(FragmentManager fm) {
-//            super(fm);
-//        }
-//
-//        public void addFragment(Fragment fragment) {
-//            mFragments.add(fragment);
-//        }
-//
-//        @Override
-//        public Fragment getItem(int position) {
-//            return mFragments.get(position);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mFragments.size();
-//        }
-//
-//    }
+    private class timeAdapter extends CommonRecycleAdapter<BusinessTimeInfo> {
+
+        public timeAdapter(Context context, ArrayList<BusinessTimeInfo> dataList) {
+            super(context, dataList, R.layout.card_store_activity_business_time_list);
+        }
+
+        @Override
+        public void bindData(CommonViewHolder holder, BusinessTimeInfo data) {
+            holder.setText(R.id.textView169, data.getStartTime())
+                    .setText(R.id.textView170, data.getEndTime());
+        }
+    }
 }

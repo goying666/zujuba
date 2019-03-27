@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
     app:cardCornerRadius="15dp">
 
     <android.support.constraint.ConstraintLayout
@@ -19,9 +18,11 @@
             android:id="@+id/store_boy_icon"
             android:layout_width="@dimen/icon_size_width"
             android:layout_height="@dimen/icon_size_height"
+            android:layout_marginStart="20dp"
+
             android:layout_marginTop="@dimen/margin_8dp"
             android:src="@drawable/card_hall_store_desk"
-            app:layout_constraintStart_toStartOf="@+id/store_score"
+            app:layout_constraintStart_toEndOf="@+id/store_people_info"
             app:layout_constraintTop_toBottomOf="@+id/store_score" />
 
 
@@ -42,12 +43,10 @@
             android:id="@+id/store_girl_icon"
             android:layout_width="@dimen/icon_size_width"
             android:layout_height="15dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/card_hall_store_people"
-            app:layout_constraintBottom_toBottomOf="@+id/store_boy_icon"
-            app:layout_constraintStart_toEndOf="@+id/store_desk_info"
-            app:layout_constraintTop_toTopOf="@+id/store_boy_icon"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@+id/store_score"
+            app:layout_constraintTop_toBottomOf="@+id/store_score" />
 
         <TextView
             android:id="@+id/store_people_info"
@@ -125,6 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="营业中"
+            android:visibility="gone"
             android:textSize="@dimen/md_text_size_caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/store_cardview_name" />
@@ -151,8 +151,9 @@
             android:layout_marginBottom="16dp"
             android:src="@drawable/card_hall_store_time"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/store_boy_icon"
-            app:layout_constraintTop_toBottomOf="@+id/store_boy_icon" />
+            app:layout_constraintStart_toStartOf="@+id/store_girl_icon"
+            app:layout_constraintTop_toBottomOf="@+id/store_girl_icon"
+            app:layout_constraintVertical_bias="1.0" />
 
 
         <TextView
@@ -229,6 +230,21 @@
             app:layout_constraintStart_toEndOf="@+id/store_score"
             app:layout_constraintTop_toTopOf="@+id/store_score"
             app:layout_constraintVertical_bias="1.0" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="1"
+            android:background="@color/colorGreen"
+            android:progressTint="@color/colorYellow"
+            android:rating="7"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Store;
+package renchaigao.com.zujuba.ActivityAndFragment.Store.Manager;
 
 
 import android.graphics.Color;
@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.renchaigao.zujuba.mongoDB.info.user.UserInfo;
+
 import renchaigao.com.zujuba.ActivityAndFragment.BaseActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.CustomViewPagerAdapter;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.widgets.CustomViewPager;
 
 public class StoreManagerActivity extends BaseActivity {
@@ -47,10 +50,10 @@ public class StoreManagerActivity extends BaseActivity {
 
     @Override
     protected void InitData() {
-//        UserInfo userInfo = DataUtil.GetUserInfoData(this);
-//        userId = userInfo.getId();
-//        token = userInfo.getToken();
-//        storeId = getIntent().getStringExtra("placeId");
+        UserInfo userInfo = DataUtil.GetUserInfoData(this);
+        userId = userInfo.getId();
+        token = userInfo.getToken();
+        storeId = getIntent().getStringExtra("placeId");
     }
 
     @Override
@@ -65,17 +68,17 @@ public class StoreManagerActivity extends BaseActivity {
 
     private void setViewPager() {
         final StoreManagerBasicFragment storeManagerBasicFragment = new StoreManagerBasicFragment();
-        final StoreManageOperateFragment storeManageOperateFragment = new StoreManageOperateFragment();
+//        final StoreManageOperateFragment storeManageOperateFragment = new StoreManageOperateFragment();
         CustomViewPagerAdapter customViewPagerAdapter =
                 new CustomViewPagerAdapter(getSupportFragmentManager());
         customViewPagerAdapter.addFragment(storeManagerBasicFragment);
-        customViewPagerAdapter.addFragment(storeManageOperateFragment);
+//        customViewPagerAdapter.addFragment(storeManageOperateFragment);
 
         customViewPager.setAdapter(customViewPagerAdapter);
         customViewPager.setCurrentItem(0);
         tab.setupWithViewPager(customViewPager);
         tab.getTabAt(0).setCustomView(tab_icon("基础"));
-        tab.getTabAt(1).setCustomView(tab_icon("运营"));
+//        tab.getTabAt(1).setCustomView(tab_icon("运营"));
 //        store_info_tablayout.getTabAt(2).setCustomView(tab_icon("评价"));
     }
 
@@ -87,6 +90,4 @@ public class StoreManagerActivity extends BaseActivity {
         tv.setTextColor(Color.rgb(0, 0, 0));
         return newtab;
     }
-
-
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityAndFragment.Store.StoreManagerActivity">
+    tools:context=".ActivityAndFragment.Store.Manager.StoreManagerActivity">
 
     <include
         android:id="@+id/place_manager_toolbar"
@@ -17,6 +17,7 @@
         android:id="@+id/store_manager_TabLayout"
         android:layout_width="match_parent"
         android:layout_height="36dp"
+        android:visibility="gone"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Store;
+package renchaigao.com.zujuba.ActivityAndFragment.Store.Manager;
 
 
 import android.annotation.SuppressLint;
@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.renchaigao.zujuba.PageBean.CardStoreManagerBasicHardwareBean;
 import com.renchaigao.zujuba.PageBean.CardStoreManagerBasicWorkLimitBean;
-import com.renchaigao.zujuba.PageBean.StoreActivityBean;
 import com.renchaigao.zujuba.PageBean.StoreManagerBasicFragmentBean;
 import com.renchaigao.zujuba.domain.response.RespCodeNumber;
 import com.renchaigao.zujuba.domain.response.ResponseEntity;
@@ -30,8 +29,6 @@ import io.reactivex.schedulers.Schedulers;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
 import renchaigao.com.zujuba.ActivityAndFragment.Function.InputActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Store.Adapter.StoreManagerBasicHardwareAdapter;
-import renchaigao.com.zujuba.ActivityAndFragment.Store.Adapter.StoreManagerBasicWorkLimitAdapter;
 import renchaigao.com.zujuba.R;
 import renchaigao.com.zujuba.util.Api.StoreApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
@@ -58,29 +55,31 @@ public class StoreManagerBasicFragment extends BaseFragment implements CommonVie
     private ArrayList<CardStoreManagerBasicWorkLimitBean> workLimitBeanArrayList = new ArrayList<>();
     private String userId, token, storeId;
 
+    
+
     @Override
     protected void InitView(View rootView) {
-        storeName = (TextView) rootView.findViewById(R.id.storeName);
+        storeName = (TextView) rootView.findViewById(R.id.TextView_name);
         storeNameIntroduce = (TextView) rootView.findViewById(R.id.storeNameIntroduce);
         String str = "修改名称需要通过<font color='#FF0000'>工作人员审批</font>";
         storeNameIntroduce.setText(Html.fromHtml(str));
-        updateStoreName = (TextView) rootView.findViewById(R.id.updateStoreName);
-        storeState = (TextView) rootView.findViewById(R.id.storeState);
+        updateStoreName = (TextView) rootView.findViewById(R.id.TextView_nameEditTextView);
+        storeState = (TextView) rootView.findViewById(R.id.TextView_stateTextView);
         workTimes = (TextView) rootView.findViewById(R.id.workTimes);
         restTimes = (TextView) rootView.findViewById(R.id.restTimes);
-        addNewLimit = (TextView) rootView.findViewById(R.id.addNewLimit);
-        addressInfo = (TextView) rootView.findViewById(R.id.addressInfo);
-        updateAddressNote = (TextView) rootView.findViewById(R.id.updateAddressNote);
-        updateAddress = (TextView) rootView.findViewById(R.id.updateAddress);
+        addNewLimit = (TextView) rootView.findViewById(R.id.TextView_editBusinessTime);
+        addressInfo = (TextView) rootView.findViewById(R.id.TextView_addressInfo);
+        updateAddressNote = (TextView) rootView.findViewById(R.id.TextView_editeAddressNote);
+        updateAddress = (TextView) rootView.findViewById(R.id.TextView_editeAddressInfo);
         sumOfHardware = (TextView) rootView.findViewById(R.id.sumOfHardware);
-        hardwareNotes = (TextView) rootView.findViewById(R.id.hardwareNotes);
-        updateHardwareNote = (TextView) rootView.findViewById(R.id.updateHardwareNote);
-        storeNotes = (TextView) rootView.findViewById(R.id.storeNotes);
-        updateStoreNote = (TextView) rootView.findViewById(R.id.updateStoreNote);
-        updateStoreState = (Switch) rootView.findViewById(R.id.updateStoreState);
-        workRecyclerView = (RecyclerView) rootView.findViewById(R.id.workRecyclerView);
-        hardwareRecyclerView = (RecyclerView) rootView.findViewById(R.id.hardwareRecyclerView);
-        addressNotes = (TextView) rootView.findViewById(R.id.addressNotes);
+        hardwareNotes = (TextView) rootView.findViewById(R.id.TextView_hardwareNote);
+        updateHardwareNote = (TextView) rootView.findViewById(R.id.TextView_editHardware);
+        storeNotes = (TextView) rootView.findViewById(R.id.TextView_notes);
+        updateStoreNote = (TextView) rootView.findViewById(R.id.TextView_editNotes);
+        updateStoreState = (Switch) rootView.findViewById(R.id.Switch_stateSwitch);
+        workRecyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerView_businessTimeRecyclerView);
+        hardwareRecyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerView_hardware);
+        addressNotes = (TextView) rootView.findViewById(R.id.TextView_addressNote);
         store_manager_submit = (Button) rootView.findViewById(R.id.store_manager_submit);
 
 

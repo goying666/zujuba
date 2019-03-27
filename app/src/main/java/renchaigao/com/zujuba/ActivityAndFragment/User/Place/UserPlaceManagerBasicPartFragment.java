@@ -104,7 +104,7 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
         allPeopleNum.setInputType(InputType.TYPE_CLASS_NUMBER);
         allDeskNum = (TextInputEditText) rootView.findViewById(R.id.TextInputEditText3);
         allDeskNum.setInputType(InputType.TYPE_CLASS_NUMBER);
-        place_state = (TextView) rootView.findViewById(R.id.storeState);
+        place_state = (TextView) rootView.findViewById(R.id.TextView_stateTextView);
         time1 = (TextView) rootView.findViewById(R.id.textView66);
         time2 = (TextView) rootView.findViewById(R.id.textView68);
         time3 = (TextView) rootView.findViewById(R.id.textView69);
@@ -122,7 +122,7 @@ public class UserPlaceManagerBasicPartFragment extends BaseFragment implements C
         submitEdit = (Button) rootView.findViewById(R.id.store_manager_submit);
         reloadMapInfo = (Button) rootView.findViewById(R.id.button3);
         placeInfoMoreCancle = (ImageView) rootView.findViewById(R.id.imageView22);
-        placeStateSwitch = (Switch) rootView.findViewById(R.id.updateStoreState);
+        placeStateSwitch = (Switch) rootView.findViewById(R.id.Switch_stateSwitch);
         editeView(false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerView1);

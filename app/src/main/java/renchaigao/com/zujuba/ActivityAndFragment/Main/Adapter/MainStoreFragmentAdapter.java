@@ -31,6 +31,7 @@ public class MainStoreFragmentAdapter extends CommonRecycleAdapter<JSONObject> i
     public void bindData(CommonViewHolder holder, JSONObject data) {
 
         holder
+                .setRatingBar(R.id.ratingBar,data.getInteger("realStar"))
 //        1组装店铺名字
                 .setText(R.id.store_cardview_name, data.getString("name"))
 //        2组装店铺状态
@@ -57,6 +58,7 @@ public class MainStoreFragmentAdapter extends CommonRecycleAdapter<JSONObject> i
                 .setText(R.id.store_user_evaluate_1, data.getString("evaluate_1"))
 //        13组装店铺评论2
                 .setText(R.id.store_user_evaluate_2, data.getString("evaluate_2"))
+
                 .setGlideImageResource(R.id.store_image,
                         PropertiesConfig.photoUrl
                                 + "showimage/"
@@ -65,6 +67,7 @@ public class MainStoreFragmentAdapter extends CommonRecycleAdapter<JSONObject> i
                                 + data.get("placeid")
                                 + "/photo1.jpg"
                         , mContext)
+
                 .setCommonClickListener(commonClickListener);
     }
 
