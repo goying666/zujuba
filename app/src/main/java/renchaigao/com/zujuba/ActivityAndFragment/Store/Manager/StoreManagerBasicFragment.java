@@ -626,10 +626,47 @@ public class StoreManagerBasicFragment extends BaseFragment implements CommonVie
                 ConstraintLayout_timeLimitConstraintLayout.setVisibility(View.VISIBLE);
             }
         });
-        AppCompatSpinner_limitSpinner.setOnClickListener(new View.OnClickListener() {
+        AppCompatSpinner_limitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        TextView_limitDateTextView.setText("每日");
+                        break;
+                    case 1:
+                        TextView_limitDateTextView.setText("周一");
+                        break;
+                    case 2:
+                        TextView_limitDateTextView.setText("周二");
+                        break;
+                    case 3:
+                        TextView_limitDateTextView.setText("周三");
+                        break;
+                    case 4:
+                        TextView_limitDateTextView.setText("周四");
+                        break;
+                    case 5:
+                        TextView_limitDateTextView.setText("周五");
+                        break;
+                    case 6:
+                        TextView_limitDateTextView.setText("周六");
+                        break;
+                    case 7:
+                        TextView_limitDateTextView.setText("周日");
+                        break;
+                    case 8:
+                        TextView_limitDateTextView.setText("周一至周五");
+                        break;
+                    case 9:
+                        TextView_limitDateTextView.setText("周六周日");
+                        break;
+                    case 10:
+                        break;
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
         TextView_limitDateTextView.setOnClickListener(new View.OnClickListener() {

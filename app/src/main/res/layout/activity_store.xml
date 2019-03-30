@@ -28,7 +28,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#e0e0e0">
             <com.youth.banner.Banner
@@ -584,11 +584,10 @@
                     <!--android:text="评价" />-->
 
             </android.support.design.widget.TabLayout>
-
             <renchaigao.com.zujuba.widgets.CustomViewPager
                 android:id="@+id/store_customView"
                 android:layout_width="match_parent"
-                android:layout_height="580dp" />
+                android:layout_height="380dp"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

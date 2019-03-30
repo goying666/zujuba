@@ -56,12 +56,15 @@
 
             <ImageView
                 android:id="@+id/imageView32"
-                android:layout_width="match_parent"
-                android:layout_height="119dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:maxHeight="136dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/thqby" />
+                app:srcCompat="@drawable/club_title_image" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayout2"
