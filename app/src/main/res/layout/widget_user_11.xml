@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ConstraintLayout_11players">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_1"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_2"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/two"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleImageView_11_1"
+        app:layout_constraintStart_toEndOf="@+id/CircleImageView_11_1" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_3"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/three"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleImageView_11_2"
+        app:layout_constraintStart_toStartOf="@+id/CircleImageView_11_2" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_4"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/four"
+        app:layout_constraintBottom_toTopOf="@+id/CircleImageView_11_3"
+        app:layout_constraintStart_toStartOf="@+id/CircleImageView_11_3" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_5"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/five"
+        app:layout_constraintBottom_toTopOf="@+id/CircleImageView_11_4"
+        app:layout_constraintEnd_toEndOf="@+id/CircleImageView_11_4" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_6"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/six"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleImageView_11_5"
+        app:layout_constraintEnd_toStartOf="@+id/CircleImageView_11_5" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_7"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/seven"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleImageView_11_8"
+        app:layout_constraintStart_toEndOf="@+id/CircleImageView_11_8"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_8"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/eight"
+        app:layout_constraintBottom_toTopOf="@+id/CircleImageView_11_9"
+        app:layout_constraintStart_toStartOf="@+id/CircleImageView_11_9" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_9"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/nine"
+        app:layout_constraintBottom_toTopOf="@+id/CircleImageView_11_10"
+        app:layout_constraintEnd_toEndOf="@+id/CircleImageView_11_10" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_10"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/ten"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleImageView_11_11"
+        app:layout_constraintEnd_toEndOf="@+id/CircleImageView_11_11" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_11_11"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/eleven"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleImageView_11_1"
+        app:layout_constraintEnd_toStartOf="@+id/CircleImageView_11_1" />
+
+    <TextView
+        android:id="@+id/TextView_laveTimeCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -103,6 +103,8 @@ dependencies {
     // Retrofit库
     implementation 'com.squareup.retrofit2:retrofit:2.0.2'
 
+    implementation 'io.netty:netty-all:4.1.9.Final'
+
     //    私库
 
     //    implementation('com.renchaigao.zujuba:data20:1.0.1') {

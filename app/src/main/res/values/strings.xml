@@ -25,15 +25,16 @@
         <item>一万人以内</item>
     </string-array>
     <!--<string-array name="store_env_class_arry">　　　　　　-->
-        <!--<item>大堂</item>-->
-        <!--<item>包间</item>-->
-        <!--<item>阳台</item>-->
-        <!--<item>路边</item>-->
-        <!--<item>楼顶</item>-->
-        <!--<item>草坪</item>-->
+    <!--<item>大堂</item>-->
+    <!--<item>包间</item>-->
+    <!--<item>阳台</item>-->
+    <!--<item>路边</item>-->
+    <!--<item>楼顶</item>-->
+    <!--<item>草坪</item>-->
     <!--</string-array>-->
     <string-array name="create_team_game_array">　　　　　　
-        <item>狼人杀</item>        　　　　　　
+        <item>狼人杀</item>
+        　　　　　　
         <item>天黑请闭眼</item>
         <item>捕猫</item>
         <item>其他</item>

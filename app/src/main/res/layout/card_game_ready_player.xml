@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_7_1"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/baqianliu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/CircleImageView_state"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@color/colorGreen"
+        app:layout_constraintBottom_toTopOf="@+id/TextView_name"
+        app:layout_constraintEnd_toEndOf="@+id/CircleImageView_7_1" />
+
+    <TextView
+        android:id="@+id/TextView_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="八千流"
+        app:layout_constraintEnd_toEndOf="@+id/CircleImageView_7_1"
+        app:layout_constraintStart_toStartOf="@+id/CircleImageView_7_1"
+        app:layout_constraintTop_toBottomOf="@+id/CircleImageView_7_1" />
+
+</android.support.constraint.ConstraintLayout>
+

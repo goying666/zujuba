@@ -6,8 +6,8 @@ public class PropertiesConfig {
     private final static String macIp = "http://192.168.1.190";
     public final static String homeIp = "http://192.168.199.155";
 
-//    public final static String serverUrlAL = "https://www.zujuba.com/";
-    public final static String serverUrlAL = "http://192.168.199.155:7814/";
+    public final static String serverUrlAL = "https://www.zujuba.com/";
+//    public final static String serverUrlAL = "http://192.168.199.155:7814/";
 //    public final static String serverUrlBD = homeIp;
 //    public final static String serverUrlBD = "http://192.168.199.155";
 

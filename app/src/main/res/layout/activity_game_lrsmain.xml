@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityAndFragment.Game.lrs.GameLRSMainActivity">
+
+    <include
+        android:id="@+id/ConstraintLayout_toolbar"
+        layout="@layout/widget_toolbar_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/NestedScrollView_nest"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <!--游戏信息-->
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:background="@color/colorWhite">
+
+                <TextView
+                    android:id="@+id/textView251"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="游戏信息"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/TextView_gameState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="第一天"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView251" />
+
+                <TextView
+                    android:id="@+id/TextView_stateNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="“各角色发动技能中”"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_gameState" />
+
+                <TextView
+                    android:id="@+id/textView257"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="剩余"
+                    app:layout_constraintEnd_toStartOf="@+id/TextView_alivePeopleNumber"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/TextView_alivePeopleNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="9 人"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/RecyclerView_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_stateNote" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <!--玩家情况-->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/ConstraintLayout_playerStatePart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorWhite">
+
+                <TextView
+                    android:id="@+id/textView216"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="玩家状态"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout_playerStatePart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView216">
+
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+            <!--游戏配置-->
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorWhite">
+
+                <TextView
+                    android:id="@+id/textView240"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:text="游戏配置"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView231"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="狼人"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView240"
+                    app:layout_constraintStart_toEndOf="@+id/textView240" />
+
+                <TextView
+                    android:id="@+id/textView233"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="神职"
+                    app:layout_constraintBottom_toBottomOf="@+id/TextView_wolfSum"
+                    app:layout_constraintStart_toEndOf="@+id/TextView_wolfSum" />
+
+                <TextView
+                    android:id="@+id/TextView_wolfSum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="3"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView231"
+                    app:layout_constraintStart_toEndOf="@+id/textView231" />
+
+                <TextView
+                    android:id="@+id/textView235"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="平民"
+                    app:layout_constraintBottom_toBottomOf="@+id/TextView_godSum"
+                    app:layout_constraintStart_toEndOf="@+id/TextView_godSum" />
+
+                <TextView
+                    android:id="@+id/TextView_godSum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="3"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView233"
+                    app:layout_constraintStart_toEndOf="@+id/textView233" />
+
+                <TextView
+                    android:id="@+id/TextView_pingminSum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:text="4"
+                    app:layout_constraintBottom_toTopOf="@+id/nest1"
+                    app:layout_constraintStart_toEndOf="@+id/textView235"
+                    app:layout_constraintTop_toTopOf="@+id/textView235" />
+
+
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/nest1"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/TextView_sumOfPeople"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:text="9"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView211"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="游戏总人数："
+                                app:layout_constraintEnd_toStartOf="@+id/TextView_sumOfPeople"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView212"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:text="狼人阵营"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/textView219"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="8dp"
+                                android:text="狼人"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView212" />
+
+                            <TextView
+                                android:id="@+id/TextView_langren"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="3"
+                                app:layout_constraintStart_toEndOf="@+id/textView219"
+                                app:layout_constraintTop_toTopOf="@+id/textView219" />
+
+                            <TextView
+                                android:id="@+id/textView223"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:text="白狼王"
+                                app:layout_constraintStart_toEndOf="@+id/TextView_langren"
+                                app:layout_constraintTop_toTopOf="@+id/textView219" />
+
+                            <TextView
+                                android:id="@+id/textView225"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="24dp"
+                                android:text="好人阵营"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView219" />
+
+                            <TextView
+                                android:id="@+id/TextView_bailangwang"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="0"
+                                app:layout_constraintStart_toEndOf="@+id/textView223"
+                                app:layout_constraintTop_toTopOf="@+id/textView223" />
+
+                            <TextView
+                                android:id="@+id/textView236"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="8dp"
+                                android:text="预言家"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView225" />
+
+                            <TextView
+                                android:id="@+id/TextView_yuyanjia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="1"
+                                app:layout_constraintStart_toEndOf="@+id/textView236"
+                                app:layout_constraintTop_toTopOf="@+id/textView236" />
+
+                            <TextView
+                                android:id="@+id/textView238"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:text="女巫"
+                                app:layout_constraintStart_toEndOf="@+id/TextView_yuyanjia"
+                                app:layout_constraintTop_toTopOf="@+id/textView236" />
+
+                            <TextView
+                                android:id="@+id/TextView_lieren"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="1"
+                                app:layout_constraintStart_toEndOf="@+id/textView241"
+                                app:layout_constraintTop_toTopOf="@+id/textView241" />
+
+                            <TextView
+                                android:id="@+id/textView241"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:text="猎人"
+                                app:layout_constraintStart_toEndOf="@+id/TextView_nvwu"
+                                app:layout_constraintTop_toTopOf="@+id/textView236" />
+
+                            <TextView
+                                android:id="@+id/TextView_nvwu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="1"
+                                app:layout_constraintStart_toEndOf="@+id/textView238"
+                                app:layout_constraintTop_toTopOf="@+id/textView238" />
+
+                            <TextView
+                                android:id="@+id/TextView_pingmin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="3"
+                                app:layout_constraintStart_toEndOf="@+id/textView245"
+                                app:layout_constraintTop_toTopOf="@+id/textView245" />
+
+                            <TextView
+                                android:id="@+id/textView245"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:text="平民"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView236" />
+
+                            <TextView
+                                android:id="@+id/textView247"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="20dp"
+                                android:text="首杀/验保护"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView248" />
+
+                            <TextView
+                                android:id="@+id/textView248"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:text="其他配置"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView245" />
+
+                            <TextView
+                                android:id="@+id/TextView_shousha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="96dp"
+                                android:text="保护"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/textView247" />
+
+                            <TextView
+                                android:id="@+id/textView250"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="8dp"
+                                android:text="女巫自救设定"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView247" />
+
+                            <TextView
+                                android:id="@+id/TextView_nvwuzijiu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="64dp"
+                                android:text="仅第一回合可自救"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/TextView_shousha"
+                                app:layout_constraintTop_toTopOf="@+id/textView250" />
+
+                            <TextView
+                                android:id="@+id/textView252"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="32dp"
+                                android:text="护卫"
+                                app:layout_constraintStart_toEndOf="@+id/TextView_lieren"
+                                app:layout_constraintTop_toTopOf="@+id/textView236" />
+
+                            <TextView
+                                android:id="@+id/TextView_huwei"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="0"
+                                app:layout_constraintStart_toEndOf="@+id/textView252"
+                                app:layout_constraintTop_toTopOf="@+id/textView252" />
+
+                            <TextView
+                                android:id="@+id/textView254"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="32dp"
+                                android:text="猎人黑夜开抢"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView250" />
+
+                            <TextView
+                                android:id="@+id/TextView_lierenkaiqiang"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="被杀可开抢，被毒不可开抢"
+                                app:layout_constraintEnd_toEndOf="@+id/TextView_shousha"
+                                app:layout_constraintStart_toStartOf="@+id/TextView_shousha"
+                                app:layout_constraintTop_toTopOf="@+id/textView254" />
+
+
+                        </android.support.constraint.ConstraintLayout>
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+
+                <ImageView
+                    android:id="@+id/ImageView_editMore"
+                    android:layout_width="19dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/TextView_pingminSum"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/TextView_pingminSum"
+                    app:srcCompat="@drawable/more_down" />
+            </android.support.constraint.ConstraintLayout>
+
+            <!--身份信息-->
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:background="@color/colorWhite">
+
+                <TextView
+                    android:id="@+id/textView243"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="身份信息"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/TextView_role"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="狼人"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_title"
+                    app:layout_constraintEnd_toEndOf="@+id/Button_role"
+                    app:layout_constraintStart_toStartOf="@+id/Button_role"
+                    app:layout_constraintTop_toBottomOf="@+id/textView243" />
+
+                <Button
+                    android:id="@+id/Button_role"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="长按显示身份，松开隐藏。"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_roleNote" />
+
+                <TextView
+                    android:id="@+id/TextView_identityNotes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="身份说明"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView58"
+                    android:layout_width="20dp"
+                    android:layout_height="19dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/TextView_identityNotes"
+                    app:layout_constraintEnd_toStartOf="@+id/TextView_identityNotes"
+                    app:layout_constraintTop_toTopOf="@+id/TextView_identityNotes"
+                    app:srcCompat="@drawable/wh_w" />
+
+                <TextView
+                    android:id="@+id/TextView_roleNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="你的狼人同伴是：1号、3号"
+                    app:layout_constraintEnd_toEndOf="@+id/TextView_role"
+                    app:layout_constraintStart_toStartOf="@+id/TextView_role"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_role" />
+            </android.support.constraint.ConstraintLayout>
+
+            <!--座位编号信息-->
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:background="@color/colorWhite">
+
+                <TextView
+                    android:id="@+id/textView200"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="座位编号"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/TextView_playerNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_title"
+                    app:layout_constraintEnd_toStartOf="@+id/TextView_editePlayerNumber"
+                    app:layout_constraintStart_toEndOf="@+id/textView200"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/TextView_editePlayerNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="修改"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/Button_onLED"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="常亮号码牌"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_playerNumber" />
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <!--身份牌-->
+    <TextView
+        android:id="@+id/TextView_roleNumberBig"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="@color/word_white"
+        android:textSize="360sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--上警界面-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ConstraintLayout_voteSheriff"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout_toolbar">
+
+        <TextView
+            android:id="@+id/textView262"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="第一天晚上"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TextView_laveTimeVote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="10秒"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView262"
+            app:layout_constraintStart_toStartOf="@+id/textView262"
+            app:layout_constraintTop_toBottomOf="@+id/textView265" />
+
+        <TextView
+            android:id="@+id/textView264"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="倒计时"
+            app:layout_constraintBottom_toBottomOf="@+id/TextView_laveTimeVote"
+            app:layout_constraintEnd_toStartOf="@+id/TextView_laveTimeVote" />
+
+        <TextView
+            android:id="@+id/textView265"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:maxWidth="360dp"
+            android:maxLines="2"
+            android:text="请在倒计时完结前做出选择，不选默认放弃竞选资格。"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView262" />
+
+        <Button
+            android:id="@+id/Button_voteCancle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="放弃"
+            app:layout_constraintBottom_toTopOf="@+id/Button_voteJoin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/Button_voteJoin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="参选"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout_userPart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/Button_voteCancle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextView_laveTimeVote">
+
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ConstraintLayout_vote"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout_toolbar">
+
+        <TextView
+            android:id="@+id/textView266"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="投票环节"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView267"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxWidth="360dp"
+            android:maxLines="2"
+            android:text="请在倒计时完结前选择您的投票对象,并点击确认按钮，若超时按照放弃处理。"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView266" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="395dp"
+            android:layout_height="245dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="194dp" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

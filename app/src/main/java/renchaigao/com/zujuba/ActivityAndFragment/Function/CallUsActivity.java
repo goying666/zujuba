@@ -41,9 +41,9 @@ public class CallUsActivity extends BaseActivity {
     private TextInputEditText textInputEditText;
     private ImageView addImage;
     private Button submit;
-    private RecyclerView recyclerView;
     private UserInfo userInfo;
     private LinearLayoutManager layoutManager;
+    private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
 
     private void initToolbar() {

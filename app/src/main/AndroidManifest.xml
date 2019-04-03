@@ -45,7 +45,17 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAndFragment.Store.Manager.StoreManagerActivity"></activity>
+        <activity android:name=".ActivityAndFragment.Game.lrs.GameLRSMainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ActivityAndFragment.Game.lrs.GameLRSEditActivity" />
+        <activity android:name=".ActivityAndFragment.Game.lrs.GameLRSReadyActivity" />
+        <activity android:name=".ActivityAndFragment.Store.Manager.StoreManagerActivity" />
         <activity android:name=".ActivityAndFragment.Function.CallUsActivity" />
         <activity android:name=".ActivityAndFragment.User.Game.MyGameActivity" />
         <activity android:name=".ActivityAndFragment.Function.InputActivity" /> <!-- <activity android:name=".Activity.Message.MessagesInfoActivity"></activity> -->
@@ -53,11 +63,7 @@
         <activity android:name=".ActivityAndFragment.Message.SystemMessageInfoActivity" />
         <activity android:name=".ActivityAndFragment.Message.ClubMessageInfoActivity" />
         <activity android:name=".ActivityAndFragment.Message.TeamMessageInfoActivity" />
-        <activity android:name=".ActivityAndFragment.User.UserPlayGameListPageActivity" />
-        <activity android:name=".ActivityAndFragment.User.UserOwnGameListPageActivity" />
-        <activity android:name=".ActivityAndFragment.User.UserWantGameListPageActivity" />
         <activity android:name=".ActivityAndFragment.User.Place.MyPlaceActivity" />
-        <activity android:name=".ActivityAndFragment.User.UserPlayPlaceListPageActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -207,11 +213,11 @@
         <activity
             android:name=".ActivityAndFragment.BasicPart.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
 
         <service
@@ -235,11 +241,10 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".ActivityAndFragment.Place.PlaceAddDeskActivity" />
-        <activity
-            android:name=".ActivityAndFragment.Message.SystemMessageActivity"
-            android:label="@string/title_activity_system_message"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ActivityAndFragment.Place.PlaceAddDeskActivity" /> <!-- <activity -->
+        <!-- android:name=".ActivityAndFragment.Message.SystemMessageActivity" -->
+        <!-- android:label="@string/title_activity_system_message" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity android:name=".ActivityAndFragment.Club.ClubInfoActivity" />
         <activity
             android:name=".ActivityAndFragment.Club.CreateClubActivity"
