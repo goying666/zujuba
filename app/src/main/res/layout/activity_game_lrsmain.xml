@@ -44,8 +44,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="游戏信息"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -128,8 +128,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="玩家状态"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -164,8 +164,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="@dimen/margin_16dp"
                     android:text="游戏配置"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -518,8 +518,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="身份信息"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -529,8 +529,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="狼人"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/Button_role"
                     app:layout_constraintStart_toStartOf="@+id/Button_role"
                     app:layout_constraintTop_toBottomOf="@+id/textView243" />
@@ -592,8 +592,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="座位编号"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -605,8 +605,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:text="1"
-                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/TextView_editePlayerNumber"
                     app:layout_constraintStart_toEndOf="@+id/textView200"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -651,106 +651,113 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--上警界面-->
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/ConstraintLayout_voteSheriff"
+    <!--操作技能界面-->
+    <LinearLayout
+        android:id="@+id/LinearLayout_skillPart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout_toolbar">
 
-        <TextView
-            android:id="@+id/textView262"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="第一天晚上"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/TextView_laveTimeVote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="10秒"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/textView262"
-            app:layout_constraintStart_toStartOf="@+id/textView262"
-            app:layout_constraintTop_toBottomOf="@+id/textView265" />
-
-        <TextView
-            android:id="@+id/textView264"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="倒计时"
-            app:layout_constraintBottom_toBottomOf="@+id/TextView_laveTimeVote"
-            app:layout_constraintEnd_toStartOf="@+id/TextView_laveTimeVote" />
-
-        <TextView
-            android:id="@+id/textView265"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:maxWidth="360dp"
-            android:maxLines="2"
-            android:text="请在倒计时完结前做出选择，不选默认放弃竞选资格。"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView262" />
-
-        <Button
-            android:id="@+id/Button_voteCancle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="放弃"
-            app:layout_constraintBottom_toTopOf="@+id/Button_voteJoin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/Button_voteJoin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="参选"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/LinearLayout_userPart"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/Button_voteCancle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TextView_laveTimeVote">
+            android:layout_height="match_parent">
 
-        </LinearLayout>
+            <!--基础信息-->
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/null_basicConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/TextView_skillTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="使用技能"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/TextView_skillNotes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:maxLines="2"
+                    android:text="选择完技能后，点击玩家对应编号后发动技能(点击确认按键)。"
+                    android:textSize="@dimen/text_size_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/TextView_skillDaojishi"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TextView_skillTitle" />
+
+                <TextView
+                    android:id="@+id/TextView_skillDaojishi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="30秒"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/TextView_skillTitle" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/LinearLayout_playerPart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/null_buttonLinearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/null_basicConstraintLayout">
+
+            </LinearLayout>
+
+            <!--按键-->
+            <LinearLayout
+                android:id="@+id/null_buttonLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <Button
+                    android:id="@+id/Button_voteCancle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="放弃" />
+
+                <Button
+                    android:id="@+id/Button_voteJoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="参选" />
+            </LinearLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 
     <android.support.constraint.ConstraintLayout

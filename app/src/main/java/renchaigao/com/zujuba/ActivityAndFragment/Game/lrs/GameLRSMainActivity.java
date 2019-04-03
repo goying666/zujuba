@@ -9,13 +9,15 @@ import renchaigao.com.zujuba.R;
 
 public class GameLRSMainActivity extends BaseActivity {
     LinearLayout LinearLayout_playerStatePart;
+    LinearLayout LinearLayout_playerPart;
     @Override
     protected void InitView() {
         LayoutInflater inflater = LayoutInflater.from(GameLRSMainActivity.this);
         LinearLayout_playerStatePart = (LinearLayout) findViewById(R.id.LinearLayout_playerStatePart);
+        LinearLayout_playerPart = (LinearLayout) findViewById(R.id.LinearLayout_playerPart);
         ConstraintLayout user8 = (ConstraintLayout) inflater.inflate(R.layout.widget_user_12,null)
                 .findViewById(R.id.ConstraintLayout_12players);
-        LinearLayout_playerStatePart.addView(user8);
+        LinearLayout_playerPart.addView(user8);
 
     }
 
