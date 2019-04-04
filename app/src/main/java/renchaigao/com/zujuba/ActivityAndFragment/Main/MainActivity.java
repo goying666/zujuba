@@ -40,8 +40,8 @@ import renchaigao.com.zujuba.ActivityAndFragment.Function.GaoDeMapActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.Store.Create.CreateStoreActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.TeamPart.TeamCreateActivity;
 import renchaigao.com.zujuba.ActivityAndFragment.User.UserSettingActivity;
-import renchaigao.com.zujuba.ActivityAndFragment.Game.GameFragment;
 import renchaigao.com.zujuba.R;
+import renchaigao.com.zujuba.Service.GameService;
 import renchaigao.com.zujuba.util.Api.UserApiService;
 import renchaigao.com.zujuba.util.DataPart.DataUtil;
 import renchaigao.com.zujuba.util.http.BaseObserver;
@@ -114,6 +114,7 @@ public class MainActivity extends BaseActivity {
         user = DataUtil.GetUserData(MainActivity.this);
         userId = userInfo.getId();
         token = userInfo.getToken();
+        startService(new Intent(this, GameService.class));
     }
 
     @Override
@@ -212,7 +213,7 @@ public class MainActivity extends BaseActivity {
     private void setViewPager() {
 
         final MainStoreFragment mainStoreFragment = new MainStoreFragment();
-        final GameFragment gameFragment = new GameFragment();
+        final MainGameFragment mainGameFragment = new MainGameFragment();
         final MainChatFragment mainChatFragment = new MainChatFragment();
         final MainMineFragment mainMineFragment = new MainMineFragment();
         final MainTeamFragment mainTeamFragment = new MainTeamFragment();
@@ -223,7 +224,7 @@ public class MainActivity extends BaseActivity {
         customViewPagerAdapter.addFragment(mainChatFragment);
         customViewPagerAdapter.addFragment(mainStoreFragment);
         customViewPagerAdapter.addFragment(mainTeamFragment);
-        customViewPagerAdapter.addFragment(gameFragment);
+        customViewPagerAdapter.addFragment(mainGameFragment);
         customViewPagerAdapter.addFragment(mainMineFragment);
 
         customViewPager.setAdapter(customViewPagerAdapter);

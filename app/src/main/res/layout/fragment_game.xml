@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Game.GameFragment">
+    tools:context="renchaigao.com.zujuba.ActivityAndFragment.Main.MainGameFragment">
 
 
     <android.support.design.widget.TabLayout
@@ -60,4 +60,8 @@
     </android.support.v7.widget.RecyclerView>
 
 
+    <Button
+        android:id="@+id/goto_gameMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

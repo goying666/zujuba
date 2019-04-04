@@ -1,6 +1,7 @@
-package renchaigao.com.zujuba.ActivityAndFragment.Game;
+package renchaigao.com.zujuba.ActivityAndFragment.Main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +16,12 @@ import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonRecycleAdapt
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.CommonViewHolder;
 import renchaigao.com.zujuba.ActivityAndFragment.AdapterBasic.MultiTypeSupport;
 import renchaigao.com.zujuba.ActivityAndFragment.BaseFragment;
+import renchaigao.com.zujuba.ActivityAndFragment.Game.lrs.GameLRSMainActivity;
 import renchaigao.com.zujuba.R;
 
-public class GameFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
+public class MainGameFragment extends BaseFragment implements CommonViewHolder.onItemCommonClickListener {
 
-    private Button fragment_game_button2;
+    private Button goto_gameMain;
     private RecyclerView leftRecyclerView, rightRecyclerView;
     private GameFragmentAdapter leftAdapter, rightAdapter;
     private TabLayout gameTable;
@@ -27,6 +29,14 @@ public class GameFragment extends BaseFragment implements CommonViewHolder.onIte
 
     @Override
     protected void InitView(View rootView) {
+        goto_gameMain = (Button) rootView.findViewById(R.id.goto_gameMain);
+        goto_gameMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, GameLRSMainActivity.class);
+                startActivity(intent);
+            }
+        });
         leftRecyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_game_RecyclerView1);
         rightRecyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_game_RecyclerView2);
         gameTable = (TabLayout) rootView.findViewById(R.id.fragment_game_tablayout);

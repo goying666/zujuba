@@ -45,13 +45,22 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAndFragment.Game.lrs.GameLRSMainActivity">
-
+        <activity
+            android:name=".ActivityAndFragment.BasicPart.StartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ActivityAndFragment.Game.lrs.GameLRSMainActivity">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".ActivityAndFragment.Game.lrs.GameLRSEditActivity" />
         <activity android:name=".ActivityAndFragment.Game.lrs.GameLRSReadyActivity" />
@@ -210,15 +219,7 @@
         <activity
             android:name=".ActivityAndFragment.User.Team.MyTeamActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ActivityAndFragment.BasicPart.StartActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
 
         <service
             android:name=".Service.HttpService"
@@ -233,11 +234,8 @@
             android:name=".ActivityAndFragment.User.Place.UserPlaceManagerActivity"
             android:label="@string/title_activity_place_manager"
             android:theme="@style/AppTheme.NoActionBar">
-
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>

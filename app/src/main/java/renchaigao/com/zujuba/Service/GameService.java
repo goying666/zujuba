@@ -1,47 +1,62 @@
 package renchaigao.com.zujuba.Service;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
+import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.Setter;
+import renchaigao.com.zujuba.ActivityAndFragment.Game.lrs.GameLRSMainActivity;
+import renchaigao.com.zujuba.util.GameServiceSocketChangeListener;
+import renchaigao.com.zujuba.util.LocalReceiver;
+import renchaigao.com.zujuba.util.netty.Const;
+import renchaigao.com.zujuba.util.netty.NettyClient;
+import renchaigao.com.zujuba.util.netty.NettyListener;
 
-import java.net.InetSocketAddress;
+@Getter
+@Setter
+public class GameService extends Service implements NettyListener  {
 
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
-import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.util.ReferenceCountUtil;
-import renchaigao.com.zujuba.Service.model.CMessage;
-import renchaigao.com.zujuba.Service.model.Callback;
-import renchaigao.com.zujuba.Service.model.LoginStatus;
+    private GameServiceBinder gameServiceBinder = new GameServiceBinder();
+    public class GameServiceBinder extends Binder{
+        public GameService getService(){
+            return GameService.this;
+        }
+    }
+    private Callback callback = null;
 
-public class GameService extends Service {
+    public  interface Callback {
+        void getData(String s);
+    }
+    public void setCallBack(Callback callBack){
+        this.callback = callBack;
+    }
+
+    private LocalReceiver localReceiver;
+    private LocalBroadcastManager localBroadcastManager;
+
     public GameService() {
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        initSocketTcp();
+        localBroadcastManager = LocalBroadcastManager.getInstance(GameService.this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
+
     }
 
     @Override
@@ -53,6 +68,36 @@ public class GameService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return gameServiceBinder;
+    }
+
+
+    @Override
+    public void onMessageResponse(String ss) {
+        Intent intent = new Intent("gameSocket");
+        intent.putExtra("ret",ss);
+        localBroadcastManager.sendBroadcast(intent);
+    }
+
+    /**
+     * 当连接状态发生变化时调用
+     *
+     * @param statusCode
+     */
+    @Override
+    public void onServiceStatusConnectChanged(int statusCode) {
+
+    }
+
+    public static NettyClient nettyClient;
+
+    private void initSocketTcp() {
+        nettyClient = new NettyClient(Const.HOST, Const.TCP_PORT);
+        if (!nettyClient.getConnectStatus()) {
+            nettyClient.setListener(GameService.this);
+            nettyClient.connect();
+        } else {
+            nettyClient.disconnect();
+        }
     }
 }

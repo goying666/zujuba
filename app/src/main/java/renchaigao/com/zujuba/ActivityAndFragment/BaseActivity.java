@@ -1,7 +1,10 @@
 package renchaigao.com.zujuba.ActivityAndFragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,6 +20,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected BaseActivity baseActivity;
     public CompositeDisposable compositeDisposable;
     private ProgressDialog mProgressDialog;
+    private static final int MSG_UPDATE_VIEW = 0X10010;
+    private Object newDate;
+    
+    @SuppressLint("HandlerLeak")
+    private Handler baseHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.arg1) {
+                case MSG_UPDATE_VIEW:
+                    UpdateView(newDate);
+                    break;
+            }
+        }
+    };
 
 
     public void showLoading(){
@@ -50,6 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void InitView();
     protected abstract void InitData();
     protected abstract void InitOther();
+    protected abstract void UpdateView(Object o);
     protected abstract int getLayoutId();
 
     protected void addSubscribe(Disposable disposable) {
