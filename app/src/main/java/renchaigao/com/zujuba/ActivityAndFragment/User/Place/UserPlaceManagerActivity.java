@@ -74,6 +74,11 @@ public class UserPlaceManagerActivity extends BaseActivity implements TabLayout.
 //        reloadAdapter();
     }
 
+    @Override
+    protected void UpdateView() {
+
+    }
+
     private void setViewPager() {
         String[] title = {"基础", "组局", "运营", "评论"};
         customViewPager = (CustomViewPager) findViewById(R.id.CustomViewPager1);

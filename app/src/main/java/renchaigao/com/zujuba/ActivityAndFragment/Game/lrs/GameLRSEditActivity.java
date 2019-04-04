@@ -111,6 +111,11 @@ public class GameLRSEditActivity extends BaseActivity {
     }
 
     @Override
+    protected void UpdateView() {
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_game_lrsedit;
     }

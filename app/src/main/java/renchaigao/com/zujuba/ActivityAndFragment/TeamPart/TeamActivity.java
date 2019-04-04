@@ -314,6 +314,11 @@ public class TeamActivity extends BaseActivity {
     }
 
     @Override
+    protected void UpdateView() {
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_team;
     }

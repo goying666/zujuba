@@ -46,6 +46,7 @@ public class GameLRSMainActivity extends BaseActivity {
 
     @Override
     protected void InitView() {
+
         TextView_laveTimeCenter = (TextView) findViewById(R.id.TextView_laveTimeCenter);
         Button_voteCancle = (Button) findViewById(R.id.Button_voteCancle);
         LayoutInflater inflater = LayoutInflater.from(GameLRSMainActivity.this);
@@ -97,8 +98,8 @@ public class GameLRSMainActivity extends BaseActivity {
     }
 
     @Override
-    protected void UpdateView(Object o) {
-        TextView_laveTimeCenter.setText();
+    protected void UpdateView() {
+        TextView_laveTimeCenter.setText(ss);
     }
 
     private LocalReceiver localReceiver;
@@ -110,11 +111,13 @@ public class GameLRSMainActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.arg1) {
                 case 1:
-                    String ss = (String) msg.obj;
+                    ss = (String) msg.obj;
                     break;
             }
         }
     };
+
+    String ss = null;
 
     private void SetBroadcast() {
         localBroadcastManager = LocalBroadcastManager.getInstance(GameLRSMainActivity.this);
@@ -127,8 +130,10 @@ public class GameLRSMainActivity extends BaseActivity {
 
                 Message msg = new Message();
                 msg.obj = intent.getStringExtra("ret");
-                msg.arg1 = 1;
-                handler.sendMessage(msg);
+                ss = intent.getStringExtra("ret");
+                msg.arg1 = MSG_UPDATE_VIEW;
+                baseHandler.sendMessage(msg);
+//                handler.sendMessage(msg);
             }
         };
         localBroadcastManager.registerReceiver(localReceiver, intentFilter);

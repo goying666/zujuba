@@ -117,7 +117,8 @@ public class MyTeamActivity extends BaseActivity implements CommonViewHolder.onI
         return cardUserTeamBeanArrayList;
     }
 
-    private void UpdateView() {
+    @Override
+    protected void UpdateView() {
         sumOfCreate.setText(userTeamActivityBean.getSumOfCreate().toString());
         sumOfJoin.setText(userTeamActivityBean.getSumOfJoin().toString());
         sumOfAdmin.setText(userTeamActivityBean.getSumOfAdmin().toString());

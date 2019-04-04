@@ -87,6 +87,11 @@ public class MyPlaceActivity extends BaseActivity implements CommonViewHolder.on
     }
 
     @Override
+    protected void UpdateView() {
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_user_place_list_page;
     }

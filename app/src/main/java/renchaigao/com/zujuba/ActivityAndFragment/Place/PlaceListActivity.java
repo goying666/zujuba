@@ -128,6 +128,11 @@ public class PlaceListActivity extends BaseActivity implements CommonViewHolder.
     }
 
     @Override
+    protected void UpdateView() {
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_place_list;
     }

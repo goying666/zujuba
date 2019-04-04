@@ -105,7 +105,7 @@ public class StoreActivity extends BaseActivity {
         store_hd_wifi = (LinearLayout) findViewById(R.id.store_hd_wifi);
         store_hd_hot = (LinearLayout) findViewById(R.id.store_hd_hot);
         store_hd_charge = (LinearLayout) findViewById(R.id.store_hd_charge);
-        store_hd_wc= (LinearLayout) findViewById(R.id.store_hd_wc);
+        store_hd_wc = (LinearLayout) findViewById(R.id.store_hd_wc);
         updateBasicView();
     }
 
@@ -115,7 +115,7 @@ public class StoreActivity extends BaseActivity {
         allPlayNum.setText(storeActivityBean.getSumOfPlayer());
         storeSpendPerUser.setText(storeActivityBean.getSpendMoney());
         distance.setText(storeActivityBean.getDistance());
-        switch (storeActivityBean.getStoreClassInt()){
+        switch (storeActivityBean.getStoreClassInt()) {
             case PLACE_CLASS_ZYB:
                 store_phone_image.setVisibility(View.VISIBLE);
                 break;
@@ -155,8 +155,8 @@ public class StoreActivity extends BaseActivity {
         storeEvaluateAllPeopleNum.setText(storeActivityBean.getCommentTimes());
         store_address.setText(storeActivityBean.getAddressAbstract());
         store_address_note.setText(storeActivityBean.getAddressNotes());
-        for (Hardware h:storeActivityBean.getHardwareList()){
-            switch (h.getHardwareClass()){
+        for (Hardware h : storeActivityBean.getHardwareList()) {
+            switch (h.getHardwareClass()) {
                 case HARDWARE_WIFI:
                     store_hd_wifi.setVisibility(View.VISIBLE);
                     break;
@@ -184,7 +184,8 @@ public class StoreActivity extends BaseActivity {
         }
     };
 
-    private void UpdateView() {
+    @Override
+    protected void UpdateView() {
         updateBasicView();
         updateBanner();
         timeAdapter.updateResults(storeActivityBean.getBusinessTimeList());

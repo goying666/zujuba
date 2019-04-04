@@ -330,6 +330,11 @@ public class CreateStoreActivity extends BaseActivity {
     }
 
     @Override
+    protected void UpdateView() {
+
+    }
+
+    @Override
 
     protected int getLayoutId() {
         return R.layout.activity_create_store;

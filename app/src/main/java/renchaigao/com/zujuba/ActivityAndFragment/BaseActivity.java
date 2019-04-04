@@ -20,15 +20,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected BaseActivity baseActivity;
     public CompositeDisposable compositeDisposable;
     private ProgressDialog mProgressDialog;
-    private static final int MSG_UPDATE_VIEW = 0X10010;
-    private Object newDate;
-    
+    public static final int MSG_UPDATE_VIEW = 0X10010;
+
     @SuppressLint("HandlerLeak")
-    private Handler baseHandler = new Handler() {
+    public Handler baseHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.arg1) {
                 case MSG_UPDATE_VIEW:
-                    UpdateView(newDate);
+                    UpdateView();
                     break;
             }
         }
@@ -66,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void InitView();
     protected abstract void InitData();
     protected abstract void InitOther();
-    protected abstract void UpdateView(Object o);
+    protected abstract void UpdateView();
     protected abstract int getLayoutId();
 
     protected void addSubscribe(Disposable disposable) {

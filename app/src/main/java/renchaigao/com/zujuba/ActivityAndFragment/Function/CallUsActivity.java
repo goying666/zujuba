@@ -174,6 +174,11 @@ public class CallUsActivity extends BaseActivity {
     }
 
     @Override
+    protected void UpdateView() {
+
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case 1:

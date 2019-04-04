@@ -107,6 +107,11 @@ public class CreateClubActivity extends BaseActivity {
         setEditeView();
     }
 
+    @Override
+    protected void UpdateView() {
+
+    }
+
     private void setEditeView() {
         inputEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

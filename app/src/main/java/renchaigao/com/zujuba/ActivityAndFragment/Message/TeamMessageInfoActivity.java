@@ -259,6 +259,11 @@ public class TeamMessageInfoActivity extends BaseActivity implements CommonViewH
     }
 
     @Override
+    protected void UpdateView() {
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_message_info;
     }
